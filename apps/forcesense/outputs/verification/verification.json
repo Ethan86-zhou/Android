@@ -1,0 +1,81 @@
+{
+  "verifiedAt": "2026-10-08",
+  "timezone": "Asia/Shanghai",
+  "app": {
+    "name": "ForceSense 力感知",
+    "applicationId": "com.forcesense.app",
+    "version": "1.0.0",
+    "apk": "outputs/ForceSense-1.0.0-debug.apk",
+    "bytes": 27691,
+    "sha256": "83D5DAEDB06B8CC78652E809D8B729784921556B2EE555AD18BF1CF2012CD8E0",
+    "installedApkHashMatched": true,
+    "signatureVerification": "PASS, APK Signature Scheme v2"
+  },
+  "build": {
+    "tasks": [
+      "assembleDebug",
+      "lintDebug"
+    ],
+    "result": "BUILD SUCCESSFUL",
+    "lintErrors": 0,
+    "lintWarnings": 1,
+    "lintWarning": "DataExtractionRules",
+    "mappingChecks": 43,
+    "mappingChecksResult": "PASS"
+  },
+  "device": {
+    "serial": "R5CT92GMYBM",
+    "model": "Samsung SM-S9080",
+    "androidVersion": "16",
+    "sdk": 36,
+    "sensor": "STK33915 Light Ambient Light Sensor Non-wakeup",
+    "dataSource": "Sensor.TYPE_LIGHT",
+    "reportingMode": 1
+  },
+  "physicalInteraction": {
+    "method": "用户实机遮挡和移开光感区域",
+    "baselineLux": 135.0,
+    "shadedLux": 6.008,
+    "shadedSimulatedForcePercent": 95.55,
+    "uncoveredLux": 138.982,
+    "uncoveredSimulatedForcePercent": 0.0,
+    "evidence": "outputs/verification/device-light-events.txt"
+  },
+  "ui": {
+    "overviewVerified": true,
+    "detailVerified": true,
+    "toggleVerified": true,
+    "calibrationVerified": true,
+    "finalMode": "overview",
+    "overviewScreenshot": "outputs/verification/device-final-overview.png",
+    "detailScreenshot": "outputs/verification/device-detail.png"
+  },
+  "lifecycle": {
+    "unregisterOnPauseVerified": true,
+    "registerOnResumeVerified": true,
+    "pausedSnapshot": {
+      "active": false,
+      "source": "TYPE_LIGHT",
+      "receivedReading": true,
+      "sensor": "STK33915 Light Ambient Light Sensor Non-wakeup",
+      "lux": 136.0125,
+      "baselineLux": 135.0,
+      "simulatedForcePercent": 0.0,
+      "eventCount": 267,
+      "lastEventElapsedMs": 175097768
+    },
+    "resumedSnapshot": {
+      "active": true,
+      "source": "TYPE_LIGHT",
+      "receivedReading": true,
+      "sensor": "STK33915 Light Ambient Light Sensor Non-wakeup",
+      "lux": 137.97,
+      "baselineLux": 135.0,
+      "simulatedForcePercent": 0.0,
+      "eventCount": 655,
+      "lastEventElapsedMs": 175179369
+    },
+    "evidence": "outputs/verification/device-final-events.txt"
+  },
+  "interpretation": "光照为真实传感器读数；按压力百分比由光照映射，形变为放大示意，不是实测力或位移。"
+}

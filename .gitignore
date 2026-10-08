@@ -1,0 +1,28 @@
+# 本机 Android / Gradle / IDE 文件
+**/.gradle/
+**/build/
+**/local.properties
+**/.idea/
+**/*.iml
+**/.cxx/
+**/.externalNativeBuild/
+**/captures/
+**/tools/classes/
+
+# 操作系统及临时文件
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.tmp
+*.swp
+
+# 凭据和发布签名密钥
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+**/keystore.properties
+**/signing.properties
+
+# outputs/ 中明确交付的 APK 和验证记录有意保留

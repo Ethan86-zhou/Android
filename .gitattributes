@@ -1,0 +1,12 @@
+* text=auto eol=lf
+*.bat text eol=crlf
+*.ps1 text eol=lf
+gradlew text eol=lf
+.githooks/* text eol=lf
+*.apk binary
+*.jar binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+apps/*/outputs/verification/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

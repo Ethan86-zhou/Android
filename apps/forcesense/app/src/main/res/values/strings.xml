@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="light_reading">实时光照\n%1$s lx</string>
+    <string name="baseline_reading">零点光照\n%1$s lx</string>
+    <string name="force_percent">%1$d%%</string>
+</resources>
