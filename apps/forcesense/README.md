@@ -59,10 +59,12 @@ Android 15 及以上、targetSdk 35 的应用需要处理 edge-to-edge 布局。
 
 在 Android Studio 打开本目录，安装 Android SDK Platform 35，并使用 JDK 17 或兼容的 Android Studio JBR。当前验证机器使用 Android Studio 自带的 JBR。
 
-`local.properties` 是本机 SDK 配置，已加入 `.gitignore`。当前内容指向个人路径 `C:\Users\zhou\AppData\Local\Android\Sdk`，换电脑后必须改成实际 SDK 路径；不能认为该文件在其他机器上可直接使用。例如当前机器采用：
+换电脑开发时，先按 [仓库根目录的跨电脑说明](../../README.md) 克隆、配置 Git 身份和提交检查，再在 Android Studio 打开本项目目录。Windows 使用 `gradlew.bat`；macOS / Linux 使用 `./gradlew`。首次构建需要联网下载 Gradle 和依赖。
+
+`local.properties` 是本机 SDK 配置，已加入 `.gitignore`，新克隆不会包含它。由 Android Studio 配置本机 SDK，或创建 `local.properties` 并填入 SDK Manager 显示的实际路径。下面仅是 Windows 自定义 SDK 目录的示例，使用正斜杠可减少转义：
 
 ```properties
-sdk.dir=C\:\\Users\\zhou\\AppData\\Local\\Android\\Sdk
+sdk.dir=D:/Android/Sdk
 ```
 
 在项目目录运行：
@@ -73,7 +75,7 @@ $env:JAVA_HOME = 'C:\Program Files\Android\Android Studio\jbr'
 .\gradlew.bat --no-daemon assembleDebug lintDebug
 ```
 
-构建产物位于 `app/build/outputs/apk/debug/app-debug.apk`。交付目录中的 `ForceSense-1.0.0-debug.apk` 是对应安装文件的副本。
+构建产物位于 `app/build/outputs/apk/debug/app-debug.apk`。交付目录中的 `ForceSense-1.0.0-debug.apk` 是 2026-10-08 已完成实机验证的安装文件副本。新电脑构建的 APK 可能使用不同 debug 签名，也可能具有不同哈希，应另外记录版本及验证结果，保留历史交付文件。
 
 独立运行映射检查：
 
@@ -93,10 +95,10 @@ if ($LASTEXITCODE -ne 0) { throw '映射检查失败' }
 
 ## ADB 安装与检查
 
-连接手机，在手机上启用 USB 调试，并允许当前电脑。以下 SDK 路径需要按本机安装位置调整：
+连接手机，在手机上启用 USB 调试，并允许当前电脑；换电脑需重新授权。以下使用 Windows 常见 SDK 目录，若安装在其他位置，修改 `$androidSdk`：
 
 ```powershell
-$androidSdk = 'C:\Users\zhou\AppData\Local\Android\Sdk'
+$androidSdk = Join-Path $env:LOCALAPPDATA 'Android\Sdk'
 $adb = Join-Path $androidSdk 'platform-tools\adb.exe'
 & $adb devices -l
 & $adb install -r '.\outputs\ForceSense-1.0.0-debug.apk'
@@ -106,6 +108,8 @@ $adb = Join-Path $androidSdk 'platform-tools\adb.exe'
 ```
 
 连接多台设备时，在每条 ADB 命令中加入 `-s <设备序列号>` 指定目标。`run-as` 用于读取此 debug 应用的私有验证快照；应用自身不需要外部存储权限。
+
+上面的安装命令使用仓库已有的交付 APK；安装本机新构建版本时改用 `app/build/outputs/apk/debug/app-debug.apk`。若因 debug 签名不同无法覆盖安装，先核对并使用相同开发签名，或由用户确认可清除数据后卸载重装；卸载会清除保存的零点和视图设置。签名密钥在仓库外管理，详见 [Android 签名文档](https://developer.android.com/studio/publish/app-signing)。
 
 ## 实机验证记录
 
