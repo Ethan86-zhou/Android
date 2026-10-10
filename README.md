@@ -9,6 +9,7 @@ GitHub 仓库：[Ethan86-zhou/Android](https://github.com/Ethan86-zhou/Android)�
 | 项目 | 目录 | 用途 | 安装包 |
 | --- | --- | --- | --- |
 | ForceSense 力感知 | [apps/forcesense](apps/forcesense/README.md) | 读取真实光感数据，模拟侧键按压力及 1.8 × 4 mm 力传感器形变 | [ForceSense-1.0.0-debug.apk](apps/forcesense/outputs/ForceSense-1.0.0-debug.apk) |
+| 果刃 FruitSlice | [apps/fruitslice](apps/fruitslice/README.md) | 打开即玩的离线切水果游戏，彩虹果实随机切换玩法，本机保存历史成绩；Android 16 起 | [FruitSlice-1.0.0-debug.apk](apps/fruitslice/outputs/2026-10-11-v1/FruitSlice-1.0.0-debug.apk) |
 
 ## 目录约定
 
