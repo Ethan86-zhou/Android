@@ -1,0 +1,5 @@
+FAIL: java.lang.AssertionError: Natural moving fruit was not sliced
+	at com.ethan.fruitslice.GameInstrumentation.naturalSwipe(GameInstrumentation.java:175)
+	at com.ethan.fruitslice.GameInstrumentation.onStart(GameInstrumentation.java:55)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2653)
+

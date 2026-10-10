@@ -1,0 +1,25 @@
+{
+  "deliveryDate": "2026-10-11",
+  "app": "果刃 FruitSlice",
+  "version": "1.0.0",
+  "package": "com.ethan.fruitslice",
+  "minimumAndroid": "16 / API 36",
+  "sourceCommit": "c87b50396755d6ac66080cab1071a544b41b1165",
+  "apk": "FruitSlice-1.0.0-debug.apk",
+  "apkSha256": "926349c18841f3f8cc8147a13923e3eb08c6828f759c4300c3296acb7dd590fb",
+  "installedApkSha256": "926349c18841f3f8cc8147a13923e3eb08c6828f759c4300c3296acb7dd590fb",
+  "capturedSourceMatchesCommitWorkingTree": true,
+  "sourceHashes": "device-final-02/source-sha256.json",
+  "engineChecks": 1318,
+  "deviceChecks": 423,
+  "deviceValidation": "device-final-02/verification.json",
+  "processRestartValidation": "relaunch-check.json",
+  "lint": "0 errors, 1 intentional landscape warning",
+  "userRequestedChanges": [
+    "打开直接开局，完全离线，本机历史",
+    "彩虹果实随机切换四种玩法",
+    "删除木板上持续残留的果汁染色",
+    "修复水果透明度并提亮颜色"
+  ],
+  "publication": "Local branch only; not pushed"
+}
