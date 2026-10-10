@@ -1,0 +1,42 @@
+{
+  "deliveryDate": "2026-10-11",
+  "app": "果刃 FruitSlice",
+  "version": "1.1.0",
+  "package": "com.ethan.fruitslice",
+  "minimumAndroid": "16 / API 36",
+  "sourceCommit": "b1cbc5946a092739bd2c85bc8c8ba748609abdd4",
+  "apk": "FruitSlice-1.1.0-debug.apk",
+  "apkSha256": "f3fd38ede27306a6ec98ae4a14141c4d5864a6fec1a33f6c52ef5b2fdd64c631",
+  "installedApkSha256": "f3fd38ede27306a6ec98ae4a14141c4d5864a6fec1a33f6c52ef5b2fdd64c631",
+  "capturedSourceMatchesCommitWorkingTree": true,
+  "sourceHashes": "device/source-sha256.json",
+  "engineChecks": 2642,
+  "deviceChecks": 345,
+  "deviceValidation": "device/verification.json",
+  "processRestartValidation": "relaunch-check.json",
+  "lint": "0 errors, 1 existing intentional landscape warning",
+  "artwork": "../../docs/artwork.md",
+  "wholeFruitAssets": 6,
+  "cutFaceAssets": 6,
+  "spriteCacheBytes": 9709164,
+  "fruitDiametersLogical": [
+    112,
+    84,
+    56,
+    28
+  ],
+  "fruitBasePoints": [
+    5,
+    8,
+    12,
+    20
+  ],
+  "minimumDiameterFraction": 0.25,
+  "userRequestedChanges": [
+    "六种水果及切面重绘为写实风格",
+    "四档大小，最小直径为最大1/4",
+    "越小分越高，连击和双倍模式保留"
+  ],
+  "history": "Top-ten policy and best preserved; synthetic acceptance scores restored; new live score167 retained by ranking.",
+  "publication": "Local branch only; not pushed"
+}

@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "version": "1.1.0",
+  "versionCode": 3,
+  "retainedCount": 10,
+  "best": 1643,
+  "historyRestoredExactlyAfterDeviceTests": true,
+  "processRestartVerified": true,
+  "priorHighScoresPreservedAccordingToTopTenPolicy": true,
+  "newLiveScores": [
+    167
+  ],
+  "liveHistoryNote": "New live gameplay records appeared while restart verification was running; compared ranked union of prior and current records rather than overwriting legitimate new scores.",
+  "naturalFirstWaveRadii": [
+    14,
+    56
+  ],
+  "naturalFirstWavePoints": [
+    20,
+    5
+  ],
+  "minimumDiameterFraction": 0.25,
+  "installedApkSha256": "f3fd38ede27306a6ec98ae4a14141c4d5864a6fec1a33f6c52ef5b2fdd64c631",
+  "deliveredApkSha256": "f3fd38ede27306a6ec98ae4a14141c4d5864a6fec1a33f6c52ef5b2fdd64c631",
+  "method": "Fresh post-launch natural wave, actual process stop/relaunch, history restored exactly after test fixtures, current top-ten policy checked without changing live scores, installed APK byte hash. No uninstall or game-data clearing."
+}

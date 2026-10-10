@@ -72,4 +72,3 @@ Constraints: only the edible fruit disc, no hands, plate, knife, leaves, stems, 
 - **apple**: a freshly cut full rounded red apple cross-section through the core, creamy pale ivory flesh, a natural small five-lobed seed core with a few brown apple seeds, and a thin vivid red peel edge. Full rounded apple face, no stem or leaves.
 - **pineapple**: a freshly cut full round pineapple cross-section, rich juicy golden yellow flesh with fine natural radial fibers, slightly paler small central core, a thin irregular golden-brown diamond-textured rind edge. Full circular pineapple face, no leaves or crown.
 - **plum**: a freshly cut full rounded red-purple plum cross-section, juicy golden yellow-orange flesh subtly red near the thin deep red-purple skin edge, with one recognizable small textured brown plum pit in the center. Full rounded plum face, no stems or leaves.
-
