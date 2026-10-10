@@ -32,6 +32,7 @@ public final class GameInstrumentation extends Instrumentation {
     private String originalPayload;
     private boolean historyOnly;
     private final JSONArray results = new JSONArray();
+    private final JSONArray screenshots = new JSONArray();
 
     @Override public void onCreate(Bundle arguments) {
         super.onCreate(arguments);
@@ -59,6 +60,10 @@ public final class GameInstrumentation extends Instrumentation {
                 finish(Activity.RESULT_OK, result);
                 return;
             }
+            expect(view.art.usesRealisticFruitAssets(), "All six realistic whole fruits and six cut faces load offline");
+            JSONObject artwork = new JSONObject(view.art.assetDiagnostics());
+            expect(artwork.getInt("wholeAssets") == 6 && artwork.getInt("cutAssets") == 6,
+                    "Whole fruit and cut-face caches contain every species");
             artPreview();
             SystemClock.sleep(750);
             expect(read(() -> view.overlay == GameView.Overlay.NONE), "Open starts a round immediately");
@@ -67,15 +72,16 @@ public final class GameInstrumentation extends Instrumentation {
             expect(read(() -> !view.engine.fruits.isEmpty()), "Natural opening waves launch fruit");
             screenshot("01-opening.png");
             naturalSwipe();
+            sizeAndScoreChecks();
             fixture(() -> {
                 view.engine.restart(); view.engine.fruits.clear();
-                view.engine.spawnFruit(0, 430, 250, 0, 0, 29);
-                view.engine.spawnFruit(1, 500, 250, 0, 0, 29);
-                view.engine.spawnFruit(2, 570, 250, 0, 0, 29);
+                view.engine.spawnFruit(0, 430, 250, 0, 0, 14);
+                view.engine.spawnFruit(1, 500, 250, 0, 0, 28);
+                view.engine.spawnFruit(2, 590, 250, 0, 0, 56);
             });
-            swipe(365, 250, 635, 250, 80);
+            swipe(365, 250, 655, 250, 80);
             expect(read(() -> view.engine.sliced == 3), "Continuous swipe slices three fruits");
-            expect(read(() -> view.engine.score == 21 && view.engine.maxCombo == 3), "Three-fruit combo adds six bonus points");
+            expect(read(() -> view.engine.score == 43 && view.engine.maxCombo == 3), "Mixed-size combo earns 20+12+5 plus six bonus points");
             screenshot("02-combo.png");
             fixture(() -> { view.engine.fruits.clear(); view.engine.score = 50; view.engine.remaining = 50;
                 view.engine.spawnFruit(7, 500, 250, 0, 0, 28); });
@@ -151,7 +157,8 @@ public final class GameInstrumentation extends Instrumentation {
             expect(read(() -> view.history.records().size() == expectedHistory), "New round retains history");
 
             JSONObject report = new JSONObject().put("passed", true).put("checks", checks)
-                    .put("results", results).put("method", "Real touchscreen MotionEvents plus explicit test-only scene fixtures; storage uses isolated preferences. The result score is a test fixture.");
+                    .put("results", results).put("screenshots", screenshots).put("artwork", artwork)
+                    .put("method", "Real touchscreen MotionEvents plus explicit test-only scene fixtures; storage uses isolated preferences. The result score is a test fixture.");
             write("device-checks.json", report.toString(2));
             result.putString("stream", "PASS: " + checks + " device checks\n");
             restoreHistory();
@@ -163,6 +170,40 @@ public final class GameInstrumentation extends Instrumentation {
             result.putString("stream", "FAIL: " + android.util.Log.getStackTraceString(failure));
             finish(Activity.RESULT_CANCELED, result);
         }
+    }
+
+    private void sizeAndScoreChecks() throws Exception {
+        expect(GameEngine.MIN_FRUIT_RADIUS * 4 == GameEngine.MAX_FRUIT_RADIUS,
+                "Smallest fruit diameter is exactly one quarter of largest");
+        int[] points = {20, 12, 8, 5};
+        float[] radii = {14, 28, 42, 56};
+        for (int i = 0; i < radii.length; i++) {
+            final float radius = radii[i];
+            final int type = i;
+            fixture(() -> {
+                view.engine.restart();
+                view.engine.spawnFruit(type, 500, 250, 0, 0, radius);
+            });
+            if (i == 0) {
+                swipe(430, 230, 570, 230, 30);
+                expect(read(() -> view.engine.sliced == 0 && view.engine.score == 0),
+                        "Touch outside a tiny fruit does not use an inflated hit area");
+            }
+            float targetY = read(() -> view.engine.fruits.get(0).y);
+            swipe(500, targetY - 90, 500, targetY + 90, 50);
+            expect(read(() -> view.engine.sliced == 1) && read(() -> view.engine.score) == points[i],
+                    "Real touch on radius " + radius + " awards " + points[i] + " points");
+        }
+        fixture(() -> {
+            view.engine.restart();
+            view.engine.mode = GameEngine.Mode.DOUBLE;
+            view.engine.modeRemaining = 10;
+            view.engine.spawnFruit(0, 430, 250, 0, 0, 14);
+            view.engine.spawnFruit(3, 590, 250, 0, 0, 56);
+        });
+        swipe(365, 250, 655, 250, 60);
+        expect(read(() -> view.engine.score == 50 && view.engine.sliced == 2),
+                "Double mode doubles different size rewards to 40 and 10");
     }
 
     private void topTenAcceptance() throws Exception {
@@ -233,7 +274,8 @@ public final class GameInstrumentation extends Instrumentation {
         fixture(() -> view.engine.restart());
         for (int attempt = 0; attempt < 80; attempt++) {
             float[] target = read(() -> {
-                for (GameEngine.Fruit f : view.engine.fruits) if (f.type < 6 && f.y > 150 && f.y < 320 && Math.abs(f.vy) < 180)
+                for (GameEngine.Fruit f : view.engine.fruits) if (f.type < 6 && f.y > 150
+                        && f.y < view.getHeight() / screenScale() - 90 && Math.abs(f.vy) < 180)
                     return new float[]{f.x + f.vx * .08f, f.y};
                 return null;
             });
@@ -288,24 +330,39 @@ public final class GameInstrumentation extends Instrumentation {
         if (bitmap == null) throw new AssertionError("Screenshot unavailable");
         try (FileOutputStream stream = new FileOutputStream(new File(evidence, name))) { bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream); }
         bitmap.recycle();
+        screenshots.put(name);
     }
     private void artPreview() throws Exception {
-        Bitmap bitmap = Bitmap.createBitmap(1000, 466, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(1000, 650, Bitmap.Config.ARGB_8888);
         android.graphics.Canvas canvas = new android.graphics.Canvas(bitmap);
         runOnMainSync(() -> {
-            view.art.background(canvas, 1000, 466);
+            view.art.background(canvas, 1000, 650);
             android.graphics.Paint p = new android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG);
             p.setColor(0xFFFFD589); p.setTextSize(26); p.setTextAlign(android.graphics.Paint.Align.CENTER);
-            canvas.drawText("果刃 · 水果画面检查", 500, 100, p);
-            String[] names = {"西瓜", "橙子", "猕猴桃", "苹果", "菠萝", "李子", "彩虹果实", "炸弹"};
+            canvas.drawText("果刃 · 写实水果与大小", 500, 54, p);
+            String[] names = {"西瓜", "橙子", "猕猴桃", "苹果", "菠萝", "李子"};
             p.setTextSize(15);
-            for (int i = 0; i < 8; i++) {
-                view.art.fruit(canvas, i, 90 + i * 117, 235, 38, 0, 1);
-                canvas.drawText(names[i], 90 + i * 117, 315, p);
+            for (int i = 0; i < 6; i++) {
+                float x = 80 + i * 168;
+                view.art.fruit(canvas, i, x, 158, 44, 0, 1);
+                canvas.drawText(names[i], x, 231, p);
+                view.art.half(canvas, i, x - 8, 296, 36, 0, true, 1);
+                view.art.half(canvas, i, x + 8, 296, 36, 0, false, 1);
+            }
+            p.setTextSize(21);
+            canvas.drawText("最小直径 = 最大的 1/4 · 小果高分", 500, 395, p);
+            float[] radii = {56, 42, 28, 14};
+            int[] points = {5, 8, 12, 20};
+            p.setTextSize(16);
+            for (int i = 0; i < 4; i++) {
+                float x = 170 + i * 220;
+                view.art.fruit(canvas, 1, x, 490, radii[i], 0, 1);
+                canvas.drawText("直径 " + (int)(radii[i] * 2) + "  ·  " + points[i] + " 分", x, 582, p);
             }
         });
         try (FileOutputStream stream = new FileOutputStream(new File(evidence, "00-fruit-art.png"))) { bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream); }
         bitmap.recycle();
+        screenshots.put("00-fruit-art.png");
     }
     private void write(String name, String text) throws Exception {
         try (FileOutputStream stream = new FileOutputStream(new File(evidence, name))) { stream.write(text.getBytes(StandardCharsets.UTF_8)); }

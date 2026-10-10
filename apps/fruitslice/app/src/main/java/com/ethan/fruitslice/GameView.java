@@ -36,7 +36,7 @@ final class GameView extends View {
     enum Overlay { NONE, PAUSE, HISTORY, RESULT }
     final GameEngine engine = new GameEngine(System.nanoTime());
     final HistoryStore history;
-    final GameArt art = new GameArt();
+    final GameArt art;
     final GameAudio audio;
     Overlay overlay = Overlay.NONE;
     private Overlay historyReturn = Overlay.PAUSE;
@@ -68,6 +68,7 @@ final class GameView extends View {
         setClickable(true);
         setContentDescription("果刃切水果游戏。滑动切水果，避开炸弹，切开彩虹果实随机换模式。右上角为历史与暂停。");
         history = new HistoryStore(context);
+        art = new GameArt(context);
         audio = new GameAudio(context);
         HistoryStore.Record pending = history.getCheckpoint();
         if (pending != null) {
@@ -294,7 +295,7 @@ final class GameView extends View {
         for (int side = 0; side < 2; side++) {
             Half h = new Half();
             h.x = event.x; h.y = event.y; h.type = event.type;
-            h.left = side == 0; h.r = event.type == 4 ? 29 : 28;
+            h.left = side == 0; h.r = event.radius;
             h.vx = (side == 0 ? -1 : 1) * (65 + random.nextFloat() * 80);
             h.vy = -75 - random.nextFloat() * 75;
             h.spin = (side == 0 ? -1 : 1) * (100 + random.nextFloat() * 160);
@@ -420,7 +421,7 @@ final class GameView extends View {
         paint.setColor(0x3FCDAB7C); paint.setStrokeWidth(1);
         c.drawLine(safeLeft, worldHeight - 43, 1000 - safeRight, worldHeight - 43, paint);
         text(c, "果 刃", safeLeft, worldHeight - 19, 16, 0xFFE5C39B, Paint.Align.LEFT, true);
-        text(c, "滑动切水果   /   避开炸弹   /   切开彩虹果实", 500, worldHeight - 20, 12, 0xFFB79B7B, Paint.Align.CENTER, false);
+        text(c, "小果高分   /   避开炸弹   /   切开彩虹果实", 500, worldHeight - 20, 12, 0xFFB79B7B, Paint.Align.CENTER, false);
         text(c, "OFFLINE", 1000 - safeRight, worldHeight - 20, 10, 0xFF9D8265, Paint.Align.RIGHT, true);
         paint.setColor(modeColor(engine.mode));
         c.drawRect(safeLeft, worldHeight - 4, safeLeft + (1000 - safeLeft - safeRight) * engine.remaining / 60f, worldHeight - 2, paint);
@@ -443,7 +444,7 @@ final class GameView extends View {
         float alpha = Math.min(1, (4.8f - engine.elapsed) * 1.5f);
         text(c, "一 刀 入 魂", 500, 133, 30,
                 Color.argb((int) (alpha * 235), 255, 228, 182), Paint.Align.CENTER, true);
-        text(c, "手指划过水果，即刻开切", 500, 159, 13,
+        text(c, "手指划过水果，即刻开切 · 越小分越高", 500, 159, 13,
                 Color.argb((int) (alpha * 220), 202, 175, 139), Paint.Align.CENTER, false);
         float x = 405 + (realClock * 90 % 180);
         paint.setColor(Color.argb((int) (alpha * 115), 255, 230, 185)); paint.setStrokeWidth(2);
@@ -675,7 +676,8 @@ final class GameView extends View {
                     .put("best", history.bestScore()).put("worldHeight", worldHeight).put("scale", scale).put("offsetX", offsetX);
             JSONArray fruit = new JSONArray();
             for (GameEngine.Fruit f : engine.fruits) if (f.active) fruit.put(new JSONObject()
-                    .put("id", f.id).put("type", f.type).put("x", f.x).put("y", f.y).put("vx", f.vx).put("vy", f.vy).put("r", f.radius));
+                    .put("id", f.id).put("type", f.type).put("x", f.x).put("y", f.y).put("vx", f.vx).put("vy", f.vy)
+                    .put("r", f.radius).put("points", f.basePoints));
             state.put("fruits", fruit);
             File file = new File(getContext().getFilesDir(), "debug_state.json");
             try (FileOutputStream output = new FileOutputStream(file)) {
