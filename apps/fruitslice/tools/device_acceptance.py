@@ -14,6 +14,7 @@ def main():
     default_sdk = Path(os.environ.get("ANDROID_HOME", Path(os.environ.get("LOCALAPPDATA", "")) / "Android" / "Sdk"))
     parser.add_argument("--adb", default=str(default_sdk / "platform-tools" / ("adb.exe" if os.name == "nt" else "adb")))
     parser.add_argument("--serial")
+    parser.add_argument("--history-only", action="store_true", help="Validate history migration without injecting gameplay scores")
     parser.add_argument("--output", required=True, type=Path, help="A new evidence directory; existing contents are never overwritten")
     args = parser.parse_args()
     app = Path(__file__).resolve().parents[1]
@@ -33,15 +34,21 @@ def main():
     started = run("shell", "date", "+%m-%dT%H:%M:%S.000").strip().replace("T", " ")
     installation = run("install", "-r", str(apk)) + run("install", "-r", str(test_apk))
     (output / "install.txt").write_text(installation, encoding="utf-8")
-    transcript = run("shell", "am", "instrument", "-w", "com.ethan.fruitslice.test/com.ethan.fruitslice.GameInstrumentation")
+    arguments = ["-e", "history_only", "true"] if args.history_only else []
+    transcript = run("shell", "am", "instrument", "-w", *arguments, "com.ethan.fruitslice.test/com.ethan.fruitslice.GameInstrumentation")
     (output / "instrumentation.txt").write_text(transcript, encoding="utf-8")
     if not re.search(r"PASS: \d+ device checks", transcript):
         failure = run("exec-out", "run-as", "com.ethan.fruitslice", "cat", "files/device-tests/device-failure.txt")
         (output / "failure.txt").write_text(failure, encoding="utf-8")
         raise SystemExit(transcript)
-    names = run("shell", "run-as", "com.ethan.fruitslice", "ls", "files/device-tests").splitlines()
+    checks_json = run("exec-out", "run-as", "com.ethan.fruitslice", "cat", "files/device-tests/device-checks.json")
+    (output / "device-checks.json").write_text(checks_json, encoding="utf-8")
+    device_checks = json.loads(checks_json)
+    names = device_checks.get("screenshots")
+    if names is None:
+        names = run("shell", "run-as", "com.ethan.fruitslice", "ls", "files/device-tests").splitlines()
     for name in names:
-        if re.fullmatch(r"\d\d-[a-z0-9-]+\.png", name) or name == "device-checks.json":
+        if re.fullmatch(r"\d\d-[a-z0-9-]+\.png", name):
             data = run("exec-out", "run-as", "com.ethan.fruitslice", "cat", "files/device-tests/" + name, binary=True)
             (output / name).write_bytes(data)
     runtime = run("logcat", "-d", "-T", started, "-v", "threadtime", "-s", "AndroidRuntime:E", "*:S")
@@ -61,9 +68,10 @@ def main():
         "testApkSha256": hashlib.sha256(test_apk.read_bytes()).hexdigest(),
         "sourceCommit": source_commit,
         "sourceContent": "source-sha256.json is authoritative if working tree contains changes",
-        "deviceChecks": json.loads((output / "device-checks.json").read_text(encoding="utf-8")),
+        "deviceChecks": device_checks,
         "runtimeAppCrash": "com.ethan.fruitslice" in runtime and "FATAL EXCEPTION" in runtime,
-        "fixtureHistory": "Device runner restores the original history and lifetime best after test scenes",
+        "fixtureHistory": ("Existing records migrated to top ten; no synthetic game results" if args.history_only
+                           else "Original history and lifetime best restored, then normalized to current top-ten policy"),
     }
     (output / "verification.json").write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
     print(transcript.strip())

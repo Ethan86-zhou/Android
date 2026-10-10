@@ -98,8 +98,8 @@ public final class HistoryChecks {
             HistoryStore.Record zero = restored.draft(0, 0, 0, 0, 0, 0, 0f, "time");
             zero.timestamp = round.timestamp + 1;
             restored.save(zero);
-            require(restored.records().size() == 2 && restored.records().get(0).score == 0,
-                    "zero-score completed rounds are retained"); count++;
+            require(restored.records().size() == 2 && restored.records().get(1).score == 0,
+                    "zero-score rounds are retained below higher scores when the board has room"); count++;
             HistoryStore.Record pending = restored.draft(12, 2, 1, 0, 0, 0, 3, "playing");
             restored.checkpoint(pending);
             pending.score = 40000;
@@ -110,28 +110,127 @@ public final class HistoryChecks {
                             && afterClear.bestScore() == 40,
                     "explicit checkpoint clearing leaves completed history intact"); count++;
 
-            require(preferences.edit().clear().commit(), "reset for cap checks"); count++;
+            require(preferences.edit().clear().commit(), "reset for top-ten checks"); count++;
             HistoryStore capped = new HistoryStore(isolated);
             long baseTime = 1_700_000_000_000L;
             HistoryStore.Record oldest = capped.draft(5000, 10, 4, 3, 0, 0, 10, "misses");
             oldest.timestamp = baseTime;
             capped.save(oldest);
-            for (int i = 1; i <= 101; i++) {
-                HistoryStore.Record record = capped.draft(i, i, 1, 0, 0, 0, 60, "time");
+            for (int i = 1; i <= 20; i++) {
+                HistoryStore.Record record = capped.draft(21 - i, i, 1, 0, 0, 0, 60, "time");
                 record.timestamp = baseTime + i;
                 capped.save(record);
             }
-            List<HistoryStore.Record> recent = capped.records();
-            require(recent.size() == 100 && recent.get(0).timestamp == baseTime + 101
-                            && recent.get(99).timestamp == baseTime + 2,
-                    "only the 100 newest timestamps remain"); count++;
-            for (int i = 1; i < recent.size(); i++) {
-                require(recent.get(i - 1).timestamp >= recent.get(i).timestamp,
-                        "history is newest first"); count++;
+            List<HistoryStore.Record> top = capped.records();
+            require(top.size() == 10 && top.get(0).id.equals(oldest.id)
+                            && top.get(0).timestamp == baseTime && top.get(9).score == 12,
+                    "the oldest high score survives while newer low scores fall outside the top ten"); count++;
+            for (int i = 1; i < top.size(); i++) {
+                require(top.get(i - 1).score > top.get(i).score,
+                        "different scores rank strictly highest first"); count++;
             }
+            String tenthId = top.get(9).id;
+            HistoryStore.Record low = capped.draft(11, 1, 1, 0, 0, 0, 60, "time");
+            low.timestamp = baseTime + 1000;
+            capped.checkpoint(low);
+            capped.save(low);
+            require(capped.records().size() == 10 && capped.records().get(9).id.equals(tenthId)
+                            && capped.getCheckpoint() == null,
+                    "a new low score does not displace tenth place and still clears its checkpoint"); count++;
+            HistoryStore.Record tie = capped.draft(12, 2, 1, 0, 0, 0, 60, "time");
+            tie.id = "tie-newer";
+            tie.timestamp = baseTime + 100;
+            capped.save(tie);
+            require(capped.records().get(9).id.equals("tie-newer"),
+                    "a newer equal score displaces the older tenth-place round"); count++;
+            HistoryStore.Record tieB = capped.draft(12, 2, 1, 0, 0, 0, 60, "time");
+            tieB.id = "tie-b";
+            tieB.timestamp = baseTime + 101;
+            capped.save(tieB);
+            HistoryStore.Record tieA = capped.draft(12, 2, 1, 0, 0, 0, 60, "time");
+            tieA.id = "tie-a";
+            tieA.timestamp = tieB.timestamp;
+            capped.save(tieA);
+            require(capped.records().get(9).id.equals("tie-a"),
+                    "equal score and timestamp use stable ascending session ID order"); count++;
+            HistoryStore.Record olderTie = capped.draft(12, 2, 1, 0, 0, 0, 60, "time");
+            olderTie.timestamp = baseTime;
+            capped.save(olderTie);
+            require(capped.records().get(9).id.equals("tie-a"),
+                    "an older equal score cannot displace the newer cutoff"); count++;
+            HistoryStore.Record replacement = capped.records().get(5);
+            replacement.score = 60;
+            replacement.timestamp = baseTime + 200;
+            capped.save(replacement);
+            capped.save(replacement);
+            require(capped.records().size() == 10 && capped.records().get(1).id.equals(replacement.id)
+                            && capped.records().get(1).score == 60,
+                    "updating a saved session reranks it without duplication"); count++;
+            oldest.score = 30;
+            capped.save(oldest);
             HistoryStore cappedReload = new HistoryStore(isolated);
-            require(cappedReload.records().size() == 100 && cappedReload.bestScore() == 5000,
-                    "lifetime best survives removal of its oldest round and reload"); count++;
+            require(cappedReload.records().size() == 10 && cappedReload.bestScore() == 5000
+                            && cappedReload.records().get(0).score == 60,
+                    "lifetime best remains independent of current ranked rows after replacement and reload"); count++;
+            String rankedPayload = preferences.getString("payload_v1", "");
+            HistoryStore rankedReload = new HistoryStore(isolated);
+            require(rankedPayload.equals(preferences.getString("payload_v1", ""))
+                            && rankedReload.records().get(9).id.equals("tie-a"),
+                    "already-ranked top-ten history reloads without changing its payload or cutoff"); count++;
+
+            JSONArray legacyRows = new JSONArray();
+            for (int i = 99; i >= 0; i--) {
+                legacyRows.put(recordJson("legacy-" + i, baseTime + i, 100 - i));
+            }
+            legacyRows.put(recordJson("legacy-0", baseTime, 100));
+            JSONObject legacyPending = recordJson("unrelated-pending", baseTime + 200, 17)
+                    .put("reason", "playing").put("duration", 14.5);
+            JSONObject legacy = new JSONObject().put("version", 1).put("best", 9000)
+                    .put("records", legacyRows).put("checkpoint", legacyPending);
+            require(preferences.edit().putString("payload_v1", legacy.toString()).commit(),
+                    "seed legacy newest-first history with over one hundred entries and a pending round"); count++;
+            HistoryStore migrated = new HistoryStore(isolated);
+            require(migrated.records().size() == 10 && migrated.records().get(0).id.equals("legacy-0")
+                            && migrated.records().get(9).id.equals("legacy-9"),
+                    "legacy migration ranks all old rows by score before retaining exactly ten"); count++;
+            require(migrated.bestScore() == 9000 && migrated.getCheckpoint() != null
+                            && migrated.getCheckpoint().id.equals("unrelated-pending")
+                            && migrated.getCheckpoint().duration == 14.5f,
+                    "legacy migration preserves lifetime best and the independent pending round"); count++;
+            JSONObject migratedPayload = new JSONObject(preferences.getString("payload_v1", ""));
+            require(migratedPayload.getInt("version") == 2
+                            && migratedPayload.getJSONArray("records").length() == 10
+                            && migratedPayload.getJSONArray("records").getJSONObject(0).getString("id").equals("legacy-0")
+                            && migratedPayload.getJSONObject("checkpoint").getString("id").equals("unrelated-pending"),
+                    "migration persists the ranked limit and checkpoint immediately before any new save"); count++;
+            String onceMigrated = preferences.getString("payload_v1", "");
+            HistoryStore migratedAgain = new HistoryStore(isolated);
+            require(onceMigrated.equals(preferences.getString("payload_v1", ""))
+                            && migratedAgain.records().size() == 10 && migratedAgain.bestScore() == 9000
+                            && migratedAgain.getCheckpoint().id.equals("unrelated-pending"),
+                    "migration is stable and idempotent on the next load"); count++;
+            legacy.put("checkpoint", recordJson("legacy-99", baseTime + 99, 1));
+            require(preferences.edit().putString("payload_v1", legacy.toString()).commit(),
+                    "seed a pending ID already present among discarded legacy results"); count++;
+            HistoryStore completedPending = new HistoryStore(isolated);
+            require(completedPending.getCheckpoint() == null
+                            && new JSONObject(preferences.getString("payload_v1", "")).isNull("checkpoint"),
+                    "migration clears a completed pending ID even when that score is outside the top ten"); count++;
+
+            JSONArray tiedLegacy = new JSONArray();
+            tiedLegacy.put(recordJson("same-b", baseTime + 5, 100));
+            tiedLegacy.put(recordJson("older", baseTime + 4, 100));
+            tiedLegacy.put(recordJson("same-a", baseTime + 5, 100));
+            for (int i = 0; i < 7; i++) tiedLegacy.put(recordJson("lower-" + i, baseTime + 100 + i, 90 - i));
+            require(preferences.edit().putString("payload_v1", new JSONObject().put("version", 1)
+                            .put("best", 100).put("records", tiedLegacy).toString()).commit(),
+                    "seed a legacy file that already has ten rows in arbitrary tie order"); count++;
+            HistoryStore tiedMigration = new HistoryStore(isolated);
+            require(tiedMigration.records().size() == 10
+                            && tiedMigration.records().get(0).id.equals("same-a")
+                            && tiedMigration.records().get(1).id.equals("same-b")
+                            && tiedMigration.records().get(2).id.equals("older"),
+                    "already-ten legacy rows migrate with timestamp then session ID tie ordering"); count++;
 
             require(preferences.edit().clear().putString("payload_v1", "{broken").commit(),
                     "write deliberately corrupt test JSON"); count++;

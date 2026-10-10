@@ -16,7 +16,9 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -28,9 +30,14 @@ public final class GameInstrumentation extends Instrumentation {
     private File evidence;
     private SharedPreferences production;
     private String originalPayload;
+    private boolean historyOnly;
     private final JSONArray results = new JSONArray();
 
-    @Override public void onCreate(Bundle arguments) { super.onCreate(arguments); start(); }
+    @Override public void onCreate(Bundle arguments) {
+        super.onCreate(arguments);
+        historyOnly = arguments != null && "true".equals(arguments.getString("history_only"));
+        start();
+    }
 
     @Override public void onStart() {
         Bundle result = new Bundle();
@@ -45,6 +52,13 @@ public final class GameInstrumentation extends Instrumentation {
             activity = (MainActivity) startActivitySync(new Intent(getTargetContext(), MainActivity.class)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
             runOnMainSync(() -> view = activity.gameView);
+            if (historyOnly) {
+                topTenAcceptance();
+                result.putString("stream", "PASS: " + checks + " device checks\n");
+                result.putInt("checks", checks);
+                finish(Activity.RESULT_OK, result);
+                return;
+            }
             artPreview();
             SystemClock.sleep(750);
             expect(read(() -> view.overlay == GameView.Overlay.NONE), "Open starts a round immediately");
@@ -117,14 +131,16 @@ public final class GameInstrumentation extends Instrumentation {
             tap(500, cardTop + 256);
 
             int initialHistory = read(() -> view.history.records().size());
+            int expectedHistory = Math.min(10, initialHistory + 1);
+            int fixtureScore = read(() -> view.history.bestScore()) + 321;
             fixture(() -> { view.engine.fruits.clear(); view.engine.remaining = .08f; view.engine.misses = 0;
-                view.engine.score = 321; view.engine.maxCombo = 7; });
+                view.engine.score = fixtureScore; view.engine.maxCombo = 7; });
             SystemClock.sleep(300);
             expect(read(() -> view.overlay == GameView.Overlay.RESULT && view.engine.gameOver), "Timeout produces result card");
-            expect(read(() -> view.history.records().size() == initialHistory + 1), "Result saved once");
+            expect(read(() -> view.history.records().size() == expectedHistory), "Result saved once within ten-round limit");
             SystemClock.sleep(300);
-            expect(read(() -> view.history.records().size() == initialHistory + 1), "Repeated frames cannot duplicate results");
-            expect(new HistoryStore(getTargetContext()).records().get(0).score == 321, "Result reloads from actual device storage");
+            expect(read(() -> view.history.records().size() == expectedHistory), "Repeated frames cannot duplicate results");
+            expect(new HistoryStore(getTargetContext()).records().get(0).score == fixtureScore, "Result reloads from actual device storage");
             screenshot("06-result.png");
             tap(500, cardTop + 330);
             expect(read(() -> view.overlay == GameView.Overlay.HISTORY), "History opens after result");
@@ -132,10 +148,10 @@ public final class GameInstrumentation extends Instrumentation {
             tap(725, cardTop + 33);
             tap(500, cardTop + 275);
             expect(read(() -> view.engine.score == 0 && !view.engine.gameOver && view.overlay == GameView.Overlay.NONE), "Play again resets round without deleting history");
-            expect(read(() -> view.history.records().size() == initialHistory + 1), "New round retains history");
+            expect(read(() -> view.history.records().size() == expectedHistory), "New round retains history");
 
             JSONObject report = new JSONObject().put("passed", true).put("checks", checks)
-                    .put("results", results).put("method", "Real touchscreen MotionEvents plus explicit test-only scene fixtures; storage uses isolated preferences. Score321 is a test fixture.");
+                    .put("results", results).put("method", "Real touchscreen MotionEvents plus explicit test-only scene fixtures; storage uses isolated preferences. The result score is a test fixture.");
             write("device-checks.json", report.toString(2));
             result.putString("stream", "PASS: " + checks + " device checks\n");
             restoreHistory();
@@ -149,12 +165,66 @@ public final class GameInstrumentation extends Instrumentation {
         }
     }
 
+    private void topTenAcceptance() throws Exception {
+        JSONObject before = originalPayload == null ? new JSONObject() : new JSONObject(originalPayload);
+        JSONArray previous = before.optJSONArray("records");
+        ArrayList<JSONObject> expected = new ArrayList<>();
+        Set<String> ids = new HashSet<>();
+        if (previous != null) {
+            for (int i = 0; i < previous.length(); i++) {
+                JSONObject row = previous.getJSONObject(i);
+                if (ids.add(row.getString("id"))) expected.add(row);
+            }
+        }
+        JSONObject pending = before.optJSONObject("checkpoint");
+        if (pending != null && ids.add(pending.getString("id"))) expected.add(pending);
+        expected.sort((a, b) -> {
+            int score = Integer.compare(b.optInt("score"), a.optInt("score"));
+            if (score != 0) return score;
+            int time = Long.compare(b.optLong("timestamp"), a.optLong("timestamp"));
+            return time != 0 ? time : a.optString("id").compareTo(b.optString("id"));
+        });
+        List<HistoryStore.Record> actual = read(() -> view.history.records());
+        expect(actual.size() == Math.min(10, expected.size()), "Existing phone records migrate to at most ten rounds");
+        for (int i = 0; i < actual.size(); i++) {
+            expect(actual.get(i).id.equals(expected.get(i).getString("id"))
+                    && actual.get(i).score == expected.get(i).getInt("score"),
+                    "Phone rank " + (i + 1) + " keeps the correct original high-score round");
+        }
+        expect(read(() -> view.history.bestScore()) >= before.optInt("best"), "Upgrade preserves lifetime best");
+        HistoryStore reloaded = new HistoryStore(getTargetContext());
+        expect(reloaded.records().size() == actual.size(), "Ranked history persists in device storage");
+        for (int i = 0; i < actual.size(); i++) {
+            expect(actual.get(i).id.equals(reloaded.records().get(i).id), "Persisted rank " + (i + 1) + " survives reload");
+        }
+        JSONObject persisted = new JSONObject(production.getString("payload_v1", ""));
+        expect(persisted.getInt("version") == 2 && persisted.getJSONArray("records").length() <= 10,
+                "On-disk payload is upgraded and physically contains no more than ten results");
+        tap(890, 46);
+        expect(read(() -> view.overlay == GameView.Overlay.HISTORY), "Real touch opens the ranked history screen");
+        float remaining = read(() -> view.engine.remaining);
+        SystemClock.sleep(300);
+        expect(Math.abs(read(() -> view.engine.remaining) - remaining) < .001f, "Browsing ranked history freezes the round");
+        screenshot("08-top-ten-history.png");
+        runOnMainSync(() -> activity.finish());
+        waitForIdleSync();
+        HistoryStore cleaned = new HistoryStore(getTargetContext());
+        cleaned.clearCheckpoint(); // Do not leave this acceptance screen's empty round in user data.
+        expect(cleaned.getCheckpoint() == null && cleaned.records().size() == actual.size(),
+                "Acceptance leaves no test-created checkpoint or extra completed round");
+        JSONObject report = new JSONObject().put("passed", true).put("checks", checks).put("results", results)
+                .put("screenshots", new JSONArray().put("08-top-ten-history.png"))
+                .put("method", "Isolated ranking/migration checks plus existing phone records and real touchscreen history navigation. No synthetic game results added to user history.");
+        write("device-checks.json", report.toString(2));
+    }
+
     private void restoreHistory() {
         if (activity != null) { runOnMainSync(() -> activity.finish()); waitForIdleSync(); }
         if (production != null) {
             SharedPreferences.Editor editor = production.edit().remove("payload_v1");
             if (originalPayload != null) editor.putString("payload_v1", originalPayload);
             if (!editor.commit()) throw new AssertionError("Could not restore original history after device tests");
+            new HistoryStore(getTargetContext()); // Apply the current top-ten policy to restored legacy data.
         }
     }
 

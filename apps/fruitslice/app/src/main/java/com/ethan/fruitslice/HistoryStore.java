@@ -19,7 +19,7 @@ import java.util.UUID;
 public final class HistoryStore {
     private static final String PREFERENCES = "fruit_slice_history";
     private static final String PAYLOAD = "payload_v1";
-    private static final int LIMIT = 100;
+    private static final int LIMIT = 10;
     private static final int MAX_PAYLOAD_LENGTH = 524288;
     private final SharedPreferences preferences;
     private final ArrayList<Record> history = new ArrayList<>();
@@ -46,7 +46,7 @@ public final class HistoryStore {
         load();
     }
 
-    /** Returns independent copies; callers cannot mutate saved history accidentally. */
+    /** Returns the ten best rounds, highest score first, as independent copies. */
     public synchronized List<Record> records() {
         ArrayList<Record> result = new ArrayList<>(history.size());
         for (Record record : history) result.add(copy(record));
@@ -134,6 +134,9 @@ public final class HistoryStore {
             trimAndSort();
             checkpoint = decode(payload.optJSONObject("checkpoint"));
             if (checkpoint != null && ids.contains(checkpoint.id)) checkpoint = null;
+            // Upgrade previous newest-100 history before another round can begin.
+            // Comparing canonical JSON also makes repeated loads stable and write-free.
+            persist(raw);
         } catch (JSONException ignored) {
             // A malformed payload must never prevent the game from opening.
         }
@@ -142,6 +145,8 @@ public final class HistoryStore {
     private void trimAndSort() {
         Collections.sort(history, new Comparator<Record>() {
             @Override public int compare(Record first, Record second) {
+                int score = Integer.compare(second.score, first.score);
+                if (score != 0) return score;
                 int time = Long.compare(second.timestamp, first.timestamp);
                 return time != 0 ? time : first.id.compareTo(second.id);
             }
@@ -151,16 +156,24 @@ public final class HistoryStore {
 
     @android.annotation.SuppressLint("ApplySharedPref") // A small synchronous checkpoint must survive process death after onPause.
     private void persist() {
+        persist(null);
+    }
+
+    @android.annotation.SuppressLint("ApplySharedPref")
+    private void persist(String previousPayload) {
         try {
             JSONObject payload = new JSONObject();
-            payload.put("version", 1);
+            payload.put("version", 2);
             payload.put("best", best);
             JSONArray records = new JSONArray();
             for (Record record : history) records.put(encode(record));
             payload.put("records", records);
             payload.put("checkpoint", checkpoint == null ? JSONObject.NULL : encode(checkpoint));
             // One commit prevents history, best score, and recovery state from disagreeing.
-            preferences.edit().putString(PAYLOAD, payload.toString()).commit();
+            String serialized = payload.toString();
+            if (!serialized.equals(previousPayload)) {
+                preferences.edit().putString(PAYLOAD, serialized).commit();
+            }
         } catch (JSONException ignored) {
             // normalize() guarantees finite numbers and non-null identity fields.
         }

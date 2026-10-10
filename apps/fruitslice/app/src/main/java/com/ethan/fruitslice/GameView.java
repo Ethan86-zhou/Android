@@ -483,7 +483,7 @@ final class GameView extends View {
             text(c, best ? "新 的 刀 锋 纪 录" : "这 一 刀，痛 快", 500, card.top + 49,
                     25, 0xFFF9DCA7, Paint.Align.CENTER, true);
             text(c, Integer.toString(engine.score), 500, card.top + 122, 69, 0xFFFFD485, Paint.Align.CENTER, true);
-            text(c, engine.misses >= 3 ? "漏掉 3 个水果 · 成绩已保存" : "时间到 · 成绩已保存", 500, card.top + 148,
+            text(c, (engine.misses >= 3 ? "漏掉 3 个水果" : "时间到") + " · 只保留高分前 10 局", 500, card.top + 148,
                     13, 0xFFBDA286, Paint.Align.CENTER, false);
             float y = card.top + 192;
             text(c, "切中水果", 363, y, 12, 0xFFBDA286, Paint.Align.CENTER, false);
@@ -500,7 +500,7 @@ final class GameView extends View {
 
     private void drawHistory(Canvas c, RectF card) {
         text(c, "刀 锋 履 历", 500, card.top + 44, 25, 0xFFF9DCA7, Paint.Align.CENTER, true);
-        text(c, "本机最高  " + history.bestScore() + "    ·    最近 " + history.records().size() + " 局", 500,
+        text(c, "本机最高  " + history.bestScore() + "    ·    高分榜 " + history.records().size() + " / 10 局", 500,
                 card.top + 73, 13, 0xFFC1A385, Paint.Align.CENTER, false);
         float x = closeButton.centerX(), y = closeButton.centerY();
         paint.setColor(0xFFE1C5A2); paint.setStrokeWidth(2);
