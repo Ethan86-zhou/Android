@@ -10,8 +10,8 @@ android {
         applicationId 'com.ethan.fruitslice'
         minSdk 36
         targetSdk 36
-        versionCode 3
-        versionName '1.1.0'
+        versionCode 4
+        versionName '1.1.1'
         testInstrumentationRunner 'com.ethan.fruitslice.GameInstrumentation'
     }
     buildFeatures { buildConfig true }

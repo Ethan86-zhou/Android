@@ -280,12 +280,12 @@ public final class GameEngineCheck {
     }
 
     private static void sizeScoringAndGeometry() {
-        near(GameEngine.MIN_FRUIT_RADIUS, 14f, 0f, "Smallest logical radius is fourteen");
+        near(GameEngine.MIN_FRUIT_RADIUS, 28f, 0f, "Smallest logical radius is twenty-eight");
         near(GameEngine.MAX_FRUIT_RADIUS, 56f, 0f, "Largest logical radius is fifty-six");
         near((2f * GameEngine.MAX_FRUIT_RADIUS) / (2f * GameEngine.MIN_FRUIT_RADIUS),
-                4f, 0f, "Largest diameter is exactly four times the smallest diameter");
+                2f, 0f, "Largest diameter is exactly twice the smallest diameter");
         int[] expectedPoints = {20, 12, 8, 5};
-        float[] expectedRadii = {14, 28, 42, 56};
+        float[] expectedRadii = {28, 35, 42, 56};
         for (int tier = 0; tier < expectedRadii.length; tier++) {
             near(GameEngine.SIZE_RADII.get(tier), expectedRadii[tier], 0f,
                     "Public radius tier matches the game rule");
@@ -294,13 +294,15 @@ public final class GameEngineCheck {
             equal(GameEngine.pointsForRadius(expectedRadii[tier]), expectedPoints[tier],
                     "Smaller fruit earns its stated higher score");
         }
-        equal(GameEngine.pointsForRadius(29), 12, "Fixture radius twenty-nine uses the nearest medium tier");
-        equal(GameEngine.pointsForRadius(20.99f), 20, "Radius below first midpoint remains a small fruit");
-        equal(GameEngine.pointsForRadius(21), 12, "Midpoint tie uses the larger tier");
-        equal(GameEngine.pointsForRadius(34.99f), 12, "Radius below second midpoint remains medium");
-        equal(GameEngine.pointsForRadius(35), 8, "Second midpoint chooses large score");
+        equal(GameEngine.pointsForRadius(29), 20, "Fixture radius twenty-nine uses the nearest small tier");
+        equal(GameEngine.pointsForRadius(31.49f), 20, "Radius below first midpoint remains a small fruit");
+        equal(GameEngine.pointsForRadius(31.5f), 12, "Midpoint tie uses the larger tier");
+        equal(GameEngine.pointsForRadius(38.49f), 12, "Radius below second midpoint remains medium");
+        equal(GameEngine.pointsForRadius(38.5f), 8, "Second midpoint chooses large score");
         equal(GameEngine.pointsForRadius(48.99f), 8, "Radius below last midpoint remains large");
         equal(GameEngine.pointsForRadius(49), 5, "Last midpoint chooses giant score");
+        equal(GameEngine.pointsForRadius(1), 20, "Positive radii below all tiers use the smallest tier reward");
+        equal(GameEngine.pointsForRadius(100), 5, "Radii above all tiers use the largest tier reward");
         for (float invalid : new float[] {0f, -1f, Float.NaN, Float.POSITIVE_INFINITY}) {
             boolean rejected = false;
             try { GameEngine.pointsForRadius(invalid); }
@@ -330,8 +332,8 @@ public final class GameEngineCheck {
         for (boolean doubled : new boolean[] {false, true}) {
             engine.restart();
             if (doubled) { engine.mode = GameEngine.Mode.DOUBLE; engine.modeRemaining = 10; }
-            engine.spawnFruit(0, 200, 200, 0, 0, 14);
-            engine.spawnFruit(1, 500, 200, 0, 0, 28);
+            engine.spawnFruit(0, 200, 200, 0, 0, 28);
+            engine.spawnFruit(1, 500, 200, 0, 0, 35);
             engine.spawnFruit(2, 800, 200, 0, 0, 56);
             engine.slice(0, 200, 1000, 200);
             equal(engine.score, doubled ? 74 : 37, "Mixed sizes sum their own rewards before combo");
@@ -341,34 +343,39 @@ public final class GameEngineCheck {
         }
 
         engine.restart();
-        GameEngine.Fruit tiny = engine.spawnFruit(0, 200, 200, 0, 0, 14);
-        engine.slice(0, 214.01f, 1000, 214.01f);
+        GameEngine.Fruit tiny = engine.spawnFruit(0, 200, 200, 0, 0, 28);
+        engine.slice(0, 228.01f, 1000, 228.01f);
         equal(engine.sliced, 0, "Swipe just outside a tiny fruit is a true miss without extra hit padding");
-        engine.slice(0, 200, 185, 200);
+        engine.slice(0, 200, 171, 200);
         equal(engine.sliced, 0, "Segment ending one pixel before tiny fruit does not hit");
-        engine.slice(0, 214, 1000, 214);
+        engine.slice(0, 228, 1000, 228);
         equal(engine.sliced, 1, "Exact tangent to a tiny fruit hits");
         equal(engine.score, 20, "Tiny edge hit earns twenty points");
         check(tiny.sliced, "Tiny hit removes the correct fruit");
         engine.endStroke();
 
         engine.restart();
-        engine.spawnFruit(0, 200, 200, 0, 0, 14);
+        engine.spawnFruit(0, 200, 200, 0, 0, 28);
         engine.spawnFruit(1, 600, 200, 0, 0, 56);
-        engine.slice(0, 215, 1000, 215);
+        engine.slice(0, 229, 1000, 229);
         equal(engine.sliced, 1, "Same off-center swipe hits the giant and misses the tiny fruit");
         equal(engine.score, 5, "Giant-only hit earns five points");
         equal(engine.fruits.size(), 1, "Tiny fruit remains available after a nearby giant is cut");
-        near(engine.fruits.get(0).radius, 14, 0f, "Missed tiny fruit retains exact geometry");
+        near(engine.fruits.get(0).radius, 28, 0f, "Missed tiny fruit retains exact geometry");
         engine.endStroke();
 
         engine.restart();
-        GameEngine.Fruit resized = engine.spawnFruit(0, 500, 200, 0, 0, 14);
+        GameEngine.Fruit resized = engine.spawnFruit(0, 500, 200, 0, 0, 28);
+        GameEngine.Fruit resizedGiant = engine.spawnFruit(1, 800, 200, 0, 0, 56);
         engine.setBounds(500, 225);
-        near(resized.radius, 7, 0f, "World resize scales a tiny fruit proportionally");
+        near(resized.radius, 14, 0f, "World resize scales a tiny fruit proportionally");
+        near(resizedGiant.radius, 28, 0f, "World resize scales a giant fruit proportionally");
+        near(resized.radius / resizedGiant.radius, .5f, 0f,
+                "World resize preserves the exact one-half diameter ratio");
         equal(resized.basePoints, 20, "Resize preserves an already launched fruit reward");
+        equal(resizedGiant.basePoints, 5, "Resize preserves an already launched giant reward");
         engine.fruits.clear();
-        GameEngine.Fruit newTiny = engine.spawnFruit(1, 250, 100, 0, 0, 7);
+        GameEngine.Fruit newTiny = engine.spawnFruit(1, 250, 100, 0, 0, 14);
         equal(newTiny.basePoints, 20, "New fruit in a resized field scores by its logical size");
     }
 
@@ -402,7 +409,7 @@ public final class GameEngineCheck {
                     waves++;
                     check(thisWave.size() >= 2, "Every natural wave visibly mixes at least two different sizes");
                     if (waves == 1) {
-                        check(thisWave.contains(14f) && thisWave.contains(56f),
+                        check(thisWave.contains(28f) && thisWave.contains(56f),
                                 "First wave immediately shows the smallest and largest fruit together");
                     }
                     if (waves == 2) equal(radiiSeen.size(), 4, "All four sizes appear within the first two waves");

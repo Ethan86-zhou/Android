@@ -75,8 +75,8 @@ public final class GameInstrumentation extends Instrumentation {
             sizeAndScoreChecks();
             fixture(() -> {
                 view.engine.restart(); view.engine.fruits.clear();
-                view.engine.spawnFruit(0, 430, 250, 0, 0, 14);
-                view.engine.spawnFruit(1, 500, 250, 0, 0, 28);
+                view.engine.spawnFruit(0, 430, 250, 0, 0, 28);
+                view.engine.spawnFruit(1, 500, 250, 0, 0, 35);
                 view.engine.spawnFruit(2, 590, 250, 0, 0, 56);
             });
             swipe(365, 250, 655, 250, 80);
@@ -173,10 +173,10 @@ public final class GameInstrumentation extends Instrumentation {
     }
 
     private void sizeAndScoreChecks() throws Exception {
-        expect(GameEngine.MIN_FRUIT_RADIUS * 4 == GameEngine.MAX_FRUIT_RADIUS,
-                "Smallest fruit diameter is exactly one quarter of largest");
+        expect(GameEngine.MIN_FRUIT_RADIUS * 2 == GameEngine.MAX_FRUIT_RADIUS,
+                "Smallest fruit diameter is exactly one half of largest");
         int[] points = {20, 12, 8, 5};
-        float[] radii = {14, 28, 42, 56};
+        float[] radii = {28, 35, 42, 56};
         for (int i = 0; i < radii.length; i++) {
             final float radius = radii[i];
             final int type = i;
@@ -185,7 +185,7 @@ public final class GameInstrumentation extends Instrumentation {
                 view.engine.spawnFruit(type, 500, 250, 0, 0, radius);
             });
             if (i == 0) {
-                swipe(430, 230, 570, 230, 30);
+                swipe(430, 216, 570, 216, 30);
                 expect(read(() -> view.engine.sliced == 0 && view.engine.score == 0),
                         "Touch outside a tiny fruit does not use an inflated hit area");
             }
@@ -198,7 +198,7 @@ public final class GameInstrumentation extends Instrumentation {
             view.engine.restart();
             view.engine.mode = GameEngine.Mode.DOUBLE;
             view.engine.modeRemaining = 10;
-            view.engine.spawnFruit(0, 430, 250, 0, 0, 14);
+            view.engine.spawnFruit(0, 430, 250, 0, 0, 28);
             view.engine.spawnFruit(3, 590, 250, 0, 0, 56);
         });
         swipe(365, 250, 655, 250, 60);
@@ -350,8 +350,8 @@ public final class GameInstrumentation extends Instrumentation {
                 view.art.half(canvas, i, x + 8, 296, 36, 0, false, 1);
             }
             p.setTextSize(21);
-            canvas.drawText("最小直径 = 最大的 1/4 · 小果高分", 500, 395, p);
-            float[] radii = {56, 42, 28, 14};
+            canvas.drawText("最小直径 = 最大的 1/2 · 小果高分", 500, 395, p);
+            float[] radii = {56, 42, 35, 28};
             int[] points = {5, 8, 12, 20};
             p.setTextSize(16);
             for (int i = 0; i < 4; i++) {

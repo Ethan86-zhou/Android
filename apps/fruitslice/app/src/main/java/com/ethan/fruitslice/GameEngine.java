@@ -9,9 +9,9 @@ public final class GameEngine {
     public enum Mode { CLASSIC, FRENZY, FREEZE, DOUBLE, ZEN }
     public enum Kind { SLICE, BOMB, COMBO, MODE, MISS, OVER }
 
-    public static final float MIN_FRUIT_RADIUS = 14f;
+    public static final float MIN_FRUIT_RADIUS = 28f;
     public static final float MAX_FRUIT_RADIUS = 56f;
-    public static final List<Float> SIZE_RADII = List.of(14f, 28f, 42f, 56f);
+    public static final List<Float> SIZE_RADII = List.of(28f, 35f, 42f, 56f);
     public static final List<Integer> SIZE_POINTS = List.of(20, 12, 8, 5);
 
     public static final class Fruit {
@@ -354,8 +354,11 @@ public final class GameEngine {
         if (!Float.isFinite(radius) || radius <= 0f) {
             throw new IllegalArgumentException("Radius must be finite and positive");
         }
-        int tier = Math.max(0, Math.min(3, Math.round(radius / MIN_FRUIT_RADIUS) - 1));
-        return SIZE_POINTS.get(tier);
+        for (int tier = 0; tier < SIZE_RADII.size() - 1; tier++) {
+            float midpoint = (SIZE_RADII.get(tier) + SIZE_RADII.get(tier + 1)) * .5f;
+            if (radius < midpoint) return SIZE_POINTS.get(tier);
+        }
+        return SIZE_POINTS.get(SIZE_POINTS.size() - 1);
     }
 
     private int randomSizeTier() {
