@@ -1,0 +1,37 @@
+{
+  "deliveryDate": "2026-10-11",
+  "app": "果刃 FruitSlice",
+  "version": "1.1.1",
+  "versionCode": 4,
+  "package": "com.ethan.fruitslice",
+  "minimumAndroid": "16 / API 36",
+  "sourceCommit": "d7da62031600fec036ae3d9cef8a8015a3972679",
+  "apk": "FruitSlice-1.1.1-debug.apk",
+  "apkSha256": "fbb90ec1905874e42b5ee63edfda5a190da49fbaec88b6e4cc93d93e201c06de",
+  "installedApkSha256": "fbb90ec1905874e42b5ee63edfda5a190da49fbaec88b6e4cc93d93e201c06de",
+  "capturedSourceMatchesCommitWorkingTree": true,
+  "sourceHashes": "device/source-sha256.json",
+  "engineChecks": 2647,
+  "deviceChecks": 349,
+  "deviceValidation": "device/verification.json",
+  "processRestartValidation": "relaunch-check.json",
+  "lint": "0 errors, 1 existing intentional landscape warning",
+  "fruitDiametersLogical": [
+    112,
+    84,
+    70,
+    56
+  ],
+  "fruitBasePoints": [
+    5,
+    8,
+    12,
+    20
+  ],
+  "minimumDiameterFraction": 0.5,
+  "userRequestedChanges": [
+    "最小水果直径改为最大的 1/2"
+  ],
+  "history": "Original user payload exactly restored after acceptance; original top ten and best1643 preserved on process restart.",
+  "publication": "Local branch only; not pushed"
+}

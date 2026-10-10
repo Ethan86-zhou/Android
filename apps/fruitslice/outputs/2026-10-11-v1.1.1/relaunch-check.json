@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "versionName": "1.1.1",
+  "versionCode": 4,
+  "naturalFirstWaveRadii": [
+    28,
+    56
+  ],
+  "minimumDiameterFraction": 0.5,
+  "naturalFirstWavePoints": [
+    5,
+    20
+  ],
+  "originalPayloadExactlyRestoredAfterTests": true,
+  "persistedRecordScores": [
+    1643,
+    885,
+    547,
+    506,
+    466,
+    228,
+    167,
+    163,
+    142,
+    135
+  ],
+  "best": 1643,
+  "historyTopTenPreserved": true,
+  "installedApkSha256": "fbb90ec1905874e42b5ee63edfda5a190da49fbaec88b6e4cc93d93e201c06de",
+  "deliveredApkSha256": "fbb90ec1905874e42b5ee63edfda5a190da49fbaec88b6e4cc93d93e201c06de",
+  "runtimeAppCrash": false,
+  "launch": "Starting: Intent { cmp=com.ethan.fruitslice/.MainActivity }"
+}
