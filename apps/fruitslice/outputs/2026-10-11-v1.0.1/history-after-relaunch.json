@@ -1,0 +1,138 @@
+{
+  "version": 2,
+  "best": 1643,
+  "records": [
+    {
+      "id": "f65a1c93-adce-41f3-87c7-7280e5a2b15f",
+      "timestamp": 1791651797084,
+      "score": 1643,
+      "sliced": 241,
+      "maxCombo": 123,
+      "misses": 2,
+      "bombs": 1,
+      "switches": 6,
+      "duration": 57.00186538696289,
+      "reason": "time"
+    },
+    {
+      "id": "d29f9a4f-96ec-4d6c-9f6e-cfa34fb31693",
+      "timestamp": 1791651129752,
+      "score": 885,
+      "sliced": 143,
+      "maxCombo": 20,
+      "misses": 3,
+      "bombs": 2,
+      "switches": 4,
+      "duration": 36.22416305541992,
+      "reason": "misses"
+    },
+    {
+      "id": "4d5141ef-6e3d-47b4-a27d-2e6c92a74236",
+      "timestamp": 1791650542718,
+      "score": 547,
+      "sliced": 81,
+      "maxCombo": 13,
+      "misses": 3,
+      "bombs": 0,
+      "switches": 2,
+      "duration": 24.233646392822266,
+      "reason": "misses"
+    },
+    {
+      "id": "310114da-8d87-44a1-a488-c905d545f31f",
+      "timestamp": 1791650725954,
+      "score": 466,
+      "sliced": 61,
+      "maxCombo": 15,
+      "misses": 3,
+      "bombs": 0,
+      "switches": 2,
+      "duration": 17.642337799072266,
+      "reason": "misses"
+    },
+    {
+      "id": "b1737db4-d2f7-4eb1-905d-b54243b1745e",
+      "timestamp": 1791650495535,
+      "score": 163,
+      "sliced": 27,
+      "maxCombo": 4,
+      "misses": 3,
+      "bombs": 0,
+      "switches": 1,
+      "duration": 13.207856178283691,
+      "reason": "misses"
+    },
+    {
+      "id": "590227ef-8313-4bfa-8946-4261dc181b51",
+      "timestamp": 1791651104251,
+      "score": 142,
+      "sliced": 28,
+      "maxCombo": 3,
+      "misses": 3,
+      "bombs": 1,
+      "switches": 3,
+      "duration": 24.151330947875977,
+      "reason": "misses"
+    },
+    {
+      "id": "8dfa051e-2306-4e6a-9a8b-18d46795fb62",
+      "timestamp": 1791651075759,
+      "score": 135,
+      "sliced": 15,
+      "maxCombo": 3,
+      "misses": 3,
+      "bombs": 1,
+      "switches": 1,
+      "duration": 11.634040832519531,
+      "reason": "misses"
+    },
+    {
+      "id": "a118386b-b294-4163-a80b-1a97aac98798",
+      "timestamp": 1791651088260,
+      "score": 130,
+      "sliced": 20,
+      "maxCombo": 3,
+      "misses": 3,
+      "bombs": 0,
+      "switches": 1,
+      "duration": 14.959814071655273,
+      "reason": "misses"
+    },
+    {
+      "id": "d680594c-bafb-4dc1-a232-d9edb830ca0d",
+      "timestamp": 1791650744796,
+      "score": 123,
+      "sliced": 23,
+      "maxCombo": 3,
+      "misses": 3,
+      "bombs": 1,
+      "switches": 1,
+      "duration": 19.5087833404541,
+      "reason": "misses"
+    },
+    {
+      "id": "8811785f-4a4d-4746-824b-851bdc1058a5",
+      "timestamp": 1791650570136,
+      "score": 121,
+      "sliced": 22,
+      "maxCombo": 3,
+      "misses": 3,
+      "bombs": 1,
+      "switches": 2,
+      "duration": 17.585533142089844,
+      "reason": "misses"
+    }
+  ],
+  "checkpoint": {
+    "id": "1f0cefe5-eabe-48e1-8600-e4609a6c0631",
+    "timestamp": 1791652417066,
+    "score": 0,
+    "sliced": 0,
+    "maxCombo": 0,
+    "misses": 0,
+    "bombs": 0,
+    "switches": 0,
+    "duration": 0.4185454547405243,
+    "reason": "playing"
+  }
+}

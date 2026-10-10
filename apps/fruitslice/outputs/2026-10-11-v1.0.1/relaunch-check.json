@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "previousCount": 30,
+  "retainedCount": 10,
+  "scores": [
+    1643,
+    885,
+    547,
+    466,
+    163,
+    142,
+    135,
+    130,
+    123,
+    121
+  ],
+  "best": 1643,
+  "rankedIdsMatchOriginalTopTen": true,
+  "processRestartVerified": true,
+  "version": "1.0.1",
+  "versionCode": 2,
+  "installedApkSha256": "55c31caf9e85d4048d96dd1c73948cd5af89cf13479459dcb3993069c3582b55",
+  "deliveredApkSha256": "55c31caf9e85d4048d96dd1c73948cd5af89cf13479459dcb3993069c3582b55",
+  "state": "HISTORY",
+  "method": "Same-signature upgrade; compare original result IDs and scores, force-stop/relaunch the actual app, compare persisted records and installed APK bytes. No uninstall or data clearing."
+}

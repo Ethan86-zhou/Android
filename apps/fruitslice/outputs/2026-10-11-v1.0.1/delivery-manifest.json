@@ -1,0 +1,23 @@
+{
+  "deliveryDate": "2026-10-11",
+  "app": "果刃 FruitSlice",
+  "version": "1.0.1",
+  "package": "com.ethan.fruitslice",
+  "minimumAndroid": "16 / API 36",
+  "sourceCommit": "934a0ce3e44e553ccd1cb089e8349129c64c9f8a",
+  "apk": "FruitSlice-1.0.1-debug.apk",
+  "apkSha256": "55c31caf9e85d4048d96dd1c73948cd5af89cf13479459dcb3993069c3582b55",
+  "installedApkSha256": "55c31caf9e85d4048d96dd1c73948cd5af89cf13479459dcb3993069c3582b55",
+  "capturedSourceMatchesCommitWorkingTree": true,
+  "sourceHashes": "device/source-sha256.json",
+  "deviceChecks": 329,
+  "deviceValidation": "device/verification.json",
+  "processRestartValidation": "relaunch-check.json",
+  "lint": "0 errors, 1 existing intentional landscape warning",
+  "userRequestedChanges": [
+    "只保留最高分10局；分数倒序，同分较新优先",
+    "原有30局筛选为10局，最高分1643保留"
+  ],
+  "validationScope": "Focused history acceptance; full unchanged gameplay tests were not repeated",
+  "publication": "Local branch only; not pushed"
+}
