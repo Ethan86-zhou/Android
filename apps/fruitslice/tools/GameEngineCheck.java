@@ -18,6 +18,10 @@ public final class GameEngineCheck {
         playableLaunches();
         sizeScoringAndGeometry();
         naturalSizeVariety();
+        bladeTimingBoundaries();
+        bladePathAndPointers();
+        bladeInvalidSamples();
+        bladeScoringAcrossModes();
         System.out.println("GameEngineCheck: " + checks + " checks passed");
     }
 
@@ -420,6 +424,213 @@ public final class GameEngineCheck {
             equal(radiiSeen.size(), 4, "Natural opening covers every size tier");
             check(rainbowSeen, "Size variety preserves the early rainbow switch opportunity");
         }
+    }
+
+    private static void bladeTimingBoundaries() {
+        BladeLimiter limiter = new BladeLimiter();
+        check(BladeLimiter.MAX_DURATION_MS == 500L, "Blade duration is five hundred milliseconds");
+        near(BladeLimiter.MAX_PATH_WIDTHS, 1.2f, 0f, "Blade path is one point two screen widths");
+        check(limiter.move(7, 0, 0, 100, 0, 0, 1000) == null,
+                "Movement requires a pressed pointer");
+        limiter.press(7);
+        check(limiter.move(7, 0, 0, 1.99f, 0, 10000, 1000) == null,
+                "Movement below two units does not start a blade");
+        check(!limiter.isStarted() && !limiter.isExhausted(), "Waiting finger has no running deadline");
+        check(!limiter.expire(Long.MAX_VALUE), "Long press without a real swipe never expires");
+        near(limiter.pathUsed(), 0, 0, "Pre-swipe jitter does not spend the path budget");
+        check(limiter.move(7, 0, 0, 2, 0, 20000, 1000) != null,
+                "First movement of exactly two units starts the blade after a long press");
+        check(limiter.isStarted(), "Real movement starts the deadline");
+        check(limiter.move(7, 2, 0, 2.25f, 0, 20001, 1000) != null,
+                "Sub-two-unit movement after starting still spends path");
+        near(limiter.pathUsed(), 2.25f, 0, "Every moving sample after the start contributes its distance");
+        check(!limiter.expire(20499), "Blade remains usable one millisecond before deadline");
+        check(limiter.move(7, 2.25f, 0, 3.25f, 0, 20002, 1000) != null,
+                "Frame expiration checks do not discard older valid historical touch samples");
+        check(limiter.move(7, 3.25f, 0, 100, 0, 20500, 1000) == null,
+                "Movement at exactly five hundred milliseconds is rejected");
+        check(limiter.isExhausted() && limiter.isStarted(), "Timed-out blade stays locked until release");
+        near(limiter.pathUsed(), 3.25f, 0, "Rejected timed-out segment consumes no extra path");
+        check(!limiter.expire(20501), "Already exhausted blade does not announce expiration twice");
+
+        limiter.cancel();
+        limiter.press(1);
+        check(limiter.move(1, 0, 0, 10, 0, 0, 1000) != null, "Uptime zero is a valid blade start");
+        check(limiter.move(1, 10, 0, 20, 0, 499, 1000) != null,
+                "Movement at four hundred ninety-nine milliseconds is still valid");
+        check(limiter.expire(500), "Frame timer expires at the exact deadline without another move");
+        check(!limiter.expire(500) && !limiter.expire(700), "Expiration transition is reported only once");
+        limiter.cancel();
+        limiter.press(2);
+        check(limiter.move(2, 0, 0, 10, 0, Long.MAX_VALUE - 500, 1000) != null,
+                "Very large nonnegative touch timestamps are supported");
+        check(!limiter.expire(Long.MAX_VALUE - 1), "Large timestamp deadline comparison does not overflow");
+        check(limiter.expire(Long.MAX_VALUE), "Large timestamp expires at the correct boundary");
+        limiter.cancel();
+        limiter.press(1);
+        check(limiter.move(1, 0, 0, 10, 0, 100, 1000) != null, "First finger starts the shared duration");
+        limiter.press(2);
+        limiter.release(1);
+        check(limiter.move(2, 0, 0, 10, 0, 599, 1000) != null,
+                "Relay finger can use the original blade just before its deadline");
+        check(limiter.move(2, 10, 0, 20, 0, 600, 1000) == null,
+                "Relay finger cannot postpone the original blade deadline");
+        check(limiter.isExhausted(), "Time allowance is shared even when the original finger has lifted");
+    }
+
+    private static void bladePathAndPointers() {
+        BladeLimiter limiter = new BladeLimiter();
+        limiter.press(1);
+        limiter.press(1);
+        BladeLimiter.Cut exact = limiter.move(1, 0, 0, 1200, 0, 10, 1000);
+        check(exact != null && limiter.isExhausted(), "Exact path boundary returns the final cut and locks");
+        near(exact.x, 1200, 0, "Exact boundary preserves the requested endpoint");
+        near(limiter.pathUsed(), 1200, 0, "Exact path boundary uses the complete budget");
+        check(!limiter.expire(1000), "Path exhaustion is not a second time expiration");
+        limiter.release(1);
+        check(!limiter.isStarted() && !limiter.isExhausted(), "Duplicate press does not require duplicate releases");
+
+        limiter.press(1);
+        BladeLimiter.Cut diagonal = limiter.move(1, 0, 0, 1500, 2000, 20, 1000);
+        check(diagonal != null && limiter.isExhausted(), "Overlong diagonal is clipped and exhausts the blade");
+        near(diagonal.x, 720, .0001f, "Diagonal clipping preserves direction in x");
+        near(diagonal.y, 960, .0001f, "Diagonal clipping preserves direction in y");
+        near(limiter.pathUsed(), 1200, 0, "Diagonal clipping cannot overspend the budget");
+        limiter.cancel();
+        limiter.press(1);
+        check(limiter.move(1, 0, 0, 900, 0, 100, 1000) != null, "First finger spends part of the shared path");
+        limiter.press(2);
+        limiter.release(1);
+        limiter.press(3);
+        BladeLimiter.Cut shared = limiter.move(2, 0, 0, 0, 600, 101, 1000);
+        check(shared != null && limiter.isExhausted(), "Second finger inherits the first finger's remaining budget");
+        near(shared.x, 0, 0, "Shared budget vertical clipping preserves x");
+        near(shared.y, 300, 0, "Shared budget clips exactly to the remaining three hundred units");
+        near(limiter.pathUsed(), 1200, 0, "All fingers spend one shared path allowance");
+        limiter.release(2);
+        limiter.press(4);
+        limiter.release(3);
+        limiter.release(999);
+        check(limiter.isExhausted(), "Finger relay, new pointer and unknown release cannot recharge a blade");
+        check(limiter.move(4, 0, 0, 100, 0, 102, 1000) == null, "Relay finger cannot slice while another remains down");
+        limiter.release(4);
+        near(limiter.pathUsed(), 0, 0, "Last finger release resets path allowance");
+        check(!limiter.isStarted() && !limiter.isExhausted(), "Last finger release resets both blade flags");
+        check(limiter.move(4, 0, 0, 100, 0, 103, 1000) == null, "Released pointer cannot move without a new press");
+        limiter.press(5);
+        check(limiter.move(5, 10, 20, 610, 20, 200, 1000) != null, "New complete touch gets a fresh blade");
+        BladeLimiter.Cut resized = limiter.move(5, 610, 20, 2000, 20, 201, 2000);
+        check(resized != null && limiter.isExhausted(), "Changing width mid-blade cannot refill its path");
+        near(resized.x, 1210, 0, "Mid-blade width change retains the starting width allowance");
+
+        limiter.cancel();
+        limiter.press(6);
+        check(limiter.move(6, 0, 0, 100, 0, 1000, 500) != null, "Smaller field permits normal movement");
+        BladeLimiter.Cut smaller = limiter.move(6, 100, 0, 1000, 0, 1001, 500);
+        check(smaller != null && limiter.isExhausted(), "Path allowance scales with logical field width");
+        near(smaller.x, 600, 0, "Half-width field gets a six hundred unit allowance");
+    }
+
+    private static void bladeInvalidSamples() {
+        BladeLimiter limiter = new BladeLimiter();
+        limiter.press(-1);
+        check(limiter.move(-1, 0, 0, 10, 0, 0, 1000) == null, "Invalid pointer ID cannot begin a blade");
+        limiter.press(1);
+        for (float value : new float[] {Float.NaN, Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY}) {
+            check(limiter.move(1, value, 0, 10, 0, 0, 1000) == null, "Nonfinite start x is rejected");
+            check(limiter.move(1, 0, value, 10, 0, 0, 1000) == null, "Nonfinite start y is rejected");
+            check(limiter.move(1, 0, 0, value, 0, 0, 1000) == null, "Nonfinite end x is rejected");
+            check(limiter.move(1, 0, 0, 10, value, 0, 1000) == null, "Nonfinite end y is rejected");
+            check(limiter.move(1, 0, 0, 10, 0, 0, value) == null, "Nonfinite field width is rejected");
+        }
+        for (float value : new float[] {0, -1, Float.MAX_VALUE}) {
+            check(limiter.move(1, 0, 0, 10, 0, 0, value) == null, "Invalid or overflowing path limit is rejected");
+        }
+        check(limiter.move(1, 0, 0, 10, 0, -1, 1000) == null, "Negative touch timestamp is rejected");
+        check(!limiter.isStarted() && !limiter.isExhausted(), "Invalid samples do not poison a waiting blade");
+        near(limiter.pathUsed(), 0, 0, "Invalid samples do not spend path");
+        check(limiter.move(1, 0, 0, 100, 0, 100, 1000) != null, "Valid sample works after rejected samples");
+        check(limiter.move(1, 100, 0, 200, 0, 99, 1000) == null, "Out-of-order touch timestamp is rejected");
+        check(!limiter.expire(-1) && !limiter.expire(99), "Clock values before start cannot exhaust a blade");
+        near(limiter.pathUsed(), 100, 0, "Out-of-order timestamp cannot modify the allowance");
+        check(limiter.move(1, 100, 0, 100, 0, 101, 1000) == null, "Stationary sample returns no cut");
+        near(limiter.pathUsed(), 100, 0, "Stationary sample consumes no path");
+        limiter.cancel();
+        check(!limiter.isStarted() && !limiter.isExhausted(), "Cancel resets blade state");
+        check(limiter.move(1, 0, 0, 10, 0, 102, 1000) == null, "Cancel removes all active pointers");
+        limiter.press(2);
+        BladeLimiter.Cut extreme = limiter.move(2, Float.MAX_VALUE, Float.MAX_VALUE,
+                -Float.MAX_VALUE, -Float.MAX_VALUE, 200, 1000);
+        check(extreme != null && Float.isFinite(extreme.x) && Float.isFinite(extreme.y),
+                "Extreme finite endpoints clip without NaN or infinity");
+        check(limiter.isExhausted() && Float.isFinite(limiter.pathUsed()),
+                "Extreme finite coordinates cannot corrupt the shared budget");
+        limiter.cancel();
+        limiter.cancel();
+        limiter.press(3);
+        check(limiter.move(3, 0, 0, 10, 0, 0, 1000) != null, "Repeated cancellation still permits a fresh gesture");
+    }
+
+    private static void bladeScoringAcrossModes() {
+        for (GameEngine.Mode mode : GameEngine.Mode.values()) {
+            GameEngine engine = new GameEngine(901);
+            engine.mode = mode;
+            engine.modeRemaining = 10;
+            int multiplier = mode == GameEngine.Mode.DOUBLE ? 2 : 1;
+            engine.spawnFruit(0, 200, 200, 0, 0, 28);
+            engine.spawnFruit(1, 500, 200, 0, 0, 35);
+            engine.spawnFruit(2, 800, 200, 0, 0, 56);
+            BladeLimiter limiter = new BladeLimiter();
+            limiter.press(11);
+            limitedSlice(engine, limiter, 11, 0, 200, 1000, 200, 10);
+            equal(engine.sliced, 3, "Every mode preserves genuine multi-fruit slicing within one blade");
+            equal(engine.score, 37 * multiplier, "Valid blade retains size-based and double-mode scoring");
+            limitedSlice(engine, limiter, 11, 1000, 200, 0, 200, 510);
+            equal(engine.score, 43 * multiplier, "Deadline settles the existing combo exactly once");
+            equal(engine.maxCombo, 3, "Finite blade retains the normal combo count");
+            near(engine.elapsed, 0, 0, "Blade deadline uses touch time independently of engine frame time");
+            engine.spawnFruit(3, 500, 200, 0, 0, 28);
+            limitedSlice(engine, limiter, 11, 0, 200, 1000, 200, 511);
+            equal(engine.sliced, 3, "Later fruit cannot be cut by an exhausted held finger in any mode");
+            equal(engine.score, 43 * multiplier, "Held movement earns no further base points or combo bonus");
+            limiter.press(12);
+            limiter.release(11);
+            limitedSlice(engine, limiter, 12, 1000, 200, 0, 200, 512);
+            equal(engine.score, 43 * multiplier, "Finger relay cannot restore scoring after deadline");
+            limiter.release(12);
+            limiter.press(13);
+            limitedSlice(engine, limiter, 13, 0, 200, 1000, 200, 513);
+            limiter.release(13);
+            engine.endStroke();
+            equal(engine.score, 63 * multiplier, "Fully lifting and swiping again legitimately cuts the later fruit");
+            equal(engine.maxCombo, 3, "New gesture does not merge into the previous combo");
+
+            engine.restart();
+            engine.mode = mode;
+            engine.modeRemaining = 10;
+            engine.spawnFruit(0, 1100, 200, 0, 0, 28);
+            engine.spawnFruit(1, 1300, 200, 0, 0, 28);
+            limiter.press(21);
+            limitedSlice(engine, limiter, 21, 0, 200, 3000, 200, 1000);
+            equal(engine.sliced, 1, "Clipped final segment cuts before its endpoint and misses fruit beyond it");
+            equal(engine.score, 20 * multiplier, "Clipped blade never awards points outside the permitted path");
+            limitedSlice(engine, limiter, 21, 1200, 200, 2000, 200, 1001);
+            equal(engine.score, 20 * multiplier, "Path-exhausted finger cannot resume slicing even before deadline");
+            limiter.release(21);
+            limiter.press(22);
+            limitedSlice(engine, limiter, 22, 1200, 200, 1450, 200, 1002);
+            limiter.release(22);
+            engine.endStroke();
+            equal(engine.score, 40 * multiplier, "A fresh gesture reaches fruit beyond the old blade boundary");
+        }
+    }
+
+    /** Mirrors the view's single permitted entry point without Android dependencies. */
+    private static void limitedSlice(GameEngine engine, BladeLimiter limiter, int pointerId,
+            float fromX, float fromY, float toX, float toY, long eventTime) {
+        BladeLimiter.Cut cut = limiter.move(pointerId, fromX, fromY, toX, toY, eventTime, 1000);
+        if (cut != null) engine.slice(fromX, fromY, cut.x, cut.y);
+        if (limiter.isExhausted()) engine.endStroke();
     }
 
     private static int count(List<GameEngine.Event> events, GameEngine.Kind kind) {

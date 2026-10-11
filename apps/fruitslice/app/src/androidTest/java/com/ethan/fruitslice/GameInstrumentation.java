@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.InputDevice;
 import android.view.MotionEvent;
+import android.view.ViewTreeObserver;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 /** Device acceptance with actual MotionEvents; controlled scenes exist only in this test APK. */
@@ -31,8 +34,11 @@ public final class GameInstrumentation extends Instrumentation {
     private SharedPreferences production;
     private String originalPayload;
     private boolean historyOnly;
+    private float bladeTouchScale, bladeTouchLeft;
+    private java.lang.reflect.Field bladeStartedAt, bladeLastEventTime;
     private final JSONArray results = new JSONArray();
     private final JSONArray screenshots = new JSONArray();
+    private final JSONArray bladeDiagnostics = new JSONArray();
 
     @Override public void onCreate(Bundle arguments) {
         super.onCreate(arguments);
@@ -73,6 +79,7 @@ public final class GameInstrumentation extends Instrumentation {
             screenshot("01-opening.png");
             naturalSwipe();
             sizeAndScoreChecks();
+            antiScribbleChecks();
             fixture(() -> {
                 view.engine.restart(); view.engine.fruits.clear();
                 view.engine.spawnFruit(0, 430, 250, 0, 0, 28);
@@ -122,9 +129,15 @@ public final class GameInstrumentation extends Instrumentation {
             tap(500, cardTop + 256);
             expect(read(() -> view.overlay == GameView.Overlay.NONE), "Continue resumes existing round");
 
+            long notificationDown = SystemClock.uptimeMillis();
+            bladeTouch(notificationDown, MotionEvent.ACTION_DOWN, new int[]{0}, new float[]{100}, new float[]{250});
+            bladeTouch(notificationDown, MotionEvent.ACTION_MOVE, new int[]{0}, new float[]{110}, new float[]{250});
+            expect(read(() -> view.bladeLimiter.isStarted()), "Notification test begins with a real active blade");
             shell("cmd statusbar expand-notifications");
             for (int i = 0; i < 30 && !read(() -> view.overlay == GameView.Overlay.PAUSE); i++) SystemClock.sleep(50);
             expect(read(() -> view.overlay == GameView.Overlay.PAUSE), "Notification shade pauses covered gameplay");
+            expect(read(() -> !view.bladeLimiter.isStarted() && !view.bladeLimiter.isExhausted()),
+                    "Notification pause cancels held-finger blade state before another DOWN");
             shell("cmd statusbar collapse");
             SystemClock.sleep(600);
             pausedTime = read(() -> view.engine.remaining);
@@ -160,11 +173,13 @@ public final class GameInstrumentation extends Instrumentation {
                     .put("results", results).put("screenshots", screenshots).put("artwork", artwork)
                     .put("method", "Real touchscreen MotionEvents plus explicit test-only scene fixtures; storage uses isolated preferences. The result score is a test fixture.");
             write("device-checks.json", report.toString(2));
+            write("blade-diagnostics.json", bladeDiagnosticText());
             result.putString("stream", "PASS: " + checks + " device checks\n");
             restoreHistory();
             result.putInt("checks", checks);
             finish(Activity.RESULT_OK, result);
         } catch (Throwable failure) {
+            try { write("blade-diagnostics.json", bladeDiagnosticText()); } catch (Exception ignored) { }
             try { write("device-failure.txt", android.util.Log.getStackTraceString(failure)); } catch (Exception ignored) { }
             try { restoreHistory(); } catch (Exception ignored) { }
             result.putString("stream", "FAIL: " + android.util.Log.getStackTraceString(failure));
@@ -204,6 +219,283 @@ public final class GameInstrumentation extends Instrumentation {
         swipe(365, 250, 655, 250, 60);
         expect(read(() -> view.engine.score == 50 && view.engine.sliced == 2),
                 "Double mode doubles different size rewards to 40 and 10");
+    }
+
+    private void antiScribbleChecks() throws Exception {
+        bladeTouchScale = read(this::screenScale);
+        bladeTouchLeft = read(() -> (view.getWidth() - 1000 * bladeTouchScale) * .5f);
+        bladeStartedAt = BladeLimiter.class.getDeclaredField("startedAt");
+        bladeLastEventTime = BladeLimiter.class.getDeclaredField("lastEventTime");
+        bladeStartedAt.setAccessible(true); bladeLastEventTime.setAccessible(true);
+        runOnMainSync(() -> view.setOnTouchListener((target, event) -> {
+            recordBladeReceived(event);
+            return false; // Observe the real delivered samples without consuming gameplay input.
+        }));
+        try { antiScribbleScenes(); }
+        finally { runOnMainSync(() -> view.setOnTouchListener(null)); }
+    }
+
+    private void antiScribbleScenes() throws Exception {
+        quietBladeScene(GameEngine.Mode.CLASSIC);
+        long down = SystemClock.uptimeMillis();
+        bladeTouch(down, MotionEvent.ACTION_DOWN, new int[]{0}, new float[]{100}, new float[]{250});
+        SystemClock.sleep(650);
+        expect(read(() -> !view.bladeLimiter.isStarted() && !view.bladeLimiter.isExhausted()),
+                "Holding still longer than 500 ms does not consume or start the blade");
+        fixture(() -> view.engine.spawnFruit(0, 500, 250, 0, 0, 28));
+        bladeTouch(down, MotionEvent.ACTION_MOVE, new int[]{0}, new float[]{600}, new float[]{250});
+        bladeTouch(down, MotionEvent.ACTION_UP, new int[]{0}, new float[]{600}, new float[]{250});
+        expect(read(() -> view.engine.sliced == 1 && view.engine.score == 20),
+                "A normal short cut still works after waiting with a finger held down");
+
+        for (GameEngine.Mode mode : GameEngine.Mode.values()) {
+            quietBladeScene(mode);
+            down = SystemClock.uptimeMillis();
+            bladeTouch(down, MotionEvent.ACTION_DOWN, new int[]{0}, new float[]{100}, new float[]{250});
+            bladeTouch(down, MotionEvent.ACTION_MOVE, new int[]{0}, new float[]{110}, new float[]{250});
+            SystemClock.sleep(560);
+            expect(read(() -> view.bladeLimiter.isExhausted()),
+                    "500 ms closes a held blade in " + mode.name());
+            fixture(() -> {
+                view.engine.fruits.clear(); view.engine.score = 100;
+                view.engine.spawnFruit(0, 300, 250, 0, 0, 28);
+                view.engine.spawnFruit(6, 500, 250, 0, 0, 31);
+                if (mode != GameEngine.Mode.FRENZY && mode != GameEngine.Mode.ZEN) {
+                    view.engine.spawnFruit(7, 700, 250, 0, 0, 28);
+                }
+            });
+            bladeTouch(down, MotionEvent.ACTION_MOVE, new int[]{0}, new float[]{900}, new float[]{250});
+            expect(read(() -> view.engine.score == 100 && view.engine.sliced == 0
+                            && view.engine.switches == 0 && view.engine.bombsHit == 0 && view.engine.mode == mode),
+                    "An exhausted blade cannot cut new fruit, switch modes, or hit bombs in " + mode.name());
+            if (mode == GameEngine.Mode.CLASSIC) screenshot("09-blade-limit.png");
+            bladeTouch(down, MotionEvent.ACTION_UP, new int[]{0}, new float[]{900}, new float[]{250});
+            expect(read(() -> !view.bladeLimiter.isStarted() && !view.bladeLimiter.isExhausted()),
+                    "Lifting every finger restores the next blade in " + mode.name());
+        }
+
+        quietBladeScene(GameEngine.Mode.CLASSIC);
+        down = SystemClock.uptimeMillis();
+        bladeTouch(down, MotionEvent.ACTION_DOWN, new int[]{0}, new float[]{100}, new float[]{250});
+        bladeTouch(down, MotionEvent.ACTION_MOVE, new int[]{0}, new float[]{900}, new float[]{250});
+        bladeTouch(down, MotionEvent.ACTION_MOVE, new int[]{0}, new float[]{700}, new float[]{250});
+        JSONObject pathActual = bladeState("path-before-clipped-segment");
+        expect(!pathActual.getBoolean("exhausted") && Math.abs(pathActual.getDouble("pathUsed") - 1000) < .5f,
+                "A fast blade can use 1000 logical units before reaching its 1200-unit limit. Actual="
+                        + pathActual + "; recent injection times=" + recentBladeEvents());
+        fixture(() -> {
+            view.engine.spawnFruit(0, 550, 250, 0, 0, 28);
+            view.engine.spawnFruit(1, 450, 250, 0, 0, 28);
+        });
+        bladeTouch(down, MotionEvent.ACTION_MOVE, new int[]{0}, new float[]{100}, new float[]{250});
+        JSONObject clippedActual = bladeState("path-after-clipped-segment");
+        expect(clippedActual.getBoolean("exhausted") && Math.abs(clippedActual.getDouble("pathUsed") - 1200) < .5f,
+                "Fast scribbling exhausts the shared path allowance before the time deadline. Actual="
+                        + clippedActual + "; recent injection times=" + recentBladeEvents());
+        expect(read(() -> view.engine.sliced == 1 && view.engine.score == 20
+                        && view.engine.fruits.stream().anyMatch(f -> f.type == 1 && f.active)),
+                "The final over-budget segment cuts its allowed target and clips before the farther fruit");
+        bladeTouch(down, MotionEvent.ACTION_MOVE, new int[]{0}, new float[]{800}, new float[]{250});
+        expect(read(() -> view.engine.sliced == 1 && view.engine.score == 20),
+                "Continuing the same finger after path exhaustion cannot cut the excluded fruit");
+        bladeTouch(down, MotionEvent.ACTION_UP, new int[]{0}, new float[]{800}, new float[]{250});
+        fixture(() -> { view.engine.fruits.clear(); view.engine.spawnFruit(2, 500, 250, 0, 0, 28); });
+        swipe(450, 250, 550, 250, 45);
+        expect(read(() -> view.engine.sliced == 2 && view.engine.score == 40),
+                "A new DOWN after complete lift cuts normally after path exhaustion");
+
+        quietBladeScene(GameEngine.Mode.ZEN);
+        down = SystemClock.uptimeMillis();
+        bladeTouch(down, MotionEvent.ACTION_DOWN, new int[]{0}, new float[]{100}, new float[]{250});
+        bladeTouch(down, MotionEvent.ACTION_MOVE, new int[]{0}, new float[]{500}, new float[]{250});
+        bladeTouch(down, MotionEvent.ACTION_POINTER_DOWN | (1 << MotionEvent.ACTION_POINTER_INDEX_SHIFT),
+                new int[]{0, 1}, new float[]{500, 100}, new float[]{250, 250});
+        bladeTouch(down, MotionEvent.ACTION_MOVE, new int[]{0, 1}, new float[]{500, 500}, new float[]{250, 250});
+        JSONObject sharedActual = bladeState("two-pointer-path");
+        expect(Math.abs(sharedActual.getDouble("pathUsed") - 800) < .5f,
+                "Two real touchscreen pointers share one cumulative path budget. Actual="
+                        + sharedActual + "; recent injection times=" + recentBladeEvents());
+        bladeTouch(down, MotionEvent.ACTION_POINTER_UP, new int[]{0, 1}, new float[]{500, 500}, new float[]{250, 250});
+        bladeTouch(down, MotionEvent.ACTION_POINTER_DOWN | (1 << MotionEvent.ACTION_POINTER_INDEX_SHIFT),
+                new int[]{1, 2}, new float[]{500, 100}, new float[]{250, 250});
+        bladeTouch(down, MotionEvent.ACTION_MOVE, new int[]{1, 2}, new float[]{500, 500}, new float[]{250, 250});
+        JSONObject rotatedActual = bladeState("rotated-pointer-path");
+        expect(rotatedActual.getBoolean("exhausted") && Math.abs(rotatedActual.getDouble("pathUsed") - 1200) < .5f,
+                "Replacing one finger while another stays down cannot refresh the path allowance. Actual="
+                        + rotatedActual + "; recent injection times=" + recentBladeEvents());
+        bladeTouch(down, MotionEvent.ACTION_POINTER_UP, new int[]{1, 2}, new float[]{500, 500}, new float[]{250, 250});
+        bladeTouch(down, MotionEvent.ACTION_POINTER_DOWN | (1 << MotionEvent.ACTION_POINTER_INDEX_SHIFT),
+                new int[]{2, 3}, new float[]{500, 100}, new float[]{250, 250});
+        fixture(() -> view.engine.spawnFruit(3, 700, 250, 0, 0, 28));
+        bladeTouch(down, MotionEvent.ACTION_MOVE, new int[]{2, 3}, new float[]{500, 800}, new float[]{250, 250});
+        expect(read(() -> view.bladeLimiter.isExhausted() && view.engine.sliced == 0),
+                "Adding and rotating fingers after exhaustion cannot resume cutting");
+        bladeTouch(down, MotionEvent.ACTION_POINTER_UP, new int[]{2, 3}, new float[]{500, 800}, new float[]{250, 250});
+        bladeTouch(down, MotionEvent.ACTION_UP, new int[]{3}, new float[]{800}, new float[]{250});
+        expect(read(() -> !view.bladeLimiter.isStarted() && view.bladeLimiter.pathUsed() == 0),
+                "Only the final pointer leaving clears the shared exhausted gesture");
+
+        quietBladeScene(GameEngine.Mode.CLASSIC);
+        down = SystemClock.uptimeMillis();
+        bladeTouch(down, MotionEvent.ACTION_DOWN, new int[]{0}, new float[]{100}, new float[]{250});
+        SystemClock.sleep(620);
+        fixture(() -> view.engine.spawnFruit(0, 650, 250, 0, 0, 28));
+        long current = SystemClock.uptimeMillis();
+        MotionEvent batch = bladeEvent(down, current - 550, MotionEvent.ACTION_MOVE,
+                new int[]{0}, new float[]{110}, new float[]{250});
+        batch.addBatch(current - 530, bladeCoordinates(new float[]{120}, new float[]{250}), 0);
+        batch.addBatch(current, bladeCoordinates(new float[]{900}, new float[]{250}), 0);
+        sendPointerSync(batch); batch.recycle();
+        expect(read(() -> view.bladeLimiter.isExhausted() && view.engine.sliced == 0
+                        && view.bladeLimiter.pathUsed() < 25),
+                "Historical MotionEvent sample times prevent a delayed batched MOVE from extending blade life");
+        bladeTouch(down, MotionEvent.ACTION_UP, new int[]{0}, new float[]{900}, new float[]{250});
+
+        quietBladeScene(GameEngine.Mode.CLASSIC);
+        down = SystemClock.uptimeMillis();
+        bladeTouch(down, MotionEvent.ACTION_DOWN, new int[]{0}, new float[]{100}, new float[]{250});
+        bladeTouch(down, MotionEvent.ACTION_MOVE, new int[]{0}, new float[]{110}, new float[]{250});
+        bladeTouch(down, MotionEvent.ACTION_CANCEL, new int[]{0}, new float[]{110}, new float[]{250});
+        expect(read(() -> !view.bladeLimiter.isStarted() && !view.bladeLimiter.isExhausted()
+                        && view.bladeLimiter.pathUsed() == 0),
+                "A real ACTION_CANCEL discards every pointer and its blade budget");
+        fixture(() -> view.engine.spawnFruit(0, 500, 250, 0, 0, 28));
+        swipe(450, 250, 550, 250, 45);
+        expect(read(() -> view.engine.sliced == 1 && view.engine.score == 20),
+                "A fresh DOWN works normally after cancellation");
+
+        quietBladeScene(GameEngine.Mode.CLASSIC);
+        down = SystemClock.uptimeMillis();
+        bladeTouch(down, MotionEvent.ACTION_DOWN, new int[]{0}, new float[]{100}, new float[]{250});
+        bladeTouch(down, MotionEvent.ACTION_MOVE, new int[]{0}, new float[]{110}, new float[]{250});
+        fixture(() -> { view.engine.spawnFruit(0, 500, 250, 0, 0, 56); view.background(); view.foreground(); });
+        expect(read(() -> view.overlay == GameView.Overlay.PAUSE && !view.bladeLimiter.isStarted()),
+                "Background and foreground cancel an active blade and retain the pause card");
+        float cardTop = read(() -> Math.max(12, (view.getHeight() / screenScale() - 360) / 2));
+        bladeTouch(down, MotionEvent.ACTION_MOVE, new int[]{0}, new float[]{500}, new float[]{cardTop + 256});
+        bladeTouch(down, MotionEvent.ACTION_UP, new int[]{0}, new float[]{500}, new float[]{cardTop + 256});
+        expect(read(() -> view.overlay == GameView.Overlay.PAUSE && view.engine.sliced == 0
+                        && !view.bladeLimiter.isStarted()),
+                "A held gameplay drag cannot cut through the pause card or activate its Continue button");
+        screenshot("10-paused-touch-lock.png");
+        tap(500, cardTop + 256);
+        expect(read(() -> view.overlay == GameView.Overlay.NONE && !view.bladeLimiter.isStarted()),
+                "Continue consumes its own fresh touch without starting a gameplay blade");
+        swipe(420, 250, 580, 250, 45);
+        expect(read(() -> view.engine.sliced == 1 && view.engine.score == 5),
+                "Gameplay after background pause requires and accepts a new DOWN");
+        quietBladeScene(GameEngine.Mode.CLASSIC);
+    }
+
+    /** Avoid random launches during timing-sensitive held-finger scenes, only in this test APK. */
+    private void quietBladeScene(GameEngine.Mode mode) throws Exception {
+        java.lang.reflect.Field wave = GameEngine.class.getDeclaredField("nextWave");
+        java.lang.reflect.Field special = GameEngine.class.getDeclaredField("nextSpecial");
+        wave.setAccessible(true); special.setAccessible(true);
+        fixture(() -> {
+            view.engine.restart(); view.engine.mode = mode; view.engine.modeRemaining = 30;
+            try { wave.setFloat(view.engine, 60); special.setFloat(view.engine, 60); }
+            catch (IllegalAccessException failure) { throw new AssertionError(failure); }
+        });
+    }
+
+    private MotionEvent.PointerCoords[] bladeCoordinates(float[] xs, float[] ys) {
+        MotionEvent.PointerCoords[] coordinates = new MotionEvent.PointerCoords[xs.length];
+        for (int i = 0; i < xs.length; i++) {
+            coordinates[i] = new MotionEvent.PointerCoords();
+            coordinates[i].x = bladeTouchLeft + xs[i] * bladeTouchScale;
+            coordinates[i].y = ys[i] * bladeTouchScale;
+            coordinates[i].pressure = 1; coordinates[i].size = .1f;
+        }
+        return coordinates;
+    }
+
+    private MotionEvent bladeEvent(long down, long time, int action, int[] ids, float[] xs, float[] ys) {
+        MotionEvent.PointerProperties[] properties = new MotionEvent.PointerProperties[ids.length];
+        for (int i = 0; i < ids.length; i++) {
+            properties[i] = new MotionEvent.PointerProperties();
+            properties[i].id = ids[i]; properties[i].toolType = MotionEvent.TOOL_TYPE_FINGER;
+        }
+        return MotionEvent.obtain(down, time, action, ids.length, properties, bladeCoordinates(xs, ys),
+                0, 0, 1, 1, 0, 0, InputDevice.SOURCE_TOUCHSCREEN, 0);
+    }
+
+    private void bladeTouch(long down, int action, int[] ids, float[] xs, float[] ys) {
+        long sent = SystemClock.uptimeMillis();
+        MotionEvent event = bladeEvent(down, sent, action, ids, xs, ys);
+        sendPointerSync(event); event.recycle();
+        try {
+            recordBladeDiagnostic(new JSONObject().put("kind", "injected-touch").put("action", action)
+                    .put("downTime", down).put("eventTime", sent).put("returnedAt", SystemClock.uptimeMillis())
+                    .put("ids", new JSONArray(ids)).put("logicalX", new JSONArray(xs)).put("logicalY", new JSONArray(ys)));
+        } catch (org.json.JSONException invalid) { throw new AssertionError(invalid); }
+    }
+
+    private JSONObject bladeState(String phase) throws Exception {
+        double[] values = read(() -> new double[]{view.bladeLimiter.pathUsed(), view.bladeLimiter.isStarted() ? 1 : 0,
+                view.bladeLimiter.isExhausted() ? 1 : 0, view.engine.elapsed, SystemClock.uptimeMillis(),
+                bladePrivateTime(bladeStartedAt), bladePrivateTime(bladeLastEventTime)});
+        JSONObject state = new JSONObject().put("kind", "observed-state").put("phase", phase)
+                .put("pathUsed", values[0]).put("started", values[1] == 1).put("exhausted", values[2] == 1)
+                .put("engineElapsed", values[3]).put("observedAt", (long) values[4])
+                .put("startedAt", (long) values[5]).put("lastEventTime", (long) values[6])
+                .put("wallSinceStarted", values[1] == 1 ? (long) (values[4] - values[5]) : -1);
+        recordBladeDiagnostic(state);
+        return state;
+    }
+
+    /** This listener records delivered coordinates/times, including Android-added history samples. */
+    private void recordBladeReceived(MotionEvent event) {
+        try {
+            JSONArray samples = new JSONArray();
+            for (int sample = 0; sample <= event.getHistorySize(); sample++) {
+                boolean current = sample == event.getHistorySize();
+                JSONArray pointers = new JSONArray();
+                for (int pointer = 0; pointer < event.getPointerCount(); pointer++) {
+                    MotionEvent.PointerCoords coordinates = new MotionEvent.PointerCoords();
+                    if (current) event.getPointerCoords(pointer, coordinates);
+                    else event.getHistoricalPointerCoords(pointer, sample, coordinates);
+                    float x = coordinates.x, y = coordinates.y;
+                    pointers.put(new JSONObject().put("id", event.getPointerId(pointer))
+                            .put("x", (x - bladeTouchLeft) / bladeTouchScale).put("y", y / bladeTouchScale)
+                            .put("pixelX", x).put("pixelY", y)
+                            .put("isResampled", android.os.Build.VERSION.SDK_INT >= 35 && coordinates.isResampled()));
+                }
+                samples.put(new JSONObject().put("time", current ? event.getEventTime() : event.getHistoricalEventTime(sample))
+                        .put("current", current).put("pointers", pointers));
+            }
+            recordBladeDiagnostic(new JSONObject().put("kind", "received-touch").put("action", event.getAction())
+                    .put("downTime", event.getDownTime()).put("eventTime", event.getEventTime())
+                    .put("receivedAt", SystemClock.uptimeMillis()).put("samples", samples)
+                    .put("resampleFlagAvailable", android.os.Build.VERSION.SDK_INT >= 35)
+                    .put("beforePathUsed", view.bladeLimiter.pathUsed()).put("beforeStarted", view.bladeLimiter.isStarted())
+                    .put("beforeExhausted", view.bladeLimiter.isExhausted()).put("beforeEngineElapsed", view.engine.elapsed)
+                    .put("beforeStartedAt", bladePrivateTime(bladeStartedAt))
+                    .put("beforeLastEventTime", bladePrivateTime(bladeLastEventTime)));
+        } catch (org.json.JSONException invalid) { throw new AssertionError(invalid); }
+    }
+
+    private long bladePrivateTime(java.lang.reflect.Field field) {
+        try { return field == null ? -1 : field.getLong(view.bladeLimiter); }
+        catch (IllegalAccessException failure) { throw new AssertionError(failure); }
+    }
+
+    private void recordBladeDiagnostic(JSONObject event) {
+        synchronized (bladeDiagnostics) { bladeDiagnostics.put(event); }
+    }
+
+    private String bladeDiagnosticText() throws org.json.JSONException {
+        synchronized (bladeDiagnostics) { return bladeDiagnostics.toString(2); }
+    }
+
+    private JSONArray recentBladeEvents() {
+        JSONArray recent = new JSONArray();
+        synchronized (bladeDiagnostics) {
+            for (int i = Math.max(0, bladeDiagnostics.length() - 10); i < bladeDiagnostics.length(); i++) {
+                recent.put(bladeDiagnostics.opt(i));
+            }
+        }
+        return recent;
     }
 
     private void topTenAcceptance() throws Exception {
@@ -326,11 +618,48 @@ public final class GameInstrumentation extends Instrumentation {
         checks++; results.put(label);
     }
     private void screenshot(String name) throws Exception {
+        awaitScreenshotFrame(name);
         Bitmap bitmap = getUiAutomation().takeScreenshot();
         if (bitmap == null) throw new AssertionError("Screenshot unavailable");
         try (FileOutputStream stream = new FileOutputStream(new File(evidence, name))) { bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream); }
         bitmap.recycle();
         screenshots.put(name);
+    }
+
+    /** State may change before RenderThread submits its matching buffer; wait for that frame. */
+    private void awaitScreenshotFrame(String name) throws Exception {
+        CountDownLatch ready = new CountDownLatch(1);
+        Runnable frameReady = ready::countDown;
+        // Submission can precede display composition, so capture after the following vsync too.
+        Runnable frameCommitted = () -> view.postOnAnimation(frameReady);
+        ViewTreeObserver.OnDrawListener softwareDrawn = () -> view.postOnAnimation(frameReady);
+        AtomicReference<ViewTreeObserver> observer = new AtomicReference<>();
+        boolean hardwareCommit = read(() -> android.os.Build.VERSION.SDK_INT >= 29 && view.isHardwareAccelerated());
+        runOnMainSync(() -> {
+            ViewTreeObserver tree = view.getViewTreeObserver();
+            observer.set(tree);
+            if (!tree.isAlive() || !view.isAttachedToWindow()) {
+                throw new AssertionError("Screenshot View is detached: " + name);
+            }
+            if (hardwareCommit) tree.registerFrameCommitCallback(frameCommitted);
+            else tree.addOnDrawListener(softwareDrawn);
+            view.invalidate();
+        });
+        try {
+            if (!ready.await(3, TimeUnit.SECONDS)) {
+                throw new AssertionError("Screenshot frame did not complete within 3 seconds: " + name
+                        + "; hardwareCommit=" + hardwareCommit);
+            }
+        } finally {
+            runOnMainSync(() -> {
+                ViewTreeObserver tree = observer.get();
+                if (tree != null && tree.isAlive()) {
+                    if (hardwareCommit) tree.unregisterFrameCommitCallback(frameCommitted);
+                    else tree.removeOnDrawListener(softwareDrawn);
+                }
+                view.removeCallbacks(frameReady);
+            });
+        }
     }
     private void artPreview() throws Exception {
         Bitmap bitmap = Bitmap.createBitmap(1000, 650, Bitmap.Config.ARGB_8888);

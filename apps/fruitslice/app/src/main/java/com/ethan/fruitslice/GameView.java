@@ -38,12 +38,14 @@ final class GameView extends View {
     final HistoryStore history;
     final GameArt art;
     final GameAudio audio;
+    final BladeLimiter bladeLimiter = new BladeLimiter();
     Overlay overlay = Overlay.NONE;
     private Overlay historyReturn = Overlay.PAUSE;
     private HistoryStore.Record round;
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Random random = new Random();
     private final SparseArray<PointF> touches = new SparseArray<>();
+    private final MotionEvent.PointerCoords cutCoordinates = new MotionEvent.PointerCoords();
     private final ArrayList<Particle> particles = new ArrayList<>();
     private final ArrayList<Half> halves = new ArrayList<>();
     private final ArrayList<Popup> popups = new ArrayList<>();
@@ -66,7 +68,7 @@ final class GameView extends View {
         super(context);
         setFocusable(true);
         setClickable(true);
-        setContentDescription("果刃切水果游戏。滑动切水果，避开炸弹，切开彩虹果实随机换模式。右上角为历史与暂停。");
+        setContentDescription("果刃切水果游戏。划一刀，抬手再切；避开炸弹，切开彩虹果实随机换模式。右上角为历史与暂停。");
         history = new HistoryStore(context);
         art = new GameArt(context);
         audio = new GameAudio(context);
@@ -98,6 +100,7 @@ final class GameView extends View {
 
     @Override protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         if (w <= 0 || h <= 0) return;
+        finishTouch();
         scale = Math.min(w / 1000f, h / 420f);
         offsetX = (w - 1000 * scale) * .5f;
         worldHeight = h / scale;
@@ -167,6 +170,7 @@ final class GameView extends View {
     }
 
     private void restart() {
+        finishTouch();
         engine.restart();
         engine.setBounds(1000, worldHeight);
         previousBest = history.bestScore();
@@ -216,6 +220,7 @@ final class GameView extends View {
         lastFrame = now;
         realClock += dt;
         if (active && overlay == Overlay.NONE) {
+            if (bladeLimiter.expire(SystemClock.uptimeMillis())) exhaustBlade();
             engine.update(dt);
             processEvents();
             if (engine.gameOver) complete();
@@ -239,6 +244,7 @@ final class GameView extends View {
         drawHud(canvas);
         if (engine.elapsed < 4.8f && engine.sliced == 0 && overlay == Overlay.NONE) drawIntro(canvas);
         if (bannerTime > 0) drawBanner(canvas);
+        if (overlay == Overlay.NONE && bladeLimiter.isExhausted()) drawBladeHint(canvas);
         if (flash > 0) {
             paint.setColor(Color.argb((int) (flash * 100), 255, 65, 40));
             canvas.drawRect(0, 0, 1000, worldHeight, paint);
@@ -421,7 +427,7 @@ final class GameView extends View {
         paint.setColor(0x3FCDAB7C); paint.setStrokeWidth(1);
         c.drawLine(safeLeft, worldHeight - 43, 1000 - safeRight, worldHeight - 43, paint);
         text(c, "果 刃", safeLeft, worldHeight - 19, 16, 0xFFE5C39B, Paint.Align.LEFT, true);
-        text(c, "小果高分   /   避开炸弹   /   切开彩虹果实", 500, worldHeight - 20, 12, 0xFFB79B7B, Paint.Align.CENTER, false);
+        text(c, "抬手出刀   /   小果高分   /   避开炸弹", 500, worldHeight - 20, 12, 0xFFB79B7B, Paint.Align.CENTER, false);
         text(c, "OFFLINE", 1000 - safeRight, worldHeight - 20, 10, 0xFF9D8265, Paint.Align.RIGHT, true);
         paint.setColor(modeColor(engine.mode));
         c.drawRect(safeLeft, worldHeight - 4, safeLeft + (1000 - safeLeft - safeRight) * engine.remaining / 60f, worldHeight - 2, paint);
@@ -444,7 +450,7 @@ final class GameView extends View {
         float alpha = Math.min(1, (4.8f - engine.elapsed) * 1.5f);
         text(c, "一 刀 入 魂", 500, 133, 30,
                 Color.argb((int) (alpha * 235), 255, 228, 182), Paint.Align.CENTER, true);
-        text(c, "手指划过水果，即刻开切 · 越小分越高", 500, 159, 13,
+        text(c, "划一刀，抬手再切 · 越小分越高", 500, 159, 13,
                 Color.argb((int) (alpha * 220), 202, 175, 139), Paint.Align.CENTER, false);
         float x = 405 + (realClock * 90 % 180);
         paint.setColor(Color.argb((int) (alpha * 115), 255, 230, 185)); paint.setStrokeWidth(2);
@@ -458,6 +464,14 @@ final class GameView extends View {
         text(c, "✦  " + banner + "  ✦", 500, 117, 21,
                 (bannerColor & 0xFFFFFF) | ((int) (a * 255) << 24), Paint.Align.CENTER, true);
         text(c, bannerSub, 500, 136, 12, Color.argb((int) (a * 235), 236, 219, 197), Paint.Align.CENTER, false);
+    }
+
+    private void drawBladeHint(Canvas c) {
+        RectF hint = new RectF(370, worldHeight - 105, 630, worldHeight - 65);
+        fill(c, hint, 20, 0xD9202828);
+        stroke(c, hint, 20, 0x8075C9D2, 1);
+        text(c, "收刀 · 抬手再切", 500, worldHeight - 78, 20,
+                0xFFD0F4F1, Paint.Align.CENTER, true);
     }
 
     private void drawOverlay(Canvas c) {
@@ -588,6 +602,7 @@ final class GameView extends View {
         float x = (event.getX() - offsetX) / scale, y = event.getY() / scale;
         int action = event.getActionMasked();
         if (action == MotionEvent.ACTION_DOWN) {
+            finishTouch();
             downY = y; historyStartScroll = historyScroll;
             pressedAction = actionAt(x, y);
             if (pressedAction > 0 || overlay != Overlay.NONE) return true;
@@ -602,22 +617,25 @@ final class GameView extends View {
                     performClick(); handleAction(pressedAction);
                 }
                 pressedAction = 0;
-            } else if (action == MotionEvent.ACTION_CANCEL) pressedAction = 0;
+            } else if (action == MotionEvent.ACTION_CANCEL) finishTouch();
             return true;
         }
         int index = event.getActionIndex();
         int id = event.getPointerId(index);
         if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_POINTER_DOWN) {
+            // Only a fresh DOWN can start a gesture after a pause, cancellation or result.
+            if (action == MotionEvent.ACTION_POINTER_DOWN && touches.size() == 0) return true;
+            bladeLimiter.press(id);
             touches.put(id, new PointF((event.getX(index) - offsetX) / scale, event.getY(index) / scale));
         } else if (action == MotionEvent.ACTION_MOVE) {
             for (int h = 0; h < event.getHistorySize(); h++) {
-                for (int p = 0; p < event.getPointerCount(); p++) cutTo(event.getPointerId(p),
-                        (event.getHistoricalX(p, h) - offsetX) / scale, event.getHistoricalY(p, h) / scale);
+                for (int p = 0; p < event.getPointerCount(); p++) cutSample(event, p, h);
             }
-            for (int p = 0; p < event.getPointerCount(); p++) cutTo(event.getPointerId(p), (event.getX(p) - offsetX) / scale, event.getY(p) / scale);
+            for (int p = 0; p < event.getPointerCount(); p++) cutSample(event, p, -1);
         } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
-            cutTo(id, (event.getX(index) - offsetX) / scale, event.getY(index) / scale);
+            cutSample(event, index, -1);
             touches.remove(id);
+            bladeLimiter.release(id);
             if (touches.size() == 0) { engine.endStroke(); processEvents(); }
         } else if (action == MotionEvent.ACTION_CANCEL) finishTouch();
         invalidate();
@@ -626,18 +644,41 @@ final class GameView extends View {
 
     @Override public boolean performClick() { super.performClick(); return true; }
 
-    private void cutTo(int id, float x, float y) {
+    private void cutSample(MotionEvent event, int pointer, int history) {
+        if (history < 0) event.getPointerCoords(pointer, cutCoordinates);
+        else event.getHistoricalPointerCoords(pointer, history, cutCoordinates);
+        // Display predictions can overshoot a reversal. Only real samples may cut or spend path.
+        if (cutCoordinates.isResampled()) return;
+        cutTo(event.getPointerId(pointer), (cutCoordinates.x - offsetX) / scale, cutCoordinates.y / scale,
+                history < 0 ? event.getEventTime() : event.getHistoricalEventTime(history));
+    }
+
+    private void cutTo(int id, float x, float y, long eventTime) {
         PointF old = touches.get(id);
-        if (old == null) { touches.put(id, new PointF(x, y)); return; }
-        engine.slice(old.x, old.y, x, y);
-        if (blades.size() > 96) blades.remove(0);
-        Blade b = new Blade(); b.x1 = old.x; b.y1 = old.y; b.x2 = x; b.y2 = y; b.life = .18f; blades.add(b);
+        if (old == null) return;
+        boolean wasExhausted = bladeLimiter.isExhausted();
+        BladeLimiter.Cut cut = bladeLimiter.move(id, old.x, old.y, x, y, eventTime, 1000);
+        if (cut != null) {
+            engine.slice(old.x, old.y, cut.x, cut.y);
+            if (blades.size() > 96) blades.remove(0);
+            Blade b = new Blade(); b.x1 = old.x; b.y1 = old.y; b.x2 = cut.x; b.y2 = cut.y; b.life = .18f; blades.add(b);
+        }
         old.set(x, y);
+        if (!wasExhausted && bladeLimiter.isExhausted()) exhaustBlade();
+        else processEvents();
+    }
+
+    private void exhaustBlade() {
+        engine.endStroke();
+        blades.clear();
         processEvents();
+        performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+        announceForAccessibility("收刀了，抬手再切");
     }
 
     private void finishTouch() {
         if (touches.size() > 0) { engine.endStroke(); processEvents(); }
+        bladeLimiter.cancel();
         touches.clear(); blades.clear(); pressedAction = 0;
     }
 
@@ -673,7 +714,9 @@ final class GameView extends View {
                     .put("switches", engine.switches).put("modeRemaining", engine.modeRemaining)
                     .put("maxCombo", engine.maxCombo).put("bombsHit", engine.bombsHit)
                     .put("overlay", overlay.name()).put("historyCount", history.records().size())
-                    .put("best", history.bestScore()).put("worldHeight", worldHeight).put("scale", scale).put("offsetX", offsetX);
+                    .put("best", history.bestScore()).put("worldHeight", worldHeight).put("scale", scale).put("offsetX", offsetX)
+                    .put("bladeLocked", bladeLimiter.isExhausted()).put("bladeStarted", bladeLimiter.isStarted())
+                    .put("bladePath", bladeLimiter.pathUsed()).put("touchCount", touches.size());
             JSONArray fruit = new JSONArray();
             for (GameEngine.Fruit f : engine.fruits) if (f.active) fruit.put(new JSONObject()
                     .put("id", f.id).put("type", f.type).put("x", f.x).put("y", f.y).put("vx", f.vx).put("vy", f.vy)
