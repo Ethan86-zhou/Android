@@ -337,7 +337,7 @@ public final class MainActivity extends Activity {
             button(detail, saved.note.isEmpty() ? "＋ 添加记忆笔记" : saved.note, () -> editNote(entry.word), false);
             button(detail, saved.learned ? "✓ 已掌握 · 点击改为待学习" : "○ 待学习 · 点击标记已掌握", () -> { wordbook.setLearned(entry.word, !saved.learned); openEntry(entry); }, false);
         }
-        gap(detail, 25); text(detail, "释义来源 · ECDICT 开源词库", 11, MUTED); gap(detail, 20);
+        gap(detail, 25); text(detail, detailOrigin.equals("book") ? "释义来源 · 本机单词本快照" : "释义来源 · ECDICT 开源词库", 11, MUTED); gap(detail, 20);
         saveButton = button(page, saved == null ? "＋ 加入单词本" : "✓ 已加入单词本", () -> {
             if (wordbook.contains(entry.word)) {
                 new AlertDialog.Builder(this).setTitle("移出单词本？").setMessage("“" + entry.word + "”的笔记和学习状态也会一并移除。")
@@ -348,7 +348,7 @@ public final class MainActivity extends Activity {
     private void editNote(String word) {
         WordbookStore.SavedWord saved = wordbook.get(word); if (saved == null) return;
         EditText note = input("写下你的例句或记忆方法", saved.note); note.setMinLines(3); note.setMaxLines(8); note.setGravity(Gravity.TOP);
-        note.setFilters(new android.text.InputFilter[]{new android.text.InputFilter.LengthFilter(4000)});
+        note.setFilters(new android.text.InputFilter[]{new android.text.InputFilter.LengthFilter(WordbookExport.MAX_FIELD_CHARS)});
         LinearLayout content = column(); content.setPadding(dp(24), dp(12), dp(24), dp(12)); content.addView(note);
         new AlertDialog.Builder(this).setTitle("记忆笔记").setView(content).setNegativeButton("取消", null)
             .setPositiveButton("保存", (d, w) -> { wordbook.setNote(word, note.getText().toString()); openEntry(currentEntry); }).show();
@@ -415,7 +415,7 @@ public final class MainActivity extends Activity {
                 .setNegativeButton("取消", null).setPositiveButton("清空", (d, w) -> { wordbook.clearHistory(); toast("最近查词已清空"); }).show(), false);
         gap(content, 22); text(content, "快捷查词", 14, MUTED); gap(content, 10);
         text(content, "1. 长按拾词桌面图标，选择“快捷查词”。\n2. 复制单词后，点击首页“粘贴查词”。\n3. 在支持文字选择的应用中选中单词，选择“拾词”；也可用系统分享发送到拾词。", 14, INK);
-        gap(content, 24); text(content, "关于拾词  1.0.0", 14, MUTED);
+        gap(content, 24); text(content, "关于拾词  1.0.1", 14, MUTED);
         text(content, "词库按上游原文呈现，部分专业词和短语可能没有中文释义。应用无需网络、联系人或存储权限。卸载会移除本机单词本，换机前请先导出 JSON 备份。", 13, MUTED);
         button(content, "开源词库与许可证", this::showLicense, false); gap(content, 24);
     }
