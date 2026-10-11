@@ -1,6 +1,6 @@
 # 拾词 Lexi
 
-为三星手机开发的离线英汉词典。包名 `com.ethan.lexi`，版本 `1.0.1`。使用原生 Java / Android View，最低 Android 11，目标 Android 16；主要适配三星 SM-S9080。
+为三星手机开发的离线英汉词典。包名 `com.ethan.lexi`，版本 `1.0.2`。使用原生 Java / Android View，最低 Android 11，目标 Android 16；主要适配三星 SM-S9080，应用固定竖屏显示。
 
 ## 日常使用
 

@@ -415,7 +415,7 @@ public final class MainActivity extends Activity {
                 .setNegativeButton("取消", null).setPositiveButton("清空", (d, w) -> { wordbook.clearHistory(); toast("最近查词已清空"); }).show(), false);
         gap(content, 22); text(content, "快捷查词", 14, MUTED); gap(content, 10);
         text(content, "1. 长按拾词桌面图标，选择“快捷查词”。\n2. 复制单词后，点击首页“粘贴查词”。\n3. 在支持文字选择的应用中选中单词，选择“拾词”；也可用系统分享发送到拾词。", 14, INK);
-        gap(content, 24); text(content, "关于拾词  1.0.1", 14, MUTED);
+        gap(content, 24); text(content, "关于拾词  1.0.2", 14, MUTED);
         text(content, "词库按上游原文呈现，部分专业词和短语可能没有中文释义。应用无需网络、联系人或存储权限。卸载会移除本机单词本，换机前请先导出 JSON 备份。", 13, MUTED);
         button(content, "开源词库与许可证", this::showLicense, false); gap(content, 24);
     }
