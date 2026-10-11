@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="payload_v1">{&quot;version&quot;:2,&quot;best&quot;:0,&quot;records&quot;:[{&quot;id&quot;:&quot;0a7334b2-0f49-4c8d-ae6d-7f36151f7056&quot;,&quot;timestamp&quot;:1791718804067,&quot;score&quot;:0,&quot;sliced&quot;:0,&quot;maxCombo&quot;:0,&quot;misses&quot;:3,&quot;bombs&quot;:0,&quot;switches&quot;:0,&quot;duration&quot;:3.221557378768921,&quot;reason&quot;:&quot;misses&quot;}],&quot;checkpoint&quot;:null}</string>
+</map>

@@ -1,0 +1,1048 @@
+WINDOW MANAGER WINDOWS (dumpsys window windows)
+  Window #0 Window{29ac67d u0 FP Maskview}:
+    mDisplayId=0 rootTaskId=4123 mSession=Session{39a0ace 31027:1000} mClient=android.os.BinderProxy@fa69a27
+    mOwnerUid=1000 showForAllUsers=true package=com.samsung.android.biometrics.app.setting appop=NONE
+    mAttrs={(0,0)(fillxfill) gr=TOP LEFT CENTER sim={adjust=pan} layoutInDisplayCutoutMode=always ty=2619 fmt=TRANSLUCENT
+      fl=1000018
+      pfl=32100010
+      bhv=DEFAULT naviIconColor=0
+      sfl=60000}
+    Requested w=1600 h=2560 mLayoutSeq=41843
+    mBaseLayer=341000 mSubLayer=0    mToken=WindowToken{e11b4d4 type=2619 android.os.BinderProxy@fa69a27}
+    mViewVisibility=0x4 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mLastReportedConfiguration={0.0 ?mcc0mnc ?localeList ?layoutDir ?swdp ?wdp ?hdp ?density ?lsize ?long ?ldr ?wideColorGamut ?orien ?uimode ?night ?touch ?keyb/?/? ?nav/? winConfig={ mBounds=Rect(0, 0 - 0, 0) mAppBounds=null mMaxBounds=Rect(0, 0 - 0, 0) mDisplayRotation=undefined mWindowingMode=undefined mDisplayWindowingMode=undefined mActivityType=undefined mAlwaysOnTop=undefined mRotation=undefined mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=undefined mFreeformTranslucent=UNDEFINED} ?fontWeightAdjustment ff=0 bf=-1 bts=-1 cst=0.0 nightDim=-1 desktop/? dm/? ?dc ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,0][1600,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{40c2301 FP Maskview}:
+      mDrawState=NO_SURFACE       mLastHidden=false
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+      mShownAlpha=0.0 mAlpha=1.0 mLastAlpha=0.0
+    mForceSeamlesslyRotate=true seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #1 Window{15febc2 u0 FP Iconview}:
+    mDisplayId=0 rootTaskId=4123 mSession=Session{39a0ace 31027:1000} mClient=android.os.BinderProxy@8905aa4
+    mOwnerUid=1000 showForAllUsers=true package=com.samsung.android.biometrics.app.setting appop=NONE
+    mAttrs={(0,0)(1600x2560) sim={adjust=pan} layoutInDisplayCutoutMode=always ty=2619 fmt=TRANSLUCENT surfaceInsets=Rect(5, 5 - 5, 5)
+      fl=1000018
+      pfl=32102050
+      bhv=DEFAULT naviIconColor=0
+      sfl=60008}
+    Requested w=1600 h=2560 mLayoutSeq=41842
+    mBaseLayer=341000 mSubLayer=0    mToken=WindowToken{fecc00d type=2619 android.os.BinderProxy@8905aa4}
+    mViewVisibility=0x4 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mLastReportedConfiguration={0.0 ?mcc0mnc ?localeList ?layoutDir ?swdp ?wdp ?hdp ?density ?lsize ?long ?ldr ?wideColorGamut ?orien ?uimode ?night ?touch ?keyb/?/? ?nav/? winConfig={ mBounds=Rect(0, 0 - 0, 0) mAppBounds=null mMaxBounds=Rect(0, 0 - 0, 0) mDisplayRotation=undefined mWindowingMode=undefined mDisplayWindowingMode=undefined mActivityType=undefined mAlwaysOnTop=undefined mRotation=undefined mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=undefined mFreeformTranslucent=UNDEFINED} ?fontWeightAdjustment ff=0 bf=-1 bts=-1 cst=0.0 nightDim=-1 desktop/? dm/? ?dc ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,0][1600,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[5,5][5,5]
+    WindowStateAnimator{f9b65a6 FP Iconview}:
+      mDrawState=NO_SURFACE       mLastHidden=false
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+      mShownAlpha=0.0 mAlpha=1.0 mLastAlpha=0.0
+    mForceSeamlesslyRotate=true seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #2 Window{f3d51b0 u0 ShellDropTarget}:
+    mDisplayId=0 rootTaskId=4123 mSession=Session{c844546 355:u0a10055} mClient=android.os.BinderProxy@7142928
+    mOwnerUid=10055 showForAllUsers=true package=com.android.systemui appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={adjust=pan} layoutInDisplayCutoutMode=always ty=DRAG fmt=TRANSLUCENT
+      fl=1000208
+      pfl=92000050
+      bhv=DEFAULT naviIconColor=0 mwfl=10}
+    Requested w=2560 h=1600 mLayoutSeq=7
+    mBaseLayer=301000 mSubLayer=0    mToken=WindowToken{616afd4 type=2016 android.os.BinderProxy@a831116}
+    mViewVisibility=0x4 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mLastReportedConfiguration={0.0 ?mcc0mnc ?localeList ?layoutDir ?swdp ?wdp ?hdp ?density ?lsize ?long ?ldr ?wideColorGamut ?orien ?uimode ?night ?touch ?keyb/?/? ?nav/? winConfig={ mBounds=Rect(0, 0 - 0, 0) mAppBounds=null mMaxBounds=Rect(0, 0 - 0, 0) mDisplayRotation=undefined mWindowingMode=undefined mDisplayWindowingMode=undefined mActivityType=undefined mAlwaysOnTop=undefined mRotation=undefined mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=undefined mFreeformTranslucent=UNDEFINED} ?fontWeightAdjustment ff=0 bf=-1 bts=-1 cst=0.0 nightDim=-1 desktop/? dm/? ?dc ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][2560,1600] display=[-100000,-100000][100000,100000] frame=[0,0][2560,1600] last=[0,0][2560,1600] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{2870be7 ShellDropTarget}:
+      mDrawState=NO_SURFACE       mLastHidden=false
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+      mShownAlpha=0.0 mAlpha=1.0 mLastAlpha=0.0
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #3 Window{7ff5078 u0 KeyguardBiometricToastView}:
+    mDisplayId=0 rootTaskId=4123 mSession=Session{c844546 355:u0a10055} mClient=android.os.BinderProxy@e264ed5
+    mOwnerUid=10055 showForAllUsers=true package=com.android.systemui appop=NONE
+    mAttrs={(0,0)(wrapxwrap) gr=TOP CENTER sim={adjust=pan} ty=2228 fmt=TRANSLUCENT
+      fl=1000318
+      pfl=2000010
+      bhv=DEFAULT
+      fitTypes=NAVIGATION_BARS CAPTION_BAR naviIconColor=0
+      sfl=20000}
+    Requested w=-1 h=-1 mLayoutSeq=41861
+    mBaseLayer=261000 mSubLayer=0    mToken=WindowToken{9c88ddb type=2228 android.os.BinderProxy@e264ed5}
+    mViewVisibility=0x8 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mLastReportedConfiguration={0.0 ?mcc0mnc ?localeList ?layoutDir ?swdp ?wdp ?hdp ?density ?lsize ?long ?ldr ?wideColorGamut ?orien ?uimode ?night ?touch ?keyb/?/? ?nav/? winConfig={ mBounds=Rect(0, 0 - 0, 0) mAppBounds=null mMaxBounds=Rect(0, 0 - 0, 0) mDisplayRotation=undefined mWindowingMode=undefined mDisplayWindowingMode=undefined mActivityType=undefined mAlwaysOnTop=undefined mRotation=undefined mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=undefined mFreeformTranslucent=UNDEFINED} ?fontWeightAdjustment ff=0 bf=-1 bts=-1 cst=0.0 nightDim=-1 desktop/? dm/? ?dc ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[-100000,-100000][100000,100000] frame=[0,0][1600,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{4caa394 KeyguardBiometricToastView}:
+      mDrawState=NO_SURFACE       mLastHidden=false
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+      mShownAlpha=0.0 mAlpha=1.0 mLastAlpha=0.0
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #4 Window{2b24f6c u0 TaskbarWindow}:
+    mDisplayId=0 rootTaskId=4123 mSession=Session{983339b 752:u0a10126} mClient=android.os.BinderProxy@8c5201f
+    mOwnerUid=10126 showForAllUsers=true package=com.sec.android.app.launcher appop=NONE
+    mAttrs={(0,0)(fillx102) gr=BOTTOM CENTER_VERTICAL sim={adjust=nothing} layoutInDisplayCutoutMode=always ty=NAVIGATION_BAR_PANEL fmt=TRANSLUCENT
+      fl=21840008
+      pfl=12001040
+      bhv=DEFAULT
+      providedInsets:
+        InsetsFrameProvider: {id=#56180001, index=0, type=navigationBars, source=FRAME, flags=[], insetsSize=Insets{left=0, top=0, right=0, bottom=102}, insetsSizeOverrides=[TypedInsetsSize: {windowType=INPUT_METHOD, insetsSize=Insets{left=0, top=0, right=0, bottom=102}}]}
+        InsetsFrameProvider: {id=#56180006, index=0, type=tappableElement, source=FRAME, flags=[], insetsSize=Insets{left=0, top=0, right=0, bottom=102}, insetsSizeOverrides=[TypedInsetsSize: {windowType=INPUT_METHOD, insetsSize=Insets{left=0, top=0, right=0, bottom=102}}]}
+        InsetsFrameProvider: {id=#56180005, index=0, type=mandatorySystemGestures, source=FRAME, flags=[], insetsSize=Insets{left=0, top=0, right=0, bottom=102}}
+        InsetsFrameProvider: {id=#56180004, index=0, type=systemGestures, source=DISPLAY, flags=[], insetsSize=Insets{left=0, top=0, right=0, bottom=0}, mMinimalInsetsSizeInDisplayCutoutSafe=Insets{left=0, top=0, right=0, bottom=0}}
+        InsetsFrameProvider: {id=#56180024, index=1, type=systemGestures, source=DISPLAY, flags=[], insetsSize=Insets{left=0, top=0, right=0, bottom=0}, mMinimalInsetsSizeInDisplayCutoutSafe=Insets{left=0, top=0, right=0, bottom=0}} naviIconColor=0}
+    Requested w=1600 h=102 mLayoutSeq=41867
+    mBaseLayer=251000 mSubLayer=0    mToken=WindowToken{d1da1ca type=2024 android.os.BinderProxy@cb09c55}
+    mViewVisibility=0x0 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mTouchableInsets=3 mGivenInsetsPending=false
+    touchable region=SkRegion((0,2458,1600,2560))
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mHasSurface=true isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,2458][1600,2560] last=[0,2458][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    ContainerAnimator:
+      mLeash=Surface(name=Surface(name=2b24f6c TaskbarWindow)/@0x81c3cba - animation-leash of insets_animation)/@0xb4b1f5 mAnimationType=insets_animation
+      Animation: com.android.server.wm.InsetsSourceProvider$ControlAdapter@96ee3d
+        ControlAdapter mCapturedLeash=Surface(name=Surface(name=2b24f6c TaskbarWindow)/@0x81c3cba - animation-leash of insets_animation)/@0xb4b1f5
+    WindowStateAnimator{d083632 TaskbarWindow}:
+      mSurface=Surface(name=TaskbarWindow$_752)/@0x9ae7f83
+      Surface: shown=true layer=0 alpha=1.0 rect=(0.0,0.0)  transform=(1.0, 0.0, 0.0, 1.0)
+      mDrawState=HAS_DRAWN       mLastHidden=false
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    mDrawLock=WakeLock{c786500 held=false, refCount=1}
+    isOnScreen=true
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #5 Window{c8f86d3 u0 Bouncer}:
+    mDisplayId=0 rootTaskId=4123 mSession=Session{c844546 355:u0a10055} mClient=android.os.BinderProxy@57b10d
+    mOwnerUid=10055 showForAllUsers=true package=com.android.systemui appop=NONE
+    mAttrs={(0,0)(fillxfill) gr=TOP CENTER_VERTICAL sim={adjust=resize} layoutInDisplayCutoutMode=shortEdges ty=KEYGUARD_DIALOG fmt=TRANSLUCENT if=INPUT_FEATURE_DISABLE_USER_ACTIVITY userActivityTimeout=10000
+      fl=85000548
+      pfl=12000000
+      vsysui=500
+      bhv=SHOW_TRANSIENT_BARS_BY_SWIPE
+ dimAmount=0.0 screenDimDuration=0 naviIconColor=0
+      sfl=60000}
+    Requested w=1600 h=0 mLayoutSeq=41862
+    mBaseLayer=191000 mSubLayer=0    mToken=WindowToken{a5688c2 type=2009 android.os.BinderProxy@57b10d}
+    mViewVisibility=0x4 mHaveFrame=true mObscured=false
+    mPolicyVisibility=false mLegacyPolicyVisibilityAfterAnim=false mAppOpVisibility=true parentHidden=false mPermanentlyHidden=false mHiddenWhileSuspended=false mForceHideNonSystemOverlayWindow=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.3373 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,0][1600,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{c093139 Bouncer}:
+      mDrawState=NO_SURFACE       mLastHidden=false
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #6 Window{3376e00 u0 com.sec.android.app.launcher/com.samsung.app.honeyspace.edge.CocktailBarService}:
+    mDisplayId=0 rootTaskId=4123 mSession=Session{983339b 752:u0a10126} mClient=android.os.BinderProxy@b98733d
+    mOwnerUid=10126 showForAllUsers=true package=com.sec.android.app.launcher appop=NONE
+    mAttrs={(0,551)(67x294) gr=TOP RIGHT CENTER sim={adjust=nothing forwardNavigation} layoutInDisplayCutoutMode=shortEdges ty=2226 fmt=TRANSPARENT
+      fl=81800508
+      pfl=2000070
+      bhv=SHOW_TRANSIENT_BARS_BY_SWIPE
+      fitTypes=NAVIGATION_BARS CAPTION_BAR
+ dimAmount=0.0 dimDuration=0 naviIconColor=0
+      sfl=20000}
+    Requested w=67 h=294 mLayoutSeq=41847
+    mBaseLayer=181000 mSubLayer=0    mToken=WindowToken{133d732 type=2226 android.os.BinderProxy@b98733d}
+    mViewVisibility=0x8 mHaveFrame=true mObscured=false
+    mPolicyVisibility=false mLegacyPolicyVisibilityAfterAnim=false mAppOpVisibility=true parentHidden=false mPermanentlyHidden=false mHiddenWhileSuspended=false mForceHideNonSystemOverlayWindow=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2458] display=[0,0][1600,2458] frame=[1533,551][1600,845] last=[1533,551][1600,845] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{7ff837e com.sec.android.app.launcher/com.samsung.app.honeyspace.edge.CocktailBarService}:
+      mDrawState=NO_SURFACE       mLastHidden=true
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #7 Window{f3a6ec7 u0 LockscreenShortcutBlur}:
+    mDisplayId=0 rootTaskId=4123 mSession=Session{c844546 355:u0a10055} mClient=android.os.BinderProxy@99023a
+    mOwnerUid=10055 showForAllUsers=true package=com.android.systemui appop=NONE
+    mAttrs={(0,0)(fillxfill) gr=TOP CENTER_VERTICAL sim={adjust=pan} layoutInDisplayCutoutMode=always ty=NOTIFICATION_SHADE_WIDGET fmt=TRANSLUCENT
+      fl=1000538
+      pfl=12000010
+      bhv=SHOW_TRANSIENT_BARS_BY_SWIPE naviIconColor=0}
+    Requested w=1600 h=2560 mLayoutSeq=23175
+    mBaseLayer=181000 mSubLayer=0    mToken=WindowToken{2afceeb type=2415 android.os.BinderProxy@99023a}
+    mViewVisibility=0x8 mHaveFrame=true mObscured=false
+    mPolicyVisibility=false mLegacyPolicyVisibilityAfterAnim=false mAppOpVisibility=true parentHidden=false mPermanentlyHidden=false mHiddenWhileSuspended=false mForceHideNonSystemOverlayWindow=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.2872 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,0][1600,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{34f90df LockscreenShortcutBlur}:
+      mDrawState=NO_SURFACE       mLastHidden=false
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #8 Window{fbb5f93 u0 NotificationShade}:
+    mDisplayId=0 rootTaskId=4123 mSession=Session{c844546 355:u0a10055} mClient=android.os.BinderProxy@f51d64
+    mOwnerUid=10055 showForAllUsers=true package=com.android.systemui appop=NONE
+    mAttrs={(0,0)(fillxfill) gr=TOP CENTER_VERTICAL sim={adjust=pan} layoutInDisplayCutoutMode=always ty=NOTIFICATION_SHADE fmt=TRANSLUCENT or=SCREEN_ORIENTATION_USER if=INPUT_FEATURE_DISABLE_USER_ACTIVITY userActivityTimeout=5000
+      fl=81860040
+      pfl=1a080200
+      bhv=SHOW_TRANSIENT_BARS_BY_SWIPE screenDimDuration=0 naviIconColor=0
+      sfl=60000}
+    Requested w=1600 h=2560 mLayoutSeq=41867
+    mBaseLayer=171000 mSubLayer=0    mToken=WindowToken{d5b4c82 type=2040 android.os.BinderProxy@46b0af7}
+    mViewVisibility=0x0 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mHasSurface=true isReadyForDisplay()=true mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,0][1600,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{27ed12c NotificationShade}:
+      mSurface=Surface(name=NotificationShade$_355)/@0x7c2a7f5
+      Surface: shown=true layer=0 alpha=1.0 rect=(0.0,0.0)  transform=(1.0, 0.0, 0.0, 1.0)
+      mDrawState=HAS_DRAWN       mLastHidden=false
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=true
+    isVisible=true
+    keepClearAreas: restricted=[], unrestricted=[]
+    Requested non-default-visibility types: navigationBars
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #9 Window{3642539 u0 StatusBar}:
+    mDisplayId=0 rootTaskId=4123 mSession=Session{c844546 355:u0a10055} mClient=android.os.BinderProxy@5cb5383
+    mOwnerUid=10055 showForAllUsers=true package=com.android.systemui appop=NONE
+    mAttrs={(0,0)(fillx51) gr=TOP CENTER_VERTICAL sim={adjust=pan} layoutInDisplayCutoutMode=always ty=STATUS_BAR fmt=TRANSLUCENT
+      fl=81000008
+      pfl=13000000
+      bhv=DEFAULT
+      providedInsets:
+        InsetsFrameProvider: {id=#926e0000, index=0, type=statusBars, source=FRAME, flags=[], insetsSize=Insets{left=0, top=51, right=0, bottom=0}}
+        InsetsFrameProvider: {id=#926e0006, index=0, type=tappableElement, source=FRAME, flags=[], insetsSize=Insets{left=0, top=51, right=0, bottom=0}}
+        InsetsFrameProvider: {id=#926e0005, index=0, type=mandatorySystemGestures, source=FRAME, flags=[], mMinimalInsetsSizeInDisplayCutoutSafe=Insets{left=0, top=26, right=0, bottom=0}}
+      paramsForRotation:
+        ROTATION_0={(0,0)(fillx51) gr=TOP CENTER_VERTICAL layoutInDisplayCutoutMode=always ty=STATUS_BAR fmt=TRANSLUCENT
+          fl=80000008
+          pfl=11000000
+          bhv=DEFAULT
+          providedInsets:
+            InsetsFrameProvider: {id=#926e0000, index=0, type=statusBars, source=FRAME, flags=[], insetsSize=Insets{left=0, top=51, right=0, bottom=0}}
+            InsetsFrameProvider: {id=#926e0006, index=0, type=tappableElement, source=FRAME, flags=[], insetsSize=Insets{left=0, top=51, right=0, bottom=0}}
+            InsetsFrameProvider: {id=#926e0005, index=0, type=mandatorySystemGestures, source=FRAME, flags=[], insetsSize=Insets{left=0, top=51, right=0, bottom=0}, mMinimalInsetsSizeInDisplayCutoutSafe=Insets{left=0, top=26, right=0, bottom=0}} naviIconColor=0}
+        ROTATION_90={(0,0)(fillx51) gr=TOP CENTER_VERTICAL layoutInDisplayCutoutMode=always ty=STATUS_BAR fmt=TRANSLUCENT
+          fl=80000008
+          pfl=11000000
+          bhv=DEFAULT
+          providedInsets:
+            InsetsFrameProvider: {id=#926e0000, index=0, type=statusBars, source=FRAME, flags=[], insetsSize=Insets{left=0, top=51, right=0, bottom=0}}
+            InsetsFrameProvider: {id=#926e0006, index=0, type=tappableElement, source=FRAME, flags=[], insetsSize=Insets{left=0, top=51, right=0, bottom=0}}
+            InsetsFrameProvider: {id=#926e0005, index=0, type=mandatorySystemGestures, source=FRAME, flags=[], insetsSize=Insets{left=0, top=51, right=0, bottom=0}, mMinimalInsetsSizeInDisplayCutoutSafe=Insets{left=0, top=26, right=0, bottom=0}} naviIconColor=0}
+        ROTATION_180={(0,0)(fillx51) gr=TOP CENTER_VERTICAL layoutInDisplayCutoutMode=always ty=STATUS_BAR fmt=TRANSLUCENT
+          fl=80000008
+          pfl=11000000
+          bhv=DEFAULT
+          providedInsets:
+            InsetsFrameProvider: {id=#926e0000, index=0, type=statusBars, source=FRAME, flags=[], insetsSize=Insets{left=0, top=51, right=0, bottom=0}}
+            InsetsFrameProvider: {id=#926e0006, index=0, type=tappableElement, source=FRAME, flags=[], insetsSize=Insets{left=0, top=51, right=0, bottom=0}}
+            InsetsFrameProvider: {id=#926e0005, index=0, type=mandatorySystemGestures, source=FRAME, flags=[], insetsSize=Insets{left=0, top=51, right=0, bottom=0}, mMinimalInsetsSizeInDisplayCutoutSafe=Insets{left=0, top=26, right=0, bottom=0}} naviIconColor=0}
+        ROTATION_270={(0,0)(fillx51) gr=TOP CENTER_VERTICAL layoutInDisplayCutoutMode=always ty=STATUS_BAR fmt=TRANSLUCENT
+          fl=80000008
+          pfl=11000000
+          bhv=DEFAULT
+          providedInsets:
+            InsetsFrameProvider: {id=#926e0000, index=0, type=statusBars, source=FRAME, flags=[], insetsSize=Insets{left=0, top=51, right=0, bottom=0}}
+            InsetsFrameProvider: {id=#926e0006, index=0, type=tappableElement, source=FRAME, flags=[], insetsSize=Insets{left=0, top=51, right=0, bottom=0}}
+            InsetsFrameProvider: {id=#926e0005, index=0, type=mandatorySystemGestures, source=FRAME, flags=[], insetsSize=Insets{left=0, top=51, right=0, bottom=0}, mMinimalInsetsSizeInDisplayCutoutSafe=Insets{left=0, top=26, right=0, bottom=0}} naviIconColor=0} naviIconColor=0}
+    Requested w=1600 h=51 mLayoutSeq=41867
+    mBaseLayer=151000 mSubLayer=0    mToken=WindowToken{556a900 type=2000 android.os.BinderProxy@f03da32}
+    mViewVisibility=0x0 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mHasSurface=true isReadyForDisplay()=true mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,0][1600,51] last=[0,0][1600,51] insetsChanged=false
+     surface=[0,0][0,0]
+    ContainerAnimator:
+      mLeash=Surface(name=Surface(name=3642539 StatusBar)/@0x9bc5b07 - animation-leash of insets_animation)/@0x81075fb mAnimationType=insets_animation
+      Animation: com.android.server.wm.InsetsSourceProvider$ControlAdapter@98c598a
+        ControlAdapter mCapturedLeash=Surface(name=Surface(name=3642539 StatusBar)/@0x9bc5b07 - animation-leash of insets_animation)/@0x81075fb
+    WindowStateAnimator{ec65bfb StatusBar}:
+      mSurface=Surface(name=StatusBar$_355)/@0x99dd418
+      Surface: shown=true layer=0 alpha=1.0 rect=(0.0,0.0)  transform=(1.0, 0.0, 0.0, 1.0)
+      mDrawState=HAS_DRAWN       mLastHidden=false
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    mDrawLock=WakeLock{162ce71 held=false, refCount=8}
+    isOnScreen=true
+    isVisible=true
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #10 Window{d988b17 u0 InputMethod}:
+    mDisplayId=0 rootTaskId=4123 mSession=Session{a359158 22772:u0a10331} mClient=android.os.BinderProxy@6f3a396
+    mOwnerUid=10331 showForAllUsers=false package=com.bytedance.android.doubaoime appop=NONE
+    mAttrs={(0,0)(fillxfill) gr=BOTTOM CENTER_VERTICAL sim={adjust=pan} ty=INPUT_METHOD fmt=TRANSPARENT wanim=0x1030056 preferredMinDisplayRefreshRate=60.0 receive insets ignoring z-order
+      fl=81800108
+      pfl=12000000
+      vsysui=10
+      apr=LIGHT_NAVIGATION_BARS
+      bhv=DEFAULT
+      fitTypes=STATUS_BARS NAVIGATION_BARS
+      fitSides=LEFT TOP RIGHT
+      fitIgnoreVis
+ dimAmount=0.18 dimDuration=150 naviIconColor=0}
+    Requested w=1600 h=2509 mLayoutSeq=41660
+    mIsImWindow=true mIsWallpaper=false mIsFloatingLayer=true
+    mBaseLayer=131000 mSubLayer=0    mToken=WindowToken{ff868af type=2011 android.os.Binder@a08988e}
+    mViewVisibility=0x8 mHaveFrame=true mObscured=false
+    mPolicyVisibility=false mLegacyPolicyVisibilityAfterAnim=false mAppOpVisibility=true parentHidden=false mPermanentlyHidden=false mHiddenWhileSuspended=false mForceHideNonSystemOverlayWindow=false
+    mGivenContentInsets=[0,1840][0,0] mGivenVisibleInsets=[0,1840][0,0]
+    mTouchableInsets=2 mGivenInsetsPending=false
+    touchable region=SkRegion((0,1891,1600,2560))
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,51][1600,2560] display=[0,51][1600,2560] frame=[0,51][1600,2560] last=[0,51][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    ContainerAnimator:
+      mLeash=Surface(name=Surface(name=d988b17 InputMethod)/@0xda6f8ed - animation-leash of insets_animation)/@0xa44000e mAnimationType=insets_animation
+      Animation: com.android.server.wm.InsetsSourceProvider$ControlAdapter@e5e8456
+        ControlAdapter mCapturedLeash=Surface(name=Surface(name=d988b17 InputMethod)/@0xda6f8ed - animation-leash of insets_animation)/@0xa44000e
+    WindowStateAnimator{b14bcd7 InputMethod}:
+      mDrawState=NO_SURFACE       mLastHidden=false
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #11 Window{e2a9b7b u0 RecentsTransitionOverlay}:
+    mDisplayId=0 rootTaskId=4123 mSession=Session{983339b 752:u0a10126} mClient=android.os.BinderProxy@6b1fb75
+    mOwnerUid=10126 showForAllUsers=false package=com.sec.android.app.launcher appop=NONE
+    mAttrs={(0,0)(1x1) gr=BOTTOM CENTER_VERTICAL sim={adjust=pan} layoutInDisplayCutoutMode=always ty=TRANSIENT_LAUNCH_OVERLAY fmt=TRANSLUCENT if=INPUT_FEATURE_NO_INPUT_CHANNEL
+      fl=118
+      pfl=12000000
+      bhv=DEFAULT naviIconColor=0
+      sfl=4020000}
+    Requested w=1 h=1 mLayoutSeq=40747
+    mBaseLayer=31000 mSubLayer=0    mToken=TransientLaunchOverlayToken{5e3e70a token=android.os.BinderProxy@6b1fb75}
+    mViewVisibility=0x0 mHaveFrame=true mObscured=false
+    mPolicyVisibility=false mLegacyPolicyVisibilityAfterAnim=false mAppOpVisibility=true parentHidden=false mPermanentlyHidden=false mHiddenWhileSuspended=false mForceHideNonSystemOverlayWindow=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mHasSurface=true isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[799,2559][800,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{ea819c4 RecentsTransitionOverlay}:
+      mSurface=Surface(name=RecentsTransitionOverlay$_752)/@0x704e0ad
+      Surface: shown=false layer=0 alpha=1.0 rect=(0.0,0.0)  transform=(1.0, 0.0, 0.0, 1.0)
+      mDrawState=HAS_DRAWN       mLastHidden=true
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #12 Window{436fc6e u0 com.ethan.fruitslice/com.ethan.fruitslice.MainActivity}:
+    mDisplayId=0 rootTaskId=4293 mSession=Session{7979ab3 5191:u0a10328} mClient=android.os.BinderProxy@f6037e9
+    mOwnerUid=10328 showForAllUsers=false package=com.ethan.fruitslice appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={adjust=pan forwardNavigation} layoutInDisplayCutoutMode=shortEdges ty=BASE_APPLICATION wanim=0x1030303
+      fl=81810180
+      pfl=1a008040
+      apr=LIGHT_NAVIGATION_BARS
+      bhv=SHOW_TRANSIENT_BARS_BY_SWIPE
+      fitSides= naviIconColor=0
+      sfl=100000}
+    Requested w=1600 h=2560 mLayoutSeq=41865
+    mBaseLayer=21000 mSubLayer=0    mToken=ActivityRecord{4ba8073 u0 com.ethan.fruitslice/.MainActivity t4293}
+    mActivityRecord=ActivityRecord{4ba8073 u0 com.ethan.fruitslice/.MainActivity t4293}
+    drawnStateEvaluated=false    mightAffectAllDrawn=true
+    mViewVisibility=0x4 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.1 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mLastReportedConfiguration={0.0 ?mcc0mnc ?localeList ?layoutDir ?swdp ?wdp ?hdp ?density ?lsize ?long ?ldr ?wideColorGamut ?orien ?uimode ?night ?touch ?keyb/?/? ?nav/? winConfig={ mBounds=Rect(0, 0 - 0, 0) mAppBounds=null mMaxBounds=Rect(0, 0 - 0, 0) mDisplayRotation=undefined mWindowingMode=undefined mDisplayWindowingMode=undefined mActivityType=undefined mAlwaysOnTop=undefined mRotation=undefined mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=undefined mFreeformTranslucent=UNDEFINED} ?fontWeightAdjustment ff=0 bf=-1 bts=-1 cst=0.0 nightDim=-1 desktop/? dm/? ?dc ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,0][1600,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{c568fe2 com.ethan.fruitslice/com.ethan.fruitslice.MainActivity}:
+      mDrawState=NO_SURFACE       mLastHidden=true
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    Requested non-default-visibility types: statusBars navigationBars captionBar systemOverlays
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #13 Window{2d87c7b u0 com.android.settings/com.android.settings.SubSettings}:
+    mDisplayId=0 rootTaskId=4291 mSession=Session{b3fe935 3153:1000} mClient=android.os.BinderProxy@508ac0a
+    mOwnerUid=1000 showForAllUsers=false package=com.android.settings appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={adjust=pan} layoutInDisplayCutoutMode=shortEdges ty=BASE_APPLICATION wanim=0x10302f2
+      fl=81810100
+      pfl=12008040
+      vsysui=2010
+      apr=LIGHT_STATUS_BARS LIGHT_NAVIGATION_BARS
+      bhv=DEFAULT
+      fitSides= naviIconColor=0
+      sfl=100001}
+    Requested w=928 h=2560 mLayoutSeq=41843
+    mBaseLayer=21000 mSubLayer=0    mToken=ActivityRecord{2001798 u0 com.android.settings/.SubSettings t4291}
+    mActivityRecord=ActivityRecord{2001798 u0 com.android.settings/.SubSettings t4291}
+    drawnStateEvaluated=true    mightAffectAllDrawn=true
+    mViewVisibility=0x8 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw437dp w437dp h1133dp 340dpi nrml port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(672, 0 - 1600, 2560) mAppBounds=Rect(672, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=multi-window mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=right mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.2 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw437dp w437dp h1133dp 340dpi nrml port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(672, 0 - 1600, 2560) mAppBounds=Rect(672, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=multi-window mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=right mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.2 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[672,0][1600,2560] display=[672,0][1600,2560] frame=[672,0][1600,2560] last=[672,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{b7e4f73 com.android.settings/com.android.settings.SubSettings}:
+      mDrawState=NO_SURFACE       mLastHidden=true
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #14 Window{a7bbab3 u0 com.android.settings/com.android.settings.Settings}:
+    mDisplayId=0 rootTaskId=4291 mSession=Session{b3fe935 3153:1000} mClient=android.os.BinderProxy@905a022
+    mOwnerUid=1000 showForAllUsers=false package=com.android.settings appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={adjust=nothing} layoutInDisplayCutoutMode=shortEdges ty=BASE_APPLICATION wanim=0x10302f2
+      fl=81810100
+      pfl=12008040
+      vsysui=2010
+      apr=LIGHT_STATUS_BARS LIGHT_NAVIGATION_BARS
+      bhv=DEFAULT
+      fitSides= naviIconColor=0
+      sfl=100001}
+    Requested w=672 h=2560 mLayoutSeq=41843
+    mBaseLayer=21000 mSubLayer=0    mToken=ActivityRecord{34d9f37 u0 com.android.settings/.Settings t4291}
+    mActivityRecord=ActivityRecord{34d9f37 u0 com.android.settings/.Settings t4291}
+    drawnStateEvaluated=true    mightAffectAllDrawn=true
+    mViewVisibility=0x8 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw316dp w316dp h1133dp 340dpi nrml port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 672, 2560) mAppBounds=Rect(0, 0 - 672, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=multi-window mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=left mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.7 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw316dp w316dp h1133dp 340dpi nrml port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 672, 2560) mAppBounds=Rect(0, 0 - 672, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=multi-window mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=left mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.7 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][672,2560] display=[0,0][672,2560] frame=[0,0][672,2560] last=[0,0][672,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{6ef0e30 com.android.settings/com.android.settings.Settings}:
+      mDrawState=NO_SURFACE       mLastHidden=true
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #15 Window{221de7a u0 com.samsung.android.app.spage}:
+    mDisplayId=0 rootTaskId=4123 mSession=Session{53b94b1 30682:u0a10042} mClient=android.os.BinderProxy@d386aa5
+    mOwnerUid=10042 showForAllUsers=false package=com.samsung.android.app.spage appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={adjust=pan} ty=APPLICATION_PANEL fmt=RGBA_8888
+      fl=1000018
+      pfl=42000040
+      bhv=DEFAULT
+      fitTypes=STATUS_BARS NAVIGATION_BARS CAPTION_BAR naviIconColor=0}
+    Requested w=-1 h=-1 mLayoutSeq=257
+    mParentWindow=Window{2b875e2 u0 com.sec.android.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity} mLayoutAttached=true
+    mBaseLayer=21000 mSubLayer=1    mToken=ActivityRecord{43a8101 u0 com.sec.android.app.launcher/.activities.LauncherActivity t4124}
+    mActivityRecord=ActivityRecord{43a8101 u0 com.sec.android.app.launcher/.activities.LauncherActivity t4124}
+    drawnStateEvaluated=true    mightAffectAllDrawn=false
+    mViewVisibility=0x8 mHaveFrame=true mObscured=false
+    mPolicyVisibility=true mLegacyPolicyVisibilityAfterAnim=true mAppOpVisibility=true parentHidden=true mPermanentlyHidden=false mHiddenWhileSuspended=false mForceHideNonSystemOverlayWindow=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=home mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.32 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=home mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.32 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,51][1600,2458] frame=[0,51][1600,2458] last=[0,51][1600,2458] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{33bdaa9 }:
+      mDrawState=READY_TO_SHOW       mLastHidden=true
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+      mShownAlpha=0.0 mAlpha=1.0 mLastAlpha=0.0
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #16 Window{2b875e2 u0 com.sec.android.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity}:
+    mDisplayId=0 rootTaskId=4123 mSession=Session{983339b 752:u0a10126} mClient=android.os.BinderProxy@fc69ead
+    mOwnerUid=10126 showForAllUsers=false package=com.sec.android.app.launcher appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={adjust=nothing forwardNavigation} layoutInDisplayCutoutMode=shortEdges ty=BASE_APPLICATION fmt=TRANSPARENT wanim=0x10302f2
+      fl=81910100
+      pfl=1e008040
+      bhv=SHOW_TRANSIENT_BARS_BY_SWIPE
+      fitSides= screenDimDuration=40000 naviIconColor=0}
+    Requested w=1600 h=2560 mLayoutSeq=41794
+    mBaseLayer=21000 mSubLayer=0    mToken=ActivityRecord{43a8101 u0 com.sec.android.app.launcher/.activities.LauncherActivity t4124}
+    mActivityRecord=ActivityRecord{43a8101 u0 com.sec.android.app.launcher/.activities.LauncherActivity t4124}
+    drawnStateEvaluated=true    mightAffectAllDrawn=true
+    mViewVisibility=0x8 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=home mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.32 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=home mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.32 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,0][1600,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{4d1c82e com.sec.android.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity}:
+      mDrawState=NO_SURFACE       mLastHidden=true
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    mWallpaperX=0.5 mWallpaperY=0.5
+    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #17 Window{14b798a u0 com.tencent.mm/com.tencent.mm.plugin.appbrand.ui.AppBrandUI1}:
+    mDisplayId=0 rootTaskId=4289 mSession=Session{be73e22 27250:u0a10291} mClient=android.os.BinderProxy@88a47f5
+    mOwnerUid=10291 showForAllUsers=false package=com.tencent.mm appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={adjust=pan forwardNavigation} layoutInDisplayCutoutMode=shortEdges ty=BASE_APPLICATION fmt=TRANSLUCENT sysuil=true
+      fl=81810500
+      pfl=12008040
+      vsysui=1716
+      apr=LIGHT_NAVIGATION_BARS
+      bhv=SHOW_TRANSIENT_BARS_BY_SWIPE
+      fitSides= naviIconColor=0}
+    Requested w=1600 h=2560 mLayoutSeq=41784
+    mBaseLayer=21000 mSubLayer=0    mToken=ActivityRecord{3c0431c u0 com.tencent.mm/.plugin.appbrand.ui.AppBrandUI1 t4289}
+    mActivityRecord=ActivityRecord{3c0431c u0 com.tencent.mm/.plugin.appbrand.ui.AppBrandUI1 t4289}
+    drawnStateEvaluated=true    mightAffectAllDrawn=true
+    mViewVisibility=0x8 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.1 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.1 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,0][1600,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{9e46fcf com.tencent.mm/com.tencent.mm.plugin.appbrand.ui.AppBrandUI1}:
+      mDrawState=NO_SURFACE       mLastHidden=true
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    Requested non-default-visibility types: statusBars navigationBars
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #18 Window{b7e0804 u0 com.tencent.mm/com.tencent.mm.ui.LauncherUI}:
+    mDisplayId=0 rootTaskId=4277 mSession=Session{61839d9 4078:u0a10291} mClient=android.os.BinderProxy@9707c17
+    mOwnerUid=10291 showForAllUsers=false package=com.tencent.mm appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={state=hidden adjust=nothing forwardNavigation} layoutInDisplayCutoutMode=shortEdges ty=BASE_APPLICATION fmt=TRANSLUCENT wanim=0x7f1201f7
+      fl=81810100
+      pfl=12008040
+      vsysui=2510
+      apr=LIGHT_STATUS_BARS LIGHT_NAVIGATION_BARS
+      bhv=DEFAULT
+      fitSides= naviIconColor=0}
+    Requested w=1600 h=2560 mLayoutSeq=41764
+    mBaseLayer=21000 mSubLayer=0    mToken=ActivityRecord{259e7eb u0 com.tencent.mm/.ui.LauncherUI t4277}
+    mActivityRecord=ActivityRecord{259e7eb u0 com.tencent.mm/.ui.LauncherUI t4277}
+    drawnStateEvaluated=true    mightAffectAllDrawn=true
+    mViewVisibility=0x8 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=full mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.2 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=full mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.2 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,0][1600,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{96edd5c com.tencent.mm/com.tencent.mm.ui.LauncherUI}:
+      mDrawState=NO_SURFACE       mLastHidden=true
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #19 Window{8710826 u0 com.microsoft.emmx/com.microsoft.ruby.Main}:
+    mDisplayId=0 rootTaskId=4290 mSession=Session{5b6028b 29660:u0a10299} mClient=android.os.BinderProxy@b00bf81
+    mOwnerUid=10299 showForAllUsers=false package=com.microsoft.emmx appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={state=always_hidden adjust=resize} ty=BASE_APPLICATION fmt=TRANSLUCENT wanim=0x1030303 sysuil=true
+      fl=81810100
+      pfl=16008040
+      vsysui=2110
+      apr=LIGHT_STATUS_BARS LIGHT_NAVIGATION_BARS
+      bhv=DEFAULT
+      fitSides= naviIconColor=0}
+    Requested w=1600 h=2560 mLayoutSeq=41750
+    mBaseLayer=21000 mSubLayer=0    mToken=ActivityRecord{39a45b2 u0 com.microsoft.emmx/com.microsoft.ruby.Main t4290}
+    mActivityRecord=ActivityRecord{39a45b2 u0 com.microsoft.emmx/com.microsoft.ruby.Main t4290}
+    drawnStateEvaluated=true    mightAffectAllDrawn=true
+    mViewVisibility=0x8 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.1 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.1 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,0][1600,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{cce7865 com.microsoft.emmx/com.microsoft.ruby.Main}:
+      mDrawState=NO_SURFACE       mLastHidden=true
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #20 Window{4f61bda u0 com.github.metacubex.clash.meta/com.github.kr328.clash.MainActivityAlias}:
+    mDisplayId=0 rootTaskId=4287 mSession=Session{b70d1c9 12904:u0a10295} mClient=android.os.BinderProxy@9abc185
+    mOwnerUid=10295 showForAllUsers=false package=com.github.metacubex.clash.meta appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={adjust=pan forwardNavigation} layoutInDisplayCutoutMode=shortEdges ty=BASE_APPLICATION wanim=0x1030303
+      fl=81810100
+      pfl=16008040
+      vsysui=2010
+      apr=LIGHT_STATUS_BARS LIGHT_NAVIGATION_BARS
+      bhv=DEFAULT
+      fitSides= naviIconColor=0}
+    Requested w=1600 h=2560 mLayoutSeq=41501
+    mBaseLayer=21000 mSubLayer=0    mToken=ActivityRecord{f5b9dee u0 com.github.metacubex.clash.meta/com.github.kr328.clash.MainActivityAlias t4287}
+    mActivityRecord=ActivityRecord{f5b9dee u0 com.github.metacubex.clash.meta/com.github.kr328.clash.MainActivityAlias t4287}
+    drawnStateEvaluated=true    mightAffectAllDrawn=true
+    mViewVisibility=0x8 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.1 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.1 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,0][1600,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{fb6393a com.github.metacubex.clash.meta/com.github.kr328.clash.MainActivityAlias}:
+      mDrawState=NO_SURFACE       mLastHidden=true
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #21 Window{4ba4835 u0 com.twitter.android/com.x.android.main.MainActivity}:
+    mDisplayId=0 rootTaskId=4288 mSession=Session{90eb4d4 13099:u0a10305} mClient=android.os.BinderProxy@e8bca6c
+    mOwnerUid=10305 showForAllUsers=false package=com.twitter.android appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={adjust=resize} layoutInDisplayCutoutMode=always ty=BASE_APPLICATION fmt=TRANSPARENT wanim=0x1030303
+      fl=81810100
+      pfl=12008040
+      vsysui=2110
+      apr=LIGHT_STATUS_BARS LIGHT_NAVIGATION_BARS
+      bhv=DEFAULT
+      fitSides= naviIconColor=0}
+    Requested w=1600 h=2560 mLayoutSeq=41479
+    mBaseLayer=21000 mSubLayer=0    mToken=ActivityRecord{87987d7 u0 com.twitter.android/com.x.android.main.MainActivity t4288}
+    mActivityRecord=ActivityRecord{87987d7 u0 com.twitter.android/com.x.android.main.MainActivity t4288}
+    drawnStateEvaluated=true    mightAffectAllDrawn=true
+    mViewVisibility=0x8 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.1 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.1 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,0][1600,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{2e239eb com.twitter.android/com.x.android.main.MainActivity}:
+      mDrawState=NO_SURFACE       mLastHidden=true
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #22 Window{36a19e8 u0 com.sec.android.app.launcher/com.android.quickstep.RecentsActivity}:
+    mDisplayId=0 rootTaskId=4119 mSession=Session{983339b 752:u0a10126} mClient=android.os.BinderProxy@3c3d70b
+    mOwnerUid=10126 showForAllUsers=false package=com.sec.android.app.launcher appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={adjust=pan} layoutInDisplayCutoutMode=shortEdges ty=BASE_APPLICATION fmt=TRANSPARENT wanim=0x10302f2
+      fl=81910100
+      pfl=12008040
+      bhv=DEFAULT
+      fitSides= naviIconColor=0
+      sfl=4000000}
+    Requested w=1600 h=2560 mLayoutSeq=40751
+    mBaseLayer=21000 mSubLayer=0    mToken=ActivityRecord{db16733 u0 com.sec.android.app.launcher/com.android.quickstep.RecentsActivity t4119}
+    mActivityRecord=ActivityRecord{db16733 u0 com.sec.android.app.launcher/com.android.quickstep.RecentsActivity t4119}
+    drawnStateEvaluated=true    mightAffectAllDrawn=true
+    mViewVisibility=0x8 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=recents mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.34 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=recents mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.34 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,0][1600,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{eba7348 com.sec.android.app.launcher/com.android.quickstep.RecentsActivity}:
+      mDrawState=NO_SURFACE       mLastHidden=true
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #23 Window{a8c6235 u0 com.sec.android.app.popupcalculator/com.sec.android.app.popupcalculator.Calculator}:
+    mDisplayId=0 rootTaskId=4284 mSession=Session{b24fcbe 23411:u0a10270} mClient=android.os.BinderProxy@24e0c6c
+    mOwnerUid=10270 showForAllUsers=false package=com.sec.android.app.popupcalculator appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={state=always_hidden adjust=pan} layoutInDisplayCutoutMode=shortEdges ty=BASE_APPLICATION wanim=0x1030303
+      fl=81810100
+      pfl=12008040
+      vsysui=2010
+      apr=LIGHT_STATUS_BARS LIGHT_NAVIGATION_BARS
+      bhv=DEFAULT
+      fitSides= naviIconColor=0
+      sfl=100000}
+    Requested w=1600 h=2560 mLayoutSeq=40492
+    mBaseLayer=21000 mSubLayer=0    mToken=ActivityRecord{1440f30 u0 com.sec.android.app.popupcalculator/.Calculator t4284}
+    mActivityRecord=ActivityRecord{1440f30 u0 com.sec.android.app.popupcalculator/.Calculator t4284}
+    drawnStateEvaluated=true    mightAffectAllDrawn=true
+    mViewVisibility=0x8 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.1 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.1 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,0][1600,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{63335e1 com.sec.android.app.popupcalculator/com.sec.android.app.popupcalculator.Calculator}:
+      mDrawState=NO_SURFACE       mLastHidden=true
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #24 Window{9525393 u0 com.tencent.ima/com.tencent.ima.MainActivity}:
+    mDisplayId=0 rootTaskId=4282 mSession=Session{dbcc164 22480:u0a10341} mClient=android.os.BinderProxy@be59082
+    mOwnerUid=10341 showForAllUsers=false package=com.tencent.ima appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={adjust=nothing forwardNavigation} layoutInDisplayCutoutMode=always ty=BASE_APPLICATION wanim=0x1030303
+      fl=81810100
+      pfl=16008040
+      vsysui=2110
+      apr=LIGHT_STATUS_BARS LIGHT_NAVIGATION_BARS
+      bhv=DEFAULT
+      fitSides= naviIconColor=0}
+    Requested w=1600 h=2560 mLayoutSeq=40404
+    mBaseLayer=21000 mSubLayer=0    mToken=ActivityRecord{3b606c0 u0 com.tencent.ima/.MainActivity t4282}
+    mActivityRecord=ActivityRecord{3b606c0 u0 com.tencent.ima/.MainActivity t4282}
+    drawnStateEvaluated=true    mightAffectAllDrawn=true
+    mViewVisibility=0x8 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.1 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.1 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n dc/d ?dcui themeSeq=0}
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,0][1600,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{b3eaf06 com.tencent.ima/com.tencent.ima.MainActivity}:
+      mDrawState=NO_SURFACE       mLastHidden=true
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+  Window #25 Window{c75be7 u0 com.android.systemui.wallpapers.ImageWallpaper_systemlock}:
+    mDisplayId=0 rootTaskId=4123 mSession=Session{c844546 355:u0a10055} mClient=android.os.BinderProxy@86af5a6
+    mOwnerUid=10055 showForAllUsers=true package=com.android.systemui appop=NONE
+    mAttrs={(0,0)(2560x2560) gr=TOP START CENTER layoutInDisplayCutoutMode=always ty=WALLPAPER fmt=RGBX_8888 wanim=0x1030314
+      fl=14318
+      pfl=2000014
+      bhv=DEFAULT naviIconColor=0}
+    Requested w=2560 h=2560 mLayoutSeq=41800
+    mIsImWindow=false mIsWallpaper=true mIsFloatingLayer=true
+    mBaseLayer=11000 mSubLayer=0    mToken=WallpaperWindowToken{3743b05 token=android.os.Binder@81d867c}
+    mViewVisibility=0x0 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mHasSurface=true isReadyForDisplay()=false mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[-100000,-100000][100000,100000] frame=[0,0][2560,2560] last=[0,0][2560,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{7a889c7 com.android.systemui.wallpapers.ImageWallpaper_systemlock}:
+      mSurface=Surface(name=com.android.systemui.wallpapers.ImageWallpaper_systemlock$_355)/@0x3a77bf4
+      Surface: shown=false layer=0 alpha=1.0 rect=(0.0,0.0)  transform=(1.0, 0.0, 0.0, 1.0)
+      mDrawState=HAS_DRAWN       mLastHidden=true
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    mXOffset=-480 mYOffset=0
+    mWallpaperX=0.5 mWallpaperY=0.5
+    mWallpaperZoomOut=0.0
+    mWallpaperDisplayOffsetX=0 mWallpaperDisplayOffsetY=0
+    isOnScreen=false
+    isVisible=false
+    keepClearAreas: restricted=[], unrestricted=[]
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+
+  Hiding System Alert Windows:
+  #0 Window{fbb5f93 u0 NotificationShade}:
+    mDisplayId=0 rootTaskId=4123 mSession=Session{c844546 355:u0a10055} mClient=android.os.BinderProxy@f51d64
+    mOwnerUid=10055 showForAllUsers=true package=com.android.systemui appop=NONE
+    mAttrs={(0,0)(fillxfill) gr=TOP CENTER_VERTICAL sim={adjust=pan} layoutInDisplayCutoutMode=always ty=NOTIFICATION_SHADE fmt=TRANSLUCENT or=SCREEN_ORIENTATION_USER if=INPUT_FEATURE_DISABLE_USER_ACTIVITY userActivityTimeout=5000
+      fl=81860040
+      pfl=1a080200
+      bhv=SHOW_TRANSIENT_BARS_BY_SWIPE screenDimDuration=0 naviIconColor=0
+      sfl=60000}
+    Requested w=1600 h=2560 mLayoutSeq=41867
+    mBaseLayer=171000 mSubLayer=0    mToken=WindowToken{d5b4c82 type=2040 android.os.BinderProxy@46b0af7}
+    mViewVisibility=0x0 mHaveFrame=true mObscured=false
+    mGivenContentInsets=[0,0][0,0] mGivenVisibleInsets=[0,0][0,0]
+    mFullConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mLastReportedConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mHasSurface=true isReadyForDisplay()=true mWindowRemovalAllowed=false
+    Frames: parent=[0,0][1600,2560] display=[0,0][1600,2560] frame=[0,0][1600,2560] last=[0,0][1600,2560] insetsChanged=false
+     surface=[0,0][0,0]
+    WindowStateAnimator{27ed12c NotificationShade}:
+      mSurface=Surface(name=NotificationShade$_355)/@0x7c2a7f5
+      Surface: shown=true layer=0 alpha=1.0 rect=(0.0,0.0)  transform=(1.0, 0.0, 0.0, 1.0)
+      mDrawState=HAS_DRAWN       mLastHidden=false
+      mEnterAnimationPending=false      mSystemDecorRect=[0,0][0,0]
+    mForceSeamlesslyRotate=false seamlesslyRotate: pending=null    isOnScreen=true
+    isVisible=true
+    keepClearAreas: restricted=[], unrestricted=[]
+    Requested non-default-visibility types: navigationBars
+    mPrepareSyncSeqId=0
+    mHiddenWhileProfileLockedState=false
+
+  mGlobalConfiguration={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+  mHasPermanentDpad=false
+  mTopFocusedDisplayId=0
+  imeInputTarget in display# 0 Window{2d87c7b u0 com.android.settings/com.android.settings.SubSettings}
+  imeControlTarget in display# 0 Window{2d87c7b u0 com.android.settings/com.android.settings.SubSettings}
+  Minimum task size of display#0 220  mBlurEnabled=false
+  mLastDisplayFreezeDuration=0 due to new-config
+ mHighResSnapshotScale=1.0
+ mSnapshotEnabled=true
+ SnapshotCache Task
+   Entry token=4291
+     topApp=ActivityRecord{2001798 u0 com.android.settings/.SubSettings t4291}
+     snapshot=TaskSnapshot{ mId=1791718492662 mCaptureTime=6819424940983760 mTopActivityComponent=com.android.settings/.SubSettings mSnapshot=android.hardware.HardwareBuffer@8cc4f1d (1600x2560) mColorSpace=sRGB IEC61966-2.1 (id=0, model=RGB) mOrientation=1 mRotation=0 mTaskSize=Point(1600, 2560) mContentInsets=[0,51][0,102] mLetterboxInsets=[0,0][0,0] mIsLowResolution=false mIsRealSnapshot=true mWindowingMode=1 mAppearance=24 mIsTranslucent=false mHasImeSurface=false
+   Entry token=4290
+     topApp=ActivityRecord{39a45b2 u0 com.microsoft.emmx/com.microsoft.ruby.Main t4290}
+     snapshot=TaskSnapshot{ mId=1791717894502 mCaptureTime=6818826770995915 mTopActivityComponent=com.microsoft.emmx/org.chromium.chrome.browser.ChromeTabbedActivity mSnapshot=android.hardware.HardwareBuffer@c86b592 (1600x2560) mColorSpace=sRGB IEC61966-2.1 (id=0, model=RGB) mOrientation=1 mRotation=0 mTaskSize=Point(1600, 2560) mContentInsets=[0,51][0,102] mLetterboxInsets=[0,0][0,0] mIsLowResolution=false mIsRealSnapshot=true mWindowingMode=1 mAppearance=24 mIsTranslucent=true mHasImeSurface=false
+   Entry token=4289
+     topApp=ActivityRecord{3c0431c u0 com.tencent.mm/.plugin.appbrand.ui.AppBrandUI1 t4289}
+     snapshot=TaskSnapshot{ mId=1791718338387 mCaptureTime=6819270656337621 mTopActivityComponent=com.tencent.mm/.plugin.appbrand.ui.AppBrandUI1 mSnapshot=android.hardware.HardwareBuffer@199fb63 (1600x2560) mColorSpace=sRGB IEC61966-2.1 (id=0, model=RGB) mOrientation=1 mRotation=0 mTaskSize=Point(1600, 2560) mContentInsets=[0,0][0,0] mLetterboxInsets=[0,0][0,0] mIsLowResolution=false mIsRealSnapshot=true mWindowingMode=1 mAppearance=16 mIsTranslucent=true mHasImeSurface=false
+   Entry token=4287
+     topApp=ActivityRecord{f5b9dee u0 com.github.metacubex.clash.meta/com.github.kr328.clash.MainActivityAlias t4287}
+     snapshot=TaskSnapshot{ mId=1791715354392 mCaptureTime=6816286658788238 mTopActivityComponent=com.github.metacubex.clash.meta/com.github.kr328.clash.MainActivity mSnapshot=android.hardware.HardwareBuffer@aba6360 (1600x2560) mColorSpace=sRGB IEC61966-2.1 (id=0, model=RGB) mOrientation=1 mRotation=0 mTaskSize=Point(1600, 2560) mContentInsets=[0,51][0,102] mLetterboxInsets=[0,0][0,0] mIsLowResolution=false mIsRealSnapshot=true mWindowingMode=1 mAppearance=24 mIsTranslucent=false mHasImeSurface=false
+   Entry token=4277
+     topApp=ActivityRecord{259e7eb u0 com.tencent.mm/.ui.LauncherUI t4277}
+     snapshot=TaskSnapshot{ mId=1791717897329 mCaptureTime=6818829596144195 mTopActivityComponent=com.tencent.mm/.ui.LauncherUI mSnapshot=android.hardware.HardwareBuffer@7e3c019 (1600x2560) mColorSpace=sRGB IEC61966-2.1 (id=0, model=RGB) mOrientation=1 mRotation=0 mTaskSize=Point(1600, 2560) mContentInsets=[0,51][0,102] mLetterboxInsets=[0,0][0,0] mIsLowResolution=false mIsRealSnapshot=true mWindowingMode=1 mAppearance=24 mIsTranslucent=true mHasImeSurface=false
+ MaxSnapshotCache=5
+ mHighResSnapshotScale=0.6
+ mSnapshotEnabled=false
+ SnapshotCache Activity
+ MaxSnapshotCache=5
+AccessibilityController:
+  No magnification displays
+  1 windows for accessibility observer(s):
+    WindowsForAccessibilityObserver{mDisplayId=0, mInitialized=true}
+  AccessibilityWindowsPopulator
+    mWindowsNotificationEnabled: true
+    3 visible windows: [2b24f6c TaskbarWindow, frame=[0,2458,1600,2560], touchableRegion=SkRegion((0,2458,1600,2560)), scaleFactor=1.0, transform=Matrix{[1.0, -0.0, 0.0][-0.0, 1.0, -2458.0][0.0, 0.0, 1.0]}, windowToken=android.os.BinderProxy@8c5201f, displayId=0, isClone=false, fbb5f93 NotificationShade, frame=[0,0,1600,2560], touchableRegion=SkRegion((-1600,-2560,3200,5120)), scaleFactor=1.0, transform=Matrix{[1.0, -0.0, 0.0][-0.0, 1.0, 0.0][0.0, 0.0, 1.0]}, windowToken=android.os.BinderProxy@f51d64, displayId=0, isClone=false, 3642539 StatusBar, frame=[0,0,1600,51], touchableRegion=SkRegion((0,0,1600,51)), scaleFactor=1.0, transform=Matrix{[1.0, -0.0, 0.0][-0.0, 1.0, 0.0][0.0, 0.0, 1.0]}, windowToken=android.os.BinderProxy@5cb5383, displayId=0, isClone=false]
+    1 display info(s):
+displayId=-1, mLogicalSize=1600x2560, mTransform=Matrix{[1.0, -0.0, 0.0][-0.0, 1.0, 0.0][0.0, 0.0, 1.0]}
+    1 window handles on display(s):
+  Display #0: [2b24f6c TaskbarWindow, frame=[0,2458,1600,2560], touchableRegion=SkRegion((0,2458,1600,2560)), scaleFactor=1.0, transform=Matrix{[1.0, -0.0, 0.0][-0.0, 1.0, -2458.0][0.0, 0.0, 1.0]}, windowToken=android.os.BinderProxy@8c5201f, displayId=0, isClone=false, fbb5f93 NotificationShade, frame=[0,0,1600,2560], touchableRegion=SkRegion((-1600,-2560,3200,5120)), scaleFactor=1.0, transform=Matrix{[1.0, -0.0, 0.0][-0.0, 1.0, 0.0][0.0, 0.0, 1.0]}, windowToken=android.os.BinderProxy@f51d64, displayId=0, isClone=false, 3642539 StatusBar, frame=[0,0,1600,51], touchableRegion=SkRegion((0,0,1600,51)), scaleFactor=1.0, transform=Matrix{[1.0, -0.0, 0.0][-0.0, 1.0, 0.0][0.0, 0.0, 1.0]}, windowToken=android.os.BinderProxy@5cb5383, displayId=0, isClone=false]
+    No magnification spec matrixs
+    No current magnification specs
+    No previous magnification specs
+  mInputMethodWindow=Window{d988b17 u0 InputMethod}
+  mTraversalScheduled=false
+  mDeferDepth=0 mDeferredRequests=0
+  mSystemBooted=true mDisplayEnabled=true
+  mLayoutNeeded on displays=0
+  mTransactionSequence=80939
+  mDisplayFrozen=false windows=0 client=false apps=0
+  mRotation=0
+  mLastOrientation=2
+  mWaitingForConfig=false
+  mDisplayRotationWatchers: [ 10126->0 10126->0 10055->0 10055->0 10055->0]
+  Animation settings: disabled=false window=1.0 transition=1.0 animator=1.0
+
+  WindowContextListenerController
+    mListeners #0 {type:2, display:0, package=com.sec.android.app.launcher, container=DefaultTaskDisplayArea_d0@45132949}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #1 {type:2038, display:0, package=com.microsoft.appmanager, container=Leaf:3:12@138773580}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #2 {type:2011, display:0, package=com.bytedance.android.doubaoime, container=WindowToken{ff868af type=2011 android.os.Binder@a08988e}}
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #3 {type:2, display:0, package=com.microsoft.emmx, container=DefaultTaskDisplayArea_d0@45132949}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #4 {type:2, display:0, package=com.tencent.mm, container=DefaultTaskDisplayArea_d0@45132949}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #5 {type:2, display:0, package=com.tencent.mm, container=DefaultTaskDisplayArea_d0@45132949}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #6 {type:2, display:0, package=com.twitter.android, container=DefaultTaskDisplayArea_d0@45132949}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #7 {type:2013, display:0, package=android.uid.systemui:10055, container=Leaf:1:1@107905435}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #8 {type:2, display:0, package=com.samsung.android.bixby.agent, container=DefaultTaskDisplayArea_d0@45132949}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #9 {type:2412, display:0, package=android.uid.systemui:10055, container=Leaf:3:12@138773580}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #10 {type:2008, display:0, package=android.uid.systemui:10055, container=Leaf:3:12@138773580}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #11 {type:2, display:0, package=com.sec.android.app.launcher, container=DefaultTaskDisplayArea_d0@45132949}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #12 {type:2226, display:0, package=com.sec.android.app.launcher, container=Leaf:18:23@159702044}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #13 {type:2016, display:0, package=android.uid.systemui:10055, container=WindowToken{616afd4 type=2016 android.os.BinderProxy@a831116}}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #14 {type:2440, display:-1, package=com.samsung.android.service.aircommand, container=Leaf:18:23@159702044}
+      mHasPendingConfiguration=true
+      mLastReportedConfig=null
+    mListeners #15 {type:2009, display:0, package=com.samsung.android.bixby.agent, container=Leaf:18:23@159702044}
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #16 {type:2, display:0, package=android.uid.systemui:10055, container=DefaultTaskDisplayArea_d0@45132949}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #17 {type:2024, display:0, package=com.sec.android.app.launcher, container=WindowToken{d1da1ca type=2024 android.os.BinderProxy@cb09c55}}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #18 {type:2024, display:0, package=com.sec.android.app.launcher, container=Leaf:24:25@204222863}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #19 {type:2, display:0, package=com.tencent.ima, container=DefaultTaskDisplayArea_d0@45132949}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #20 {type:2, display:0, package=com.samsung.android.app.sreminder, container=DefaultTaskDisplayArea_d0@45132949}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=unpinned mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #21 {type:2038, display:0, package=com.samsung.android.bixby.agent, container=Leaf:3:12@138773580}
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #22 {type:-1, display:0, package=android.uid.systemui:10055, container=Display{#0 state=OFF size=1600x2560 ROTATION_0}}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #23 {type:2024, display:0, package=com.sec.android.app.launcher, container=Leaf:24:25@204222863}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+    mListeners #24 {type:2401, display:-1, package=com.samsung.android.service.aircommand, container=Leaf:24:25@204222863}
+      mHasPendingConfiguration=true
+      mLastReportedConfig=null
+    mListeners #25 {type:-1, display:0, package=android.uid.system:1000, container=Display{#0 state=OFF size=1600x2560 ROTATION_0}}
+      mHasPendingConfiguration=true
+      mLastReportedConfig={1.0 ?mcc0mnc [zh_CN_#Hans] ldltr sw753dp w753dp h1133dp 340dpi xlrg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1600, 2560) mAppBounds=Rect(0, 0 - 1600, 2458) mMaxBounds=Rect(0, 0 - 1600, 2560) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=undefined mOverlappingWithCutout=false mStageConfig=undefined mEmbedActivityMode=undefined mFreeformTaskPinningState=undefined mCompatSandboxScale=-1.0 mDexTaskDockingState=none mFreeformTranslucent=UNDEFINED} s.4293 fontWeightAdjustment=0 ff=0 bf=0 bts=0 cst=1.0 nightDim=0 desktop/d dm/n ?dc ?dcui themeSeq=0}
+
+  KeyguardDisable Token Info:
+
+WINDOW MANAGER EXTENSION (dumpsys window extension)
+  mReasonForMigrationDensity=No need migration density. density array is empty
+  dumpCriticalInfo
+    2026-04-18 09:42:11.109: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-04-18 15:02:00.562: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-04-18 18:03:15.019: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-04-18 23:18:06.785: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-04-26 04:52:17.339: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-04-26 14:52:50.057: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-04-27 07:44:48.821: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-04-27 18:21:45.194: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-05-29 03:05:09.991: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-05-29 20:00:54.129: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-05-30 04:09:26.108: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-05-30 22:11:38.192: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-06-29 03:36:27.452: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-06-29 21:10:03.422: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-06-30 16:24:59.524: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-07-01 11:46:12.946: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-08-27 04:53:36.905: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-08-27 22:09:56.265: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-08-28 23:13:41.958: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-08-29 02:13:44.066: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-09-28 04:28:04.231: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-09-28 23:12:32.271: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-09-29 04:25:06.856: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+    2026-09-29 07:25:07.010: PackageFeature_FoldablePackagePolicy_2026032601_false
+      Invalid!
+      line: 504
+
+  PolicyControl.sImmersiveStatusFilter=null
+  PolicyControl.sImmersiveNavigationFilter=null
+  ExtraDisplayPolicy=com.android.server.wm.CoverPolicy$CoverDisplayPolicy@3a6eabf
+  CustomLetterboxConfiguration
+    Mode=ENABLED_CAPTURED_BLUR_WALLPAPER, CornersRadius=32, BlurRadius=66
+    HasLiveWallpaper=false

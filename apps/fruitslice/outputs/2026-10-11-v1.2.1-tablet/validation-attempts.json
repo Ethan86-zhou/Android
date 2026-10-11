@@ -1,0 +1,19 @@
+{
+  "finalAcceptance": "device/verification.json",
+  "relaunch": "relaunch/relaunch-check.json",
+  "previews": [
+    {
+      "directory": "preview",
+      "status": "Not acceptance: display was asleep; black portrait capture. Subsequent awake acceptance and relaunch passed."
+    },
+    {
+      "directory": "preview-02",
+      "status": "Layout-only preview after waking tablet. Zero-score untouched preview round was removed before complete acceptance."
+    }
+  ],
+  "historyEvidenceCorrection": {
+    "failedComparison": "device/history-restore-check.json",
+    "authoritativeCheck": "device/history-empty-check.json",
+    "reason": "Initial history capture was a missing-file diagnostic, not a saved XML preference file. Exact-byte restoration claims in preview-02 are invalid. Package was absent before install and current empty XML plus cold-start historyCount=0/best=0/no checkpoint establishes no fixture scores remain."
+  }
+}

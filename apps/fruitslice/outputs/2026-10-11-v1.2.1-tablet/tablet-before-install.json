@@ -1,0 +1,10 @@
+{
+  "serial": "R52X40484CE",
+  "model": "SM-X710",
+  "android": "14",
+  "api": 34,
+  "screen": "Physical size: 1600x2560",
+  "density": "Physical density: 340",
+  "fruitSlicePackageBefore": "",
+  "sourceBaseCommit": "64ee7b1cce57b79a2123a960a8dd9bc4a9a227fd"
+}
