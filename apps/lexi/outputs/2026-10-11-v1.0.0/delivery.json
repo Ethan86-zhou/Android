@@ -1,0 +1,16 @@
+{
+  "name": "拾词 Lexi",
+  "version": "1.0.0",
+  "sourceCommit": "c7902c06ed632c897e0f6bf057deb718563f3dc4",
+  "apk": "Lexi-1.0.0-debug.apk",
+  "apkSha256": "aadd1a0b3e24e285ff74567fc48a4c3bec8a02ef5252eb2d0c5ae97e43d6234c",
+  "apkBytes": 41204704,
+  "primaryDeviceEvidence": "device-02/verification.json",
+  "nativeDeviceChecks": 211,
+  "systemFileExportEvidence": "saf/verification.json",
+  "dataEvidence": "dictionary-asset-validation-pack.json",
+  "allTestedSourceHashesStillMatch": true,
+  "networkPermission": false,
+  "remotePushPerformed": false,
+  "earlierEvidence": "device-01 functional checks passed; screenshot timing was corrected in device-02. The earlier files are preserved as historical evidence."
+}

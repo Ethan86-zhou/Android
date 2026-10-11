@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "sourceCommit": "c7902c06ed632c897e0f6bf057deb718563f3dc4",
+  "apkSha256": "aadd1a0b3e24e285ff74567fc48a4c3bec8a02ef5252eb2d0c5ae97e43d6234c",
+  "device": "SM-S9080",
+  "android": "16",
+  "method": "Actual application buttons and Android DocumentsUI, saved in local Download directory; files pulled and parsed. The JSON file was selected through the system picker and merged by the app.",
+  "savedAndParsedFormats": [
+    "CSV UTF-8 BOM",
+    "Markdown",
+    "JSON v1"
+  ],
+  "sampleWord": "apple",
+  "csvRows": 1,
+  "jsonRecords": 1,
+  "csvJsonMeaningsIdentical": true,
+  "actualJsonRestoreViaSystemPicker": true,
+  "fixtureWordRemovedAfterTest": true,
+  "bookCountAfterTest": 0,
+  "temporaryDownloadFilesRemoved": true,
+  "networkSettingsChanged": false,
+  "exports": {
+    "actual-wordbook.csv": "71ef03803587b87606a5b59174c4fd5c5dcf2c740a94861ebcbf1e2703205746",
+    "actual-wordbook.json": "891ce6bd012d3bd0930e0db57141e76984e042bbcef413ead17f84823881b785",
+    "actual-wordbook.md": "bec72bc8aca3c11d056bc52735511a2eb8b2e27629f2beaad696c84e0e2042ea"
+  }
+}
