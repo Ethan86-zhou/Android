@@ -2,11 +2,13 @@
 
 离线横屏切水果小游戏，打开直接开局。滑动手指切开水果，避开炸弹；彩虹果实随机切换限时玩法。本机保存成绩历史，没有账号、联网、广告、内购或设置页面。全部图形与音效为本项目制作。
 
-包名：`com.ethan.fruitslice`。最低 Android 16 / API 36，版本 `1.2.0`。按用户要求，以当前连接的三星 SM-S9080（Android 16）作为最低支持系统。
+包名：`com.ethan.fruitslice`。最低 Android 14 / API 34，版本 `1.2.1`。按用户要求适配当前连接的三星 SM-X710 平板（Android 14，1600 × 2560），同时保留 Android 16 手机的支持。
 
 ## 开始玩
 
-安装 [`FruitSlice-1.2.0-debug.apk`](outputs/2026-10-11-v1.2.0/final/FruitSlice-1.2.0-debug.apk)，打开“果刃”直接进入横屏切台，不经过账号、菜单或设置。支持向任意方向快速划动与多指操作；划一刀后抬手再切，水果会被切成两半，伴随刀光、果汁、短音效和系统触感。
+安装 [`FruitSlice-1.2.1-debug.apk`](outputs/2026-10-11-v1.2.1-tablet/FruitSlice-1.2.1-debug.apk)，打开“果刃”直接进入横屏切台，不经过账号、菜单或设置。支持向任意方向快速划动与多指操作；划一刀后抬手再切，水果会被切成两半，伴随刀光、果汁、短音效和系统触感。
+
+平板横屏使用整个 16:10 切台，按实际窗口比例绘制，水果与触摸判定共用坐标。暂停、结算和历史卡片保持居中，右上角按钮避开系统边缘。应用声明为游戏，保留横屏玩法；Android 16 大屏对游戏方向限制的例外见 [Android 官方说明](https://developer.android.com/about/versions/16/behavior-changes-16#large-screens)。
 
 西瓜、橙子、猕猴桃、苹果、菠萝、李子使用明亮的写实果皮和果肉贴图，素材随 APK 离线提供；完整水果和切开的两半均保持实际尺寸。切割后的飞散果汁短暂消失，木板上不保留果汁染色或残留色块。素材来源与生成提示见 [美术素材说明](docs/artwork.md)。
 
@@ -56,9 +58,17 @@ python .\tools\device_acceptance.py --serial <设备序列号> --output .\output
 
 `GameEngine.java` 是纯 Java 规则与物理；`BladeLimiter.java` 按真实触摸时间限制全指共享出刀额度；`GameView.java` 绘制界面并处理触摸和生命周期；`GameArt.java` 缓存原创图形；`GameAudio.java` 在私有缓存生成原创音效；`HistoryStore.java` 保存成绩和检查点。debug 版本额外提供私有 `files/debug_state.json` 便于复核，用户界面没有调试入口。
 
-切割按批次中的真实触摸样本处理，并通过 `PointerCoords.isResampled()` 排除系统为显示补出的预测位置，避免快速折返时多算路程或误切。历史中的真实采样点仍参与切割；抬手、取消和暂停正常结束当前刀。此行为按 [Android 官方重采样说明](https://developer.android.com/reference/android/view/MotionEvent.PointerCoords#isResampled()) 实现。
+切割请求立即派发真实触摸事件，避免系统为显示补出的预测位置在快速折返时多算路程或误切。Android 15 及以上再通过 `PointerCoords.isResampled()` 排除预测点；Android 14 不调用该新接口。历史中的真实采样点仍参与切割，抬手、取消和暂停正常结束当前刀。此行为按 [Android 官方触摸派发说明](https://developer.android.com/develop/ui/views/touch-and-input/stylus-input/advanced-stylus-features) 和 [重采样说明](https://developer.android.com/reference/android/view/MotionEvent.PointerCoords#isResampled()) 实现。
 
-## 1.2.0 实机验收
+## 1.2.1 三星平板实机验收
+
+交付包与证据位于 [`outputs/2026-10-11-v1.2.1-tablet`](outputs/2026-10-11-v1.2.1-tablet)。本版本已安装到当前连接的三星 SM-X710 / Android 14 / API 34，实际横屏窗口为 2560 × 1600；2,803 项规则检查、401 项实机检查通过，构建与 lint 通过（0 错误、1 条既有横屏方向提示）。此包本次实测设备为三星平板；下文 SM-S9080 手机结果属于各历史版本。
+
+新增大屏检查覆盖完整窗口绘制、画布与物理尺寸一致、左侧/右侧/下方水果实际触摸计分，以及居中的暂停、继续、历史和关闭按钮。界面与底部进度条完整显示，未被系统任务栏遮挡。尺寸诊断及截图见 [`device/viewport-diagnostics.json`](outputs/2026-10-11-v1.2.1-tablet/device/viewport-diagnostics.json)、[`11-viewport-low-cut.png`](outputs/2026-10-11-v1.2.1-tablet/device/11-viewport-low-cut.png)、[`12-large-screen-pause.png`](outputs/2026-10-11-v1.2.1-tablet/device/12-large-screen-pause.png) 和 [`13-large-screen-history.png`](outputs/2026-10-11-v1.2.1-tablet/device/13-large-screen-history.png)。原有五种模式、有限出刀、快速折返、多指共享额度、全部抬手恢复、真实历史采样、通知栏/后台暂停、不同大小得分及最高 10 局存储均通过复验。
+
+另关闭进程后实际重启，确认打开直接开局、自然首波半径为 28 / 56、基础分为 20 / 5，且没有残留触摸或收刀状态。平板此前未安装本应用，测试后有效历史为空、最高分为 0、无测试成绩或检查点残留，重启前后空记录完全一致；手机原有数据未迁移或操作。记录见 [`device/history-empty-check.json`](outputs/2026-10-11-v1.2.1-tablet/device/history-empty-check.json) 和 [`relaunch/relaunch-check.json`](outputs/2026-10-11-v1.2.1-tablet/relaunch/relaunch-check.json)。已安装 APK 与交付包哈希一致，验收及重启期间未发现本应用运行崩溃；源码提交、文件哈希和预览阶段证据说明见 `delivery-manifest.json`。未卸载或清除应用数据。
+
+## 1.2.0 历史实机验收
 
 交付安装包位于 [`outputs/2026-10-11-v1.2.0/final`](outputs/2026-10-11-v1.2.0/final)，已同签名覆盖安装到三星 SM-S9080 / Android 16 / API 36。2,803 项纯 Java 规则检查与最终 392 项手机检查通过；构建与 lint 通过，0 错误、1 条既有横屏方向提示。最终手机证据为 [`device-06`](outputs/2026-10-11-v1.2.0/device-06)，源码文件哈希见其中 `source-sha256.json`，对应源码提交及交付包哈希见 `final/delivery-manifest.json`。
 

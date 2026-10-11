@@ -606,6 +606,8 @@ final class GameView extends View {
             downY = y; historyStartScroll = historyScroll;
             pressedAction = actionAt(x, y);
             if (pressedAction > 0 || overlay != Overlay.NONE) return true;
+            // Raw dispatch avoids predicted overshoot on Android 14, which cannot identify resampled points.
+            requestUnbufferedDispatch(event);
             engine.beginStroke();
         }
         if (overlay == Overlay.HISTORY && action == MotionEvent.ACTION_MOVE) {
@@ -648,7 +650,7 @@ final class GameView extends View {
         if (history < 0) event.getPointerCoords(pointer, cutCoordinates);
         else event.getHistoricalPointerCoords(pointer, history, cutCoordinates);
         // Display predictions can overshoot a reversal. Only real samples may cut or spend path.
-        if (cutCoordinates.isResampled()) return;
+        if (android.os.Build.VERSION.SDK_INT >= 35 && cutCoordinates.isResampled()) return;
         cutTo(event.getPointerId(pointer), (cutCoordinates.x - offsetX) / scale, cutCoordinates.y / scale,
                 history < 0 ? event.getEventTime() : event.getHistoricalEventTime(history));
     }

@@ -5,6 +5,7 @@ import android.app.Instrumentation;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.InputDevice;
@@ -36,6 +37,7 @@ public final class GameInstrumentation extends Instrumentation {
     private boolean historyOnly;
     private float bladeTouchScale, bladeTouchLeft;
     private java.lang.reflect.Field bladeStartedAt, bladeLastEventTime;
+    private JSONObject viewportDiagnostics;
     private final JSONArray results = new JSONArray();
     private final JSONArray screenshots = new JSONArray();
     private final JSONArray bladeDiagnostics = new JSONArray();
@@ -78,6 +80,7 @@ public final class GameInstrumentation extends Instrumentation {
             expect(read(() -> !view.engine.fruits.isEmpty()), "Natural opening waves launch fruit");
             screenshot("01-opening.png");
             naturalSwipe();
+            viewportAndLargeScreenChecks();
             sizeAndScoreChecks();
             antiScribbleChecks();
             fixture(() -> {
@@ -171,6 +174,7 @@ public final class GameInstrumentation extends Instrumentation {
 
             JSONObject report = new JSONObject().put("passed", true).put("checks", checks)
                     .put("results", results).put("screenshots", screenshots).put("artwork", artwork)
+                    .put("viewport", viewportDiagnostics)
                     .put("method", "Real touchscreen MotionEvents plus explicit test-only scene fixtures; storage uses isolated preferences. The result score is a test fixture.");
             write("device-checks.json", report.toString(2));
             write("blade-diagnostics.json", bladeDiagnosticText());
@@ -180,11 +184,118 @@ public final class GameInstrumentation extends Instrumentation {
             finish(Activity.RESULT_OK, result);
         } catch (Throwable failure) {
             try { write("blade-diagnostics.json", bladeDiagnosticText()); } catch (Exception ignored) { }
+            try { if (viewportDiagnostics != null) write("viewport-diagnostics.json", viewportDiagnostics.toString(2)); }
+            catch (Exception ignored) { }
             try { write("device-failure.txt", android.util.Log.getStackTraceString(failure)); } catch (Exception ignored) { }
             try { restoreHistory(); } catch (Exception ignored) { }
             result.putString("stream", "FAIL: " + android.util.Log.getStackTraceString(failure));
             finish(Activity.RESULT_CANCELED, result);
         }
+    }
+
+    /** Exercise actual window dimensions and touch mapping without depending on a device model. */
+    private void viewportAndLargeScreenChecks() throws Exception {
+        int[] dimensions = read(() -> {
+            android.graphics.Rect window = activity.getWindowManager().getCurrentWindowMetrics().getBounds();
+            int[] position = new int[2];
+            view.getLocationOnScreen(position);
+            android.content.res.Configuration configuration = view.getResources().getConfiguration();
+            return new int[]{view.getWidth(), view.getHeight(),
+                    activity.getWindow().getDecorView().getWidth(), activity.getWindow().getDecorView().getHeight(),
+                    window.left, window.top, window.width(), window.height(), position[0], position[1],
+                    configuration.orientation, configuration.smallestScreenWidthDp,
+                    view.getResources().getDisplayMetrics().densityDpi};
+        });
+        float[] world = read(() -> new float[]{privateFloat(GameView.class, view, "scale"),
+                privateFloat(GameView.class, view, "offsetX"), privateFloat(GameView.class, view, "worldHeight"),
+                privateFloat(GameEngine.class, view.engine, "width"), privateFloat(GameEngine.class, view.engine, "height")});
+        viewportDiagnostics = new JSONObject().put("sdk", android.os.Build.VERSION.SDK_INT)
+                .put("viewWidth", dimensions[0]).put("viewHeight", dimensions[1])
+                .put("decorWidth", dimensions[2]).put("decorHeight", dimensions[3])
+                .put("windowLeft", dimensions[4]).put("windowTop", dimensions[5])
+                .put("windowWidth", dimensions[6]).put("windowHeight", dimensions[7])
+                .put("viewLeft", dimensions[8]).put("viewTop", dimensions[9])
+                .put("smallestScreenWidthDp", dimensions[11]).put("densityDpi", dimensions[12])
+                .put("scale", world[0]).put("offsetX", world[1]).put("worldWidth", world[3])
+                .put("worldHeight", world[2]).put("engineHeight", world[4]);
+        write("viewport-diagnostics.json", viewportDiagnostics.toString(2));
+        expect(dimensions[0] > dimensions[1] && dimensions[1] > 0
+                        && dimensions[10] == android.content.res.Configuration.ORIENTATION_LANDSCAPE,
+                "Actual play surface and configuration are landscape");
+        expect(dimensions[0] == dimensions[2] && dimensions[1] == dimensions[3]
+                        && dimensions[0] == dimensions[6] && dimensions[1] == dimensions[7]
+                        && dimensions[8] == dimensions[4] && dimensions[9] == dimensions[5],
+                "Immersive play surface fills its actual window without a smaller phone-sized canvas");
+        float expectedScale = Math.min(dimensions[0] / 1000f, dimensions[1] / 420f);
+        expect(Math.abs(world[0] - expectedScale) < .001f
+                        && Math.abs(world[1] - (dimensions[0] - 1000 * expectedScale) * .5f) < .1f
+                        && Math.abs(world[2] * world[0] - dimensions[1]) < 1,
+                "Rendered canvas scale, centering, and full height match the measured window");
+        expect(world[3] == 1000 && Math.abs(world[4] - world[2]) < .01f,
+                "Physics uses the full visible canvas height on both tall tablets and wide phones");
+
+        float middleY = world[2] * .5f;
+        float lowerY = world[2] - 84;
+        float[][] targets = {{48, middleY, 28, 20}, {952, middleY, 35, 12}, {500, lowerY, 42, 8}};
+        String[] locations = {"left edge", "right edge", "lower play field"};
+        for (int i = 0; i < targets.length; i++) {
+            final int type = i;
+            final float[] target = targets[i];
+            quietBladeScene(GameEngine.Mode.CLASSIC);
+            fixture(() -> view.engine.spawnFruit(type, target[0], target[1], 0, 0, target[2]));
+            if (i < 2) swipe(target[0], target[1] - 60, target[0], target[1] + 60, 45);
+            else swipe(target[0] - 70, target[1], target[0] + 70, target[1], 45);
+            expect(read(() -> view.engine.sliced == 1 && view.engine.score == (int) target[3]),
+                    "Real touchscreen hits fruit at the " + locations[i] + " with its correct size reward");
+        }
+        screenshot("11-viewport-low-cut.png");
+
+        tapViewButton("pauseButton");
+        expect(read(() -> view.overlay == GameView.Overlay.PAUSE),
+                "Actual inset-aware pause button responds on this window size");
+        screenshot("12-large-screen-pause.png");
+        float paused = read(() -> view.engine.remaining);
+        tapViewButton("mainButton");
+        expect(read(() -> view.overlay == GameView.Overlay.NONE && view.engine.sliced == 1 && view.engine.score == 8),
+                "Actual centered Continue button resumes the same large-screen round");
+        tapViewButton("historyButton");
+        expect(read(() -> view.overlay == GameView.Overlay.HISTORY),
+                "Actual inset-aware history button opens local records on this window size");
+        float historyTime = read(() -> view.engine.remaining);
+        SystemClock.sleep(250);
+        expect(Math.abs(read(() -> view.engine.remaining) - historyTime) < .001f && historyTime <= paused,
+                "Large-screen history navigation freezes the round timer");
+        screenshot("13-large-screen-history.png");
+        tapViewButton("closeButton");
+        expect(read(() -> view.overlay == GameView.Overlay.PAUSE),
+                "Actual history close button returns to the paused round");
+        awaitScreenshotFrame("large-screen-continue-layout");
+        tapViewButton("mainButton");
+        expect(read(() -> view.overlay == GameView.Overlay.NONE && view.engine.score == 8),
+                "Large-screen history closes and resumes without starting or scoring another round");
+    }
+
+    private float privateFloat(Class<?> type, Object target, String name) {
+        try {
+            java.lang.reflect.Field field = type.getDeclaredField(name);
+            field.setAccessible(true);
+            return field.getFloat(target);
+        } catch (ReflectiveOperationException failure) { throw new AssertionError(failure); }
+    }
+
+    /** Read the button actually drawn, rather than assuming one phone's insets or card position. */
+    private void tapViewButton(String name) throws Exception {
+        java.lang.reflect.Field field = GameView.class.getDeclaredField(name);
+        field.setAccessible(true);
+        RectF bounds = read(() -> {
+            try { return new RectF((RectF) field.get(view)); }
+            catch (IllegalAccessException failure) { throw new AssertionError(failure); }
+        });
+        float height = read(() -> view.getHeight() / screenScale());
+        if (bounds.isEmpty() || bounds.left < 0 || bounds.right > 1000 || bounds.top < 0 || bounds.bottom > height) {
+            throw new AssertionError("Button must fit the visible canvas: " + name + " " + bounds);
+        }
+        tap(bounds.centerX(), bounds.centerY());
     }
 
     private void sizeAndScoreChecks() throws Exception {
