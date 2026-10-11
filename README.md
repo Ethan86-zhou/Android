@@ -2,7 +2,7 @@
 
 本目录使用一个 Git 仓库管理多个独立的 Android APP。每个 APP 放在 `apps/<项目名>/` 中，保留自己的源码、Gradle Wrapper、项目说明和交付文件。项目可以由不同 AI 模型开发，也可以人工开发，并通过 GitHub 在多台电脑之间同步。
 
-GitHub 仓库：[Ethan86-zhou/Android](https://github.com/Ethan86-zhou/Android)，采用私有仓库。
+GitHub 仓库：[Ethan86-zhou/Android](https://github.com/Ethan86-zhou/Android)，按仓库所有者要求公开。个人词本、凭据、签名密钥和本机配置不纳入仓库。
 
 ## 项目索引
 
