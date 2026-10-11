@@ -152,12 +152,160 @@ public final class CacheEngineTest {
         RangeCache cache = new RangeCache(root.toFile(), 150, 100);
         check(cache.begin(URL, "audio/mp4", 101, 0, 100, FRESH) == null, "resource quota");
         check(put(cache, URL, 100, 0, 100, FRESH), "within resource quota");
-        check(!put(cache, URL + "2", 100, 0, 100, FRESH), "global quota");
+        check(put(cache, URL + "2", 100, 0, 100, FRESH), "full cache admits a new resource by evicting old audio");
+        check(cache.open(URL, null) == null && cache.sizeBytes() == 100 && cache.entries().size() == 1,
+                "eviction removes the entire old resource and stays within global quota");
+        equal(read(new RangeCache(root.toFile(), 150, 100), URL + "2", null), Arrays.copyOf(AUDIO, 100),
+                "replacement audio remains exact after restart");
         cache.clear();
         RangeCache.WriteSession one = cache.begin(URL, "audio/mp4", 100, 0, 100, FRESH);
         check(cache.begin(URL + "2", "audio/mp4", 100, 0, 100, FRESH) == null, "concurrent reservations count toward quota");
         one.close();
         check(put(cache, URL + "2", 100, 0, 100, FRESH), "aborted reservation reclaimed");
+
+        quotaOrderTests(root.resolve("order"));
+        quotaAppendTests(root.resolve("append"));
+        quotaReservationTests(root.resolve("reservations"));
+        quotaInvalidationTests(root.resolve("invalidation"));
+        quotaAliasTests(root.resolve("aliases"));
+    }
+
+    private static void quotaOrderTests(Path root) throws Exception {
+        String older = URL + "&quota=older", newer = URL + "&quota=newer", incoming = URL + "&quota=incoming";
+        RangeCache cache = new RangeCache(root.toFile(), 200, 100);
+        check(put(cache, older, 100, 0, 100, FRESH) && put(cache, newer, 100, 0, 100, FRESH), "quota ordering setup");
+        // 保存时间来自磁盘，不依赖文件枚举顺序、当前进程插入顺序或测试执行速度。
+        savedAt(root, older, 20_000); savedAt(root, newer, 10_000);
+        cache = new RangeCache(root.toFile(), 200, 100);
+        equal(read(cache, newer, null), Arrays.copyOf(AUDIO, 100), "oldest saved audio is still readable before pressure");
+        check(put(cache, incoming, 100, 0, 100, FRESH), "oldest saved eviction admits replacement");
+        check(cache.open(newer, null) == null, "oldest saved resource evicted even when read most recently");
+        equal(read(cache, older, null), Arrays.copyOf(AUDIO, 100), "newer saved resource survives oldest-first eviction");
+        check(cache.sizeBytes() == 200, "oldest-first eviction accounts actual audio file bytes");
+
+        Path expiryRoot = root.resolve("expired");
+        cache = new RangeCache(expiryRoot.toFile(), 200, 100);
+        check(put(cache, older, 100, 0, 100, FRESH) && put(cache, newer, 100, 0, 100, FRESH), "expired-first setup");
+        expireMetadata(expiryRoot, newer);
+        savedAt(expiryRoot, older, 10_000); savedAt(expiryRoot, newer, 20_000);
+        cache = new RangeCache(expiryRoot.toFile(), 200, 100);
+        check(cache.entries().stream().anyMatch(entry -> entry.key.equals(RangeCache.keyForUrl(newer)) && !entry.fresh),
+                "expired audio remains on disk before capacity is needed");
+        check(put(cache, incoming, 100, 0, 100, FRESH), "expired-first eviction admits replacement");
+        check(cache.entries().stream().noneMatch(entry -> entry.key.equals(RangeCache.keyForUrl(newer))),
+                "expired newer resource is removed before fresh older resource");
+        equal(read(new RangeCache(expiryRoot.toFile(), 200, 100), older, null), Arrays.copyOf(AUDIO, 100),
+                "fresh old audio survives expired-first eviction and restart");
+    }
+
+    private static void quotaAppendTests(Path root) throws Exception {
+        String current = URL + "&quota=current", other = URL + "&quota=other";
+        RangeCache cache = new RangeCache(root.toFile(), 150, 100);
+        check(put(cache, current, 100, 0, 50, FRESH) && put(cache, other, 100, 0, 100, FRESH), "append quota setup");
+        savedAt(root, current, 10_000); savedAt(root, other, 20_000);
+        cache = new RangeCache(root.toFile(), 150, 100);
+        check(put(cache, current, 100, 50, 50, FRESH), "append evicts another resource instead of its own earlier segment");
+        equal(read(cache, current, null), Arrays.copyOf(AUDIO, 100), "protected current resource keeps both exact segments");
+        check(cache.open(other, null) == null && cache.sizeBytes() == 100, "append eviction releases other resource bytes");
+
+        Path impossible = root.resolve("impossible");
+        cache = new RangeCache(impossible.toFile(), 150, 200);
+        check(put(cache, current, 100, 0, 100, FRESH) && put(cache, other, 40, 0, 40, FRESH), "impossible append setup");
+        check(cache.begin(current, "audio/mp4", 100, 0, 60, FRESH) == null,
+                "current resource plus new duplicate bytes cannot exceed total budget");
+        check(cache.begin(URL + "&quota=oversized", "audio/mp4", 151, 0, 151, FRESH) == null,
+                "single response larger than global budget is rejected");
+        check(cache.sizeBytes() == 140 && cache.entries().size() == 2, "impossible writes do not evict innocent cached resources");
+        equal(read(cache, current, null), Arrays.copyOf(AUDIO, 100), "impossible append preserves current bytes");
+        equal(read(new RangeCache(impossible.toFile(), 150, 200), other, null), Arrays.copyOf(AUDIO, 40),
+                "impossible writes preserve other audio on disk across restart");
+    }
+
+    private static void quotaReservationTests(Path root) throws Exception {
+        String old = URL + "&quota=old", pending = URL + "&quota=pending", incoming = URL + "&quota=incoming";
+        RangeCache cache = new RangeCache(root.toFile(), 150, 100);
+        check(put(cache, old, 50, 0, 50, FRESH), "reserved impossible setup");
+        try (RangeCache.WriteSession first = cache.begin(pending, "audio/mp4", 100, 0, 100, FRESH)) {
+            check(first != null && cache.begin(incoming, "audio/mp4", 100, 0, 100, FRESH) == null,
+                    "reservations alone make incoming write impossible");
+            equal(read(cache, old, null), Arrays.copyOf(AUDIO, 50), "impossible reserved write does not delete committed audio");
+            first.append(AUDIO, 0, 100);
+            check(first.finish() && cache.sizeBytes() == 150, "pending response still commits within its original reservation");
+        }
+
+        Path admitted = root.resolve("admitted");
+        cache = new RangeCache(admitted.toFile(), 200, 100);
+        check(put(cache, old, 80, 0, 80, FRESH), "reserved eviction setup");
+        try (RangeCache.WriteSession first = cache.begin(pending, "audio/mp4", 70, 0, 70, FRESH);
+             RangeCache.WriteSession second = cache.begin(incoming, "audio/mp4", 100, 0, 100, FRESH)) {
+            check(first != null && second != null && cache.open(old, null) == null,
+                    "eviction includes another in-flight response reservation");
+            first.append(AUDIO, 0, 70); second.append(AUDIO, 0, 100);
+            check(second.finish() && first.finish() && cache.sizeBytes() == 170,
+                    "concurrent captures both finish without oversubscribing global quota");
+        }
+        check(put(cache, old, 30, 0, 30, FRESH) && cache.sizeBytes() == 200,
+                "finished reservations are released for the next exact-fit response");
+        RangeCache reboot = new RangeCache(admitted.toFile(), 200, 100);
+        equal(read(reboot, pending, null), Arrays.copyOf(AUDIO, 70), "reserved source bytes survive restart");
+        equal(read(reboot, incoming, null), Arrays.copyOf(AUDIO, 100), "concurrently admitted bytes survive restart");
+    }
+
+    private static void quotaInvalidationTests(Path root) throws Exception {
+        String old = URL + "&quota=old", incoming = URL + "&quota=incoming";
+        RangeCache cache = new RangeCache(root.toFile(), 200, 150);
+        check(put(cache, old, 120, 0, 80, FRESH), "in-flight victim setup");
+        try (RangeCache.WriteSession pending = cache.begin(old, "audio/mp4", 120, 80, 40, FRESH)) {
+            check(pending != null, "old resource has an active capture before eviction");
+            pending.append(AUDIO, 80, 40);
+            check(put(cache, incoming, 150, 0, 150, FRESH), "capacity pressure evicts resource with earlier active capture");
+            check(!pending.finish(), "eviction revision prevents an old active capture from resurrecting audio");
+        }
+        check(cache.sizeBytes() == 150 && cache.open(old, "bytes=80-119") == null,
+                "invalidated capture cannot reintroduce any victim segment");
+        RangeCache reboot = new RangeCache(root.toFile(), 200, 150);
+        equal(read(reboot, incoming, null), Arrays.copyOf(AUDIO, 150), "evicting in-flight victim leaves valid replacement after restart");
+        check(reboot.entries().size() == 1 && reboot.open(old, "bytes=80-119") == null,
+                "evicted in-flight resource remains absent after restart");
+    }
+
+    private static void quotaAliasTests(Path root) throws Exception {
+        String source = "https://ws6.stream.qqmusic.qq.com/C400quota.m4a?vkey=one";
+        String alias = "https://ws6.stream.qqmusic.qq.com/C400quota.m4a?vkey=two";
+        String incoming = URL + "&quota=incoming";
+        String resource = RangeCache.resourceKeyForUrl(source, false);
+        RangeCache cache = new RangeCache(root.toFile(), 150, 100);
+        check(put(cache, source, 100, 0, 100, FRESH) && cache.reuseValidated(alias, resource, "audio/mp4", 100, FRESH),
+                "eviction alias setup");
+        equal(read(cache, alias, null), Arrays.copyOf(AUDIO, 100), "validated alias reads source before eviction");
+        check(put(cache, incoming, 100, 0, 100, FRESH), "new response evicts alias source");
+        check(!cache.isAlias(alias) && cache.open(alias, null) == null && cache.open(source, null) == null,
+                "eviction removes source and every dependent alias");
+        check(!Files.exists(root.resolve(RangeCache.keyForUrl(source) + ".meta"))
+                && !Files.exists(root.resolve(RangeCache.keyForUrl(alias) + ".alias")), "victim metadata and alias are removed from disk");
+        try (java.util.stream.Stream<Path> files = Files.list(root)) {
+            check(files.noneMatch(path -> path.getFileName().toString().startsWith(RangeCache.keyForUrl(source) + "-")),
+                    "victim audio files are physically deleted");
+        }
+        RangeCache reboot = new RangeCache(root.toFile(), 150, 100);
+        check(!reboot.isAlias(alias) && reboot.open(alias, null) == null && !reboot.hasReusableResource(resource),
+                "source and dependent aliases cannot return after restart");
+        equal(read(reboot, incoming, null), Arrays.copyOf(AUDIO, 100), "replacement remains intact after source and alias eviction");
+    }
+
+    private static void savedAt(Path root, String url, long millis) throws IOException {
+        Files.setLastModifiedTime(root.resolve(RangeCache.keyForUrl(url) + ".meta"), java.nio.file.attribute.FileTime.fromMillis(millis));
+    }
+
+    private static void expireMetadata(Path root, String url) throws IOException {
+        Path path = root.resolve(RangeCache.keyForUrl(url) + ".meta");
+        try (DataInputStream input = new DataInputStream(new ByteArrayInputStream(Files.readAllBytes(path)));
+             ByteArrayOutputStream bytes = new ByteArrayOutputStream(); DataOutputStream output = new DataOutputStream(bytes)) {
+            output.writeInt(input.readInt());
+            for (int i = 0; i < 4; i++) output.writeUTF(input.readUTF());
+            output.writeLong(input.readLong()); input.readLong(); output.writeLong(1);
+            output.write(input.readAllBytes()); output.flush(); Files.write(path, bytes.toByteArray());
+        }
     }
 
     private static void signedIdentityTests(Path root) throws Exception {

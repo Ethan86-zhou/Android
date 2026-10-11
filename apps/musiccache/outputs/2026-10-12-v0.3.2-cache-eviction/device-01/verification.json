@@ -1,0 +1,842 @@
+{
+  "schema": 1,
+  "run": "test_20261012_020736_66af78b0",
+  "startedAt": "2026-10-12T02:07:36.837393+08:00",
+  "scope": "Generated-tone WebView/cache selftest, not QQ Music account or real-song acceptance",
+  "apkSha256": "7a2dbb2e76b06425732a5def21305d1668e242c631f161cb508b9c652ea8f1be",
+  "fixtureSha256": "9a444b5973a1c31fc641521b32e9eda0318e45c2f7b9c7979d438fde47ad60c5",
+  "fixtureBytes": 64044,
+  "fixtureChangedSha256": "a59fe63c0d1d2dde8b10dc70cf491a71a6b061651f0e5031bf34b02fdcba13cc",
+  "accountData": "No Chrome access, no cookies read/exported, no app-data reset; isolated debug Activity, process, WebView profile and selftest cache.",
+  "offlineMethod": "Stop the loopback media server; allow the isolated selftest process to exit itself, then launch its next phase in native offline mode. Normal app process and phone radios stay unchanged.",
+  "installationRequested": true,
+  "processBaselineNote": "Normal-process PID baseline is recorded after any explicitly requested APK update, since Android may stop the old package during installation.",
+  "checks": [
+    {
+      "name": "installed APK matches input",
+      "ok": true,
+      "detail": "7a2dbb2e76b06425732a5def21305d1668e242c631f161cb508b9c652ea8f1be"
+    },
+    {
+      "name": "report identity",
+      "ok": true,
+      "detail": {
+        "run": "test_20261012_020736_66af78b0",
+        "phase": "online"
+      },
+      "phase": "online"
+    },
+    {
+      "name": "browser checks",
+      "ok": true,
+      "detail": "27 checks",
+      "phase": "online"
+    },
+    {
+      "name": "native cache counters",
+      "ok": true,
+      "detail": {
+        "appVersion": "0.3.2",
+        "diskBytes": 132184,
+        "networkBytes": 200324,
+        "hitBytes": 128088,
+        "blockedRequests": 0,
+        "validationBytes": 2,
+        "validationRequests": 3,
+        "reusedSignedLinks": 1,
+        "entries": [
+          {
+            "key": "acce1bad840a8a13771dee98db7a0cee5733d165d082e971b7cc90e18652dbef",
+            "label": "WAV · acce1bad84",
+            "cachedBytes": 64044,
+            "totalBytes": 64044,
+            "complete": true,
+            "fresh": true,
+            "canCombineRanges": true,
+            "spans": [
+              [
+                0,
+                64043
+              ]
+            ]
+          },
+          {
+            "key": "4820e3043728a5b4daf9f72502808162e383d3319fc659a763e89da83965ffee",
+            "label": "WAV · 4820e30437",
+            "cachedBytes": 64044,
+            "totalBytes": 64044,
+            "complete": true,
+            "fresh": true,
+            "canCombineRanges": true,
+            "spans": [
+              [
+                0,
+                64043
+              ]
+            ]
+          },
+          {
+            "key": "c0f80a1ad3ddca4ba1f3212bc4c80d4aed497c92b612e8f2d39f66126f190617",
+            "label": "WAV · c0f80a1ad3",
+            "cachedBytes": 4096,
+            "totalBytes": 64044,
+            "complete": false,
+            "fresh": true,
+            "canCombineRanges": true,
+            "spans": [
+              [
+                0,
+                4095
+              ]
+            ]
+          }
+        ],
+        "events": [
+          "缓存命中 acce1bad84，范围 0–64043",
+          "读取中止，未保存该区间 19a8a5c86d",
+          "网络读取 19a8a5c86d，范围 0–8191",
+          "WebView拒绝无法确认长度或区间的音频响应（原状态 200）",
+          "读取中止，未保存该区间 819ce3d441",
+          "网络读取 819ce3d441，范围 0–64043",
+          "仅播放、不新增离线缓存 f56f5aa115（响应策略或容量限制）",
+          "已保存完整响应区间 c0f80a1ad3",
+          "网络读取 c0f80a1ad3，范围 0–4095",
+          "新链接验证失败 4b478371ac（状态 403），未使用旧音频",
+          "已保存完整响应区间 4820e30437",
+          "网络读取 4820e30437，范围 0–64043",
+          "新链接版本或缓存策略不同 4820e30437，获取当前授权音频",
+          "缓存命中 7ca422af51，范围 0–64043",
+          "新链接已验证 7ca422af51：仅获取1字节，继续读取已有音频",
+          "已保存完整响应区间 acce1bad84",
+          "网络读取 acce1bad84，范围 32768–64043",
+          "已保存完整响应区间 acce1bad84",
+          "网络读取 acce1bad84，范围 0–32767",
+          "已恢复联网"
+        ]
+      },
+      "phase": "online"
+    },
+    {
+      "name": "complete resource coverage reported accurately",
+      "ok": true,
+      "detail": {
+        "key": "acce1bad840a8a13771dee98db7a0cee5733d165d082e971b7cc90e18652dbef",
+        "label": "WAV · acce1bad84",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      "phase": "online"
+    },
+    {
+      "name": "partial resource coverage reported accurately",
+      "ok": true,
+      "detail": {
+        "key": "c0f80a1ad3ddca4ba1f3212bc4c80d4aed497c92b612e8f2d39f66126f190617",
+        "label": "WAV · c0f80a1ad3",
+        "cachedBytes": 4096,
+        "totalBytes": 64044,
+        "complete": false,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            4095
+          ]
+        ]
+      },
+      "phase": "online"
+    },
+    {
+      "name": "changed representation stored separately",
+      "ok": true,
+      "detail": {
+        "key": "4820e3043728a5b4daf9f72502808162e383d3319fc659a763e89da83965ffee",
+        "label": "WAV · 4820e30437",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      "phase": "online"
+    },
+    {
+      "name": "uncacheable and unrequested resources absent",
+      "ok": true,
+      "detail": "No uncacheable, unauthorized or untouched entry; validated variant two is an alias without a second audio record",
+      "phase": "online"
+    },
+    {
+      "name": "native network actually used",
+      "ok": true,
+      "detail": 200324,
+      "phase": "online"
+    },
+    {
+      "name": "cache persisted bytes",
+      "ok": true,
+      "detail": 132184,
+      "phase": "online"
+    },
+    {
+      "name": "validated signature reused without duplicate transfer or storage",
+      "ok": true,
+      "detail": {
+        "networkBytes": 0,
+        "hitBytes": 64044,
+        "diskBytes": 0,
+        "validationRequests": 1,
+        "validationBytes": 1,
+        "reusedSignedLinks": 1
+      },
+      "phase": "online"
+    },
+    {
+      "name": "isolated cache capacity and eviction",
+      "ok": true,
+      "detail": {
+        "passed": true,
+        "checks": [
+          {
+            "id": "fill_small_budget",
+            "ok": true,
+            "detail": "Two generated responses fill the 1024-byte budget"
+          },
+          {
+            "id": "establish_old_alias",
+            "ok": true,
+            "detail": "Alias initially reads the old generated bytes"
+          },
+          {
+            "id": "admit_new_when_full",
+            "ok": true,
+            "detail": "A full budget still accepts a new generated response"
+          },
+          {
+            "id": "evict_oldest_resource",
+            "ok": true,
+            "detail": "The oldest saved resource is removed"
+          },
+          {
+            "id": "preserve_recent_resource",
+            "ok": true,
+            "detail": "The more recently saved response retains its original bytes"
+          },
+          {
+            "id": "remove_evicted_alias",
+            "ok": true,
+            "detail": "Eviction removes both the alias map entry and its disk metadata"
+          },
+          {
+            "id": "read_new_resource",
+            "ok": true,
+            "detail": "The newly admitted response reads back byte for byte"
+          },
+          {
+            "id": "disk_audio_stays_bounded",
+            "ok": true,
+            "detail": "Published audio uses 1024 bytes and completed writes leave no temporary files"
+          },
+          {
+            "id": "reload_after_eviction",
+            "ok": true,
+            "detail": "Reloading persisted metadata preserves only the two surviving resources"
+          },
+          {
+            "id": "protect_current_append",
+            "ok": true,
+            "detail": "Appending protects its older existing resource and evicts another response"
+          },
+          {
+            "id": "pending_writes_reserve_budget",
+            "ok": true,
+            "detail": "An unfinished 768-byte write prevents reserving another 512 bytes"
+          },
+          {
+            "id": "cancel_releases_reservation",
+            "ok": true,
+            "detail": "Cancelled writes release all reserved capacity for a subsequent full-budget response"
+          }
+        ],
+        "failed": [],
+        "checkCount": 12,
+        "run": "test_20261012_020736_66af78b0",
+        "pid": 29644,
+        "appVersion": "0.3.2",
+        "budgetBytes": 1024,
+        "generatedOnly": true,
+        "elapsedMillis": 127
+      }
+    },
+    {
+      "name": "isolated selftest process exited itself",
+      "ok": true,
+      "detail": "online"
+    },
+    {
+      "name": "normal app process unchanged",
+      "ok": true,
+      "detail": {
+        "phase": "online",
+        "before": [],
+        "after": []
+      }
+    },
+    {
+      "name": "media origin stopped before offline",
+      "ok": true,
+      "detail": "Loopback listener is unreachable"
+    },
+    {
+      "name": "report identity",
+      "ok": true,
+      "detail": {
+        "run": "test_20261012_020736_66af78b0",
+        "phase": "offline"
+      },
+      "phase": "offline"
+    },
+    {
+      "name": "browser checks",
+      "ok": true,
+      "detail": "7 checks",
+      "phase": "offline"
+    },
+    {
+      "name": "native cache counters",
+      "ok": true,
+      "detail": {
+        "appVersion": "0.3.2",
+        "diskBytes": 132184,
+        "networkBytes": 0,
+        "hitBytes": 192432,
+        "blockedRequests": 0,
+        "validationBytes": 0,
+        "validationRequests": 0,
+        "reusedSignedLinks": 0,
+        "entries": [
+          {
+            "key": "acce1bad840a8a13771dee98db7a0cee5733d165d082e971b7cc90e18652dbef",
+            "label": "WAV · acce1bad84",
+            "cachedBytes": 64044,
+            "totalBytes": 64044,
+            "complete": true,
+            "fresh": true,
+            "canCombineRanges": true,
+            "spans": [
+              [
+                0,
+                64043
+              ]
+            ]
+          },
+          {
+            "key": "4820e3043728a5b4daf9f72502808162e383d3319fc659a763e89da83965ffee",
+            "label": "WAV · 4820e30437",
+            "cachedBytes": 64044,
+            "totalBytes": 64044,
+            "complete": true,
+            "fresh": true,
+            "canCombineRanges": true,
+            "spans": [
+              [
+                0,
+                64043
+              ]
+            ]
+          },
+          {
+            "key": "c0f80a1ad3ddca4ba1f3212bc4c80d4aed497c92b612e8f2d39f66126f190617",
+            "label": "WAV · c0f80a1ad3",
+            "cachedBytes": 4096,
+            "totalBytes": 64044,
+            "complete": false,
+            "fresh": true,
+            "canCombineRanges": true,
+            "spans": [
+              [
+                0,
+                4095
+              ]
+            ]
+          }
+        ],
+        "events": [
+          "缓存命中 acce1bad84，范围 0–64043",
+          "缓存命中 acce1bad84，范围 100–399",
+          "缓存命中 7ca422af51，范围 0–64043",
+          "缓存命中 acce1bad84，范围 0–64043",
+          "已切换离线：仅返回完整覆盖的本机区间"
+        ]
+      },
+      "phase": "offline"
+    },
+    {
+      "name": "complete resource coverage reported accurately",
+      "ok": true,
+      "detail": {
+        "key": "acce1bad840a8a13771dee98db7a0cee5733d165d082e971b7cc90e18652dbef",
+        "label": "WAV · acce1bad84",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      "phase": "offline"
+    },
+    {
+      "name": "partial resource coverage reported accurately",
+      "ok": true,
+      "detail": {
+        "key": "c0f80a1ad3ddca4ba1f3212bc4c80d4aed497c92b612e8f2d39f66126f190617",
+        "label": "WAV · c0f80a1ad3",
+        "cachedBytes": 4096,
+        "totalBytes": 64044,
+        "complete": false,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            4095
+          ]
+        ]
+      },
+      "phase": "offline"
+    },
+    {
+      "name": "changed representation stored separately",
+      "ok": true,
+      "detail": {
+        "key": "4820e3043728a5b4daf9f72502808162e383d3319fc659a763e89da83965ffee",
+        "label": "WAV · 4820e30437",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      "phase": "offline"
+    },
+    {
+      "name": "uncacheable and unrequested resources absent",
+      "ok": true,
+      "detail": "No uncacheable, unauthorized or untouched entry; validated variant two is an alias without a second audio record",
+      "phase": "offline"
+    },
+    {
+      "name": "native offline guard",
+      "ok": true,
+      "detail": true,
+      "phase": "offline"
+    },
+    {
+      "name": "zero native network bytes after restart",
+      "ok": true,
+      "detail": 0,
+      "phase": "offline"
+    },
+    {
+      "name": "no signature validation network requests while offline",
+      "ok": true,
+      "detail": {
+        "requests": 0,
+        "bytes": 0
+      },
+      "phase": "offline"
+    },
+    {
+      "name": "native cache actually used",
+      "ok": true,
+      "detail": 192432,
+      "phase": "offline"
+    },
+    {
+      "name": "isolated selftest process exited itself",
+      "ok": true,
+      "detail": "offline"
+    },
+    {
+      "name": "normal app process unchanged",
+      "ok": true,
+      "detail": {
+        "phase": "offline",
+        "before": [],
+        "after": []
+      }
+    },
+    {
+      "name": "report identity",
+      "ok": true,
+      "detail": {
+        "run": "test_20261012_020736_66af78b0",
+        "phase": "partial_offline"
+      },
+      "phase": "partial_offline"
+    },
+    {
+      "name": "browser checks",
+      "ok": true,
+      "detail": "8 checks",
+      "phase": "partial_offline"
+    },
+    {
+      "name": "native cache counters",
+      "ok": true,
+      "detail": {
+        "appVersion": "0.3.2",
+        "diskBytes": 132184,
+        "networkBytes": 0,
+        "hitBytes": 4096,
+        "blockedRequests": 7,
+        "validationBytes": 0,
+        "validationRequests": 0,
+        "reusedSignedLinks": 0,
+        "entries": [
+          {
+            "key": "acce1bad840a8a13771dee98db7a0cee5733d165d082e971b7cc90e18652dbef",
+            "label": "WAV · acce1bad84",
+            "cachedBytes": 64044,
+            "totalBytes": 64044,
+            "complete": true,
+            "fresh": true,
+            "canCombineRanges": true,
+            "spans": [
+              [
+                0,
+                64043
+              ]
+            ]
+          },
+          {
+            "key": "4820e3043728a5b4daf9f72502808162e383d3319fc659a763e89da83965ffee",
+            "label": "WAV · 4820e30437",
+            "cachedBytes": 64044,
+            "totalBytes": 64044,
+            "complete": true,
+            "fresh": true,
+            "canCombineRanges": true,
+            "spans": [
+              [
+                0,
+                64043
+              ]
+            ]
+          },
+          {
+            "key": "c0f80a1ad3ddca4ba1f3212bc4c80d4aed497c92b612e8f2d39f66126f190617",
+            "label": "WAV · c0f80a1ad3",
+            "cachedBytes": 4096,
+            "totalBytes": 64044,
+            "complete": false,
+            "fresh": true,
+            "canCombineRanges": true,
+            "spans": [
+              [
+                0,
+                4095
+              ]
+            ]
+          }
+        ],
+        "events": [
+          "离线缺段或已过期 4b478371ac",
+          "离线缺段或已过期 9580b21bd2",
+          "离线缺段或已过期 819ce3d441",
+          "离线缺段或已过期 19a8a5c86d",
+          "离线缺段或已过期 f56f5aa115",
+          "离线缺段或已过期 c0f80a1ad3",
+          "离线缺段或已过期 c0f80a1ad3",
+          "缓存命中 c0f80a1ad3，范围 0–4095",
+          "已切换离线：仅返回完整覆盖的本机区间"
+        ]
+      },
+      "phase": "partial_offline"
+    },
+    {
+      "name": "complete resource coverage reported accurately",
+      "ok": true,
+      "detail": {
+        "key": "acce1bad840a8a13771dee98db7a0cee5733d165d082e971b7cc90e18652dbef",
+        "label": "WAV · acce1bad84",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      "phase": "partial_offline"
+    },
+    {
+      "name": "partial resource coverage reported accurately",
+      "ok": true,
+      "detail": {
+        "key": "c0f80a1ad3ddca4ba1f3212bc4c80d4aed497c92b612e8f2d39f66126f190617",
+        "label": "WAV · c0f80a1ad3",
+        "cachedBytes": 4096,
+        "totalBytes": 64044,
+        "complete": false,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            4095
+          ]
+        ]
+      },
+      "phase": "partial_offline"
+    },
+    {
+      "name": "changed representation stored separately",
+      "ok": true,
+      "detail": {
+        "key": "4820e3043728a5b4daf9f72502808162e383d3319fc659a763e89da83965ffee",
+        "label": "WAV · 4820e30437",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      "phase": "partial_offline"
+    },
+    {
+      "name": "uncacheable and unrequested resources absent",
+      "ok": true,
+      "detail": "No uncacheable, unauthorized or untouched entry; validated variant two is an alias without a second audio record",
+      "phase": "partial_offline"
+    },
+    {
+      "name": "native offline guard",
+      "ok": true,
+      "detail": true,
+      "phase": "partial_offline"
+    },
+    {
+      "name": "zero native network bytes after restart",
+      "ok": true,
+      "detail": 0,
+      "phase": "partial_offline"
+    },
+    {
+      "name": "no signature validation network requests while offline",
+      "ok": true,
+      "detail": {
+        "requests": 0,
+        "bytes": 0
+      },
+      "phase": "partial_offline"
+    },
+    {
+      "name": "native cache actually used",
+      "ok": true,
+      "detail": 4096,
+      "phase": "partial_offline"
+    },
+    {
+      "name": "missing media requests blocked",
+      "ok": true,
+      "detail": 7,
+      "phase": "partial_offline"
+    },
+    {
+      "name": "isolated selftest process exited itself",
+      "ok": true,
+      "detail": "partial_offline"
+    },
+    {
+      "name": "normal app process unchanged",
+      "ok": true,
+      "detail": {
+        "phase": "partial_offline",
+        "before": [],
+        "after": []
+      }
+    },
+    {
+      "name": "distinct isolated selftest processes",
+      "ok": true,
+      "detail": [
+        29644,
+        30005,
+        30205
+      ]
+    },
+    {
+      "name": "origin saw actual two Range requests",
+      "ok": true,
+      "detail": "10 origin requests"
+    },
+    {
+      "name": "new signature used exactly one one-byte origin validation",
+      "ok": true,
+      "detail": [
+        {
+          "file": "full.wav",
+          "status": 206,
+          "range": "bytes=0-0",
+          "start": 0,
+          "end": 0,
+          "declaredBytes": 1,
+          "bodyBytes": 1,
+          "truncated": false,
+          "ignoredRange": false,
+          "etag": "\"tone-9a444b5973a1c31fc641521b32e9eda0318e45c2f7b9c7979d438fde47ad60c5\"",
+          "variant": "two",
+          "at": "2026-10-11T18:07:57.467852+00:00"
+        }
+      ]
+    },
+    {
+      "name": "changed representation was validated then downloaded from origin",
+      "ok": true,
+      "detail": [
+        {
+          "file": "full.wav",
+          "status": 206,
+          "range": "bytes=0-0",
+          "start": 0,
+          "end": 0,
+          "declaredBytes": 1,
+          "bodyBytes": 1,
+          "truncated": false,
+          "ignoredRange": false,
+          "etag": "\"tone-a59fe63c0d1d2dde8b10dc70cf491a71a6b061651f0e5031bf34b02fdcba13cc\"",
+          "variant": "changed",
+          "at": "2026-10-11T18:07:57.499167+00:00"
+        },
+        {
+          "file": "full.wav",
+          "status": 200,
+          "range": null,
+          "start": 0,
+          "end": 64043,
+          "declaredBytes": 64044,
+          "bodyBytes": 64044,
+          "truncated": false,
+          "ignoredRange": false,
+          "etag": "\"tone-a59fe63c0d1d2dde8b10dc70cf491a71a6b061651f0e5031bf34b02fdcba13cc\"",
+          "variant": "changed",
+          "at": "2026-10-11T18:07:57.513230+00:00"
+        }
+      ]
+    },
+    {
+      "name": "authorization rejection stopped further audio requests",
+      "ok": true,
+      "detail": [
+        {
+          "file": "full.wav",
+          "status": 403,
+          "range": "bytes=0-0",
+          "declaredBytes": 0,
+          "bodyBytes": 0,
+          "variant": "denied",
+          "at": "2026-10-11T18:07:57.570855+00:00"
+        }
+      ]
+    },
+    {
+      "name": "untouched signature never reached origin",
+      "ok": true,
+      "detail": "The untouched signature is tested only after the media server is stopped"
+    },
+    {
+      "name": "origin actually ignored a Range request",
+      "ok": true,
+      "detail": "Source fixture sent a full 200 response to bytes=100-399"
+    },
+    {
+      "name": "owned reverse mapping removed",
+      "ok": true,
+      "detail": 8765
+    },
+    {
+      "name": "normal app process preserved throughout",
+      "ok": true,
+      "detail": {
+        "before": [],
+        "after": []
+      }
+    }
+  ],
+  "phases": {
+    "online": {
+      "report": "online.json",
+      "passed": true,
+      "screenshot": "online.png",
+      "screenshotNote": "SelfTestActivity confirmed in foreground before and after capture",
+      "normalPidsAfter": []
+    },
+    "offline": {
+      "report": "offline.json",
+      "passed": true,
+      "screenshot": "offline.png",
+      "screenshotNote": "SelfTestActivity confirmed in foreground before and after capture",
+      "normalPidsAfter": []
+    },
+    "partial_offline": {
+      "report": "partial_offline.json",
+      "passed": true,
+      "screenshot": "partial_offline.png",
+      "screenshotNote": "SelfTestActivity confirmed in foreground before and after capture",
+      "normalPidsAfter": []
+    }
+  },
+  "baseCommit": "b832f09106bfd3b88a119dfb5a89536120f2cc8f",
+  "appWorkingTreeDirty": true,
+  "sourceManifest": "source-sha256.json",
+  "sourceManifestSha256": "305200661cd17a3009cc2232390671112b6d29825fa39d530cc0ae57ecfeba12",
+  "sourceNote": "Manifest hashes identify the tested working-tree source; baseCommit alone does not identify uncommitted code.",
+  "device": {
+    "model": "SM-S9080",
+    "android": "16",
+    "api": "36"
+  },
+  "normalPidsBefore": [],
+  "normalPidsAfter": [],
+  "finishedAt": "2026-10-12T02:08:25.993816+08:00",
+  "passed": true
+}
