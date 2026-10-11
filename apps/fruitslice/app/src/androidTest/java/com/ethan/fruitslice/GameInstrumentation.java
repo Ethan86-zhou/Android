@@ -38,9 +38,11 @@ public final class GameInstrumentation extends Instrumentation {
     private float bladeTouchScale, bladeTouchLeft;
     private java.lang.reflect.Field bladeStartedAt, bladeLastEventTime;
     private JSONObject viewportDiagnostics;
+    private int audioEndIndex;
     private final JSONArray results = new JSONArray();
     private final JSONArray screenshots = new JSONArray();
     private final JSONArray bladeDiagnostics = new JSONArray();
+    private final JSONArray audioDiagnostics = new JSONArray();
 
     @Override public void onCreate(Bundle arguments) {
         super.onCreate(arguments);
@@ -171,19 +173,23 @@ public final class GameInstrumentation extends Instrumentation {
             tap(500, cardTop + 275);
             expect(read(() -> view.engine.score == 0 && !view.engine.gameOver && view.overlay == GameView.Overlay.NONE), "Play again resets round without deleting history");
             expect(read(() -> view.history.records().size() == expectedHistory), "New round retains history");
+            endAudioChecks();
 
             JSONObject report = new JSONObject().put("passed", true).put("checks", checks)
                     .put("results", results).put("screenshots", screenshots).put("artwork", artwork)
                     .put("viewport", viewportDiagnostics)
+                    .put("audio", audioDiagnostics)
                     .put("method", "Real touchscreen MotionEvents plus explicit test-only scene fixtures; storage uses isolated preferences. The result score is a test fixture.");
             write("device-checks.json", report.toString(2));
             write("blade-diagnostics.json", bladeDiagnosticText());
+            write("audio-diagnostics.json", audioDiagnostics.toString(2));
             result.putString("stream", "PASS: " + checks + " device checks\n");
             restoreHistory();
             result.putInt("checks", checks);
             finish(Activity.RESULT_OK, result);
         } catch (Throwable failure) {
             try { write("blade-diagnostics.json", bladeDiagnosticText()); } catch (Exception ignored) { }
+            try { write("audio-diagnostics.json", audioDiagnostics.toString(2)); } catch (Exception ignored) { }
             try { if (viewportDiagnostics != null) write("viewport-diagnostics.json", viewportDiagnostics.toString(2)); }
             catch (Exception ignored) { }
             try { write("device-failure.txt", android.util.Log.getStackTraceString(failure)); } catch (Exception ignored) { }
@@ -191,6 +197,152 @@ public final class GameInstrumentation extends Instrumentation {
             result.putString("stream", "FAIL: " + android.util.Log.getStackTraceString(failure));
             finish(Activity.RESULT_CANCELED, result);
         }
+    }
+
+    private void endAudioChecks() throws Exception {
+        audioEndIndex = (Integer) audioValue("END");
+        for (int i = 0; i < 100 && !readAudioState().getBoolean("endLoaded"); i++) SystemClock.sleep(50);
+        expect(audioState("end-sample-ready").getBoolean("endLoaded"),
+                "The distinct round-ending sample loads into the real device SoundPool");
+
+        prepareEndAudioScene();
+        fixture(() -> view.engine.remaining = .02f);
+        awaitAudioResult("timeout");
+        JSONObject timeout = audioState("timeout-play");
+        expectEndStream(timeout, "Timeout");
+        expectNoEndReplay(timeout, "timeout");
+        tapViewButton("secondButton");
+        expect(read(() -> view.overlay == GameView.Overlay.HISTORY)
+                        && audioStopped(audioState("timeout-history-stop")),
+                "Opening history from results stops retained effect streams and abandons audio focus");
+        awaitScreenshotFrame("audio-history-close-layout");
+        tapViewButton("closeButton");
+        awaitScreenshotFrame("audio-return-to-result");
+        expect(read(() -> view.overlay == GameView.Overlay.RESULT)
+                        && audioStopped(audioState("history-return-no-replay")),
+                "Returning from history to the result card does not replay the ending sound");
+        restartAudioRound("after history");
+
+        prepareEndAudioScene();
+        fixture(() -> {
+            view.engine.misses = 2;
+            view.engine.spawnFruit(0, 500, privateFloat(GameEngine.class, view.engine, "height") + 100,
+                    0, 10, 28);
+        });
+        awaitAudioResult("third missed fruit");
+        JSONObject misses = audioState("third-miss-play");
+        expect(read(() -> view.engine.misses == 3 && view.engine.remaining > 40),
+                "A third falling fruit ends the round independently of timeout");
+        expectEndStream(misses, "Third missed fruit");
+        expectNoEndReplay(misses, "third missed fruit");
+        shell("input keyevent KEYCODE_HOME");
+        for (int i = 0; i < 40 && !audioStopped(readAudioState()); i++) SystemClock.sleep(25);
+        expect(audioStopped(audioState("result-background-stop")),
+                "Sending the result screen to the real background stops its ending stream and focus");
+        getTargetContext().startActivity(new Intent(getTargetContext(), MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        for (int i = 0; i < 60 && !read(() -> activity.hasWindowFocus()); i++) SystemClock.sleep(25);
+        awaitScreenshotFrame("audio-result-foreground");
+        expect(read(() -> view.overlay == GameView.Overlay.RESULT)
+                        && audioStopped(audioState("result-foreground-no-replay")),
+                "Returning from background preserves the result without replaying its sound");
+        restartAudioRound("after background");
+
+        prepareEndAudioScene();
+        fixture(() -> {
+            view.engine.remaining = 2;
+            view.engine.spawnFruit(7, 500, 250, 0, 0, 28);
+        });
+        swipe(445, 250, 555, 250, 60);
+        awaitAudioResult("bomb time deduction");
+        JSONObject bomb = audioState("bomb-ending-play");
+        expect(read(() -> view.engine.bombsHit == 1 && view.engine.remaining == 0 && view.engine.misses == 0),
+                "A real bomb cut can end a round by deducting its remaining time");
+        expectEndStream(bomb, "Bomb time deduction");
+        expectNoEndReplay(bomb, "bomb time deduction");
+        restartAudioRound("during the final ending sound");
+    }
+
+    /** This method keeps GameView.saved intact; every preceding round restarts through its real button. */
+    private void prepareEndAudioScene() throws Exception {
+        java.lang.reflect.Field wave = GameEngine.class.getDeclaredField("nextWave");
+        java.lang.reflect.Field special = GameEngine.class.getDeclaredField("nextSpecial");
+        wave.setAccessible(true); special.setAccessible(true);
+        fixture(() -> {
+            view.audio.pause(); view.engine.fruits.clear(); view.engine.mode = GameEngine.Mode.CLASSIC;
+            view.engine.modeRemaining = 0; view.engine.remaining = 50;
+            try { wave.setFloat(view.engine, 60); special.setFloat(view.engine, 60); }
+            catch (IllegalAccessException failure) { throw new AssertionError(failure); }
+        });
+        expect(read(() -> view.overlay == GameView.Overlay.NONE && !view.engine.gameOver)
+                        && audioStopped(audioState("new-round-before-ending")),
+                "A fresh round starts without a preceding ending stream");
+    }
+
+    private void awaitAudioResult(String cause) {
+        for (int i = 0; i < 100 && !read(() -> view.overlay == GameView.Overlay.RESULT); i++) SystemClock.sleep(20);
+        expect(read(() -> view.overlay == GameView.Overlay.RESULT && view.engine.gameOver),
+                cause + " reaches the real result transition");
+    }
+
+    private void expectEndStream(JSONObject state, String cause) throws Exception {
+        expect(state.getBoolean("endLoaded") && state.getBoolean("focused")
+                        && state.getInt("nextStream") == 1 && state.getInt("streamCount") == 1
+                        && state.getJSONArray("streamIds").getInt(0) != 0,
+                cause + " submits one nonzero ending stream accepted by SoundPool. Actual=" + state);
+    }
+
+    private void expectNoEndReplay(JSONObject initial, String cause) throws Exception {
+        for (int i = 0; i < 3; i++) awaitScreenshotFrame("audio-once-" + cause);
+        JSONObject later = audioState(cause + "-after-result-frames");
+        expect(initial.getJSONArray("streamIds").toString().equals(later.getJSONArray("streamIds").toString())
+                        && initial.getInt("nextStream") == later.getInt("nextStream"),
+                "Repeated committed result frames do not submit another ending stream for " + cause);
+    }
+
+    private void restartAudioRound(String phase) throws Exception {
+        awaitScreenshotFrame("audio-restart-layout");
+        tapViewButton("mainButton");
+        expect(read(() -> view.overlay == GameView.Overlay.NONE && !view.engine.gameOver && view.engine.score == 0)
+                        && audioStopped(audioState("restart-" + phase)),
+                "Real Play again stops previous streams and starts a fresh round " + phase);
+    }
+
+    private Object audioValue(String name) {
+        try {
+            java.lang.reflect.Field field = GameAudio.class.getDeclaredField(name);
+            field.setAccessible(true);
+            return field.get(view.audio);
+        } catch (ReflectiveOperationException failure) { throw new AssertionError(failure); }
+    }
+
+    private JSONObject readAudioState() {
+        return read(() -> {
+            synchronized (audioValue("lock")) {
+                int[] sounds = ((int[]) audioValue("soundIds")).clone();
+                int[] streams = ((int[]) audioValue("streamIds")).clone();
+                int count = 0;
+                for (int stream : streams) if (stream != 0) count++;
+                try {
+                    return new JSONObject().put("observedAt", SystemClock.uptimeMillis())
+                            .put("endSampleIndex", audioEndIndex).put("soundIds", new JSONArray(sounds))
+                            .put("endLoaded", sounds[audioEndIndex] != 0
+                                    && ((Set<?>) audioValue("loaded")).contains(sounds[audioEndIndex]))
+                            .put("streamIds", new JSONArray(streams)).put("streamCount", count)
+                            .put("nextStream", (Integer) audioValue("nextStream"))
+                            .put("focused", (Boolean) audioValue("focused")).put("overlay", view.overlay.name());
+                } catch (org.json.JSONException failure) { throw new AssertionError(failure); }
+            }
+        });
+    }
+
+    private JSONObject audioState(String phase) throws Exception {
+        JSONObject state = readAudioState().put("phase", phase);
+        audioDiagnostics.put(state);
+        return state;
+    }
+
+    private boolean audioStopped(JSONObject state) throws org.json.JSONException {
+        return state.getInt("streamCount") == 0 && state.getInt("nextStream") == 0 && !state.getBoolean("focused");
     }
 
     /** Exercise actual window dimensions and touch mapping without depending on a device model. */

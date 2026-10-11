@@ -19,10 +19,11 @@ import java.util.Set;
 public final class GameAudio {
     private static final int RATE = 24000;
     private static final int SLICE_A = 0, SLICE_B = 1, SLICE_C = 2;
-    private static final int BOMB = 3, MODE = 4, COMBO = 5;
-    private static final double[] LENGTHS = {.20, .22, .24, .74, .67, .50};
+    private static final int BOMB = 3, MODE = 4, COMBO = 5, END = 6;
+    private static final double[] LENGTHS = {.20, .22, .24, .74, .67, .50, .80};
+    private static final double[] END_NOTES = {783.99, 659.25, 523.25};
     private final Object lock = new Object();
-    private final int[] soundIds = new int[6];
+    private final int[] soundIds = new int[LENGTHS.length];
     private final int[] streamIds = new int[6];
     private final float[] streamVolumes = new float[6];
     private final Set<Integer> loaded = new HashSet<>();
@@ -71,7 +72,8 @@ public final class GameAudio {
             for (int kind = 0; kind < soundIds.length; kind++) {
                 synchronized (lock) { if (released) return; }
                 try {
-                    File file = new File(context.getCacheDir(), "orchard_sfx_v3_" + kind + ".wav");
+                    // Bump the cache namespace when synthesis changes, even at the same WAV length.
+                    File file = new File(context.getCacheDir(), "orchard_sfx_v4_" + kind + ".wav");
                     long expected = 44L + 2L * (int) (LENGTHS[kind] * RATE);
                     if (!file.isFile() || file.length() != expected) writeSound(file, kind);
                     synchronized (lock) {
@@ -96,6 +98,15 @@ public final class GameAudio {
     public void bomb() { play(BOMB, .68f, 1f, 3); }
     public void mode() { play(MODE, .65f, 1f, 3); }
     public void combo() { play(COMBO, .57f, 1f, 2); }
+
+    /** Replace any remaining gameplay effects with one non-looping round-ending cadence. */
+    public void end() {
+        synchronized (lock) {
+            if (released) return;
+            stopStreams();
+            play(END, .68f, 1f, 4);
+        }
+    }
 
     public void pause() {
         synchronized (lock) {
@@ -202,12 +213,22 @@ public final class GameAudio {
                 }
                 value += Math.sin(t * Math.PI * 2 * (2500 + t * 2500))
                         * .027 * Math.sin(Math.PI * Math.min(1, t / .60)) * Math.exp(-4 * t);
-            } else {
+            } else if (kind == COMBO) {
                 double[] notes = {659.25, 830.61, 987.77, 1318.51};
                 value = 0;
                 for (int note = 0; note < notes.length; note++) {
                     value += bell(t - note * .062, notes[note], .24);
                 }
+            } else {
+                // Three descending, rounded notes resolve into a soft C-major chord.
+                // This lower, slower cadence is distinct from the rising mode/combo sparkle.
+                value = 0;
+                for (int note = 0; note < END_NOTES.length; note++) {
+                    value += closingTone(t - note * .16, END_NOTES[note], .27);
+                }
+                value += closingTone(t - .32, 261.63, .12);
+                value += closingTone(t - .32, 329.63, .07);
+                value += closingTone(t - .32, 392.00, .06);
             }
             double fadeOut = Math.min(1, (count - i - 1) / (RATE * .025));
             samples[i] = (float) (Math.tanh(value * 1.32) * .88 * fadeOut);
@@ -236,6 +257,15 @@ public final class GameAudio {
         return (Math.sin(t * Math.PI * 2 * frequency)
                 + .30 * Math.sin(t * Math.PI * 2 * frequency * 2.006)
                 + .12 * Math.sin(t * Math.PI * 2 * frequency * 3.01)) * envelope * volume;
+    }
+
+    private static double closingTone(double t, double frequency, double volume) {
+        if (t < 0) return 0;
+        double attack = Math.min(1, t / .012);
+        double envelope = Math.sin(attack * Math.PI / 2) * Math.exp(-6 * t);
+        return (Math.sin(t * Math.PI * 2 * frequency)
+                + .16 * Math.sin(t * Math.PI * 4 * frequency)
+                + .04 * Math.sin(t * Math.PI * 6 * frequency)) * envelope * volume;
     }
 
     private static void ascii(OutputStream out, String value) throws IOException {

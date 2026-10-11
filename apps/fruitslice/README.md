@@ -2,11 +2,11 @@
 
 离线横屏切水果小游戏，打开直接开局。滑动手指切开水果，避开炸弹；彩虹果实随机切换限时玩法。本机保存成绩历史，没有账号、联网、广告、内购或设置页面。全部图形与音效为本项目制作。
 
-包名：`com.ethan.fruitslice`。最低 Android 14 / API 34，版本 `1.2.1`。按用户要求适配当前连接的三星 SM-X710 平板（Android 14，1600 × 2560），同时保留 Android 16 手机的支持。
+包名：`com.ethan.fruitslice`。最低 Android 14 / API 34，版本 `1.2.2`。按用户要求适配当前连接的三星 SM-X710 平板（Android 14，1600 × 2560），同时保留 Android 16 手机的支持。
 
 ## 开始玩
 
-安装 [`FruitSlice-1.2.1-debug.apk`](outputs/2026-10-11-v1.2.1-tablet/FruitSlice-1.2.1-debug.apk)，打开“果刃”直接进入横屏切台，不经过账号、菜单或设置。支持向任意方向快速划动与多指操作；划一刀后抬手再切，水果会被切成两半，伴随刀光、果汁、短音效和系统触感。
+安装 [`FruitSlice-1.2.2-debug.apk`](outputs/2026-10-11-v1.2.2-end-sound/FruitSlice-1.2.2-debug.apk)，打开“果刃”直接进入横屏切台，不经过账号、菜单或设置。支持向任意方向快速划动与多指操作；划一刀后抬手再切，水果会被切成两半，伴随刀光、果汁、短音效和系统触感。
 
 平板横屏使用整个 16:10 切台，按实际窗口比例绘制，水果与触摸判定共用坐标。暂停、结算和历史卡片保持居中，右上角按钮避开系统边缘。应用声明为游戏，保留横屏玩法；Android 16 大屏对游戏方向限制的例外见 [Android 官方说明](https://developer.android.com/about/versions/16/behavior-changes-16#large-screens)。
 
@@ -18,6 +18,7 @@
 - 炸弹扣 10 分和 3 秒，分数最低为 0。经典、冰封和双倍模式漏掉 3 个普通水果结束本局；漏掉彩虹果实不扣分。
 - 发光的彩虹星形果实在开局约 2.2 秒出现，之后约每 9–13 秒出现。切中会随机选择与当前不同的一种特殊玩法，持续 8–12 秒；结束后回到经典。
 - 右上角时钟打开历史，双竖线暂停；暂停卡片只提供继续和历史。切到后台、展开通知栏或失去窗口焦点时暂停，回来后点“继续开切”。结算后直接“再来一局”。
+- 每局结束时播放一次约 0.8 秒的收尾音，倒计时归零、漏果三次或炸弹扣完时间均会触发。结算先停止切果等旧音效；打开历史、切到后台或重开下一局会立即停止尾音，返回结算不重播。音效离线生成，跟随系统媒体音量。
 
 | 特殊玩法 | 效果 |
 | --- | --- |
@@ -60,7 +61,15 @@ python .\tools\device_acceptance.py --serial <设备序列号> --output .\output
 
 切割请求立即派发真实触摸事件，避免系统为显示补出的预测位置在快速折返时多算路程或误切。Android 15 及以上再通过 `PointerCoords.isResampled()` 排除预测点；Android 14 不调用该新接口。历史中的真实采样点仍参与切割，抬手、取消和暂停正常结束当前刀。此行为按 [Android 官方触摸派发说明](https://developer.android.com/develop/ui/views/touch-and-input/stylus-input/advanced-stylus-features) 和 [重采样说明](https://developer.android.com/reference/android/view/MotionEvent.PointerCoords#isResampled()) 实现。
 
-## 1.2.1 三星平板实机验收
+## 1.2.2 结算音效实机验收
+
+交付包与证据位于 [`outputs/2026-10-11-v1.2.2-end-sound`](outputs/2026-10-11-v1.2.2-end-sound)，已同签名覆盖安装到三星 SM-X710 / Android 14 / API 34。2,803 项规则检查、421 项实机检查通过，构建与 lint 通过（0 错误、1 条既有横屏方向提示）；本次未重新测试旧手机。
+
+实机检查确认倒计时归零、第三个漏果及实际切炸弹扣完时间，均提交一次有效 SoundPool 播放；结算连续绘制不重播，打开历史、切到后台或重开下一局会停止，返回结果不补播。诊断见 [`device/audio-diagnostics.json`](outputs/2026-10-11-v1.2.2-end-sound/device/audio-diagnostics.json)。另外捕获真实游戏结算时的系统活动音轨，24 kHz / 19,200 帧对应 0.8 秒，音量非零；设备生成的音频为 [`natural-end/end-sound.wav`](outputs/2026-10-11-v1.2.2-end-sound/natural-end/end-sound.wav)，非静音且无削波，记录见 [`observed-end-check.json`](outputs/2026-10-11-v1.2.2-end-sound/natural-end/observed-end-check.json)。这是系统播放状态证据，没有声称做过麦克风录音或人工听感评价。
+
+原有成绩（包括本次新玩的 93 分）逐条保留，最高分 168；自动验收结束后新增的一局自然 0 分也保留，最终有 9 局，无测试场景成绩或检查点残留。实际关闭并重启后记录字节完全一致，打开直接新开局，触摸状态正常；已安装 APK 与交付包哈希相同，验收及重启未发现本应用崩溃。记录见 [`device/history-restore-check.json`](outputs/2026-10-11-v1.2.2-end-sound/device/history-restore-check.json)、[`relaunch/relaunch-check.json`](outputs/2026-10-11-v1.2.2-end-sound/relaunch/relaunch-check.json) 和 `delivery-manifest.json`。未卸载或清除应用数据。
+
+## 1.2.1 历史三星平板实机验收
 
 交付包与证据位于 [`outputs/2026-10-11-v1.2.1-tablet`](outputs/2026-10-11-v1.2.1-tablet)。本版本已安装到当前连接的三星 SM-X710 / Android 14 / API 34，实际横屏窗口为 2560 × 1600；2,803 项规则检查、401 项实机检查通过，构建与 lint 通过（0 错误、1 条既有横屏方向提示）。此包本次实测设备为三星平板；下文 SM-S9080 手机结果属于各历史版本。
 

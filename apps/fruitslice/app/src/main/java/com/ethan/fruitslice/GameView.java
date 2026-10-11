@@ -171,6 +171,7 @@ final class GameView extends View {
 
     private void restart() {
         finishTouch();
+        audio.pause();
         engine.restart();
         engine.setBounds(1000, worldHeight);
         previousBest = history.bestScore();
@@ -209,7 +210,7 @@ final class GameView extends View {
         history.save(round);
         saved = true;
         overlay = Overlay.RESULT;
-        audio.pause();
+        audio.end();
         announceForAccessibility("本局结束，得分 " + engine.score + "，最高连击 " + engine.maxCombo);
     }
 
