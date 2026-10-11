@@ -1,0 +1,1 @@
+The USB device disconnected before installation or instrumentation. This attempt only captured source metadata. The completed device run is device-02.
