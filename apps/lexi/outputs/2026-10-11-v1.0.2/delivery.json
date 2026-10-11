@@ -1,0 +1,29 @@
+{
+  "app": "拾词 Lexi",
+  "version": "1.0.2",
+  "versionCode": 3,
+  "sourceCommit": "ad6eea3662429506a61edebd52bb64de436c5be0",
+  "apk": "Lexi-1.0.2-debug.apk",
+  "apkSha256": "05fdda1d8fe13e6595c9b8c1078305268cb0e5eb97aeb580d6249db61219b282",
+  "orientation": "portrait",
+  "installedDevice": "Samsung SM-S9080 Android 16",
+  "verifiedSystemLandscapeRotations": [
+    1,
+    3
+  ],
+  "verifiedScreens": [
+    "search",
+    "wordbook",
+    "settings",
+    "restart-wordbook"
+  ],
+  "userWordbookCount": 1182,
+  "wordbookAndHistoryUnchanged": true,
+  "rotationSettingsRestored": true,
+  "lintErrors": 0,
+  "lintWarnings": 3,
+  "lintWarningContext": "Two fixed-orientation recommendations are expected for this Samsung-phone portrait requirement; the existing API-33 attribute warning is unchanged.",
+  "evidence": "portrait/verification.json",
+  "requestedPermissions": [],
+  "privateUserDatabaseAndScreenshotsIncluded": false
+}

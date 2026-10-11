@@ -1,0 +1,89 @@
+{
+  "verifiedAt": "2026-10-11T19:03:15.039371+08:00",
+  "device": "SM-S9080",
+  "version": "1.0.2",
+  "sourceCommit": "ad6eea3662429506a61edebd52bb64de436c5be0",
+  "apkSha256": "05fdda1d8fe13e6595c9b8c1078305268cb0e5eb97aeb580d6249db61219b282",
+  "originalRotationSettings": {
+    "accelerometer_rotation": "0",
+    "user_rotation": "0"
+  },
+  "originalWmRotation": "lock 0",
+  "checks": [
+    {
+      "systemRequestedRotation": 1,
+      "systemRotationVerifiedBeforeApp": 1
+    },
+    {
+      "screen": "rotation-1-search",
+      "orientation": "portrait",
+      "screenshotWidth": 1440,
+      "screenshotHeight": 3088,
+      "wordbookCountVisible": null
+    },
+    {
+      "screen": "rotation-1-book",
+      "orientation": "portrait",
+      "screenshotWidth": 1440,
+      "screenshotHeight": 3088,
+      "wordbookCountVisible": true
+    },
+    {
+      "screen": "rotation-1-settings",
+      "orientation": "portrait",
+      "screenshotWidth": 1440,
+      "screenshotHeight": 3088,
+      "wordbookCountVisible": null
+    },
+    {
+      "systemRequestedRotation": 3,
+      "systemRotationVerifiedBeforeApp": 3
+    },
+    {
+      "screen": "rotation-3-search",
+      "orientation": "portrait",
+      "screenshotWidth": 1440,
+      "screenshotHeight": 3088,
+      "wordbookCountVisible": null
+    },
+    {
+      "screen": "rotation-3-book",
+      "orientation": "portrait",
+      "screenshotWidth": 1440,
+      "screenshotHeight": 3088,
+      "wordbookCountVisible": true
+    },
+    {
+      "screen": "rotation-3-settings",
+      "orientation": "portrait",
+      "screenshotWidth": 1440,
+      "screenshotHeight": 3088,
+      "wordbookCountVisible": null
+    },
+    {
+      "screen": "restart-book",
+      "orientation": "portrait",
+      "screenshotWidth": 1440,
+      "screenshotHeight": 3088,
+      "wordbookCountVisible": true
+    }
+  ],
+  "wordbookBefore": {
+    "count": 1182,
+    "wordbookSha256": "8d16a2caead7f0bd6364e902d72ba8543b0069fb55bad9de00aa3943b1311bfe",
+    "historySha256": "1f2358d419f3b0a18a9017972ceb3999d08d111d8cbe7b26f627ccc0f98128f5",
+    "databaseSha256": "588ca2cc2def08f5eecf0b0c52e70c55a74ca87142174a79cf13985446162acf"
+  },
+  "passed": true,
+  "restoredRotationSettings": {
+    "accelerometer_rotation": "0",
+    "user_rotation": "0"
+  },
+  "wordbookAfter": {
+    "count": 1182,
+    "wordbookSha256": "8d16a2caead7f0bd6364e902d72ba8543b0069fb55bad9de00aa3943b1311bfe",
+    "historySha256": "1f2358d419f3b0a18a9017972ceb3999d08d111d8cbe7b26f627ccc0f98128f5",
+    "databaseSha256": "588ca2cc2def08f5eecf0b0c52e70c55a74ca87142174a79cf13985446162acf"
+  },
+  "wordbookAndHistoryUnchanged": true
+}
