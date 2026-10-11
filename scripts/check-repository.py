@@ -31,6 +31,8 @@ def check(args):
         mode, _, stage = metadata.split()
         if stage != "0":
             errors.append(f"存在未解决的合并冲突: {name}")
+        if mode == "160000":
+            errors.append(f"不允许嵌套仓库或子模块: {name}")
         tracked[name] = mode
 
     # 检查 Git 索引，避免被忽略的本机文件干扰结果。
@@ -44,7 +46,7 @@ def check(args):
             errors.append(f"误跟踪环境配置: {name}")
 
     apps = sorted({name.split("/")[1] for name in tracked if name.startswith("apps/")})
-    index = (ROOT / "README.md").read_text(encoding="utf-8")
+    index = git("show", ":README.md")
     for app in apps:
         prefix = f"apps/{app}"
         for suffix in ("README.md", "gradlew", "gradlew.bat", "gradle/wrapper/gradle-wrapper.jar", "gradle/wrapper/gradle-wrapper.properties"):
@@ -61,8 +63,8 @@ def check(args):
     for target in re.findall(r"\]\(([^)]+)\)", index):
         if "://" not in target and not target.startswith("#"):
             relative = target.split("#", 1)[0]
-            if relative and not (ROOT / relative).exists():
-                errors.append(f"根 README 链接不存在: {relative}")
+            if relative and relative not in tracked and not any(name.startswith(relative.rstrip("/") + "/") for name in tracked):
+                errors.append(f"根 README 链接未纳入 Git: {relative}")
 
     # 跳过生成物和交付附件，只寻找 APP 内意外创建的 Git 仓库。
     for folder, dirs, files in os.walk(ROOT / "apps", followlinks=False):
@@ -70,7 +72,6 @@ def check(args):
             errors.append(f"APP 内存在嵌套 Git: {Path(folder).relative_to(ROOT)}")
         dirs[:] = [name for name in dirs if name not in {".git", ".gradle", "build", ".idea", "outputs", "__pycache__"}]
 
-    hook = ROOT / ".githooks/commit-msg"
     if tracked.get(".githooks/commit-msg") != "100755":
         errors.append("提交检查 hook 必须具有执行权限")
     shell = shutil.which("sh")
@@ -82,7 +83,7 @@ def check(args):
                 shell = str(candidate)
     if not shell:
         errors.append("找不到 sh，无法实际验证提交 hook；Windows 请安装 Git for Windows")
-    elif hook.exists():
+    elif ".githooks/commit-msg" in tracked:
         cases = [
             ("gpt-6.1-sol: fruitslice - 修复问题", True),
             ("gpt-6-astra: musiccache - update playback", True),
@@ -97,6 +98,8 @@ def check(args):
             cases.extend((subject, True) for subject in git("log", "--format=%s", args.commit_range).splitlines())
         with tempfile.TemporaryDirectory(prefix="android-git-check-") as directory:
             message = Path(directory) / "message.txt"
+            hook = Path(directory) / "commit-msg"
+            hook.write_text(git("show", ":.githooks/commit-msg") + "\n", encoding="utf-8", newline="\n")
             for subject, expected in cases:
                 message.write_text(subject + "\n", encoding="utf-8")
                 result = subprocess.run([shell, str(hook), str(message)], capture_output=True)
