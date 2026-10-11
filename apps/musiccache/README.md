@@ -75,7 +75,7 @@ Java 17，Gradle 8.10.2，Android Gradle Plugin 8.7.3，compileSdk/targetSdk 36�
 - 原生搜索实测 `hello` 返回前 90 首，并显示官网报告总数 1035；无匹配结果有明确提示。
 - 15 项原生综合检查、3 项息屏检查、50 项隔离 WebView 缓存回归、333 项 JVM 缓存检查、51 项原生 DataSource 检查、48 项歌单/搜索脚本模拟检查、20 项主机夹具检查与 14 项网页夹具逻辑检查通过。模拟检查不替代实机证据。
 
-证据：[交付核验](outputs/2026-10-11-v0.3.0/delivery-verification-final.json)、[原生综合验收](outputs/2026-10-11-v0.3.0/native-01/verification.json)、[息屏验收](outputs/2026-10-11-v0.3.0/native-03-screenoff/verification.json)、[缓存回归](outputs/2026-10-11-v0.3.0/device-01/verification.json)。记录包含 APK 哈希、源码基线和逐文件哈希；源码尚未提交，不能只凭基线提交代表本次版本。
+证据：[交付核验](outputs/2026-10-11-v0.3.0/delivery-verification-final.json)、[原生综合验收](outputs/2026-10-11-v0.3.0/native-01/verification.json)、[息屏验收](outputs/2026-10-11-v0.3.0/native-03-screenoff/verification.json)、[缓存回归](outputs/2026-10-11-v0.3.0/device-01/verification.json)。记录包含 APK 哈希、源码基线和逐文件哈希；验证时源码尚未提交，不能只凭记录内的基线提交代表本次版本。源码与历史交付后来统一归档到 `38b3061`（含 v0.3.1），复核旧版本仍以各次逐文件哈希为准。
 
 验证范围为上述抽样歌曲及选定播放位置，没有逐首试听全部 69 首，也未连续播完整张歌单。真实耳机断开、退出登录和账号到期未主动测试。息屏第一次检查将状态限定为 `Asleep`，与三星实际 `Dozing/DOZE_SUSPEND` 不符，该失败原始记录保留在 `native-02-screenoff`；随后以实际非交互显示状态和音频输出重新验证。
 
@@ -105,6 +105,6 @@ Java 17，Gradle 8.10.2，Android Gradle Plugin 8.7.3，compileSdk/targetSdk 36�
 
 历史 v0.1.2（2026-10-11）：在 Samsung SM-S9080 / Android 16 验证；[安装包](outputs/2026-10-11-v0.1.2/MusicCacheLab-0.1.2-debug.apk) SHA-256：`e4048405b05853a609c226b84638c7505737158db4f9df17fba48b77586875a7`。构建及 lint 通过，228 项 JVM 检查、17 项主机夹具检查、9 项网页检查逻辑测试、[41 项设备验收检查](outputs/2026-10-11-v0.1.2/device-01/verification.json)通过。设备测试前后正常 App 的 PID 均为 23748，账号页面未参与测试进程重启。该版本尚未支持跨签名链接复用。
 
-源码尚未提交；验证记录包含基线提交和逐文件哈希，不能仅用基线提交代表本次构建。旧版本原始记录保留，不替代 v0.2.0 的验证。
+验证时源码尚未提交；验证记录包含基线提交和逐文件哈希，不能仅用基线提交代表当次构建。历史源码与交付后来统一归档到 `38b3061`，原始记录保持不变，旧版本验证不替代 v0.2.0 的验证。
 
 实现参考：[Android WebViewClient](https://developer.android.com/reference/android/webkit/WebViewClient)、[CookieManager](https://developer.android.com/reference/android/webkit/CookieManager)。

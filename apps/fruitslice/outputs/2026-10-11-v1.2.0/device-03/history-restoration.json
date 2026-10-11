@@ -1,0 +1,17 @@
+{
+  "payloadExactlyRestored": true,
+  "best": 2260,
+  "scores": [
+    2260,
+    1643,
+    885,
+    637,
+    547,
+    506,
+    466,
+    228,
+    167,
+    163
+  ],
+  "invalidCollection": "history-restored.xml was captured from incorrect filename and is not evidence"
+}

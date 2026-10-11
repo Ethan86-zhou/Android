@@ -6,7 +6,7 @@ if [ ! -f "$1" ]; then
 fi
 
 IFS= read -r subject < "$1" || :
-if ! printf '%s\n' "$subject" | LC_ALL=C grep -Eq '^[A-Za-z0-9][A-Za-z0-9._+-]*: [^[:space:]]'; then
+if ! printf '%s\n' "$subject" | LC_ALL=C grep -Eq '^[A-Za-z0-9][A-Za-z0-9._+-]*: [^[:space:]](.*[^[:space:]])? - [^[:space:]](.*[^[:space:]])?$'; then
     echo "提交标题必须以实际模型名开头：<模型名>: <项目> - <说明>" >&2
     echo "示例：gpt-6.1-sol: forcesense - 增加形变动画；完全人工开发使用 manual:。" >&2
     exit 1

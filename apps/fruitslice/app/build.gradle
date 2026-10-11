@@ -8,10 +8,10 @@ android {
     buildToolsVersion '36.0.0'
     defaultConfig {
         applicationId 'com.ethan.fruitslice'
-        minSdk 36
+        minSdk 34
         targetSdk 36
-        versionCode 4
-        versionName '1.1.1'
+        versionCode 7
+        versionName '1.2.2'
         testInstrumentationRunner 'com.ethan.fruitslice.GameInstrumentation'
     }
     buildFeatures { buildConfig true }

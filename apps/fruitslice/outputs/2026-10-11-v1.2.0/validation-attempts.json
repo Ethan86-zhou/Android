@@ -1,0 +1,37 @@
+{
+  "finalApk": "final/FruitSlice-1.2.0-debug.apk",
+  "finalApkSha256": "44a99b9ad2c10d5268fb2ab0e5ccbc6d8efc63a3e5c21a565acdab7ba7a1bf69",
+  "preFixCandidate": {
+    "path": "FruitSlice-1.2.0-debug.apk",
+    "sha256": "562371e203a91a20f9f24105b8f6c1ef342346a2c313b60c7978324b219c385b",
+    "deliveryAccepted": false
+  },
+  "attempts": [
+    {
+      "directory": "device",
+      "passed": false,
+      "apk": "FruitSlice-1.2.0-debug.apk",
+      "cause": "Fast reversal path assertion failed; later trace diagnosed Android resampled points. Original user history restored exactly."
+    },
+    {
+      "directory": "device-02",
+      "passed": false,
+      "apk": "FruitSlice-1.2.0-debug.apk",
+      "cause": "Device disconnected during installation; instrumentation did not execute."
+    },
+    {
+      "directory": "device-03",
+      "passed": false,
+      "apk": "FruitSlice-1.2.0-debug.apk",
+      "cause": "Trace measured path 1080 for actual path 1000 at only 40 ms. System appended 620 after actual 700. Corrected by filtering PointerCoords.isResampled. Original history restored exactly."
+    },
+    {
+      "directory": "device-04",
+      "passed": false,
+      "apk": "final/FruitSlice-1.2.0-debug.apk",
+      "cause": "Foreground switched to com.ethan.lexi during size tests; Android rejected touch injection. No anti-scribble scenes executed. Original history restored exactly."
+    }
+  ],
+  "sourceBaseCommit": "22b68942c2e5f857f10f8bd9d0d8a389f5486aab",
+  "sourceContent": "The final build source is recorded by final/build-source-sha256.json. Failed attempts are not acceptance evidence."
+}

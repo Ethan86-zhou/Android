@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "versionName": "1.2.2",
+  "versionCode": 7,
+  "device": "SM-X710",
+  "android": "14",
+  "api": 34,
+  "apkSha256": "25dbcaf852955be5d83a650e3265736906431af0f427d40d0ac4a35d428e518a",
+  "installedApkSha256": "25dbcaf852955be5d83a650e3265736906431af0f427d40d0ac4a35d428e518a",
+  "immediateNewRound": true,
+  "cleanTouchState": true,
+  "freshElapsed": 0.321302205324173,
+  "historyExactlyPreservedAcrossColdStart": true,
+  "historyCount": 9,
+  "best": 168,
+  "runtimeAppCrash": false
+}

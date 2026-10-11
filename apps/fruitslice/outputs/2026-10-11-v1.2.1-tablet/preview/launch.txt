@@ -1,0 +1,6 @@
+Starting: Intent { cmp=com.ethan.fruitslice/.MainActivity }
+Status: ok
+LaunchState: UNKNOWN (0)
+Activity: com.ethan.fruitslice/.MainActivity
+WaitTime: 3019
+Complete

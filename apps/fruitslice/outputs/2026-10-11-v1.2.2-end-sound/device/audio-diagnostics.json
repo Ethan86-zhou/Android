@@ -1,0 +1,461 @@
+[
+  {
+    "observedAt": 1954777011,
+    "endSampleIndex": 6,
+    "soundIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "endLoaded": true,
+    "streamIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "streamCount": 0,
+    "nextStream": 0,
+    "focused": false,
+    "overlay": "NONE",
+    "phase": "end-sample-ready"
+  },
+  {
+    "observedAt": 1954777015,
+    "endSampleIndex": 6,
+    "soundIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "endLoaded": true,
+    "streamIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "streamCount": 0,
+    "nextStream": 0,
+    "focused": false,
+    "overlay": "NONE",
+    "phase": "new-round-before-ending"
+  },
+  {
+    "observedAt": 1954777068,
+    "endSampleIndex": 6,
+    "soundIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "endLoaded": true,
+    "streamIds": [
+      36,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "streamCount": 1,
+    "nextStream": 1,
+    "focused": true,
+    "overlay": "RESULT",
+    "phase": "timeout-play"
+  },
+  {
+    "observedAt": 1954777113,
+    "endSampleIndex": 6,
+    "soundIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "endLoaded": true,
+    "streamIds": [
+      36,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "streamCount": 1,
+    "nextStream": 1,
+    "focused": true,
+    "overlay": "RESULT",
+    "phase": "timeout-after-result-frames"
+  },
+  {
+    "observedAt": 1954777211,
+    "endSampleIndex": 6,
+    "soundIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "endLoaded": true,
+    "streamIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "streamCount": 0,
+    "nextStream": 0,
+    "focused": false,
+    "overlay": "HISTORY",
+    "phase": "timeout-history-stop"
+  },
+  {
+    "observedAt": 1954777355,
+    "endSampleIndex": 6,
+    "soundIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "endLoaded": true,
+    "streamIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "streamCount": 0,
+    "nextStream": 0,
+    "focused": false,
+    "overlay": "RESULT",
+    "phase": "history-return-no-replay"
+  },
+  {
+    "observedAt": 1954777485,
+    "endSampleIndex": 6,
+    "soundIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "endLoaded": true,
+    "streamIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "streamCount": 0,
+    "nextStream": 0,
+    "focused": false,
+    "overlay": "NONE",
+    "phase": "restart-after history"
+  },
+  {
+    "observedAt": 1954777488,
+    "endSampleIndex": 6,
+    "soundIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "endLoaded": true,
+    "streamIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "streamCount": 0,
+    "nextStream": 0,
+    "focused": false,
+    "overlay": "NONE",
+    "phase": "new-round-before-ending"
+  },
+  {
+    "observedAt": 1954777530,
+    "endSampleIndex": 6,
+    "soundIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "endLoaded": true,
+    "streamIds": [
+      37,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "streamCount": 1,
+    "nextStream": 1,
+    "focused": true,
+    "overlay": "RESULT",
+    "phase": "third-miss-play"
+  },
+  {
+    "observedAt": 1954777580,
+    "endSampleIndex": 6,
+    "soundIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "endLoaded": true,
+    "streamIds": [
+      37,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "streamCount": 1,
+    "nextStream": 1,
+    "focused": true,
+    "overlay": "RESULT",
+    "phase": "third missed fruit-after-result-frames"
+  },
+  {
+    "observedAt": 1954777661,
+    "endSampleIndex": 6,
+    "soundIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "endLoaded": true,
+    "streamIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "streamCount": 0,
+    "nextStream": 0,
+    "focused": false,
+    "overlay": "RESULT",
+    "phase": "result-background-stop"
+  },
+  {
+    "observedAt": 1954777720,
+    "endSampleIndex": 6,
+    "soundIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "endLoaded": true,
+    "streamIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "streamCount": 0,
+    "nextStream": 0,
+    "focused": false,
+    "overlay": "RESULT",
+    "phase": "result-foreground-no-replay"
+  },
+  {
+    "observedAt": 1954777834,
+    "endSampleIndex": 6,
+    "soundIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "endLoaded": true,
+    "streamIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "streamCount": 0,
+    "nextStream": 0,
+    "focused": false,
+    "overlay": "NONE",
+    "phase": "restart-after background"
+  },
+  {
+    "observedAt": 1954777835,
+    "endSampleIndex": 6,
+    "soundIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "endLoaded": true,
+    "streamIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "streamCount": 0,
+    "nextStream": 0,
+    "focused": false,
+    "overlay": "NONE",
+    "phase": "new-round-before-ending"
+  },
+  {
+    "observedAt": 1954777960,
+    "endSampleIndex": 6,
+    "soundIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "endLoaded": true,
+    "streamIds": [
+      39,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "streamCount": 1,
+    "nextStream": 1,
+    "focused": true,
+    "overlay": "RESULT",
+    "phase": "bomb-ending-play"
+  },
+  {
+    "observedAt": 1954778003,
+    "endSampleIndex": 6,
+    "soundIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "endLoaded": true,
+    "streamIds": [
+      39,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "streamCount": 1,
+    "nextStream": 1,
+    "focused": true,
+    "overlay": "RESULT",
+    "phase": "bomb time deduction-after-result-frames"
+  },
+  {
+    "observedAt": 1954778117,
+    "endSampleIndex": 6,
+    "soundIds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "endLoaded": true,
+    "streamIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "streamCount": 0,
+    "nextStream": 0,
+    "focused": false,
+    "overlay": "NONE",
+    "phase": "restart-during the final ending sound"
+  }
+]

@@ -1,0 +1,265 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        79ccab8 com.ethan.fruitslice/.MainActivity filter 5d69091
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+
+Domain verification status:
+
+Key Set Manager:
+  [com.ethan.fruitslice]
+      Signing KeySets: 236
+
+Packages:
+  Package [com.ethan.fruitslice] (63451e8):
+    appId=10266
+    pkg=Package{bdcb2ef com.ethan.fruitslice}
+    codePath=/data/app/~~-BgUaACLgaXfadtqjVxnWg==/com.ethan.fruitslice-yxUvOb_4Fq3i6HxU-z0LcQ==
+    resourcePath=/data/app/~~-BgUaACLgaXfadtqjVxnWg==/com.ethan.fruitslice-yxUvOb_4Fq3i6HxU-z0LcQ==
+    legacyNativeLibraryDir=/data/app/~~-BgUaACLgaXfadtqjVxnWg==/com.ethan.fruitslice-yxUvOb_4Fq3i6HxU-z0LcQ==/lib
+    extractNativeLibs=false
+    primaryCpuAbi=null
+    secondaryCpuAbi=null
+    cpuAbiOverride=null
+    versionCode=5 minSdk=36 targetSdk=36
+    minExtensionVersions=[]
+    versionName=1.2.0
+    hiddenApiEnforcementPolicy=2
+    usesNonSdkApi=false
+    splits=[base]
+    apkSigningVersion=2
+    flags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    forceQueryable=false
+    pageSizeCompat=0
+    scannedAsStoppedSystemApp=false
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2026-10-11 19:06:02
+    lastUpdateTime=2026-10-11 19:06:18
+    installerPackageName=null
+    installerPackageUid=-1
+    initiatingPackageName=com.android.shell
+    originatingPackageName=null
+    category=manifest: -1, override: -1, by user: -1
+    packageSource=1
+    appMetadataFilePath=null
+    appMetadataSource=0
+    signatures=PackageSignatures{5fb8d35 version:2, signatures:[6dc168dc], past signatures:[]}
+    installPermissionsFixed=false
+    pkgFlags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privatePkgFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    apexModuleName=null
+    componentsDeclared=2
+    requested permissions:
+      com.samsung.android.permission.GET_APP_LIST
+    User 0: ceDataInode=2482813 deDataInode=2786244 installed=true hidden=false suspended=false distractionFlags=0 stopped=false notLaunched=false enabled=0 instant=false virtual=false quarantined=false
+      installReason=0
+      dataDir=/data/user/0/com.ethan.fruitslice
+      firstInstallTime=2026-10-11 00:39:43
+      uninstallReason=0
+      overlay paths:
+        /product/overlay/NavigationBarModeGestural/NavigationBarModeGesturalOverlay.apk
+      legacy overlay paths:
+        /product/overlay/NavigationBarModeGestural/NavigationBarModeGesturalOverlay.apk
+      runtime permissions:
+        com.samsung.android.permission.GET_APP_LIST: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+    User 95: ceDataInode=2769742 deDataInode=2769871 installed=true hidden=false suspended=false distractionFlags=0 stopped=true notLaunched=true enabled=0 instant=false virtual=false quarantined=false
+      installReason=0
+      dataDir=/data/user/95/com.ethan.fruitslice
+      firstInstallTime=1970-01-01 08:00:00
+      uninstallReason=0
+      runtime permissions:
+        com.samsung.android.permission.GET_APP_LIST: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+    User 150: ceDataInode=0 deDataInode=0 installed=false hidden=false suspended=false distractionFlags=0 stopped=true notLaunched=true enabled=0 instant=false virtual=false quarantined=false
+      installReason=0
+      dataDir=null
+      firstInstallTime=2026-10-11 00:39:43
+      uninstallReason=0
+      runtime permissions:
+
+Queries:
+  system apps queryable: false
+  queries via forceQueryable:
+  queries via package name:
+    com.ethan.fruitslice:
+      com.ethan.fruitslice.test
+    com.ethan.fruitslice.test:
+      com.ethan.fruitslice
+  queries via component:
+    com.xiaomi.smarthome:
+      com.ethan.fruitslice
+    com.tmri.app.main:
+      com.ethan.fruitslice
+    com.samsung.android.app.spage:
+      com.ethan.fruitslice
+    com.samsung.android.bixbytouch:
+      com.ethan.fruitslice
+    com.samsung.android.bixby.agent:
+      com.ethan.fruitslice
+    com.mofang_app:
+      com.ethan.fruitslice
+    com.android.settings.intelligence:
+      com.ethan.fruitslice
+    com.samsung.android.messaging.extension.chn:
+      com.ethan.fruitslice
+    com.alcidae.smarthome:
+      com.ethan.fruitslice
+    com.samsung.android.spay:
+      com.ethan.fruitslice
+    com.tencent.mm:
+      com.ethan.fruitslice
+    us.zoom.videomeetings:
+      com.ethan.fruitslice
+    com.xingin.xhs:
+      com.ethan.fruitslice
+    com.MobileTicket:
+      com.ethan.fruitslice
+    com.wondersgroup.ybtproduct:
+      com.ethan.fruitslice
+    com.samsung.wearable.fit3plugin:
+      com.ethan.fruitslice
+    com.yahoomcam:
+      com.ethan.fruitslice
+    com.autonavi.minimap:
+      com.ethan.fruitslice
+    com.okcam.ookcam:
+      com.ethan.fruitslice
+  queryable via interaction:
+    User 0:
+      [com.android.location.fused,com.samsung.android.applock,com.samsung.android.gimbaltrackingkit,com.sec.android.app.parser,com.sec.android.app.SecSetupWizard,com.sem.factoryapp,com.samsung.android.ese,com.android.keychain,com.samsung.android.themecenter,com.samsung.android.knox.attestation,com.sec.android.app.hwmoduletest,com.sec.factory.camera,com.samsung.aasaservice,com.samsung.android.motionphoto.app,com.samsung.android.softsim,com.sec.android.app.factorykeystring,android,com.samsung.android.da.daagent,com.sec.app.RilErrorNotifier,com.sec.android.app.uwbtest,com.samsung.android.sm_cn,com.samsung.android.mdecservice,com.sec.facatfunction,com.samsung.android.biometrics.app.setting,com.samsung.android.aircommandmanager,com.samsung.android.provider.filterprovider,com.sec.sve,com.sec.android.sdhms,com.samsung.android.app.dressroom,com.samsung.accessibility,com.samsung.android.brightnessbackupservice,com.samsung.hidden.china,com.android.providers.settings,com.samsung.gpuwatchapp,com.sec.imsservice,com.android.dynsystem,com.android.server.telecom,com.sec.android.app.quicktool,com.samsung.android.cameraxservice,com.samsung.android.forest,com.samsung.android.emergency,com.samsung.android.globalpostprocmgr,com.samsung.android.dqagent,com.samsung.SMT,com.samsung.sait.sohservice,com.samsung.android.vexfwk.service,com.sec.android.iaft,com.samsung.android.statsd,com.sec.android.app.desktoplauncher,com.samsung.android.activation,com.sec.android.app.RilPhoneNumberService,com.samsung.android.knox.zt.framework,com.sec.bcservice,com.samsung.android.smartface,com.samsung.android.knox.mpos,com.qti.snapdragon.qdcm_ff,com.samsung.android.smartswitchassistant,com.sec.android.app.personalization,com.sec.android.diagmonagent,com.android.settings,com.sec.android.app.wlantest,com.samsung.android.providers.factory,com.sec.android.soagent,com.samsung.hongbaoassistant,com.samsung.android.vdcservice,com.samsung.android.photoremasterservice,com.sec.android.llmpolicy,com.sec.modem.settings,com.tencent.soter.soterserver,com.samsung.android.bixby.wakeup,com.samsung.android.wifi.ai,com.sec.mhs.smarttethering,com.sec.android.emergencylauncher,com.samsung.android.svcagent,com.samsung.android.camerasdkservice,com.samsung.sightcare,com.sec.usbsettings,com.samsung.android.pushservice,com.qualcomm.qti.services.systemhelper,com.sec.automation,org.ifaa.aidl.manager,com.samsung.android.vtcamerasettings,com.samsung.android.sskds,com.sec.android.app.servicemodeapp,com.samsung.android.fmm,com.sec.epdg,com.skms.android.agent,com.sec.imslogger,com.sec.android.smartfpsadjuster,com.samsung.android.stickercenter,com.android.localtransport,com.android.inputdevices,com.wssyncmldm,com.samsung.android.hdmapp,com.samsung.android.dck.timesync,com.samsung.android.appbooster,com.samsung.android.bbc.bbcagent]:
+        com.ethan.fruitslice
+      com.samsung.android.honeyboard:
+        com.ethan.fruitslice
+    User 95:
+    User 150:
+  queryable via uses-library:
+
+Dexopt state:
+  [com.ethan.fruitslice]
+    path: /data/app/~~-BgUaACLgaXfadtqjVxnWg==/com.ethan.fruitslice-yxUvOb_4Fq3i6HxU-z0LcQ==/base.apk
+      arm64: [status=run-from-apk] [reason=unknown] [primary-abi]
+        [location is error]
+
+SPEG state:
+  Event #20: 08-10-2026 16:38:59.250 Success com.tmri.app.main took 2385 ms
+  Event #19: 03-08-2026 00:48:39.352 Success com.xingin.xhs took 2519 ms
+  Event #18: 03-08-2026 00:48:07.899 Failure com.ss.android.ugc.livelite took 3387 ms
+  Event #17: 24-06-2026 23:29:16.848 Success com.tencent.workbuddy.app took 2384 ms
+  Event #16: 20-04-2026 22:36:01.666 Success com.alcidae.smarthome took 2397 ms
+  Event #15: 17-03-2026 22:34:22.165 Success com.rastar.sqcdjz.samsung took 2354 ms
+  Event #14: 12-03-2026 10:09:20.463 Success com.moondroplab.moondrop.moondrop_app took 2435 ms
+  Event #13: 12-03-2026 09:25:52.650 Success com.ss.android.lark took 2462 ms
+  Event #12: 11-03-2026 10:54:27.399 Success com.taobao.idlefish took 2352 ms
+  Event #11: 02-03-2026 02:24:53.566 Success com.ss.android.article.lite took 3217 ms
+  Event #10: 01-03-2026 23:14:20.883 Failure com.ss.android.ugc.livelite took 3362 ms
+  Event #9: 27-02-2026 22:14:01.335 Success com.tencent.weishi took 2801 ms
+  Event #8: 25-02-2026 21:40:02.509 Failure com.antgroup.aijk.android took 2049 ms
+  Event #7: 02-02-2026 16:51:05.299 Success com.baidu.apollo.go took 2414 ms
+  Event #6: 16-01-2026 10:33:14.523 Success com.tencent.mp took 2431 ms
+  Event #5: 14-01-2026 23:16:35.700 Success com.github.metacubex.clash.meta took 2419 ms
+  Event #4: 19-12-2025 14:06:07.472 Failure cn.gov.chinatax.gt4.app took 2062 ms
+  Event #3: 15-12-2025 15:58:33.885 Success com.tencent.tmgp.codev took 2345 ms
+  Event #2: 15-12-2025 09:15:49.731 Success com.htinns took 2373 ms
+  Event #1: 08-12-2025 22:07:41.127 Success com.tencent.qqmusic took 2421 ms
+  Event #0: 04-12-2025 22:03:38.289 Success com.okcam.ookcam took 2425 ms
+
+Profile utilization state:
+  Current state:
+    Version: 2.1.1
+    Start reason: boot-no-update
+    Start time: not started
+    Finish time: not finished
+    PU_StatusWatcher:
+      Initial thermal status: 0
+      Thermal status: 0
+      Screen off: false
+      Low battery: true
+    PU_DexoptTrigger:
+      Dexopt concurrency: 4
+      Dexopting: false
+    PU_Storage:
+      Stored apps:
+        com.tencent.mm 30
+        com.tencent.qqmusic 45
+        com.sec.android.app.camera 47
+        com.sec.android.gallery3d 48
+        com.autonavi.minimap 54
+        com.ss.android.ugc.aweme 54
+        com.samsung.android.dialer 72
+        com.tencent.tim 72
+        com.larus.nova 77
+        com.samsung.android.messaging 84
+        com.sec.android.app.shealth 86
+        com.google.android.apps.youtube.kids 91
+        com.samsung.android.galaxycontinuity 96
+        com.samsung.android.app.notes 99
+        com.samsung.android.app.watchmanager 102
+        com.android.settings 103
+        com.github.metacubex.clash.meta 105
+        com.samsung.android.app.contacts 106
+        com.samsung.android.app.routines 106
+        com.samsung.android.minormode 115
+        com.microsoft.office.officehubrow 117
+        com.microsoft.office.onenote 132
+        com.qnap.qfile 132
+    Stored PU state:
+      Service:
+        Version: 2.1.1
+        Start reason: boot-after-ota
+        Start time: Sun Feb 22 23:04:55 GMT+08:00 2026 ts=1771772695457
+        Finish time: Sun Feb 22 23:07:38 GMT+08:00 2026 ts=1771772858511
+        Took time 163sec
+      Watcher:
+        Initial thermal status: 1
+        Thermal status: 1
+        Screen off: true
+        Low battery: false
+      Metrics:
+        Predicted and launched apps: 4
+        Predicted apps: 22
+        Launched apps: 4
+        Best f1Score: 0.6666667, prefixCount: 2, precision: 1.0, recall: 0.5
+      Trigger:
+        Dexopt concurrency: 4
+        Dexopting: false
+        Hot apps list:
+          com.tencent.mm, w=15, s=OPTIMIZED, optTimeMs=1771772844005, cancelCount=0, dexopt=PERFORMED, [primaryDex=true, reason=profile-utilization, dex2oatTimeMs=25655, filter=speed-profile]
+          com.ss.android.article.news, w=51, s=OPTIMIZED, optTimeMs=1771772831066, cancelCount=0, dexopt=PERFORMED, [primaryDex=true, reason=profile-utilization, dex2oatTimeMs=12767, filter=speed-profile]
+          com.tencent.qqmusic, w=53, s=OPTIMIZED, optTimeMs=1771772837796, cancelCount=0, dexopt=PERFORMED, [primaryDex=true, reason=profile-utilization, dex2oatTimeMs=19406, filter=speed-profile]
+          com.sec.android.gallery3d, w=60, s=OPTIMIZED, optTimeMs=1771772751592, cancelCount=0, dexopt=SKIPPED, [primaryDex=true, reason=prebuilt-prep, dex2oatTimeMs=0, filter=speed-profile]
+          org.videolan.vlc, w=60, s=OPTIMIZED, optTimeMs=1771772821595, cancelCount=0, dexopt=PERFORMED, [primaryDex=true, reason=profile-utilization, dex2oatTimeMs=3264, filter=speed-profile]
+          com.android.settings, w=67, s=OPTIMIZED, optTimeMs=1771772821701, cancelCount=0, dexopt=SKIPPED, [primaryDex=true, reason=prebuilt, dex2oatTimeMs=0, filter=verify]
+          com.sec.android.app.camera, w=68, s=OPTIMIZED, optTimeMs=1771772821861, cancelCount=0, dexopt=SKIPPED, [primaryDex=true, reason=prebuilt-prep, dex2oatTimeMs=0, filter=speed-profile]
+          com.larus.nova, w=80, s=OPTIMIZED, optTimeMs=1771772838773, cancelCount=0, dexopt=PERFORMED, [primaryDex=true, reason=profile-utilization, dex2oatTimeMs=16750, filter=speed-profile]
+          com.samsung.android.dialer, w=89, s=OPTIMIZED, optTimeMs=1771772831101, cancelCount=0, dexopt=SKIPPED, [primaryDex=true, reason=boot-after-ota, dex2oatTimeMs=0, filter=speed-profile]
+          com.samsung.knox.securefolder, w=102, s=OPTIMIZED, optTimeMs=1771772833840, cancelCount=0, dexopt=PERFORMED, [primaryDex=true, reason=profile-utilization, dex2oatTimeMs=2684, filter=speed-profile]
+          com.sec.android.app.shealth, w=102, s=OPTIMIZED, optTimeMs=1771772840994, cancelCount=0, dexopt=PERFORMED, [primaryDex=true, reason=profile-utilization, dex2oatTimeMs=7002, filter=speed-profile]
+          com.autonavi.minimap, w=104, s=OPTIMIZED, optTimeMs=1771772844571, cancelCount=0, dexopt=PERFORMED, [primaryDex=true, reason=profile-utilization, dex2oatTimeMs=6466, filter=speed-profile]
+          com.samsung.android.messaging, w=105, s=OPTIMIZED, optTimeMs=1771772838843, cancelCount=0, dexopt=SKIPPED, [primaryDex=true, reason=prebuilt-prep, dex2oatTimeMs=0, filter=speed-profile]
+          com.samsung.android.minormode, w=108, s=OPTIMIZED, optTimeMs=1771772839840, cancelCount=0, dexopt=PERFORMED, [primaryDex=true, reason=profile-utilization, dex2oatTimeMs=818, filter=speed-profile]
+          com.wondersgroup.ybtproduct, w=109, s=OPTIMIZED, optTimeMs=1771772842319, cancelCount=0, dexopt=PERFORMED, [primaryDex=true, reason=profile-utilization, dex2oatTimeMs=2310, filter=speed-profile]
+          com.samsung.android.app.notes, w=115, s=OPTIMIZED, optTimeMs=1771772856549, cancelCount=0, dexopt=PERFORMED, [dex2oatTimeMs=8052, filter=speed-profile], [dex2oatTimeMs=7288, filter=speed-profile]
+          com.samsung.android.galaxycontinuity, w=117, s=OPTIMIZED, optTimeMs=1771772843201, cancelCount=0, dexopt=PERFORMED, [primaryDex=true, reason=profile-utilization, dex2oatTimeMs=761, filter=speed-profile]
+          com.tencent.tim, w=121, s=OPTIMIZED, optTimeMs=1771772858511, cancelCount=0, dexopt=PERFORMED, [primaryDex=true, reason=profile-utilization, dex2oatTimeMs=14552, filter=speed-profile]
+          com.samsung.android.app.watchmanager, w=124, s=OPTIMIZED, optTimeMs=1771772845023, cancelCount=0, dexopt=PERFORMED, [primaryDex=true, reason=profile-utilization, dex2oatTimeMs=915, filter=speed-profile]
+          com.samsung.android.app.contacts, w=126, s=OPTIMIZED, optTimeMs=1771772844631, cancelCount=0, dexopt=SKIPPED, [primaryDex=true, reason=prebuilt-prep, dex2oatTimeMs=0, filter=speed-profile]
+          com.sec.android.easyMover, w=127, s=OPTIMIZED, optTimeMs=1771772844658, cancelCount=0, dexopt=SKIPPED, [primaryDex=true, reason=vdex, dex2oatTimeMs=0, filter=verify]
+          com.samsung.android.app.routines, w=128, s=OPTIMIZED, optTimeMs=1771772849360, cancelCount=0, dexopt=PERFORMED, [primaryDex=true, reason=profile-utilization, dex2oatTimeMs=4454, filter=speed-profile]
+    Stored SCPM state:
+      packages-9a07:
+        [                                            ]
+      disable-2bb4:
+        [                                            ]
+
+Compiler stats:
+  [com.ethan.fruitslice]
+     base.apk - 167
+
+HeimdAllFS state:
+  [com.ethan.fruitslice]
+    path: /data/app/~~-BgUaACLgaXfadtqjVxnWg==/com.ethan.fruitslice-yxUvOb_4Fq3i6HxU-z0LcQ==/base.apk
+    Compressed? False
+  [ Summary ]
+    # of packages: 1 / # of packages in DATA: 1 (1)
+    Compressed apks info - sum of orig size: 7039 / sum of compr size : 7039

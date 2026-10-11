@@ -2,18 +2,23 @@
 
 离线横屏切水果小游戏，打开直接开局。滑动手指切开水果，避开炸弹；彩虹果实随机切换限时玩法。本机保存成绩历史，没有账号、联网、广告、内购或设置页面。全部图形与音效为本项目制作。
 
-包名：`com.ethan.fruitslice`。最低 Android 16 / API 36，版本 `1.1.1`。按用户要求，以当前连接的三星 SM-S9080（Android 16）作为最低支持系统。
+包名：`com.ethan.fruitslice`。最低 Android 14 / API 34，版本 `1.2.2`。按用户要求适配当前连接的三星 SM-X710 平板（Android 14，1600 × 2560），同时保留 Android 16 手机的支持。
 
 ## 开始玩
 
-安装 [`FruitSlice-1.1.1-debug.apk`](outputs/2026-10-11-v1.1.1/FruitSlice-1.1.1-debug.apk)，打开“果刃”直接进入横屏切台，不经过账号、菜单或设置。支持向任意方向快速划动与多指操作，水果会被切成两半，伴随刀光、果汁、短音效和系统触感。
+安装 [`FruitSlice-1.2.2-debug.apk`](outputs/2026-10-11-v1.2.2-end-sound/FruitSlice-1.2.2-debug.apk)，打开“果刃”直接进入横屏切台，不经过账号、菜单或设置。支持向任意方向快速划动与多指操作；划一刀后抬手再切，水果会被切成两半，伴随刀光、果汁、短音效和系统触感。
+
+平板横屏使用整个 16:10 切台，按实际窗口比例绘制，水果与触摸判定共用坐标。暂停、结算和历史卡片保持居中，右上角按钮避开系统边缘。应用声明为游戏，保留横屏玩法；Android 16 大屏对游戏方向限制的例外见 [Android 官方说明](https://developer.android.com/about/versions/16/behavior-changes-16#large-screens)。
 
 西瓜、橙子、猕猴桃、苹果、菠萝、李子使用明亮的写实果皮和果肉贴图，素材随 APK 离线提供；完整水果和切开的两半均保持实际尺寸。切割后的飞散果汁短暂消失，木板上不保留果汁染色或残留色块。素材来源与生成提示见 [美术素材说明](docs/artwork.md)。
 
 - 每局 60 秒，普通水果随机混合四种大小，最小直径为最大直径的 1/2。由大到小基础得分为 5、8、12、20 分，越小越难切、得分越高。一刀切中至少 3 个水果时，每个再奖励 2 分，双倍模式同时翻倍基础分与连击奖励。
+- 每刀从首次明显移动开始，最多有效 0.5 秒或累计划过 1.2 个游戏切台宽度，先达到哪项就收刀。可以先按住等待水果，静止不会切果。收刀后刀光熄灭并提示“抬手再切”，所有手指离开屏幕后才能重新出刀。
+- 多指共用同一刀的时间和路程额度，加指、换指不会恢复；经典与四种特殊模式均遵守此规则。连击只在当前有效的一刀内累计，收刀时结算；仍允许一刀切中同时在场的多个水果。超过路程的最后一段只切剩余额度内的水果。
 - 炸弹扣 10 分和 3 秒，分数最低为 0。经典、冰封和双倍模式漏掉 3 个普通水果结束本局；漏掉彩虹果实不扣分。
 - 发光的彩虹星形果实在开局约 2.2 秒出现，之后约每 9–13 秒出现。切中会随机选择与当前不同的一种特殊玩法，持续 8–12 秒；结束后回到经典。
 - 右上角时钟打开历史，双竖线暂停；暂停卡片只提供继续和历史。切到后台、展开通知栏或失去窗口焦点时暂停，回来后点“继续开切”。结算后直接“再来一局”。
+- 每局结束时播放一次约 0.8 秒的收尾音，倒计时归零、漏果三次或炸弹扣完时间均会触发。结算先停止切果等旧音效；打开历史、切到后台或重开下一局会立即停止尾音，返回结算不重播。音效离线生成，跟随系统媒体音量。
 
 | 特殊玩法 | 效果 |
 | --- | --- |
@@ -52,9 +57,35 @@ python .\tools\device_acceptance.py --serial <设备序列号> --output .\output
 
 `device_acceptance.py` 使用 Python 标准库，默认从本机 Android SDK 找 ADB，也可用 `--adb` 指定。验证目录必须是全新或空目录，防止覆盖旧证据。安装失败时保留手机数据并检查签名，不自动卸载。设备测试运行器只放在单独的测试 APK，交付游戏包不包含场景注入功能；完整玩法验收后恢复测试前的记录及最高分，并按当前前 10 规则筛选。添加 `--history-only` 只验证存储规则、旧数据升级和实际触摸打开高分榜，不向用户记录写入虚构成绩。
 
-`GameEngine.java` 是纯 Java 规则与物理；`GameView.java` 绘制界面并处理触摸和生命周期；`GameArt.java` 缓存原创图形；`GameAudio.java` 在私有缓存生成原创音效；`HistoryStore.java` 保存成绩和检查点。debug 版本额外提供私有 `files/debug_state.json` 便于复核，用户界面没有调试入口。
+`GameEngine.java` 是纯 Java 规则与物理；`BladeLimiter.java` 按真实触摸时间限制全指共享出刀额度；`GameView.java` 绘制界面并处理触摸和生命周期；`GameArt.java` 缓存原创图形；`GameAudio.java` 在私有缓存生成原创音效；`HistoryStore.java` 保存成绩和检查点。debug 版本额外提供私有 `files/debug_state.json` 便于复核，用户界面没有调试入口。
 
-## 1.1.1 实机验收
+切割请求立即派发真实触摸事件，避免系统为显示补出的预测位置在快速折返时多算路程或误切。Android 15 及以上再通过 `PointerCoords.isResampled()` 排除预测点；Android 14 不调用该新接口。历史中的真实采样点仍参与切割，抬手、取消和暂停正常结束当前刀。此行为按 [Android 官方触摸派发说明](https://developer.android.com/develop/ui/views/touch-and-input/stylus-input/advanced-stylus-features) 和 [重采样说明](https://developer.android.com/reference/android/view/MotionEvent.PointerCoords#isResampled()) 实现。
+
+## 1.2.2 结算音效实机验收
+
+交付包与证据位于 [`outputs/2026-10-11-v1.2.2-end-sound`](outputs/2026-10-11-v1.2.2-end-sound)，已同签名覆盖安装到三星 SM-X710 / Android 14 / API 34。2,803 项规则检查、421 项实机检查通过，构建与 lint 通过（0 错误、1 条既有横屏方向提示）；本次未重新测试旧手机。
+
+实机检查确认倒计时归零、第三个漏果及实际切炸弹扣完时间，均提交一次有效 SoundPool 播放；结算连续绘制不重播，打开历史、切到后台或重开下一局会停止，返回结果不补播。诊断见 [`device/audio-diagnostics.json`](outputs/2026-10-11-v1.2.2-end-sound/device/audio-diagnostics.json)。另外捕获真实游戏结算时的系统活动音轨，24 kHz / 19,200 帧对应 0.8 秒，音量非零；设备生成的音频为 [`natural-end/end-sound.wav`](outputs/2026-10-11-v1.2.2-end-sound/natural-end/end-sound.wav)，非静音且无削波，记录见 [`observed-end-check.json`](outputs/2026-10-11-v1.2.2-end-sound/natural-end/observed-end-check.json)。这是系统播放状态证据，没有声称做过麦克风录音或人工听感评价。
+
+原有成绩（包括本次新玩的 93 分）逐条保留，最高分 168；自动验收结束后新增的一局自然 0 分也保留，最终有 9 局，无测试场景成绩或检查点残留。实际关闭并重启后记录字节完全一致，打开直接新开局，触摸状态正常；已安装 APK 与交付包哈希相同，验收及重启未发现本应用崩溃。记录见 [`device/history-restore-check.json`](outputs/2026-10-11-v1.2.2-end-sound/device/history-restore-check.json)、[`relaunch/relaunch-check.json`](outputs/2026-10-11-v1.2.2-end-sound/relaunch/relaunch-check.json) 和 `delivery-manifest.json`。未卸载或清除应用数据。
+
+## 1.2.1 历史三星平板实机验收
+
+交付包与证据位于 [`outputs/2026-10-11-v1.2.1-tablet`](outputs/2026-10-11-v1.2.1-tablet)。本版本已安装到当前连接的三星 SM-X710 / Android 14 / API 34，实际横屏窗口为 2560 × 1600；2,803 项规则检查、401 项实机检查通过，构建与 lint 通过（0 错误、1 条既有横屏方向提示）。此包本次实测设备为三星平板；下文 SM-S9080 手机结果属于各历史版本。
+
+新增大屏检查覆盖完整窗口绘制、画布与物理尺寸一致、左侧/右侧/下方水果实际触摸计分，以及居中的暂停、继续、历史和关闭按钮。界面与底部进度条完整显示，未被系统任务栏遮挡。尺寸诊断及截图见 [`device/viewport-diagnostics.json`](outputs/2026-10-11-v1.2.1-tablet/device/viewport-diagnostics.json)、[`11-viewport-low-cut.png`](outputs/2026-10-11-v1.2.1-tablet/device/11-viewport-low-cut.png)、[`12-large-screen-pause.png`](outputs/2026-10-11-v1.2.1-tablet/device/12-large-screen-pause.png) 和 [`13-large-screen-history.png`](outputs/2026-10-11-v1.2.1-tablet/device/13-large-screen-history.png)。原有五种模式、有限出刀、快速折返、多指共享额度、全部抬手恢复、真实历史采样、通知栏/后台暂停、不同大小得分及最高 10 局存储均通过复验。
+
+另关闭进程后实际重启，确认打开直接开局、自然首波半径为 28 / 56、基础分为 20 / 5，且没有残留触摸或收刀状态。平板此前未安装本应用，测试后有效历史为空、最高分为 0、无测试成绩或检查点残留，重启前后空记录完全一致；手机原有数据未迁移或操作。记录见 [`device/history-empty-check.json`](outputs/2026-10-11-v1.2.1-tablet/device/history-empty-check.json) 和 [`relaunch/relaunch-check.json`](outputs/2026-10-11-v1.2.1-tablet/relaunch/relaunch-check.json)。已安装 APK 与交付包哈希一致，验收及重启期间未发现本应用运行崩溃；源码提交、文件哈希和预览阶段证据说明见 `delivery-manifest.json`。未卸载或清除应用数据。
+
+## 1.2.0 历史实机验收
+
+交付安装包位于 [`outputs/2026-10-11-v1.2.0/final`](outputs/2026-10-11-v1.2.0/final)，已同签名覆盖安装到三星 SM-S9080 / Android 16 / API 36。2,803 项纯 Java 规则检查与最终 392 项手机检查通过；构建与 lint 通过，0 错误、1 条既有横屏方向提示。最终手机证据为 [`device-06`](outputs/2026-10-11-v1.2.0/device-06)，源码文件哈希见其中 `source-sha256.json`，对应源码提交及交付包哈希见 `final/delivery-manifest.json`。
+
+验收覆盖静止等待后出刀、五种模式的 500 毫秒收刀、快速折返的 1.2 倍宽路程限制、最后一段裁切、多指共享与换指接力、全部抬手恢复、历史批次时间、取消、通知栏和后台暂停。真实手机轨迹中，折返路程为 1000 时仍能切割，到 1200 时锁定；多指累计路程为 800 时仍有效，换指后到 1200 即收刀，系统预测点未额外计入。普通大小计分、连击、炸弹、四种随机模式、结算和历史同步复验通过。收刀与暂停界面分别见 [`09-blade-limit.png`](outputs/2026-10-11-v1.2.0/device-06/09-blade-limit.png) 和 [`10-paused-touch-lock.png`](outputs/2026-10-11-v1.2.0/device-06/10-paused-touch-lock.png)。
+
+测试完成后，用户原始记录数据精确恢复，前 10 局及最高分 2260 保留。另实际重启进程捕获自然首波，半径 28 / 56、基础分 20 / 5，确认最小直径仍为最大的一半，且启动时没有残留触摸或收刀状态。手机安装包与交付包哈希一致，记录见 [`relaunch-check.json`](outputs/2026-10-11-v1.2.0/final/relaunch/relaunch-check.json)。未卸载、清除用户数据或留下虚构成绩；最终验收及重启期间未发现本应用运行崩溃。此前失败、断线或被其他前台应用打断的尝试均单独保留，见 `validation-attempts.json`；`device-05` 为截图同步修正前通过的规则检查，最终截图与源码验证以 `device-06` 为准。
+
+## 1.1.1 历史实机验收
 
 交付证据位于 [`outputs/2026-10-11-v1.1.1`](outputs/2026-10-11-v1.1.1)。最小直径从最大直径的 1/4 调整为 1/2，四档逻辑直径由大到小为 112、84、70、56，基础分仍为 5、8、12、20。当前大小对照见 [`00-fruit-art.png`](outputs/2026-10-11-v1.1.1/device/00-fruit-art.png)。
 

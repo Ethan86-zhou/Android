@@ -1,0 +1,39 @@
+name: Repository checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  repository:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check repository layout and hooks
+        run: python scripts/check-repository.py
+      - name: Check new commit titles
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          PUSH_BASE: ${{ github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          if [ "$EVENT_NAME" = pull_request ]; then
+            base="$PR_BASE"
+            head="$PR_HEAD"
+          else
+            base="$PUSH_BASE"
+            head="$HEAD_SHA"
+          fi
+          if [ -n "$base" ] && [ "$base" != 0000000000000000000000000000000000000000 ] && git cat-file -e "$base^{commit}"; then
+            python scripts/check-repository.py --commit-range "$base..$head"
+          fi
