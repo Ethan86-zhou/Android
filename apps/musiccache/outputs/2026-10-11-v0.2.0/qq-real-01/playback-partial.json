@@ -1,0 +1,174 @@
+{
+  "samples": [
+    {
+      "phase": "first-play",
+      "sample": {
+        "song": "歌曲名：今生劫换来生缘",
+        "time": "00:12 / 03:45",
+        "playing": true,
+        "playButtons": 10,
+        "audio": {
+          "starts": 3,
+          "ends": 1,
+          "states": [
+            "running"
+          ],
+          "rms": [
+            0.15360239774505274
+          ]
+        }
+      }
+    },
+    {
+      "phase": "middle",
+      "sample": {
+        "song": "歌曲名：今生劫换来生缘",
+        "time": "02:05 / 03:45",
+        "playing": true,
+        "audio": {
+          "starts": 6,
+          "ends": 3,
+          "states": [
+            "running"
+          ],
+          "rms": [
+            0.4676499324039063
+          ]
+        }
+      }
+    },
+    {
+      "phase": "tail",
+      "sample": {
+        "song": "歌曲名：今生劫换来生缘",
+        "time": "03:45 / 03:45",
+        "playing": true,
+        "audio": {
+          "starts": 7,
+          "ends": 6,
+          "states": [
+            "running"
+          ],
+          "rms": [
+            0.004670000389222643
+          ]
+        }
+      }
+    }
+  ],
+  "read": {
+    "id": 13,
+    "result": {
+      "result": {
+        "type": "object",
+        "value": {
+          "status": 200,
+          "contentLength": "2742364",
+          "bytes": 2742364,
+          "sha256": "88f47106001aae32e6d38dc3b344c15cbbdf877ff3684368d9be77bb97ce3d94"
+        }
+      }
+    }
+  },
+  "events": [
+    {
+      "time": 1791730159513,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 0-0/2742364",
+      "length": "1",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730160506,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 0-65535/2742364",
+      "length": "65536",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730160551,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 65536-368639/2742364",
+      "length": "303104",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730172700,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 368640-737279/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730187565,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 1393495-1762134/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730187588,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 1762135-2130774/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730187615,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 2130775-2499414/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730187645,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 2499415-2742363/2742364",
+      "length": "242949",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730200685,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 2522198-2742363/2742364",
+      "length": "220166",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730218366,
+      "status": 200,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "length": "2742364",
+      "disk": false,
+      "serviceWorker": false
+    }
+  ]
+}

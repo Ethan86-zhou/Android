@@ -1,0 +1,244 @@
+{
+  "appVersion": "0.2.0",
+  "apkSha256": "d435ca4ad5d0005dbacce4e86535565b5a7530f0130812bb68bf224ee36ca8c2",
+  "recordedAt": "2026-10-11T14:51:20.393Z",
+  "mode": "Online authentication allowed; audio cache reuse verified in official QQ webpage",
+  "legacyExactUrlHash": "f40bdef4cca5b8424793bbf66f1222cc2eec493c727edd3157e70843a1e00f3a",
+  "migration": {
+    "status": 206,
+    "bytes": 1,
+    "range": "bytes 0-0/2742364"
+  },
+  "firstUrlHash": "4b00e89ed2ec5d3c17b01054747a8a946a7d4b761f2ba7502d34836402922b93",
+  "secondUrlHash": "d81236fcdf6897dd26b8fa7458169af23dcaf7edef847cd70133f0c739b41ea4",
+  "newSignedUrl": true,
+  "samples": [
+    {
+      "phase": "first-play",
+      "sample": {
+        "song": "歌曲名：今生劫换来生缘",
+        "time": "00:12 / 03:45",
+        "playing": true,
+        "playButtons": 10,
+        "audio": {
+          "starts": 3,
+          "ends": 1,
+          "states": [
+            "running"
+          ],
+          "rms": [
+            0.15360239774505274
+          ]
+        }
+      }
+    },
+    {
+      "phase": "middle",
+      "sample": {
+        "song": "歌曲名：今生劫换来生缘",
+        "time": "02:05 / 03:45",
+        "playing": true,
+        "audio": {
+          "starts": 6,
+          "ends": 3,
+          "states": [
+            "running"
+          ],
+          "rms": [
+            0.4676499324039063
+          ]
+        }
+      }
+    },
+    {
+      "phase": "tail",
+      "sample": {
+        "song": "歌曲名：今生劫换来生缘",
+        "time": "03:45 / 03:45",
+        "playing": true,
+        "audio": {
+          "starts": 7,
+          "ends": 6,
+          "states": [
+            "running"
+          ],
+          "rms": [
+            0.004670000389222643
+          ]
+        }
+      }
+    },
+    {
+      "phase": "after-refresh",
+      "sample": {
+        "song": "歌曲名：今生劫换来生缘",
+        "time": "00:13 / 03:45",
+        "playing": true,
+        "audio": {
+          "starts": 3,
+          "ends": 1,
+          "states": [
+            "running"
+          ],
+          "rms": [
+            0.08413535202395635
+          ]
+        }
+      }
+    }
+  ],
+  "fullCachedRead": {
+    "status": 200,
+    "contentLength": "2742364",
+    "bytes": 2742364,
+    "sha256": "88f47106001aae32e6d38dc3b344c15cbbdf877ff3684368d9be77bb97ce3d94"
+  },
+  "finalUi": {
+    "song": "歌曲名：今生劫换来生缘",
+    "time": "00:13 / 03:45",
+    "playing": false,
+    "audio": {
+      "starts": 3,
+      "ends": 1,
+      "states": [
+        "suspended"
+      ],
+      "rms": [
+        0.13132436432630318
+      ]
+    }
+  },
+  "audioResponses": [
+    {
+      "time": 1791730159513,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 0-0/2742364",
+      "length": "1",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730160506,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 0-65535/2742364",
+      "length": "65536",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730160551,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 65536-368639/2742364",
+      "length": "303104",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730172700,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 368640-737279/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730187565,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 1393495-1762134/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730187588,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 1762135-2130774/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730187615,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 2130775-2499414/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730187645,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 2499415-2742363/2742364",
+      "length": "242949",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730200685,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 2522198-2742363/2742364",
+      "length": "220166",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730218366,
+      "status": 200,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "length": "2742364",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730230735,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 0-65535/2742364",
+      "length": "65536",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730230758,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 65536-368639/2742364",
+      "length": "303104",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791730242611,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 368640-737279/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    }
+  ],
+  "privacy": "No cookies or full signed URLs retained. Audio signal statistics only; no audio recording/export.",
+  "limits": "Authentication and webpage network traffic remains allowed. Cache counter excludes the separately counted one-byte validation responses. These results do not prove standalone Chrome caching or strict-offline QQ webpage navigation."
+}

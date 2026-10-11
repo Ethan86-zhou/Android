@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "run": "test_20261011_221004_0c60014f",
+  "phase": "offline",
+  "fixture": "generated-440Hz-2s-PCM",
+  "checks": [
+    {
+      "name": "重启离线整首字节一致",
+      "ok": true,
+      "detail": "64044/64044 字节，FNV-1a 4064f61f"
+    },
+    {
+      "name": "重启离线整首SHA-256一致",
+      "ok": true,
+      "detail": "9a444b5973a1c31fc641521b32e9eda0318e45c2f7b9c7979d438fde47ad60c5"
+    },
+    {
+      "name": "离线任意Range",
+      "ok": true,
+      "detail": "206; bytes 100-399/64044; 300 字节"
+    },
+    {
+      "name": "WebView完整播放",
+      "ok": true,
+      "detail": "ended=true; duration=2; currentTime=2"
+    }
+  ],
+  "passed": true,
+  "engine": {
+    "appVersion": "0.1.1",
+    "diskBytes": 68140,
+    "networkBytes": 0,
+    "hitBytes": 128388,
+    "blockedRequests": 0,
+    "entries": [
+      {
+        "key": "3194e59b934cbe840db7a8d8368f297477d1c88f4a0480d8d9fbddbe99943cf4",
+        "label": "WAV · 3194e59b93",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      {
+        "key": "82f0bbf37e346a41ae009957e809fa5c6f0ee6105dedbdb7830a5dc8ca6ab069",
+        "label": "WAV · 82f0bbf37e",
+        "cachedBytes": 4096,
+        "totalBytes": 64044,
+        "complete": false,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            4095
+          ]
+        ]
+      }
+    ],
+    "events": [
+      "缓存命中 3194e59b93，范围 0–64043",
+      "缓存命中 3194e59b93，范围 100–399",
+      "缓存命中 3194e59b93，范围 0–64043",
+      "已切换离线：仅返回完整覆盖的本机区间"
+    ]
+  },
+  "pid": 21211,
+  "nativeOffline": true
+}

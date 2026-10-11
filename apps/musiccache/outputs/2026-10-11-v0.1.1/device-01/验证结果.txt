@@ -1,0 +1,52 @@
+网页缓存验证器：合成测试音设备验收
+
+范围：真实 Android WebView + App 缓存引擎；不代表 QQ 音乐登录后歌曲验收。
+方法：在线请求 → 持久缓存 → 独立自测进程自行退出 → 关闭测试音服务器 → 新自测进程离线重播。
+安全隔离：专用 SelfTestActivity 与 :cachetest 进程、独立目录和 WebView profile；正常 App 不重启、不清空数据。
+前台确认是自测页才保存截图；正常进程 PID 前后对照写入 verification.json。
+手机 Wi-Fi 和移动数据设置未改动。
+
+结果：通过
+APK SHA-256：e55ac2770efaf84ecd20737f22f4d418e10e08a53c2875b2066b01913a154d50
+源码基线：5dedbfc65cb4615ed6f84961b85f1b92e5b95ca5（准确源码见 source-sha256.json）
+
+通过： installed APK matches input
+通过：online report identity
+通过：online browser checks
+通过：online native cache counters
+通过：online complete resource coverage reported accurately
+通过：online partial resource coverage reported accurately
+通过：online uncacheable and unrequested resources absent
+通过：online native network actually used
+通过：online cache persisted bytes
+通过： isolated selftest process exited itself
+通过： normal app process unchanged
+通过： media origin stopped before offline
+通过：offline report identity
+通过：offline browser checks
+通过：offline native cache counters
+通过：offline complete resource coverage reported accurately
+通过：offline partial resource coverage reported accurately
+通过：offline uncacheable and unrequested resources absent
+通过：offline native offline guard
+通过：offline zero native network bytes after restart
+通过：offline native cache actually used
+通过： isolated selftest process exited itself
+通过： normal app process unchanged
+通过：partial_offline report identity
+通过：partial_offline browser checks
+通过：partial_offline native cache counters
+通过：partial_offline complete resource coverage reported accurately
+通过：partial_offline partial resource coverage reported accurately
+通过：partial_offline uncacheable and unrequested resources absent
+通过：partial_offline native offline guard
+通过：partial_offline zero native network bytes after restart
+通过：partial_offline native cache actually used
+通过：partial_offline missing media requests blocked
+通过： isolated selftest process exited itself
+通过： normal app process unchanged
+通过： distinct isolated selftest processes
+通过： origin saw actual two Range requests
+通过： query variant two never downloaded
+通过： owned reverse mapping removed
+通过： normal app process preserved throughout

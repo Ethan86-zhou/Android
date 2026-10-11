@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <activity android:name=".AudioFocusProbeActivity" android:exported="true" android:screenOrientation="portrait" android:excludeFromRecents="true" />
+        <activity android:name=".SelfTestActivity" android:exported="true"
+            android:screenOrientation="portrait"
+            android:process=":cachetest" android:taskAffinity="com.zhou.musiccache.selftest"
+            android:excludeFromRecents="true" />
+    </application>
+</manifest>

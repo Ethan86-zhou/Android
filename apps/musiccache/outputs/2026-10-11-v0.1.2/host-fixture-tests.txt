@@ -1,0 +1,22 @@
+test_adb_error_is_not_mistaken_for_process_exit (test_device_acceptance.HarnessSafetyTests.test_adb_error_is_not_mistaken_for_process_exit) ... ok
+test_entry_is_only_dedicated_activity (test_device_acceptance.HarnessSafetyTests.test_entry_is_only_dedicated_activity) ... ok
+test_process_exit_timeout_has_no_fallback_action (test_device_acceptance.HarnessSafetyTests.test_process_exit_timeout_has_no_fallback_action) ... ok
+test_process_exit_wait_only_observes_and_never_terminates (test_device_acceptance.HarnessSafetyTests.test_process_exit_wait_only_observes_and_never_terminates) ... ok
+test_screenshot_discarded_if_test_activity_exits_during_capture (test_device_acceptance.HarnessSafetyTests.test_screenshot_discarded_if_test_activity_exits_during_capture) ... ok
+test_screenshot_is_not_requested_on_normal_page (test_device_acceptance.HarnessSafetyTests.test_screenshot_is_not_requested_on_normal_page) ... ok
+test_screenshot_saved_only_when_test_activity_remains_foreground (test_device_acceptance.HarnessSafetyTests.test_screenshot_saved_only_when_test_activity_remains_foreground) ... ok
+test_changed_if_range_returns_full_representation (test_fixture_server.FixtureTests.test_changed_if_range_returns_full_representation) ... ok
+test_complete_response (test_fixture_server.FixtureTests.test_complete_response) ... ok
+test_generated_tone_identity (test_fixture_server.FixtureTests.test_generated_tone_identity) ... ok
+test_ignore_range_returns_whole_200_response (test_fixture_server.FixtureTests.test_ignore_range_returns_whole_200_response) ... ok
+test_invalid_ranges (test_fixture_server.FixtureTests.test_invalid_ranges) ... ok
+test_no_store_header (test_fixture_server.FixtureTests.test_no_store_header) ... ok
+test_suffix_open_clipped_ranges (test_fixture_server.FixtureTests.test_suffix_open_clipped_ranges) ... ok
+test_truncated_body_is_observable (test_fixture_server.FixtureTests.test_truncated_body_is_observable) ... ok
+test_two_ranges_reconstruct_exact_bytes (test_fixture_server.FixtureTests.test_two_ranges_reconstruct_exact_bytes) ... ok
+test_wrong_namespace_and_unknown_query_rejected (test_fixture_server.FixtureTests.test_wrong_namespace_and_unknown_query_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.637s
+
+OK

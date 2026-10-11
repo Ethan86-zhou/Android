@@ -1,0 +1,9 @@
+[
+  {
+    "name": "screen really asleep",
+    "passed": false,
+    "detail": [
+      "mWakefulness=Dozing"
+    ]
+  }
+]

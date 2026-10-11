@@ -1,0 +1,568 @@
+{
+  "schema": 1,
+  "run": "test_20261011_221843_942f94ef",
+  "startedAt": "2026-10-11T22:18:43.469581+08:00",
+  "scope": "Generated-tone WebView/cache selftest, not QQ Music account or real-song acceptance",
+  "apkSha256": "e4048405b05853a609c226b84638c7505737158db4f9df17fba48b77586875a7",
+  "fixtureSha256": "9a444b5973a1c31fc641521b32e9eda0318e45c2f7b9c7979d438fde47ad60c5",
+  "fixtureBytes": 64044,
+  "accountData": "No Chrome access, no cookies read/exported, no app-data reset; isolated debug Activity, process, WebView profile and selftest cache.",
+  "offlineMethod": "Stop the loopback media server; allow the isolated selftest process to exit itself, then launch its next phase in native offline mode. Normal app process and phone radios stay unchanged.",
+  "installationRequested": false,
+  "processBaselineNote": "Normal-process PID baseline is recorded after any explicitly requested APK update, since Android may stop the old package during installation.",
+  "checks": [
+    {
+      "name": "installed APK matches input",
+      "ok": true,
+      "detail": "e4048405b05853a609c226b84638c7505737158db4f9df17fba48b77586875a7"
+    },
+    {
+      "name": "report identity",
+      "ok": true,
+      "detail": {
+        "run": "test_20261011_221843_942f94ef",
+        "phase": "online"
+      },
+      "phase": "online"
+    },
+    {
+      "name": "browser checks",
+      "ok": true,
+      "detail": "11 checks",
+      "phase": "online"
+    },
+    {
+      "name": "native cache counters",
+      "ok": true,
+      "detail": {
+        "appVersion": "0.1.2",
+        "diskBytes": 68140,
+        "networkBytes": 136280,
+        "hitBytes": 64044,
+        "blockedRequests": 0,
+        "entries": [
+          {
+            "key": "a75a490ba37633de4ae90073716992a6474147339ee8c5bc1d69d709615888bb",
+            "label": "WAV · a75a490ba3",
+            "cachedBytes": 64044,
+            "totalBytes": 64044,
+            "complete": true,
+            "fresh": true,
+            "canCombineRanges": true,
+            "spans": [
+              [
+                0,
+                64043
+              ]
+            ]
+          },
+          {
+            "key": "60012e08a0b64cf1c5e1774b982f0a878f200851eacd1beb1b1beb927731fbbf",
+            "label": "WAV · 60012e08a0",
+            "cachedBytes": 4096,
+            "totalBytes": 64044,
+            "complete": false,
+            "fresh": true,
+            "canCombineRanges": true,
+            "spans": [
+              [
+                0,
+                4095
+              ]
+            ]
+          }
+        ],
+        "events": [
+          "缓存命中 a75a490ba3，范围 0–64043",
+          "读取中止，未保存该区间 0ed68ca7ac",
+          "网络读取 0ed68ca7ac，范围 0–8191",
+          "WebView拒绝无法确认长度或区间的音频响应（原状态 200）",
+          "读取中止，未保存该区间 4daffa7208",
+          "网络读取 4daffa7208，范围 0–64043",
+          "仅播放、不新增离线缓存 28b11939ea（响应策略或容量限制）",
+          "已保存完整响应区间 60012e08a0",
+          "网络读取 60012e08a0，范围 0–4095",
+          "已保存完整响应区间 a75a490ba3",
+          "网络读取 a75a490ba3，范围 32768–64043",
+          "已保存完整响应区间 a75a490ba3",
+          "网络读取 a75a490ba3，范围 0–32767",
+          "已恢复联网"
+        ]
+      },
+      "phase": "online"
+    },
+    {
+      "name": "complete resource coverage reported accurately",
+      "ok": true,
+      "detail": {
+        "key": "a75a490ba37633de4ae90073716992a6474147339ee8c5bc1d69d709615888bb",
+        "label": "WAV · a75a490ba3",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      "phase": "online"
+    },
+    {
+      "name": "partial resource coverage reported accurately",
+      "ok": true,
+      "detail": {
+        "key": "60012e08a0b64cf1c5e1774b982f0a878f200851eacd1beb1b1beb927731fbbf",
+        "label": "WAV · 60012e08a0",
+        "cachedBytes": 4096,
+        "totalBytes": 64044,
+        "complete": false,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            4095
+          ]
+        ]
+      },
+      "phase": "online"
+    },
+    {
+      "name": "uncacheable and unrequested resources absent",
+      "ok": true,
+      "detail": "no-store, truncated, ignored-Range response and variant two have no committed entry",
+      "phase": "online"
+    },
+    {
+      "name": "native network actually used",
+      "ok": true,
+      "detail": 136280,
+      "phase": "online"
+    },
+    {
+      "name": "cache persisted bytes",
+      "ok": true,
+      "detail": 68140,
+      "phase": "online"
+    },
+    {
+      "name": "isolated selftest process exited itself",
+      "ok": true,
+      "detail": "online"
+    },
+    {
+      "name": "normal app process unchanged",
+      "ok": true,
+      "detail": {
+        "phase": "online",
+        "before": [
+          23748
+        ],
+        "after": [
+          23748
+        ]
+      }
+    },
+    {
+      "name": "media origin stopped before offline",
+      "ok": true,
+      "detail": "Loopback listener is unreachable"
+    },
+    {
+      "name": "report identity",
+      "ok": true,
+      "detail": {
+        "run": "test_20261011_221843_942f94ef",
+        "phase": "offline"
+      },
+      "phase": "offline"
+    },
+    {
+      "name": "browser checks",
+      "ok": true,
+      "detail": "5 checks",
+      "phase": "offline"
+    },
+    {
+      "name": "native cache counters",
+      "ok": true,
+      "detail": {
+        "appVersion": "0.1.2",
+        "diskBytes": 68140,
+        "networkBytes": 0,
+        "hitBytes": 128388,
+        "blockedRequests": 0,
+        "entries": [
+          {
+            "key": "a75a490ba37633de4ae90073716992a6474147339ee8c5bc1d69d709615888bb",
+            "label": "WAV · a75a490ba3",
+            "cachedBytes": 64044,
+            "totalBytes": 64044,
+            "complete": true,
+            "fresh": true,
+            "canCombineRanges": true,
+            "spans": [
+              [
+                0,
+                64043
+              ]
+            ]
+          },
+          {
+            "key": "60012e08a0b64cf1c5e1774b982f0a878f200851eacd1beb1b1beb927731fbbf",
+            "label": "WAV · 60012e08a0",
+            "cachedBytes": 4096,
+            "totalBytes": 64044,
+            "complete": false,
+            "fresh": true,
+            "canCombineRanges": true,
+            "spans": [
+              [
+                0,
+                4095
+              ]
+            ]
+          }
+        ],
+        "events": [
+          "缓存命中 a75a490ba3，范围 0–64043",
+          "缓存命中 a75a490ba3，范围 100–399",
+          "缓存命中 a75a490ba3，范围 0–64043",
+          "已切换离线：仅返回完整覆盖的本机区间"
+        ]
+      },
+      "phase": "offline"
+    },
+    {
+      "name": "complete resource coverage reported accurately",
+      "ok": true,
+      "detail": {
+        "key": "a75a490ba37633de4ae90073716992a6474147339ee8c5bc1d69d709615888bb",
+        "label": "WAV · a75a490ba3",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      "phase": "offline"
+    },
+    {
+      "name": "partial resource coverage reported accurately",
+      "ok": true,
+      "detail": {
+        "key": "60012e08a0b64cf1c5e1774b982f0a878f200851eacd1beb1b1beb927731fbbf",
+        "label": "WAV · 60012e08a0",
+        "cachedBytes": 4096,
+        "totalBytes": 64044,
+        "complete": false,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            4095
+          ]
+        ]
+      },
+      "phase": "offline"
+    },
+    {
+      "name": "uncacheable and unrequested resources absent",
+      "ok": true,
+      "detail": "no-store, truncated, ignored-Range response and variant two have no committed entry",
+      "phase": "offline"
+    },
+    {
+      "name": "native offline guard",
+      "ok": true,
+      "detail": true,
+      "phase": "offline"
+    },
+    {
+      "name": "zero native network bytes after restart",
+      "ok": true,
+      "detail": 0,
+      "phase": "offline"
+    },
+    {
+      "name": "native cache actually used",
+      "ok": true,
+      "detail": 128388,
+      "phase": "offline"
+    },
+    {
+      "name": "isolated selftest process exited itself",
+      "ok": true,
+      "detail": "offline"
+    },
+    {
+      "name": "normal app process unchanged",
+      "ok": true,
+      "detail": {
+        "phase": "offline",
+        "before": [
+          23748
+        ],
+        "after": [
+          23748
+        ]
+      }
+    },
+    {
+      "name": "report identity",
+      "ok": true,
+      "detail": {
+        "run": "test_20261011_221843_942f94ef",
+        "phase": "partial_offline"
+      },
+      "phase": "partial_offline"
+    },
+    {
+      "name": "browser checks",
+      "ok": true,
+      "detail": "7 checks",
+      "phase": "partial_offline"
+    },
+    {
+      "name": "native cache counters",
+      "ok": true,
+      "detail": {
+        "appVersion": "0.1.2",
+        "diskBytes": 68140,
+        "networkBytes": 0,
+        "hitBytes": 4096,
+        "blockedRequests": 6,
+        "entries": [
+          {
+            "key": "a75a490ba37633de4ae90073716992a6474147339ee8c5bc1d69d709615888bb",
+            "label": "WAV · a75a490ba3",
+            "cachedBytes": 64044,
+            "totalBytes": 64044,
+            "complete": true,
+            "fresh": true,
+            "canCombineRanges": true,
+            "spans": [
+              [
+                0,
+                64043
+              ]
+            ]
+          },
+          {
+            "key": "60012e08a0b64cf1c5e1774b982f0a878f200851eacd1beb1b1beb927731fbbf",
+            "label": "WAV · 60012e08a0",
+            "cachedBytes": 4096,
+            "totalBytes": 64044,
+            "complete": false,
+            "fresh": true,
+            "canCombineRanges": true,
+            "spans": [
+              [
+                0,
+                4095
+              ]
+            ]
+          }
+        ],
+        "events": [
+          "离线缺段或已过期 53b9b2080a",
+          "离线缺段或已过期 4daffa7208",
+          "离线缺段或已过期 0ed68ca7ac",
+          "离线缺段或已过期 28b11939ea",
+          "离线缺段或已过期 60012e08a0",
+          "离线缺段或已过期 60012e08a0",
+          "缓存命中 60012e08a0，范围 0–4095",
+          "已切换离线：仅返回完整覆盖的本机区间"
+        ]
+      },
+      "phase": "partial_offline"
+    },
+    {
+      "name": "complete resource coverage reported accurately",
+      "ok": true,
+      "detail": {
+        "key": "a75a490ba37633de4ae90073716992a6474147339ee8c5bc1d69d709615888bb",
+        "label": "WAV · a75a490ba3",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      "phase": "partial_offline"
+    },
+    {
+      "name": "partial resource coverage reported accurately",
+      "ok": true,
+      "detail": {
+        "key": "60012e08a0b64cf1c5e1774b982f0a878f200851eacd1beb1b1beb927731fbbf",
+        "label": "WAV · 60012e08a0",
+        "cachedBytes": 4096,
+        "totalBytes": 64044,
+        "complete": false,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            4095
+          ]
+        ]
+      },
+      "phase": "partial_offline"
+    },
+    {
+      "name": "uncacheable and unrequested resources absent",
+      "ok": true,
+      "detail": "no-store, truncated, ignored-Range response and variant two have no committed entry",
+      "phase": "partial_offline"
+    },
+    {
+      "name": "native offline guard",
+      "ok": true,
+      "detail": true,
+      "phase": "partial_offline"
+    },
+    {
+      "name": "zero native network bytes after restart",
+      "ok": true,
+      "detail": 0,
+      "phase": "partial_offline"
+    },
+    {
+      "name": "native cache actually used",
+      "ok": true,
+      "detail": 4096,
+      "phase": "partial_offline"
+    },
+    {
+      "name": "missing media requests blocked",
+      "ok": true,
+      "detail": 6,
+      "phase": "partial_offline"
+    },
+    {
+      "name": "isolated selftest process exited itself",
+      "ok": true,
+      "detail": "partial_offline"
+    },
+    {
+      "name": "normal app process unchanged",
+      "ok": true,
+      "detail": {
+        "phase": "partial_offline",
+        "before": [
+          23748
+        ],
+        "after": [
+          23748
+        ]
+      }
+    },
+    {
+      "name": "distinct isolated selftest processes",
+      "ok": true,
+      "detail": [
+        24183,
+        24514,
+        24751
+      ]
+    },
+    {
+      "name": "origin saw actual two Range requests",
+      "ok": true,
+      "detail": "6 origin requests"
+    },
+    {
+      "name": "query variant two never downloaded",
+      "ok": true,
+      "detail": "Only variant one was permitted to become cached"
+    },
+    {
+      "name": "origin actually ignored a Range request",
+      "ok": true,
+      "detail": "Source fixture sent a full 200 response to bytes=100-399"
+    },
+    {
+      "name": "owned reverse mapping removed",
+      "ok": true,
+      "detail": 8765
+    },
+    {
+      "name": "normal app process preserved throughout",
+      "ok": true,
+      "detail": {
+        "before": [
+          23748
+        ],
+        "after": [
+          23748
+        ]
+      }
+    }
+  ],
+  "phases": {
+    "online": {
+      "report": "online.json",
+      "passed": true,
+      "screenshot": "online.png",
+      "screenshotNote": "SelfTestActivity confirmed in foreground before and after capture",
+      "normalPidsAfter": [
+        23748
+      ]
+    },
+    "offline": {
+      "report": "offline.json",
+      "passed": true,
+      "screenshot": "offline.png",
+      "screenshotNote": "SelfTestActivity confirmed in foreground before and after capture",
+      "normalPidsAfter": [
+        23748
+      ]
+    },
+    "partial_offline": {
+      "report": "partial_offline.json",
+      "passed": true,
+      "screenshot": "partial_offline.png",
+      "screenshotNote": "SelfTestActivity confirmed in foreground before and after capture",
+      "normalPidsAfter": [
+        23748
+      ]
+    }
+  },
+  "baseCommit": "5dedbfc65cb4615ed6f84961b85f1b92e5b95ca5",
+  "appWorkingTreeDirty": true,
+  "sourceManifest": "source-sha256.json",
+  "sourceManifestSha256": "22972f339c3d0e2f5349f77be964294d5d8fa60ca11042d2e675962b6353e78a",
+  "sourceNote": "Manifest hashes identify the tested working-tree source; baseCommit alone does not identify uncommitted code.",
+  "device": {
+    "model": "SM-S9080",
+    "android": "16",
+    "api": "36"
+  },
+  "normalPidsBefore": [
+    23748
+  ],
+  "normalPidsAfter": [
+    23748
+  ],
+  "finishedAt": "2026-10-11T22:19:14.315199+08:00",
+  "passed": true
+}

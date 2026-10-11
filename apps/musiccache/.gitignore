@@ -1,0 +1,6 @@
+**/__pycache__/
+*.pyc
+
+# 临时构建输出；含账号头像和昵称的登录页截图仅在本机保留。
+/build-player-current.txt
+/outputs/2026-10-11-v0.3.1-portrait/login-landscape-request.png

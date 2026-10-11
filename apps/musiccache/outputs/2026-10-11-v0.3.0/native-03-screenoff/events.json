@@ -1,0 +1,69 @@
+[
+  {
+    "event": "playing_before_sleep",
+    "at": 1791733865.580596,
+    "appVersion": "0.3.0",
+    "state": 3,
+    "isPlaying": true,
+    "playWhenReady": true,
+    "positionMs": 71057,
+    "durationMs": 341472,
+    "currentMediaId": "000XeLXA3X8CTH",
+    "queueIndex": 68,
+    "queueSize": 69,
+    "errorCode": 0,
+    "diskBytes": 17235680,
+    "networkBytes": 2097440,
+    "hitBytes": 3152670,
+    "validationRequests": 2,
+    "validationBytes": 2,
+    "reusedSignedLinks": 2
+  },
+  {
+    "event": "noninteractive_progress",
+    "at": 1791733877.8029442,
+    "appVersion": "0.3.0",
+    "state": 3,
+    "isPlaying": true,
+    "playWhenReady": true,
+    "positionMs": 82993,
+    "durationMs": 341472,
+    "currentMediaId": "000XeLXA3X8CTH",
+    "queueIndex": 68,
+    "queueSize": 69,
+    "errorCode": 0,
+    "diskBytes": 17235680,
+    "networkBytes": 2097440,
+    "hitBytes": 3152670,
+    "validationRequests": 2,
+    "validationBytes": 2,
+    "reusedSignedLinks": 2
+  },
+  {
+    "event": "noninteractive_audio",
+    "at": 1791733878.3320835,
+    "activeAudioTracks": [
+      "2090    yes   12135/  10303  100569    2294 A  0x000 00000001 00000003  44100  3   1  2     0     0     0     0          -55      false 0038E356  22050   19494 A         0        0      false        false 1.000000 1.000000     N     6     0  529.52 t"
+    ]
+  },
+  {
+    "event": "left_paused",
+    "at": 1791733879.5211053,
+    "appVersion": "0.3.0",
+    "state": 3,
+    "isPlaying": false,
+    "playWhenReady": false,
+    "positionMs": 84627,
+    "durationMs": 341472,
+    "currentMediaId": "000XeLXA3X8CTH",
+    "queueIndex": 68,
+    "queueSize": 69,
+    "errorCode": 0,
+    "diskBytes": 17235680,
+    "networkBytes": 2097440,
+    "hitBytes": 3152670,
+    "validationRequests": 2,
+    "validationBytes": 2,
+    "reusedSignedLinks": 2
+  }
+]

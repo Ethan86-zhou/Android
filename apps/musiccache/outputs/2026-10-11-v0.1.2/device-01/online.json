@@ -1,0 +1,121 @@
+{
+  "schema": 1,
+  "run": "test_20261011_221843_942f94ef",
+  "phase": "online",
+  "fixture": "generated-440Hz-2s-PCM",
+  "checks": [
+    {
+      "name": "在线首段Range",
+      "ok": true,
+      "detail": "206; bytes 0-32767/64044; 32768 字节"
+    },
+    {
+      "name": "在线首段Content-Length单值正确",
+      "ok": true,
+      "detail": "Content-Length=32768; 正文=32768; 预期=32768"
+    },
+    {
+      "name": "在线尾段Range",
+      "ok": true,
+      "detail": "206; bytes 32768-64043/64044; 31276 字节"
+    },
+    {
+      "name": "在线尾段Content-Length单值正确",
+      "ok": true,
+      "detail": "Content-Length=31276; 正文=31276; 预期=31276"
+    },
+    {
+      "name": "在线拼接字节一致",
+      "ok": true,
+      "detail": "64044/64044 字节，FNV-1a 4064f61f"
+    },
+    {
+      "name": "在线拼接SHA-256一致",
+      "ok": true,
+      "detail": "9a444b5973a1c31fc641521b32e9eda0318e45c2f7b9c7979d438fde47ad60c5"
+    },
+    {
+      "name": "只缓存部分资源",
+      "ok": true,
+      "detail": "206; bytes 0-4095/64044; 4096 字节"
+    },
+    {
+      "name": "no-store允许在线读",
+      "ok": true,
+      "detail": "64044 字节"
+    },
+    {
+      "name": "源端忽略Range明确拒绝",
+      "ok": true,
+      "detail": "HTTP 502; 正文读取完成=0 字节; Content-Length=0"
+    },
+    {
+      "name": "截断响应不可视为完整",
+      "ok": true,
+      "detail": "TypeError: Failed to fetch"
+    },
+    {
+      "name": "WebView完整播放",
+      "ok": true,
+      "detail": "ended=true; duration=2; currentTime=2"
+    }
+  ],
+  "passed": true,
+  "engine": {
+    "appVersion": "0.1.2",
+    "diskBytes": 68140,
+    "networkBytes": 136280,
+    "hitBytes": 64044,
+    "blockedRequests": 0,
+    "entries": [
+      {
+        "key": "a75a490ba37633de4ae90073716992a6474147339ee8c5bc1d69d709615888bb",
+        "label": "WAV · a75a490ba3",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      {
+        "key": "60012e08a0b64cf1c5e1774b982f0a878f200851eacd1beb1b1beb927731fbbf",
+        "label": "WAV · 60012e08a0",
+        "cachedBytes": 4096,
+        "totalBytes": 64044,
+        "complete": false,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            4095
+          ]
+        ]
+      }
+    ],
+    "events": [
+      "缓存命中 a75a490ba3，范围 0–64043",
+      "读取中止，未保存该区间 0ed68ca7ac",
+      "网络读取 0ed68ca7ac，范围 0–8191",
+      "WebView拒绝无法确认长度或区间的音频响应（原状态 200）",
+      "读取中止，未保存该区间 4daffa7208",
+      "网络读取 4daffa7208，范围 0–64043",
+      "仅播放、不新增离线缓存 28b11939ea（响应策略或容量限制）",
+      "已保存完整响应区间 60012e08a0",
+      "网络读取 60012e08a0，范围 0–4095",
+      "已保存完整响应区间 a75a490ba3",
+      "网络读取 a75a490ba3，范围 32768–64043",
+      "已保存完整响应区间 a75a490ba3",
+      "网络读取 a75a490ba3，范围 0–32767",
+      "已恢复联网"
+    ]
+  },
+  "pid": 24183,
+  "nativeOffline": false
+}

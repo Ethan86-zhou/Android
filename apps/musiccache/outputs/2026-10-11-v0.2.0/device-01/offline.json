@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "run": "test_20261011_224755_2c173295",
+  "phase": "offline",
+  "fixture": "generated-440Hz-2s-PCM",
+  "checks": [
+    {
+      "name": "重启离线整首字节一致",
+      "ok": true,
+      "detail": "64044/64044 字节，FNV-1a 4064f61f"
+    },
+    {
+      "name": "重启离线整首SHA-256一致",
+      "ok": true,
+      "detail": "9a444b5973a1c31fc641521b32e9eda0318e45c2f7b9c7979d438fde47ad60c5"
+    },
+    {
+      "name": "已认证新签名重启离线字节一致",
+      "ok": true,
+      "detail": "64044/64044 字节，FNV-1a 4064f61f"
+    },
+    {
+      "name": "已认证新签名重启离线SHA-256一致",
+      "ok": true,
+      "detail": "9a444b5973a1c31fc641521b32e9eda0318e45c2f7b9c7979d438fde47ad60c5"
+    },
+    {
+      "name": "离线任意Range",
+      "ok": true,
+      "detail": "206; bytes 100-399/64044; 300 字节"
+    },
+    {
+      "name": "离线任意RangeContent-Length单值正确",
+      "ok": true,
+      "detail": "Content-Length=300; 正文=300; 预期=300"
+    },
+    {
+      "name": "WebView完整播放",
+      "ok": true,
+      "detail": "ended=true; duration=2; currentTime=2"
+    }
+  ],
+  "passed": true,
+  "engine": {
+    "appVersion": "0.2.0",
+    "diskBytes": 132184,
+    "networkBytes": 0,
+    "hitBytes": 192432,
+    "blockedRequests": 0,
+    "validationBytes": 0,
+    "validationRequests": 0,
+    "reusedSignedLinks": 0,
+    "entries": [
+      {
+        "key": "a811c5b018ba71e8a9b6d46273ad2dbd7414490e84c7bb03b2e1c99b1ef509c9",
+        "label": "WAV · a811c5b018",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      {
+        "key": "2bc6b2b885f074056002dd35f195eb30c06811e32eddb03b44a15feb61c34ea9",
+        "label": "WAV · 2bc6b2b885",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      {
+        "key": "f8aa521d9dc148027bb53af56d46d802534711e90dba0ff5974bbc489c8f376c",
+        "label": "WAV · f8aa521d9d",
+        "cachedBytes": 4096,
+        "totalBytes": 64044,
+        "complete": false,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            4095
+          ]
+        ]
+      }
+    ],
+    "events": [
+      "缓存命中 a811c5b018，范围 0–64043",
+      "缓存命中 a811c5b018，范围 100–399",
+      "缓存命中 b19306b219，范围 0–64043",
+      "缓存命中 a811c5b018，范围 0–64043",
+      "已切换离线：仅返回完整覆盖的本机区间"
+    ]
+  },
+  "pid": 30208,
+  "nativeOffline": true
+}

@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>网页缓存引擎自测</title>
+<style>
+  :root { color-scheme: light; font: 16px/1.55 system-ui,sans-serif; color: #183c35; background: #f1f7f4; }
+  body { margin: 0; padding: 22px; }
+  h1 { font-size: 23px; margin: 0 0 10px; }
+  p { margin: 8px 0; }
+  audio { width: 100%; margin: 14px 0; }
+  li { padding: 6px 0; overflow-wrap: anywhere; }
+  #status { font-weight: 700; }
+  .pass { color: #11664c; } .fail { color: #a4262c; }
+</style>
+<h1>网页缓存引擎自测</h1>
+<p>使用现场生成的 2 秒正弦测试音。这里不登录账号，不访问 QQ 音乐。</p>
+<p id="phase"></p>
+<p id="status" role="status" aria-live="polite">正在测试…</p>
+<audio id="audio" controls preload="none" aria-label="自生成测试音"></audio>
+<ol id="checks"></ol>
+<script>
+"use strict";
+// These three placeholders are JSON values, substituted by the debug-only native entry.
+const run = __SELFTEST_RUN_JSON__;
+const phase = __SELFTEST_PHASE_JSON__;
+const base = __SELFTEST_BASE_JSON__;
+const size = 64044, split = 32768, headSize = 4096;
+const expectedSha256 = "9a444b5973a1c31fc641521b32e9eda0318e45c2f7b9c7979d438fde47ad60c5";
+const expectedFnv = "4064f61f";
+const changedSha256 = "a59fe63c0d1d2dde8b10dc70cf491a71a6b061651f0e5031bf34b02fdcba13cc";
+const changedFnv = "f3b0dcdf";
+const result = {schema: 1, run, phase, fixture: "generated-440Hz-2s-PCM", checks: []};
+document.getElementById("phase").textContent = `测试阶段：${phase}`;
+
+function record(name, ok, detail) {
+  result.checks.push({name, ok: Boolean(ok), detail});
+  const line = document.createElement("li");
+  line.className = ok ? "pass" : "fail";
+  line.textContent = `${ok ? "通过" : "失败"} · ${name}：${detail}`;
+  document.getElementById("checks").append(line);
+}
+
+function media(name, variant = "one") {
+  return `${base.replace(/\/$/, "")}/media/${name}?run=${encodeURIComponent(run)}&variant=${variant}`;
+}
+
+async function readResponseBytes(name, range, variant = "one") {
+  const abort = new AbortController();
+  const timer = setTimeout(() => abort.abort(), 12000);
+  try {
+    const response = await fetch(media(name, variant), {
+      headers: range ? {Range: range} : {}, signal: abort.signal
+    });
+    // Consume even error bodies: an HTTP status alone cannot prove a readable response.
+    const bytes = new Uint8Array(await response.arrayBuffer());
+    return {bytes, ok: response.ok, status: response.status,
+      contentRange: response.headers.get("Content-Range"),
+      contentLength: response.headers.get("Content-Length")};
+  } finally { clearTimeout(timer); }
+}
+
+async function getBytes(name, range, variant = "one") {
+  const value = await readResponseBytes(name, range, variant);
+  if (!value.ok) throw new Error(`HTTP ${value.status}`);
+  return value;
+}
+
+function hasExactLength(value, expectedBytes) {
+  return typeof value.contentLength === "string" && /^\d+$/.test(value.contentLength)
+    && Number(value.contentLength) === expectedBytes && value.bytes.length === expectedBytes;
+}
+
+function assertLength(value, expectedBytes, checkName) {
+  record(checkName, hasExactLength(value, expectedBytes),
+    `Content-Length=${value.contentLength}; 正文=${value.bytes.length}; 预期=${expectedBytes}`);
+}
+
+async function assertMissing(name, range, checkName, variant = "one") {
+  try {
+    const value = await readResponseBytes(name, range, variant);
+    // A Range error must be empty to avoid WebView applying the media offset to
+    // an error message. An ordinary request may carry a fully readable message.
+    const expectedBytes = range ? 0 : value.bytes.length;
+    record(checkName, value.status === 504 && hasExactLength(value, expectedBytes),
+      `HTTP ${value.status}; 正文读取完成=${value.bytes.length} 字节; Content-Length=${value.contentLength}`);
+  } catch (error) {
+    record(checkName, false, `需要可读的 HTTP 504 响应，实际为 ${String(error)}`);
+  }
+}
+
+async function assertTruncated() {
+  try {
+    const value = await getBytes("truncated.wav", "bytes=0-8191");
+    record("截断响应不可视为完整", false, `意外读取 ${value.bytes.length} 字节，状态 ${value.status}`);
+  } catch (error) {
+    record("截断响应不可视为完整", error instanceof TypeError, `${error.name}: ${error.message}`);
+  }
+}
+
+async function assertIgnoredRangeRejected() {
+  try {
+    const value = await readResponseBytes("ignore-range.wav", "bytes=100-399");
+    record("源端忽略Range明确拒绝", value.status === 502 && hasExactLength(value, 0),
+      `HTTP ${value.status}; 正文读取完成=${value.bytes.length} 字节; Content-Length=${value.contentLength}`);
+  } catch (error) {
+    record("源端忽略Range明确拒绝", false, `需要可读的 HTTP 502 空正文，实际为 ${String(error)}`);
+  }
+}
+
+async function verifyComplete(bytes, label, expectedSha = expectedSha256, expectedChecksum = expectedFnv) {
+  let fnv = 2166136261;
+  for (const value of bytes) fnv = Math.imul(fnv ^ value, 16777619) >>> 0;
+  const hash = fnv.toString(16).padStart(8, "0");
+  record(`${label}字节一致`, bytes.length === size && hash === expectedChecksum,
+         `${bytes.length}/${size} 字节，FNV-1a ${hash}`);
+  // Loopback is a secure context in modern WebView; fail visibly if SHA is unavailable.
+  if (globalThis.crypto?.subtle) {
+    const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", bytes));
+    const sha = Array.from(digest, value => value.toString(16).padStart(2, "0")).join("");
+    record(`${label}SHA-256一致`, sha === expectedSha, sha);
+  } else record(`${label}SHA-256一致`, false, "当前 WebView 未提供 crypto.subtle");
+}
+
+function nativeSnapshot() {
+  if (!globalThis.MusicCacheSelfTest?.snapshot) throw new Error("缺少原生只读统计桥");
+  const snapshot = JSON.parse(MusicCacheSelfTest.snapshot());
+  for (const name of ["networkBytes", "hitBytes", "diskBytes", "validationRequests", "validationBytes", "reusedSignedLinks"])
+    if (!Number.isFinite(snapshot[name])) throw new Error(`原生统计缺少 ${name}`);
+  return snapshot;
+}
+
+function countersBetween(before, after) {
+  const delta = {};
+  for (const name of ["networkBytes", "hitBytes", "diskBytes", "validationRequests", "validationBytes", "reusedSignedLinks"])
+    delta[name] = after[name] - before[name];
+  return delta;
+}
+
+async function verifySignedReuse() {
+  const before = nativeSnapshot();
+  const same = await getBytes("full.wav", null, "two");
+  const after = nativeSnapshot();
+  const delta = countersBetween(before, after);
+  result.signedReuse = {before, after, delta};
+  record("新签名同曲读取成功", same.status === 200 && hasExactLength(same, size),
+    `HTTP ${same.status}; ${same.bytes.length} 字节; Content-Length=${same.contentLength}`);
+  await verifyComplete(same.bytes, "新签名同曲");
+  record("新签名只读取1字节认证", delta.validationRequests === 1 && delta.validationBytes === 1,
+    JSON.stringify(delta));
+  record("新签名不重复保存音频", delta.diskBytes === 0, `新增磁盘音频 ${delta.diskBytes} 字节`);
+  record("新签名整首来自磁盘", delta.networkBytes === 0 && delta.hitBytes === size,
+    `普通网络 ${delta.networkBytes} 字节; 磁盘命中 ${delta.hitBytes} 字节`);
+  record("新签名建立已认证复用", delta.reusedSignedLinks === 1, `新增复用 ${delta.reusedSignedLinks}`);
+}
+
+async function verifyChangedSignature() {
+  const before = nativeSnapshot();
+  const changed = await getBytes("full.wav", null, "changed");
+  const after = nativeSnapshot();
+  const delta = countersBetween(before, after);
+  result.changedSignature = {before, after, delta};
+  record("不同ETag读取当前新内容", changed.status === 200 && hasExactLength(changed, size),
+    `HTTP ${changed.status}; ${changed.bytes.length} 字节`);
+  await verifyComplete(changed.bytes, "不同ETag新内容", changedSha256, changedFnv);
+  record("不同ETag不复用旧音频", delta.hitBytes === 0 && delta.networkBytes === size,
+    `普通网络 ${delta.networkBytes} 字节; 磁盘命中 ${delta.hitBytes} 字节`);
+  record("不同ETag校验后不建立旧曲复用", delta.validationRequests === 1
+    && delta.validationBytes === 1 && delta.reusedSignedLinks === 0, JSON.stringify(delta));
+  record("不同内容独立保存", delta.diskBytes === size, `新内容新增磁盘音频 ${delta.diskBytes} 字节`);
+}
+
+async function verifyDeniedSignature() {
+  const before = nativeSnapshot();
+  const denied = await readResponseBytes("full.wav", null, "denied");
+  const after = nativeSnapshot();
+  const delta = countersBetween(before, after);
+  result.deniedSignature = {before, after, delta};
+  record("新签名认证拒绝保留403", denied.status === 403 && hasExactLength(denied, denied.bytes.length),
+    `HTTP ${denied.status}; 正文已读 ${denied.bytes.length} 字节; Content-Length=${denied.contentLength}`);
+  record("认证拒绝不复用或保存歌曲", delta.hitBytes === 0 && delta.diskBytes === 0
+    && delta.reusedSignedLinks === 0, JSON.stringify(delta));
+  record("认证拒绝后不重复请求音频", delta.validationRequests === 1
+    && delta.validationBytes === 0 && delta.networkBytes === 0, JSON.stringify(delta));
+}
+
+async function playComplete() {
+  const audio = document.getElementById("audio");
+  audio.muted = true;  // Automated acceptance should not change the user's volume.
+  audio.src = media("full.wav");
+  const outcome = await new Promise(resolve => {
+    const timer = setTimeout(() => finish(false, "播放超时"), 14000);
+    let done = false;
+    function finish(ok, detail) {
+      if (done) return;
+      done = true; clearTimeout(timer); resolve({ok, detail});
+    }
+    audio.addEventListener("ended", () => finish(audio.currentTime >= 1.9,
+      `ended=true; duration=${audio.duration}; currentTime=${audio.currentTime}`), {once:true});
+    audio.addEventListener("error", () => finish(false, `媒体错误 ${audio.error?.code}`), {once:true});
+    audio.play().catch(error => finish(false, String(error)));
+  });
+  record("WebView完整播放", outcome.ok, outcome.detail);
+}
+
+async function test() {
+  if (phase === "online") {
+    const a = await getBytes("full.wav", `bytes=0-${split - 1}`);
+    record("在线首段Range", a.status === 206 && a.bytes.length === split,
+           `${a.status}; ${a.contentRange}; ${a.bytes.length} 字节`);
+    assertLength(a, split, "在线首段Content-Length单值正确");
+    const b = await getBytes("full.wav", `bytes=${split}-${size - 1}`);
+    record("在线尾段Range", b.status === 206 && b.bytes.length === size - split,
+           `${b.status}; ${b.contentRange}; ${b.bytes.length} 字节`);
+    assertLength(b, size - split, "在线尾段Content-Length单值正确");
+    const whole = new Uint8Array(size); whole.set(a.bytes); whole.set(b.bytes, split);
+    await verifyComplete(whole, "在线拼接");
+    await verifySignedReuse();
+    await verifyChangedSignature();
+    await verifyDeniedSignature();
+    const head = await getBytes("partial.wav", `bytes=0-${headSize - 1}`);
+    record("只缓存部分资源", head.status === 206 && head.bytes.length === headSize,
+           `${head.status}; ${head.contentRange}; ${head.bytes.length} 字节`);
+    const noStore = await getBytes("no-store.wav");
+    record("no-store允许在线读", noStore.bytes.length === size, `${noStore.bytes.length} 字节`);
+    await assertIgnoredRangeRejected();
+    await assertTruncated();
+    await playComplete();
+  } else if (phase === "offline") {
+    const whole = await getBytes("full.wav");
+    await verifyComplete(whole.bytes, "重启离线整首");
+    const verifiedAlias = await getBytes("full.wav", null, "two");
+    await verifyComplete(verifiedAlias.bytes, "已认证新签名重启离线");
+    const slice = await getBytes("full.wav", "bytes=100-399");
+    const exact = slice.bytes.length === 300 && slice.bytes.every((value, index) => value === whole.bytes[index + 100]);
+    record("离线任意Range", slice.status === 206 && exact,
+           `${slice.status}; ${slice.contentRange}; ${slice.bytes.length} 字节`);
+    assertLength(slice, 300, "离线任意RangeContent-Length单值正确");
+    await playComplete();
+  } else if (phase === "partial_offline") {
+    const head = await getBytes("partial.wav", `bytes=0-${headSize - 1}`);
+    record("部分资源已缓存段命中", head.status === 206 && head.bytes.length === headSize,
+           `${head.status}; ${head.contentRange}; ${head.bytes.length} 字节`);
+    await assertMissing("partial.wav", `bytes=${headSize}-${headSize + 100}`, "未缓存尾段明确失败");
+    await assertMissing("partial.wav", null, "部分缓存不冒充整首");
+    await assertMissing("no-store.wav", null, "no-store不持久缓存");
+    await assertMissing("truncated.wav", "bytes=0-8191", "截断响应不污染缓存");
+    await assertMissing("ignore-range.wav", "bytes=100-399", "忽略Range的响应不污染缓存");
+    await assertMissing("full.wav", null, "未经在线认证的新签名离线不复用", "untouched");
+    await assertMissing("full.wav", null, "认证拒绝的签名离线不复用", "denied");
+  } else throw new Error(`不支持的阶段：${phase}`);
+}
+
+test().catch(error => record("测试流程完成", false, String(error))).finally(() => {
+  result.passed = result.checks.length > 0 && result.checks.every(check => check.ok);
+  document.getElementById("status").textContent = result.passed ? "本阶段通过" : "本阶段存在失败";
+  if (globalThis.MusicCacheSelfTest?.report) {
+    MusicCacheSelfTest.report(JSON.stringify(result));
+  } else document.getElementById("status").textContent += "（缺少原生自测桥，结果未保存）";
+});
+</script>
+</html>

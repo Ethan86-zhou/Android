@@ -1,0 +1,7 @@
+Starting: Intent { cmp=com.zhou.musiccache/.MainActivity (has extras) }
+Status: ok
+LaunchState: COLD
+Activity: com.zhou.musiccache/.MainActivity
+TotalTime: 1512
+WaitTime: 1527
+Complete

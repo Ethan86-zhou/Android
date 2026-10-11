@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "run": "test_20261011_221004_0c60014f",
+  "phase": "partial_offline",
+  "fixture": "generated-440Hz-2s-PCM",
+  "checks": [
+    {
+      "name": "部分资源已缓存段命中",
+      "ok": true,
+      "detail": "206; bytes 0-4095/64044; 4096 字节"
+    },
+    {
+      "name": "未缓存尾段明确失败",
+      "ok": true,
+      "detail": "Error: HTTP 504"
+    },
+    {
+      "name": "部分缓存不冒充整首",
+      "ok": true,
+      "detail": "Error: HTTP 504"
+    },
+    {
+      "name": "no-store不持久缓存",
+      "ok": true,
+      "detail": "Error: HTTP 504"
+    },
+    {
+      "name": "截断响应不污染缓存",
+      "ok": true,
+      "detail": "Error: HTTP 504"
+    },
+    {
+      "name": "不同查询链接不混用缓存",
+      "ok": true,
+      "detail": "Error: HTTP 504"
+    }
+  ],
+  "passed": true,
+  "engine": {
+    "appVersion": "0.1.1",
+    "diskBytes": 68140,
+    "networkBytes": 0,
+    "hitBytes": 4096,
+    "blockedRequests": 5,
+    "entries": [
+      {
+        "key": "3194e59b934cbe840db7a8d8368f297477d1c88f4a0480d8d9fbddbe99943cf4",
+        "label": "WAV · 3194e59b93",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      {
+        "key": "82f0bbf37e346a41ae009957e809fa5c6f0ee6105dedbdb7830a5dc8ca6ab069",
+        "label": "WAV · 82f0bbf37e",
+        "cachedBytes": 4096,
+        "totalBytes": 64044,
+        "complete": false,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            4095
+          ]
+        ]
+      }
+    ],
+    "events": [
+      "离线缺段或已过期 3102d29edb",
+      "离线缺段或已过期 0322564ddd",
+      "离线缺段或已过期 9f427689af",
+      "离线缺段或已过期 82f0bbf37e",
+      "离线缺段或已过期 82f0bbf37e",
+      "缓存命中 82f0bbf37e，范围 0–4095",
+      "已切换离线：仅返回完整覆盖的本机区间"
+    ]
+  },
+  "pid": 21540,
+  "nativeOffline": true
+}

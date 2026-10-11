@@ -1,0 +1,17 @@
+✔ Content-Length must be a single numeric value equal to the consumed body (9.7723ms)
+✔ getBytes consumes the response and exposes Content-Length (10.1925ms)
+✔ offline miss succeeds only after reading an HTTP 504 empty body (3.7093ms)
+✔ offline TypeError is a failure rather than proof of a cache miss (3.9341ms)
+✔ offline status, body and duplicate length failures cannot be accepted (7.9527ms)
+✔ non-Range HTTP 504 permits a readable error body with exact single length (14.3539ms)
+✔ an unreadable HTTP 504 body fails (12.1508ms)
+✔ truncated body expects TypeError and never accepts a timeout (13.4874ms)
+✔ ignored upstream Range requires readable HTTP 502 with an empty body (11.1281ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 117.1009

@@ -1,0 +1,430 @@
+{
+  "appVersion": "0.1.2",
+  "scope": "Original range/header repair and offline cache read; cross-signature reuse was not implemented in this version.",
+  "songCacheKey": "f40bdef4cca5b8424793bbf66f1222cc2eec493c727edd3157e70843a1e00f3a",
+  "samples": [
+    {
+      "label": "online-playing",
+      "at": "2026-10-11T14:21:08.031Z",
+      "song": "歌曲名：今生劫换来生缘",
+      "time": "01:06 / 03:45",
+      "playing": true,
+      "audio": {
+        "starts": 4,
+        "ends": 3,
+        "states": [
+          "running"
+        ],
+        "rms": [
+          0.3190687815293987
+        ]
+      }
+    },
+    {
+      "label": "online-continuous",
+      "at": "2026-10-11T14:22:05.504Z",
+      "song": "歌曲名：今生劫换来生缘",
+      "time": "02:04 / 03:45",
+      "playing": true,
+      "audio": {
+        "starts": 6,
+        "ends": 5,
+        "states": [
+          "running"
+        ],
+        "rms": [
+          0.3214888632813086
+        ]
+      }
+    },
+    {
+      "label": "online-before-offline",
+      "at": "2026-10-11T14:23:08.905Z",
+      "song": "歌曲名：今生劫换来生缘",
+      "time": "03:07 / 03:45",
+      "playing": true,
+      "audio": {
+        "starts": 8,
+        "ends": 7,
+        "states": [
+          "running"
+        ],
+        "rms": [
+          0.2636769080166262
+        ]
+      }
+    },
+    {
+      "label": "offline-seek-start",
+      "at": "2026-10-11T14:23:51.813Z",
+      "song": "歌曲名：样样红",
+      "time": "00:05 / 04:03",
+      "playing": true,
+      "audio": {
+        "starts": 11,
+        "ends": 10,
+        "states": [
+          "suspended"
+        ],
+        "rms": [
+          0.021407471830961037
+        ]
+      }
+    },
+    {
+      "label": "offline-original-replay",
+      "at": "2026-10-11T14:25:19.298Z",
+      "song": "歌曲名：今生劫换来生缘",
+      "time": "00:00 / 03:45",
+      "playing": false,
+      "audio": {
+        "starts": 11,
+        "ends": 11,
+        "states": [
+          "suspended"
+        ],
+        "rms": [
+          0
+        ]
+      }
+    },
+    {
+      "label": "online-reprepare",
+      "at": "2026-10-11T14:26:17.072Z",
+      "song": "歌曲名：今生劫换来生缘",
+      "time": "00:09 / 03:45",
+      "playing": true,
+      "audio": {
+        "starts": 2,
+        "ends": 1,
+        "states": [
+          "running"
+        ],
+        "rms": [
+          0.25568402625036263
+        ]
+      }
+    },
+    {
+      "label": "seek-control-check",
+      "at": "2026-10-11T14:33:05.882Z",
+      "song": "歌曲名：今生劫换来生缘",
+      "time": "00:04 / 03:45",
+      "playing": false,
+      "audio": {
+        "starts": 11,
+        "ends": 8,
+        "states": [
+          "suspended"
+        ],
+        "rms": [
+          0.2333300743439342
+        ]
+      }
+    }
+  ],
+  "audioResponses": [
+    {
+      "time": 1791728366310,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 0-65535/2742364",
+      "length": "65536",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728366383,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 65536-368639/2742364",
+      "length": "303104",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728378519,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 368640-737279/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728401389,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 0-65535/2742364",
+      "length": "65536",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728401509,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 65536-368639/2742364",
+      "length": "303104",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728413431,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 368640-737279/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728444408,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 737280-1105919/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728475276,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 1105920-1474559/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728505930,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 1474560-1843199/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728536713,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 1843200-2211839/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728567645,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 2211840-2580479/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728598547,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 2580480-2742363/2742364",
+      "length": "161884",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728627007,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 0-65535/2962892",
+      "length": "65536",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728627137,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 65536-368639/2962892",
+      "length": "303104",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728691481,
+      "status": 200,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "length": "2742364",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728719312,
+      "status": 200,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "length": "2742364",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728767694,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 0-65535/2742364",
+      "length": "65536",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728767813,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 65536-368639/2742364",
+      "length": "303104",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728779793,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 368640-737279/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728810741,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 737280-1105919/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728841712,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 1105920-1474559/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728872299,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 1474560-1843199/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728903149,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 1843200-2211839/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728934205,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 2211840-2580479/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791728964912,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 2580480-2742363/2742364",
+      "length": "161884",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791729161060,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 95681-464320/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791729161088,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 464321-832960/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791729161112,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 832961-1201600/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    },
+    {
+      "time": 1791729161153,
+      "status": 206,
+      "host": "ws6.stream.qqmusic.qq.com",
+      "mime": "audio/mp4",
+      "range": "bytes 1201601-1570240/2742364",
+      "length": "368640",
+      "disk": false,
+      "serviceWorker": false
+    }
+  ],
+  "offlineFullRead": {
+    "status": 200,
+    "contentLength": "2742364",
+    "bytes": 2742364,
+    "sha256": "88f47106001aae32e6d38dc3b344c15cbbdf877ff3684368d9be77bb97ce3d94"
+  },
+  "offlineDecode": {
+    "duration": 225.0115,
+    "channels": 2,
+    "frames": 10800552,
+    "sampledRms": 0.35256745579186705,
+    "sha256": "88f47106001aae32e6d38dc3b344c15cbbdf877ff3684368d9be77bb97ce3d94"
+  },
+  "limitation": "The playlist automatically advanced before the offline seek attempt. Returning to the previous track while blocking all website requests stalled at 00:00; no successful same-page offline replay is claimed. Full cached bytes were independently read and decoded while native offline mode was active. User subsequently requested normal online authentication with cached audio reuse."
+}

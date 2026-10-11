@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "run": "test_20261011_221843_942f94ef",
+  "phase": "partial_offline",
+  "fixture": "generated-440Hz-2s-PCM",
+  "checks": [
+    {
+      "name": "部分资源已缓存段命中",
+      "ok": true,
+      "detail": "206; bytes 0-4095/64044; 4096 字节"
+    },
+    {
+      "name": "未缓存尾段明确失败",
+      "ok": true,
+      "detail": "HTTP 504; 正文读取完成=0 字节; Content-Length=0"
+    },
+    {
+      "name": "部分缓存不冒充整首",
+      "ok": true,
+      "detail": "HTTP 504; 正文读取完成=39 字节; Content-Length=39"
+    },
+    {
+      "name": "no-store不持久缓存",
+      "ok": true,
+      "detail": "HTTP 504; 正文读取完成=39 字节; Content-Length=39"
+    },
+    {
+      "name": "截断响应不污染缓存",
+      "ok": true,
+      "detail": "HTTP 504; 正文读取完成=0 字节; Content-Length=0"
+    },
+    {
+      "name": "忽略Range的响应不污染缓存",
+      "ok": true,
+      "detail": "HTTP 504; 正文读取完成=0 字节; Content-Length=0"
+    },
+    {
+      "name": "不同查询链接不混用缓存",
+      "ok": true,
+      "detail": "HTTP 504; 正文读取完成=39 字节; Content-Length=39"
+    }
+  ],
+  "passed": true,
+  "engine": {
+    "appVersion": "0.1.2",
+    "diskBytes": 68140,
+    "networkBytes": 0,
+    "hitBytes": 4096,
+    "blockedRequests": 6,
+    "entries": [
+      {
+        "key": "a75a490ba37633de4ae90073716992a6474147339ee8c5bc1d69d709615888bb",
+        "label": "WAV · a75a490ba3",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      {
+        "key": "60012e08a0b64cf1c5e1774b982f0a878f200851eacd1beb1b1beb927731fbbf",
+        "label": "WAV · 60012e08a0",
+        "cachedBytes": 4096,
+        "totalBytes": 64044,
+        "complete": false,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            4095
+          ]
+        ]
+      }
+    ],
+    "events": [
+      "离线缺段或已过期 53b9b2080a",
+      "离线缺段或已过期 4daffa7208",
+      "离线缺段或已过期 0ed68ca7ac",
+      "离线缺段或已过期 28b11939ea",
+      "离线缺段或已过期 60012e08a0",
+      "离线缺段或已过期 60012e08a0",
+      "缓存命中 60012e08a0，范围 0–4095",
+      "已切换离线：仅返回完整覆盖的本机区间"
+    ]
+  },
+  "pid": 24751,
+  "nativeOffline": true
+}

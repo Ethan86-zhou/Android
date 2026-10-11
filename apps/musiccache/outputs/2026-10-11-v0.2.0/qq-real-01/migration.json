@@ -1,0 +1,13 @@
+{
+  "id": 5,
+  "result": {
+    "result": {
+      "type": "object",
+      "value": {
+        "status": 206,
+        "bytes": 1,
+        "range": "bytes 0-0/2742364"
+      }
+    }
+  }
+}
