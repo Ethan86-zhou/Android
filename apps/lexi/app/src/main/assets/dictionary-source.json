@@ -1,0 +1,55 @@
+{
+  "name": "ECDICT English-Chinese base dictionary",
+  "source_id": "ecdict-base-bc015ed2e24a-schema1",
+  "repository": "https://github.com/skywind3000/ECDICT",
+  "commit": "bc015ed2e24a7abef49fc6dbbb7fe32c1dadaf8b",
+  "upstream_license": "MIT",
+  "upstream_copyright": "Copyright (c) 2025 Linwei",
+  "source_files": {
+    "ecdict.csv": {
+      "url": "https://raw.githubusercontent.com/skywind3000/ECDICT/bc015ed2e24a7abef49fc6dbbb7fe32c1dadaf8b/ecdict.csv",
+      "sha256": "1a6947e04785db63613a92e14903cdae7954f7e84860b10e68e5c7cbb3f9c3cf",
+      "bytes": 65933428
+    },
+    "LICENSE": {
+      "url": "https://raw.githubusercontent.com/skywind3000/ECDICT/bc015ed2e24a7abef49fc6dbbb7fe32c1dadaf8b/LICENSE",
+      "sha256": "f8552dd246f61a4e064569eae6194a01c6b3d63b03bf27c6ca863593c549ed0f",
+      "bytes": 1063
+    },
+    "README.md": {
+      "url": "https://raw.githubusercontent.com/skywind3000/ECDICT/bc015ed2e24a7abef49fc6dbbb7fe32c1dadaf8b/README.md",
+      "sha256": "0c3f95fc7e15f7eccf65feedb58ba3ebace1fe7b7cbdd1af60c9ace4cef9094b",
+      "bytes": 18414
+    }
+  },
+  "counts": {
+    "entries": 770611,
+    "with_translation": 768739,
+    "with_phonetic": 218065,
+    "inflection_aliases": 56945,
+    "sqlite_integrity": "ok"
+  },
+  "database": {
+    "schema_version": 1,
+    "sha256": "d586d6b4724cd0e58c7706159bf4478d79c771c570976e6c3971758a1dbee663",
+    "bytes": 102084608,
+    "sqlite_version": "3.53.1"
+  },
+  "asset": {
+    "filename": "dictionary.pack",
+    "compression": "gzip",
+    "sha256": "3c6a0a28339651eb22f26e3a4de6d26fa7a00719b89130b31f35965ef0d6e665",
+    "bytes": 41101356
+  },
+  "packaged_licenses": {
+    "licenses/ECDICT-MIT.txt": "f8552dd246f61a4e064569eae6194a01c6b3d63b03bf27c6ca863593c549ed0f"
+  },
+  "transformations": [
+    "All CSV rows kept in original order; id is 1-based CSV logical record number",
+    "Unescape literal backslash-n in definitions, translations and phonetics",
+    "Lookup is trimmed lowercase; curly apostrophes and en/em dashes normalized",
+    "Frequency is min of positive frq/bnc ranks, otherwise 1000000000",
+    "Forward inflection aliases from exchange p/d/i/3/r/t/s/b/z/f; original exchange retained",
+    "SQLite entries/index/aliases; deterministic gzip mtime=0 without filename"
+  ]
+}

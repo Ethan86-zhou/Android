@@ -1,0 +1,13 @@
+<resources>
+    <style name="AppTheme" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">#316458</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowBackground">#F7F7F2</item>
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
+    <string name="shortcut_short">快捷查词</string>
+    <string name="shortcut_long">打开键盘，快捷查单词</string>
+</resources>
