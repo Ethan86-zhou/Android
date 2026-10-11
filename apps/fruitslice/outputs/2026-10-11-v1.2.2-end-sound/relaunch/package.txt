@@ -1,0 +1,144 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        de4a056 com.ethan.fruitslice/.MainActivity filter bb6a8d7
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+
+Domain verification status:
+
+Key Set Manager:
+  [com.ethan.fruitslice]
+      Signing KeySets: 137
+
+Packages:
+  Package [com.ethan.fruitslice] (fb5c33d):
+    appId=10328
+    pkg=Package{ee732 com.ethan.fruitslice}
+    codePath=/data/app/~~8z3xNh_ETFirTwc5SMwJkQ==/com.ethan.fruitslice-wKmXEWjHV8efowZbtrLFhw==
+    resourcePath=/data/app/~~8z3xNh_ETFirTwc5SMwJkQ==/com.ethan.fruitslice-wKmXEWjHV8efowZbtrLFhw==
+    legacyNativeLibraryDir=/data/app/~~8z3xNh_ETFirTwc5SMwJkQ==/com.ethan.fruitslice-wKmXEWjHV8efowZbtrLFhw==/lib
+    extractNativeLibs=false
+    primaryCpuAbi=null
+    secondaryCpuAbi=null
+    cpuAbiOverride=null
+    versionCode=7 minSdk=34 targetSdk=36
+    minExtensionVersions=[]
+    versionName=1.2.2
+    usesNonSdkApi=false
+    splits=[base]
+    apkSigningVersion=2
+    flags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    forceQueryable=false
+    dataDir=/data/user/0/com.ethan.fruitslice
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2026-10-11 19:59:47
+    lastUpdateTime=2026-10-11 20:00:02
+    installerPackageName=null
+    installerPackageUid=-1
+    initiatingPackageName=com.android.shell
+    originatingPackageName=null
+    category=-1 (manifest=0)
+    packageSource=1
+    appMetadataFilePath=null
+    signatures=PackageSignatures{f6e5825 version:2, signatures:[6dc168dc], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privatePkgFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    apexModuleName=null
+    requested permissions:
+      com.samsung.android.permission.GET_APP_LIST
+    User 0: ceDataInode=1380929 installed=true hidden=false suspended=false distractionFlags=0 stopped=true notLaunched=false enabled=0 instant=false virtual=false
+      installReason=0
+      firstInstallTime=2026-10-11 19:38:43
+      uninstallReason=0
+      overlay paths:
+        /data/resource-cache/com.android.systemui-neutral-slCD.frro
+        /data/resource-cache/com.android.systemui-accent-aupH.frro
+        /data/resource-cache/com.android.systemui-dynamic-tsN0.frro
+      runtime permissions:
+        com.samsung.android.permission.GET_APP_LIST: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+
+Queries:
+  system apps queryable: false
+  queries via forceQueryable:
+  queries via package name:
+    com.ethan.fruitslice:
+      com.ethan.fruitslice.test
+    com.ethan.fruitslice.test:
+      com.ethan.fruitslice
+  queries via component:
+    com.samsung.android.app.spage:
+      com.ethan.fruitslice
+    com.samsung.android.bixbytouch:
+      com.ethan.fruitslice
+    com.samsung.android.bixby.agent:
+      com.ethan.fruitslice
+    com.android.settings.intelligence:
+      com.ethan.fruitslice
+    us.zoom.videomeetings:
+      com.ethan.fruitslice
+    com.jingdong.app.mall:
+      com.ethan.fruitslice
+    com.google.android.play.games:
+      com.ethan.fruitslice
+    com.tencent.mm:
+      com.ethan.fruitslice
+    com.netease.party:
+      com.ethan.fruitslice
+    com.taobao.taobao:
+      com.ethan.fruitslice
+    com.youdao.dict:
+      com.ethan.fruitslice
+    com.netease.android.cloudgame:
+      com.ethan.fruitslice
+    com.qx.shootingplusv5application:
+      com.ethan.fruitslice
+    com.taobao.idlefish:
+      com.ethan.fruitslice
+    com.aliyun.tongyi:
+      com.ethan.fruitslice
+    com.imangi.templerun2:
+      com.ethan.fruitslice
+    com.halfbrick.fruitninjafree:
+      com.ethan.fruitslice
+    com.xingin.xhs:
+      com.ethan.fruitslice
+    com.okcam.ookcam:
+      com.ethan.fruitslice
+    com.samsung.android.app.sreminder:
+      com.ethan.fruitslice
+    com.autonavi.minimap:
+      com.ethan.fruitslice
+    com.gotokeep.keep:
+      com.ethan.fruitslice
+    com.xiaomi.smarthome:
+      com.ethan.fruitslice
+  queryable via interaction:
+    User 0:
+      [com.sec.android.app.hwmoduletest,com.samsung.android.applock,com.samsung.android.app.dressroom,com.sec.android.app.SecSetupWizard,com.sec.android.app.servicemodeapp,com.sec.android.diagmonagent,com.android.settings,com.skms.android.agent,com.sec.imslogger,com.sec.facatfunction,com.samsung.android.forest,com.samsung.android.aircommandmanager,com.samsung.gpuwatchapp,com.samsung.SMT,com.android.server.telecom,com.samsung.android.photoremasterservice,com.samsung.android.knox.zt.framework,com.samsung.android.biometrics.app.setting,com.sec.android.app.quicktool,com.sec.mhs.smarttethering,com.samsung.android.globalpostprocmgr,com.sec.sve,com.samsung.android.smartswitchassistant,android,com.samsung.android.dqagent,com.android.location.fused,com.sec.android.iaft,com.sec.android.sdhms,com.samsung.android.themecenter,com.wssyncmldm,com.sec.enterprise.mdm.services.simpin,com.samsung.android.provider.filterprovider,com.samsung.android.sume.nn.service,com.sec.android.app.wlantest,com.samsung.android.brightnessbackupservice,com.samsung.android.smartface,com.samsung.aasaservice,com.sec.modem.settings,com.samsung.android.activation,com.samsung.android.cameraxservice,com.android.inputdevices,com.android.keychain,com.android.wallpaperbackup,com.samsung.android.mdecservice,com.samsung.android.hdmapp,com.samsung.hongbaoassistant,com.android.providers.settings,com.samsung.android.providers.factory,com.sec.android.app.parser,com.android.localtransport,com.sec.android.app.applinker,com.samsung.android.app.settings.bixby,com.samsung.android.wifi.ai,com.sec.android.soagent,com.samsung.sait.sohservice,com.samsung.android.bbc.bbcagent,com.sec.android.smartfpsadjuster,com.samsung.android.peripheral.framework,com.samsung.android.keycustomizationinfobackupservice,com.samsung.accessibility,com.sec.usbsettings,com.samsung.android.bixby.wakeup,com.samsung.android.vtcamerasettings,com.samsung.android.sm_cn,com.android.dynsystem,com.sec.imsservice,com.samsung.android.da.daagent,com.sec.android.emergencylauncher,com.samsung.android.stickercenter,com.samsung.android.pushservice,com.samsung.android.fmm,com.qti.snapdragon.qdcm_ff,com.samsung.android.knox.attestation,com.sec.android.app.apex,com.sec.android.app.factorykeystring,com.sec.factory.camera,com.sec.android.app.desktoplauncher,com.sec.bcservice,com.samsung.android.svcagent]:
+        com.ethan.fruitslice
+      com.samsung.android.bixbytouch:
+        com.ethan.fruitslice
+      com.bytedance.android.doubaoime:
+        com.ethan.fruitslice
+  queryable via uses-library:
+
+Dexopt state:
+  [com.ethan.fruitslice]
+    path: /data/app/~~8z3xNh_ETFirTwc5SMwJkQ==/com.ethan.fruitslice-wKmXEWjHV8efowZbtrLFhw==/base.apk
+      arm64: [status=run-from-apk] [reason=unknown] [primary-abi]
+        [location is error]
+
+Compiler stats:
+  [com.ethan.fruitslice]
+    (No recorded stats)
+
+HeimdAllFS state:
+  [com.ethan.fruitslice]
+    path: /data/app/~~8z3xNh_ETFirTwc5SMwJkQ==/com.ethan.fruitslice-wKmXEWjHV8efowZbtrLFhw==/base.apk
+    Compressed? False
+  [ Summary ]
+    # of packages: 1 / # of packages in DATA: 1 (1)
+    Compressed apks info - sum of orig size: 0 / sum of compr size : 0

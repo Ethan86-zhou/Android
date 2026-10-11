@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "apkSha256": "25dbcaf852955be5d83a650e3265736906431af0f427d40d0ac4a35d428e518a",
+  "naturalEndReason": "Three missed fruit in real main-APK gameplay",
+  "userGameplayObserved": true,
+  "observedScore": 93,
+  "observedSliced": 6,
+  "historyCount": 8,
+  "best": 168,
+  "allEarlierUserRecordsPreserved": true,
+  "newUserRoundPreserved": true,
+  "dataRestoredOrDeleted": false,
+  "previewAssumptionCorrection": "The first helper expected an untouched zero-score round and asserted. Real user touches produced 93 points instead. Assertion stopped before any data restoration. This genuine result was preserved and included in the baseline for device tests. history-after-untouched-round.xml is the original capture name; it contains the genuine played round.",
+  "wavDurationSeconds": 0.8,
+  "wavBytes": 38444,
+  "wavSha256": "2ccbd509b7077361d221178dda4d90d67e3c067b7014d69a25f5ab86ebafc22f",
+  "wavPeak": 0.48004150390625,
+  "wavRms": 0.12618399311129858,
+  "audioFlingerEndTrackEvidence": [
+    "       S   1987    yes  17300 12371033    3247 A  0x000 00000001 00000001  24000  3   e  4  -3.3  -3.3  -3.3     0  00002EE0  19200    7200 A         0        0      false0.679993 0.679993  N  6   67.15 t ",
+    "   10-11 19:57:39.110 AT::add       (0xb400007b643ef800)    S   1987     no  17300 12371033    3247 A  0x000 00000001 00000001  24000  3   e  4  -inf  -3.3  -3.3     0  00000000  19200   19200 F         0        0      false0.679993 0.679993  Y  6       new "
+  ],
+  "proofLimit": "System accepted a 24000 Hz, 19200-frame SoundPool track at 0.68 per-channel volume; this is device playback evidence, not a microphone recording or a human listening assessment."
+}

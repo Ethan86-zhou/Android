@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "allOriginalRecordsExactlyPreserved": true,
+  "originalRecordCount": 8,
+  "currentRecordCount": 9,
+  "best": 168,
+  "scores": [
+    168,
+    93,
+    55,
+    30,
+    20,
+    20,
+    0,
+    0,
+    0
+  ],
+  "newUserScore93Preserved": true,
+  "fixtureScoresRetained": false,
+  "postInstrumentationRecordsPreserved": [
+    {
+      "id": "a1a73559-cc0c-4628-a10f-27286404d8fe",
+      "timestamp": 1791720042340,
+      "score": 0,
+      "sliced": 0,
+      "maxCombo": 0,
+      "misses": 3,
+      "bombs": 0,
+      "switches": 0,
+      "duration": 3.3325369358062744,
+      "reason": "misses"
+    }
+  ],
+  "rawByteComparisonNote": "A zero-score natural round began after the instrumentation completion time, so current XML differs from the eight-record pre-test baseline. This later non-fixture round is preserved; no records were deleted to force byte equality."
+}

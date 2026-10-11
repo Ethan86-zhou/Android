@@ -1,0 +1,20 @@
+{
+  "sdk": 34,
+  "viewWidth": 2560,
+  "viewHeight": 1600,
+  "decorWidth": 2560,
+  "decorHeight": 1600,
+  "windowLeft": 0,
+  "windowTop": 0,
+  "windowWidth": 2560,
+  "windowHeight": 1600,
+  "viewLeft": 0,
+  "viewTop": 0,
+  "smallestScreenWidthDp": 753,
+  "densityDpi": 340,
+  "scale": 2.559999942779541,
+  "offsetX": 0,
+  "worldWidth": 1000,
+  "worldHeight": 625,
+  "engineHeight": 625
+}

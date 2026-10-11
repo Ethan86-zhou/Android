@@ -1,0 +1,6 @@
+{
+  "naturalEnd": "Main APK ended a genuine user-played 93-point round. A helper expecting no touch asserted before attempting any restoration; the real round was retained. Details: natural-end/observed-end-check.json.",
+  "postTestHistory": "A new zero-score natural round started after the instrumented run completed. The first exact byte comparison with the eight-record pre-test baseline asserted; no data was changed. All eight records are intact, the later round is also preserved, and the final cold-start comparison with the current nine-record baseline is exact. Details: device/history-restore-check.json.",
+  "authoritativeDeviceRun": "device/verification.json",
+  "dataUninstalledOrCleared": false
+}
