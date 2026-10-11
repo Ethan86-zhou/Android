@@ -1,0 +1,21 @@
+[
+  {
+    "name": "display noninteractive with screen off or AOD suspend",
+    "passed": true,
+    "detail": [
+      "mWakefulness=Dozing",
+      "mHoldingDisplaySuspendBlocker=false",
+      "mScreenState=OFF"
+    ]
+  },
+  {
+    "name": "native audio time advances while screen noninteractive",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "name": "AudioTrack active during screen noninteractive",
+    "passed": true,
+    "detail": null
+  }
+]

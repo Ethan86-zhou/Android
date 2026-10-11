@@ -1,0 +1,21 @@
+FAIL: java.lang.IllegalArgumentException: Targeted input event injection from pid 13794 was not directed at a window owned by uid 10266.
+	at android.os.Parcel.createExceptionOrNull(Parcel.java:3358)
+	at android.os.Parcel.createException(Parcel.java:3338)
+	at android.os.Parcel.readException(Parcel.java:3321)
+	at android.os.Parcel.readException(Parcel.java:3263)
+	at android.hardware.input.IInputManager$Stub$Proxy.injectInputEventToTarget(IInputManager.java:2772)
+	at android.hardware.input.InputManagerGlobal.injectInputEvent(InputManagerGlobal.java:2366)
+	at android.app.Instrumentation.syncInputTransactionsAndInjectEventIntoSelf(Instrumentation.java:1301)
+	at android.app.Instrumentation.sendPointerSync(Instrumentation.java:1286)
+	at com.ethan.fruitslice.GameInstrumentation.pointer(GameInstrumentation.java:611)
+	at com.ethan.fruitslice.GameInstrumentation.swipe(GameInstrumentation.java:598)
+	at com.ethan.fruitslice.GameInstrumentation.sizeAndScoreChecks(GameInstrumentation.java:200)
+	at com.ethan.fruitslice.GameInstrumentation.onStart(GameInstrumentation.java:78)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2653)
+Caused by: android.os.RemoteException: Remote stack trace:
+	at com.android.server.input.InputManagerService.injectInputEventToTarget(qb/105560076 505ee8ad8a56e9ce18a6ff25e9d78f2a662911dd48e2e1bb3df961079008f9c3:162)
+	at android.hardware.input.IInputManager$Stub.onTransact(IInputManager.java:1296)
+	at android.os.Binder.execTransactInternal(Binder.java:1457)
+	at android.os.Binder.execTransact(Binder.java:1401)
+
+

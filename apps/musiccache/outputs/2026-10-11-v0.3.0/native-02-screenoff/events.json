@@ -1,0 +1,42 @@
+[
+  {
+    "event": "playing_before_screen_off",
+    "at": 1791733781.3218708,
+    "appVersion": "0.3.0",
+    "state": 3,
+    "isPlaying": true,
+    "playWhenReady": true,
+    "positionMs": 16174,
+    "durationMs": 341472,
+    "currentMediaId": "000XeLXA3X8CTH",
+    "queueIndex": 68,
+    "queueSize": 69,
+    "errorCode": 0,
+    "diskBytes": 16187104,
+    "networkBytes": 1048667,
+    "hitBytes": 3152670,
+    "validationRequests": 2,
+    "validationBytes": 2,
+    "reusedSignedLinks": 2
+  },
+  {
+    "event": "screen_off_progress",
+    "at": 1791733793.5839684,
+    "appVersion": "0.3.0",
+    "state": 3,
+    "isPlaying": true,
+    "playWhenReady": true,
+    "positionMs": 28289,
+    "durationMs": 341472,
+    "currentMediaId": "000XeLXA3X8CTH",
+    "queueIndex": 68,
+    "queueSize": 69,
+    "errorCode": 0,
+    "diskBytes": 16187104,
+    "networkBytes": 1048667,
+    "hitBytes": 3152670,
+    "validationRequests": 2,
+    "validationBytes": 2,
+    "reusedSignedLinks": 2
+  }
+]

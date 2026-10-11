@@ -1,0 +1,8 @@
+Command: tools/cache-tests/run.ps1
+Runtime: Android Studio bundled JBR, javac --release 17
+Result: PASS 145 cache checks (real disk + loopback HTTP; no QQ login/playback claim)
+Exit code: 0
+
+Coverage: overlapping ranges and unique-byte counts; holes; suffix and open-ended ranges; malformed ranges; exact response body and Content-Range/Content-Length/CORS; restart persistence; SHA-256 URL identity with no raw signed query on disk; no-store/no-cache/max-age/Age/Date/Vary/encoding policies; explicit experimental 24-hour heuristic; truncated/overlong/abandoned responses; length and strong-ETag changes; no/weak ETag never joins separate representations; concurrent commits and quotas; stale pending writes cannot resurrect clear/no-store results; cache eligibility allowlist; offline hits and 504 misses without new server requests; conditional headers require origin or fail closed offline; redirect rejection; real streaming cancellation without null races; offline toggle returns in under 500 ms while socket read is blocked; clear only audio cache.
+
+These JVM checks use Android response-container stubs, real disk, and real loopback HTTP. They do not prove Android WebView playback, QQ Music login, or QQ Music song caching. Those require separate device evidence.

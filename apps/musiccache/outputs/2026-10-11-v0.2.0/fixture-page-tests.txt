@@ -1,0 +1,22 @@
+✔ Content-Length must be a single numeric value equal to the consumed body (51.9675ms)
+✔ new signature proves one-byte validation and a whole-song disk hit without duplicate storage (791.1893ms)
+✔ duplicate download or storage cannot pass signature reuse checks (305.8307ms)
+✔ changed ETag requires the new audio bytes and a new download (269.4218ms)
+✔ returning old bytes under a changed ETag is rejected (173.1977ms)
+✔ authorization rejection never counts a cached song or a second download (14.5622ms)
+✔ getBytes consumes the response and exposes Content-Length (6.1127ms)
+✔ offline miss succeeds only after reading an HTTP 504 empty body (3.9637ms)
+✔ offline TypeError is a failure rather than proof of a cache miss (5.8806ms)
+✔ offline status, body and duplicate length failures cannot be accepted (14.8856ms)
+✔ non-Range HTTP 504 permits a readable error body with exact single length (11.6354ms)
+✔ an unreadable HTTP 504 body fails (3.4507ms)
+✔ truncated body expects TypeError and never accepts a timeout (10.1953ms)
+✔ ignored upstream Range requires readable HTTP 502 with an empty body (8.1415ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1841.8449

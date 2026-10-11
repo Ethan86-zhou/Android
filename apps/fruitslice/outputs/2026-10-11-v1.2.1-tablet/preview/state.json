@@ -1,0 +1,23 @@
+{
+  "score": 0,
+  "sliced": 0,
+  "remaining": 60,
+  "elapsed": 0,
+  "misses": 0,
+  "mode": "CLASSIC",
+  "switches": 0,
+  "modeRemaining": 0,
+  "maxCombo": 0,
+  "bombsHit": 0,
+  "overlay": "PAUSE",
+  "historyCount": 0,
+  "best": 0,
+  "worldHeight": 1600,
+  "scale": 1.600000023841858,
+  "offsetX": 0,
+  "bladeLocked": false,
+  "bladeStarted": false,
+  "bladePath": 0,
+  "touchCount": 0,
+  "fruits": []
+}

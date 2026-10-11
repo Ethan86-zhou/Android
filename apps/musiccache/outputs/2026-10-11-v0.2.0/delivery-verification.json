@@ -1,0 +1,37 @@
+{
+  "appVersion": "0.2.0",
+  "apkSha256": "d435ca4ad5d0005dbacce4e86535565b5a7530f0130812bb68bf224ee36ca8c2",
+  "baseCommit": "5dedbfc65cb4615ed6f84961b85f1b92e5b95ca5",
+  "sourceManifest": "device-01/source-sha256.json",
+  "sourceUncommitted": true,
+  "sourceMismatches": [],
+  "checkedAt": "2026-10-11T22:52:15.851124+08:00",
+  "checks": {
+    "device_acceptance_passed": true,
+    "source_matches_tested_manifest": true,
+    "different_signed_urls": true,
+    "real_audio_first_middle_tail_refresh": true,
+    "full_audio_same_sha256": true,
+    "zero_audio_redownload": true,
+    "two_single_byte_validations": true,
+    "all_existing_audio_files_preserved": true,
+    "default_online_mode": true,
+    "paused_for_user": true,
+    "apk_matches_installed_tested_build": true
+  },
+  "passed": true,
+  "deviceCheckCount": 50,
+  "normalPidsBefore": [
+    29683
+  ],
+  "normalPidsAfter": [
+    29683
+  ],
+  "audioNetworkBytes": 0,
+  "validationBytes": 2,
+  "validationRequests": 2,
+  "diskBytes": 9595156,
+  "hitBytes": 5785960,
+  "existingAudioFiles": 36,
+  "scope": "One real QQ Music song in the embedded official webpage; online authentication allowed. Not a measurement of standalone Chrome or all songs/qualities."
+}

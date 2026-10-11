@@ -1,0 +1,5 @@
+{"file": "full.wav", "status": 206, "range": "bytes=0-32767", "start": 0, "end": 32767, "declaredBytes": 32768, "bodyBytes": 32768, "truncated": false, "variant": "one", "at": "2026-10-11T14:10:07.092849+00:00"}
+{"file": "full.wav", "status": 206, "range": "bytes=32768-64043", "start": 32768, "end": 64043, "declaredBytes": 31276, "bodyBytes": 31276, "truncated": false, "variant": "one", "at": "2026-10-11T14:10:07.177860+00:00"}
+{"file": "partial.wav", "status": 206, "range": "bytes=0-4095", "start": 0, "end": 4095, "declaredBytes": 4096, "bodyBytes": 4096, "truncated": false, "variant": "one", "at": "2026-10-11T14:10:07.226313+00:00"}
+{"file": "no-store.wav", "status": 200, "range": null, "start": 0, "end": 64043, "declaredBytes": 64044, "bodyBytes": 64044, "truncated": false, "variant": "one", "at": "2026-10-11T14:10:07.275192+00:00"}
+{"file": "truncated.wav", "status": 206, "range": "bytes=0-8191", "start": 0, "end": 8191, "declaredBytes": 8192, "bodyBytes": 4096, "truncated": true, "variant": "one", "at": "2026-10-11T14:10:07.325133+00:00"}

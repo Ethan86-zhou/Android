@@ -1,0 +1,98 @@
+{
+  "appVersion": "0.1.1",
+  "diskBytes": 1736704,
+  "networkBytes": 1474560,
+  "hitBytes": 0,
+  "blockedRequests": 0,
+  "entries": [
+    {
+      "key": "a082d8f0bc3b5cb4af81c85280161bb7fc72b9da57b5615faa621cc7c54d27ba",
+      "label": "M4A · a082d8f0bc",
+      "cachedBytes": 65536,
+      "totalBytes": 2742364,
+      "complete": false,
+      "fresh": true,
+      "canCombineRanges": true,
+      "spans": [
+        [
+          0,
+          65535
+        ]
+      ]
+    },
+    {
+      "key": "b03ad698b5be644677a928bbdb45374a98c89b92086d0cb4152449c4254ee8b6",
+      "label": "M4A · b03ad698b5",
+      "cachedBytes": 65536,
+      "totalBytes": 2962892,
+      "complete": false,
+      "fresh": true,
+      "canCombineRanges": true,
+      "spans": [
+        [
+          0,
+          65535
+        ]
+      ]
+    },
+    {
+      "key": "0d210184b13809a752935fb8653cda202d5b3cd1cc947306c490039fd9bd83b0",
+      "label": "M4A · 0d210184b1",
+      "cachedBytes": 65536,
+      "totalBytes": 2742364,
+      "complete": false,
+      "fresh": true,
+      "canCombineRanges": true,
+      "spans": [
+        [
+          0,
+          65535
+        ]
+      ]
+    },
+    {
+      "key": "e96e0417005756af5f87fae04c8e146e8f14c2310b6d7e154c46f7ca2ae533fa",
+      "label": "M4A · e96e041700",
+      "cachedBytes": 65536,
+      "totalBytes": 2742364,
+      "complete": false,
+      "fresh": true,
+      "canCombineRanges": true,
+      "spans": [
+        [
+          0,
+          65535
+        ]
+      ]
+    },
+    {
+      "key": "f3bd11a0329f9b51ad1e31d8bb2580a742871d096f450d37fce4821e03ec0fb9",
+      "label": "M4A · f3bd11a032",
+      "cachedBytes": 1474560,
+      "totalBytes": 2742364,
+      "complete": false,
+      "fresh": true,
+      "canCombineRanges": true,
+      "spans": [
+        [
+          0,
+          1474559
+        ]
+      ]
+    }
+  ],
+  "events": [
+    "已保存完整响应区间 f3bd11a032",
+    "网络读取 f3bd11a032，范围 1105920–1474559",
+    "已保存完整响应区间 f3bd11a032",
+    "网络读取 f3bd11a032，范围 737280–1105919",
+    "已保存完整响应区间 f3bd11a032",
+    "网络读取 f3bd11a032，范围 368640–737279",
+    "已保存完整响应区间 f3bd11a032",
+    "网络读取 f3bd11a032，范围 65536–368639",
+    "已保存完整响应区间 f3bd11a032",
+    "网络读取 f3bd11a032，范围 0–65535"
+  ],
+  "offline": false,
+  "webHost": "y.qq.com"
+}

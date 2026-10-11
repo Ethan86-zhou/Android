@@ -1,0 +1,34 @@
+{
+  "apkSha256": "5786d2991b61ca948e166216047f1de75b743844e142181cf703f0e619d246a6",
+  "baseCommit": "5dedbfc65cb4615ed6f84961b85f1b92e5b95ca5",
+  "appWorkingTreeDirty": true,
+  "sourceManifest": "source-sha256.json",
+  "sourceManifestSha256": "013dff006148c46b1bc95bc3d53677a772ff0e10d541459b5884bead1f3d702f",
+  "sourceNote": "Manifest hashes identify the tested working-tree source; baseCommit alone does not identify uncommitted code.",
+  "checks": [
+    {
+      "name": "display noninteractive with screen off or AOD suspend",
+      "passed": true,
+      "detail": [
+        "mWakefulness=Dozing",
+        "mHoldingDisplaySuspendBlocker=false",
+        "mScreenState=OFF"
+      ]
+    },
+    {
+      "name": "native audio time advances while screen noninteractive",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "AudioTrack active during screen noninteractive",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "passed": true,
+  "limitations": [
+    "Selected real songs and positions tested; not all songs or a full uninterrupted playlist.",
+    "Physical headset disconnection not tested."
+  ]
+}

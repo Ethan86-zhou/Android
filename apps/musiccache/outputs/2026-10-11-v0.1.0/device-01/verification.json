@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "run": "test_20261011_215620_2f4ae091",
+  "startedAt": "2026-10-11T21:56:20.348384+08:00",
+  "scope": "Generated-tone WebView/cache selftest, not QQ Music account or real-song acceptance",
+  "apkSha256": "92499758cf6217f41e54c44a87cc8a504af006bf4707a33298e7ee33886ebf44",
+  "fixtureSha256": "9a444b5973a1c31fc641521b32e9eda0318e45c2f7b9c7979d438fde47ad60c5",
+  "fixtureBytes": 64044,
+  "accountData": "No Chrome access, no cookies read/exported, no pm clear/uninstall; isolated debug WebView profile and selftest cache.",
+  "offlineMethod": "Stop the loopback media server and relaunch app process in native offline mode; phone radios stay unchanged.",
+  "checks": [
+    {
+      "name": "installed APK matches input",
+      "ok": true,
+      "detail": "92499758cf6217f41e54c44a87cc8a504af006bf4707a33298e7ee33886ebf44"
+    },
+    {
+      "name": "report identity",
+      "ok": true,
+      "detail": {
+        "run": "test_20261011_215620_2f4ae091",
+        "phase": "online"
+      },
+      "phase": "online"
+    },
+    {
+      "name": "browser checks",
+      "ok": false,
+      "detail": "2 checks",
+      "phase": "online"
+    },
+    {
+      "name": "native cache counters",
+      "ok": true,
+      "detail": {
+        "diskBytes": 32768,
+        "networkBytes": 32768,
+        "hitBytes": 0,
+        "blockedRequests": 0,
+        "entries": [
+          {
+            "key": "5ca5eb3289d383b5b386b9337ca1a2794550caa0e5cbfd3d562eb879f52751b4",
+            "label": "WAV · 5ca5eb3289",
+            "cachedBytes": 32768,
+            "totalBytes": 64044,
+            "complete": false
+          }
+        ],
+        "events": [
+          "读取中止，未保存该区间 5ca5eb3289",
+          "网络读取 5ca5eb3289，范围 32768–64043",
+          "已保存完整响应区间 5ca5eb3289",
+          "网络读取 5ca5eb3289，范围 0–32767",
+          "已恢复联网"
+        ]
+      },
+      "phase": "online"
+    },
+    {
+      "name": "complete resource coverage reported accurately",
+      "ok": false,
+      "detail": {
+        "key": "5ca5eb3289d383b5b386b9337ca1a2794550caa0e5cbfd3d562eb879f52751b4",
+        "label": "WAV · 5ca5eb3289",
+        "cachedBytes": 32768,
+        "totalBytes": 64044,
+        "complete": false
+      },
+      "phase": "online"
+    },
+    {
+      "name": "partial resource coverage reported accurately",
+      "ok": false,
+      "detail": {},
+      "phase": "online"
+    },
+    {
+      "name": "uncacheable and unrequested resources absent",
+      "ok": true,
+      "detail": "no-store, truncated response and variant two have no committed entry",
+      "phase": "online"
+    },
+    {
+      "name": "native network actually used",
+      "ok": false,
+      "detail": 32768,
+      "phase": "online"
+    },
+    {
+      "name": "cache persisted bytes",
+      "ok": false,
+      "detail": 32768,
+      "phase": "online"
+    },
+    {
+      "name": "test workflow completed",
+      "ok": false,
+      "detail": "RuntimeError: Phase online failed; inspect online.json and verification.json"
+    },
+    {
+      "name": "owned reverse mapping removed",
+      "ok": true,
+      "detail": 8765
+    },
+    {
+      "name": "normal app reopened",
+      "ok": true,
+      "detail": "Normal WebView profile reopened; no account state edited"
+    }
+  ],
+  "phases": {
+    "online": {
+      "report": "online.json",
+      "passed": false
+    }
+  },
+  "baseCommit": "5dedbfc65cb4615ed6f84961b85f1b92e5b95ca5",
+  "appWorkingTreeDirty": true,
+  "sourceManifest": "source-sha256.json",
+  "sourceManifestSha256": "ce38c73c876585e6eed1d45b71bf0b70082cb5f6c962ab7c27ba250306580c2c",
+  "sourceNote": "Manifest hashes identify the tested working-tree source; baseCommit alone does not identify uncommitted code.",
+  "device": {
+    "model": "SM-S9080",
+    "android": "16",
+    "api": "36"
+  },
+  "error": "RuntimeError: Phase online failed; inspect online.json and verification.json",
+  "finishedAt": "2026-10-11T21:56:43.828918+08:00",
+  "passed": false
+}

@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-12",
+  "timezone": "Asia/Shanghai",
+  "repository": "https://github.com/Ethan86-zhou/Android",
+  "source_commit": "d7529a8101019c449db190125cf95948d4fad5a7",
+  "scope": "Repository integration and build regression. Original APKs and device evidence retained; no new device installation or runtime claim.",
+  "apps": [
+    "forcesense",
+    "lexi",
+    "fruitslice",
+    "musiccache"
+  ],
+  "original_sources": {
+    "fruitslice": "57b4d88ec1b426886433c341f976667e632bad21",
+    "lightlisten": "38b306155a14f1f65ca7d55fe3b39c7a6a26f862"
+  },
+  "regressions": {
+    "fruitslice_engine_checks": 2803,
+    "lightlisten_cache_checks": 333,
+    "lightlisten_datasource_checks": 51,
+    "lightlisten_python_tests": 20,
+    "lightlisten_node_tests": 15
+  },
+  "builds": {
+    "fruitslice": {
+      "tasks": [
+        "assembleDebug",
+        "assembleDebugAndroidTest",
+        "lintDebug"
+      ],
+      "exit_code": 0,
+      "lint_errors": 0,
+      "lint_warnings": 1,
+      "rebuilt_apk_sha256": "25dbcaf852955be5d83a650e3265736906431af0f427d40d0ac4a35d428e518a",
+      "original_apk_sha256": "25dbcaf852955be5d83a650e3265736906431af0f427d40d0ac4a35d428e518a"
+    },
+    "lightlisten": {
+      "tasks": [
+        "assembleDebug",
+        "lintDebug"
+      ],
+      "exit_code": 0,
+      "lint_errors_in_report": 0,
+      "lint_warnings_in_report": 17,
+      "limitation": "Existing Kotlin 2.2.0 metadata versus 2.0.0 lint analyzer diagnostics remain. Task success is not a clean full static-analysis result.",
+      "rebuilt_apk_sha256": "60b2d085f920a344bf206ecd6662bc1ea86df47ebc87c9aeb14b4a9ef1bce51d",
+      "original_apk_sha256": "a3e90e054466ef5768a26076b5ac329b90b18d3e38c580f90f8016dcb0d485ea",
+      "original_delivery_retained": true
+    }
+  },
+  "repository_checks": {
+    "local_check": "passed",
+    "hook_cases": 8,
+    "wrapper_mode": "100755 for all four apps",
+    "source_whitespace_check": "passed excluding immutable outputs logs",
+    "original_evidence": "Git blobs preserved against original app branch tips; no normalization applied",
+    "original_commit_history": "Preserved using merge, without squash or rebase"
+  }
+}

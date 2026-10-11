@@ -1,0 +1,30 @@
+{
+  "recordedAt": "2026-10-11T15:24:34.993Z",
+  "playlistTotal": 69,
+  "returned": 69,
+  "unique": 69,
+  "webDefaultCount": 10,
+  "apiCodes": [
+    0,
+    0,
+    0
+  ],
+  "favoriteTotal": 14,
+  "favoriteReturned": 14,
+  "lastSongPlayback": {
+    "song": "歌曲名：后来",
+    "time": "00:12 / 05:41",
+    "playing": true,
+    "signal": {
+      "starts": 3,
+      "ends": 1,
+      "states": [
+        "running"
+      ],
+      "rms": [
+        0.08962361857840924
+      ]
+    }
+  },
+  "scope": "Logged-in official QQ webpage SDK read only playlist request. No cookie/password export. Entire song directory is available; last song sampled for real webpage audio playback. App 0.3 native playback not yet verified."
+}

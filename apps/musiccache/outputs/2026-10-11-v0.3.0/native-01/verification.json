@@ -1,0 +1,94 @@
+{
+  "apkSha256": "5786d2991b61ca948e166216047f1de75b743844e142181cf703f0e619d246a6",
+  "baseCommit": "5dedbfc65cb4615ed6f84961b85f1b92e5b95ca5",
+  "appWorkingTreeDirty": true,
+  "sourceManifest": "source-sha256.json",
+  "sourceManifestSha256": "636a14eb718f834f235e141b3cb36240237306316674fb9eec207f7898316b6c",
+  "sourceNote": "Manifest hashes identify the tested working-tree source; baseCommit alone does not identify uncommitted code.",
+  "checks": [
+    {
+      "name": "existing login preserved and all 14 favorites loaded",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "playlist lists all 69 songs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "native queue contains all 69",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old complete cache reused with zero audio redownload",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "real native audio output track active",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "native seek to middle",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "background automatic transition resolves next song",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "background time advances",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "system media pause stops progression",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "system media resume works",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "temporary audio focus interruption and recovery",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "background queue and current progress persisted",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "69th song plays in native player",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "official search provides 90 results over three pages",
+      "passed": true,
+      "detail": [
+        "显示前 90 首（官网报告 1035 条结果）；可用更精确关键词缩小范围"
+      ]
+    },
+    {
+      "name": "empty search has explicit result",
+      "passed": true,
+      "detail": [
+        "QQ 官方搜索未返回匹配歌曲，可换个关键词"
+      ]
+    }
+  ],
+  "passed": true,
+  "limitations": [
+    "Selected real songs and positions tested; not all songs or a full uninterrupted playlist.",
+    "Physical headset disconnection not tested."
+  ]
+}

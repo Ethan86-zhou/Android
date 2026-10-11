@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "run": "test_20261011_221004_0c60014f",
+  "phase": "online",
+  "fixture": "generated-440Hz-2s-PCM",
+  "checks": [
+    {
+      "name": "在线首段Range",
+      "ok": true,
+      "detail": "206; bytes 0-32767/64044; 32768 字节"
+    },
+    {
+      "name": "在线尾段Range",
+      "ok": true,
+      "detail": "206; bytes 32768-64043/64044; 31276 字节"
+    },
+    {
+      "name": "在线拼接字节一致",
+      "ok": true,
+      "detail": "64044/64044 字节，FNV-1a 4064f61f"
+    },
+    {
+      "name": "在线拼接SHA-256一致",
+      "ok": true,
+      "detail": "9a444b5973a1c31fc641521b32e9eda0318e45c2f7b9c7979d438fde47ad60c5"
+    },
+    {
+      "name": "只缓存部分资源",
+      "ok": true,
+      "detail": "206; bytes 0-4095/64044; 4096 字节"
+    },
+    {
+      "name": "no-store允许在线读",
+      "ok": true,
+      "detail": "64044 字节"
+    },
+    {
+      "name": "截断响应不可视为完整",
+      "ok": true,
+      "detail": "TypeError: Failed to fetch"
+    },
+    {
+      "name": "WebView完整播放",
+      "ok": true,
+      "detail": "ended=true; duration=2; currentTime=2"
+    }
+  ],
+  "passed": true,
+  "engine": {
+    "appVersion": "0.1.1",
+    "diskBytes": 68140,
+    "networkBytes": 136280,
+    "hitBytes": 64044,
+    "blockedRequests": 0,
+    "entries": [
+      {
+        "key": "3194e59b934cbe840db7a8d8368f297477d1c88f4a0480d8d9fbddbe99943cf4",
+        "label": "WAV · 3194e59b93",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      {
+        "key": "82f0bbf37e346a41ae009957e809fa5c6f0ee6105dedbdb7830a5dc8ca6ab069",
+        "label": "WAV · 82f0bbf37e",
+        "cachedBytes": 4096,
+        "totalBytes": 64044,
+        "complete": false,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            4095
+          ]
+        ]
+      }
+    ],
+    "events": [
+      "缓存命中 3194e59b93，范围 0–64043",
+      "读取中止，未保存该区间 0322564ddd",
+      "网络读取 0322564ddd，范围 0–8191",
+      "仅播放、不新增离线缓存 9f427689af（响应策略或容量限制）",
+      "已保存完整响应区间 82f0bbf37e",
+      "网络读取 82f0bbf37e，范围 0–4095",
+      "已保存完整响应区间 3194e59b93",
+      "网络读取 3194e59b93，范围 32768–64043",
+      "已保存完整响应区间 3194e59b93",
+      "网络读取 3194e59b93，范围 0–32767",
+      "已恢复联网"
+    ]
+  },
+  "pid": 20960,
+  "nativeOffline": false
+}

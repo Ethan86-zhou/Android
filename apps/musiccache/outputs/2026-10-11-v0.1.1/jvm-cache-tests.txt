@@ -1,0 +1,16 @@
+Command: tools/cache-tests/run.ps1
+Runtime: Android Studio bundled JBR, javac --release 17
+Result: PASS 167 cache checks (real disk + loopback HTTP; no QQ login/playback claim)
+Exit code: 0
+
+Range regression: A partial HTTP body beginning at byte 32768 cannot be passed directly to Chromium AndroidStreamReaderURLLoader. InputStreamReader first treats available() as the whole representation length and then skips the original request offset. The WebResourceRequest-only adapter reports the full representation length for 206 initialization and acknowledges that initial seek without consuming the already sliced HTTP body. It never generates a zero-filled prefix and never increments byte counters for a synthetic seek. Subsequent real body reads use the original accounting/cache streams.
+
+Added coverage: reproduce original available/offset failure; simulate Chromium available -> ComputeBounds -> repeated skip -> read; nonzero network 206 and strong-validator completion; nonzero disk 206; suffix ranges; open-ended ranges; exact byte accounting and no HTTP traffic on offline hits; 504 responses with nonzero and suffix Range; 200 origin responses that ignore Range; int64 offsets above available() int bounds; mismatched upstream Content-Range fails closed; direct reads return only real response bytes.
+
+Retained coverage: overlap and holes; range validation; exact headers/body; restart persistence; query privacy and SHA-256 identity; HTTP cache policies; 24-hour marked heuristic; no-store/no-cache; truncated/overlong/abandoned streams; resource length and ETag changes; no/weak ETag isolation; conditional requests; capacity and concurrent reservations; cancellation; UI offline-toggle latency; redirect/URL allowlists; cache-only clearing.
+
+Primary Chromium sources:
+https://raw.githubusercontent.com/chromium/chromium/main/components/embedder_support/android/util/input_stream_reader.cc
+https://raw.githubusercontent.com/chromium/chromium/main/components/embedder_support/android/util/android_stream_reader_url_loader.cc
+
+These tests use Android response-container stubs, real disk and real loopback HTTP. Chromium seek behavior is simulated from source. Android WebView runtime behavior and QQ Music login/song caching still require separate on-device evidence. No normal application profile, account, cookie or production cache was accessed or cleared by this test run.

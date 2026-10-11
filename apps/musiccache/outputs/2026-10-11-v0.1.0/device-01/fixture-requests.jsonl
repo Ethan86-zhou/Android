@@ -1,0 +1,2 @@
+{"file": "full.wav", "status": 206, "range": "bytes=0-32767", "start": 0, "end": 32767, "declaredBytes": 32768, "bodyBytes": 32768, "truncated": false, "variant": "one", "at": "2026-10-11T13:56:40.795902+00:00"}
+{"file": "full.wav", "status": 206, "range": "bytes=32768-64043", "start": 32768, "end": 64043, "declaredBytes": 31276, "bodyBytes": 31276, "truncated": false, "variant": "one", "at": "2026-10-11T13:56:41.003530+00:00"}

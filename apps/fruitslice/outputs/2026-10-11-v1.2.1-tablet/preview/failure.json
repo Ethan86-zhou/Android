@@ -1,0 +1,6 @@
+{
+  "passed": false,
+  "reason": "Display was asleep during initial launch; captured black portrait frame and PAUSE. Screen woken and repeated in preview-02.",
+  "apkSha256": "36ff1c01ed894b8de5d0689bca63ba8a538bbb4763893fb27246aa11f8c97929",
+  "sourceBaseCommit": "64ee7b1cce57b79a2123a960a8dd9bc4a9a227fd"
+}

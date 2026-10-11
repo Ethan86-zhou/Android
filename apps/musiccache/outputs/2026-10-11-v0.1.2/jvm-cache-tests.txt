@@ -1,0 +1,24 @@
+Command: tools/cache-tests/run.ps1
+Runtime: Android Studio bundled JBR, javac --release 17
+Result: PASS 228 cache checks (real disk + loopback HTTP; no QQ login/playback claim)
+Exit code: 0
+
+WebView header regression: Chromium HeadersComplete generates Content-Length and Content-Type from Seek and the MIME value, then WebResourceResponse::GetResponseHeaders appends application headers. The WebView-only adapter now removes these two application header fields, so native generation produces a single value. For each simulated Chromium response the tests assert no duplicate application header, a single generated length, and exact equality with actual delivered body bytes.
+
+WebView response contract:
+- Valid 206: original Content-Range and CORS preserved; exact requested interval and length verified; initial native seek acknowledged without consuming response bytes; one correct generated Content-Length.
+- Original request has Range but origin replies 200: explicit HTTP 502, readable empty body, generated Content-Length 0; local diagnostic event retained.
+- Original request has Range and response is an error (including 403/416/504): original status retained, readable empty body, generated Content-Length 0; stale encoding/digest headers removed.
+- No Range: known full Content-Length is supplied as the native initial available value; original body preserved with one exact generated length, including useful error text.
+- Unknown body length, inconsistent Content-Range/Content-Length, or representation total beyond the native signed-int available limit: explicit 502 instead of unverifiable bytes.
+- Plain string HTTP overload keeps original HTTP status, headers, and body semantics.
+
+Coverage includes real loopback 206 network and disk reads, suffix/open-ended/nonzero ranges, offline misses, origin Range ignored, no-Range full GET, exact network/cache counters, conditional headers, no-store/no-cache policy, strong-validator merging, weak/no-validator isolation, disk persistence, privacy, bounded storage, truncated/overlong/cancelled streams, redirect allowlists, and nonblocking offline toggles.
+
+Primary Chromium sources:
+https://raw.githubusercontent.com/chromium/chromium/main/components/embedder_support/android/util/input_stream_reader.cc
+https://raw.githubusercontent.com/chromium/chromium/main/components/embedder_support/android/util/android_stream_reader_url_loader.cc
+https://raw.githubusercontent.com/chromium/chromium/main/components/embedder_support/android/util/web_resource_response.cc
+https://raw.githubusercontent.com/chromium/chromium/main/components/embedder_support/android/util/response_delegate_impl.cc
+
+These tests use Android response-container stubs, real disk, and real loopback HTTP. Chromium seek/header behavior is simulated from source. Actual Android WebView and QQ Music playback still require separate on-device evidence. No phone, normal profile, account, cookie, or production cache was accessed or cleared by this run.

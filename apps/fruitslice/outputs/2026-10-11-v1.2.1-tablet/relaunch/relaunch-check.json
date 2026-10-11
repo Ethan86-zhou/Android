@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "verifiedAt": "2026-10-11T19:46:12.683100+08:00",
+  "device": "SM-X710",
+  "serial": "R52X40484CE",
+  "android": "14",
+  "api": 34,
+  "versionName": "1.2.1",
+  "versionCode": 6,
+  "apkSha256": "36ff1c01ed894b8de5d0689bca63ba8a538bbb4763893fb27246aa11f8c97929",
+  "installedApkSha256": "36ff1c01ed894b8de5d0689bca63ba8a538bbb4763893fb27246aa11f8c97929",
+  "freshNaturalWaveElapsed": 0.3226185441017151,
+  "minimumRadius": 28,
+  "maximumRadius": 56,
+  "minimumDiameterRatio": 0.5,
+  "cleanBladeOnLaunch": true,
+  "historyCount": 0,
+  "best": 0,
+  "emptyPreferencesExactlyPreservedAcrossRelaunch": true,
+  "viewport": {
+    "width": 2560,
+    "height": 1600,
+    "worldHeight": 625,
+    "scale": 2.559999942779541
+  },
+  "runtimeAppCrash": false
+}

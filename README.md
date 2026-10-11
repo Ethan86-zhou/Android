@@ -10,7 +10,8 @@ GitHub 仓库：[Ethan86-zhou/Android](https://github.com/Ethan86-zhou/Android)�
 | --- | --- | --- | --- |
 | ForceSense 力感知 | [apps/forcesense](apps/forcesense/README.md) | 读取真实光感数据，模拟侧键按压力及 1.8 × 4 mm 力传感器形变 | [ForceSense-1.0.0-debug.apk](apps/forcesense/outputs/ForceSense-1.0.0-debug.apk) |
 | 拾词 Lexi | [apps/lexi](apps/lexi/README.md) | 内置 ECDICT 离线英汉词库，快捷查词、单词本、笔记与 CSV / Markdown / JSON 导出恢复 | [Lexi-1.0.2-debug.apk](apps/lexi/outputs/2026-10-11-v1.0.2/Lexi-1.0.2-debug.apk) |
-| 果刃 FruitSlice | [apps/fruitslice](apps/fruitslice/README.md) | 写实切水果，大小不同得分不同，彩虹果实随机切换玩法，只保存本机最高分 10 局；Android 16 起 | [FruitSlice-1.1.1-debug.apk](apps/fruitslice/outputs/2026-10-11-v1.1.1/FruitSlice-1.1.1-debug.apk) |
+| 果刃 FruitSlice | [apps/fruitslice](apps/fruitslice/README.md) | 手机与平板横屏切水果，抬手出刀，彩虹果实随机换模式，本机最高分 10 局；Android 14 起 | [FruitSlice-1.2.2-debug.apk](apps/fruitslice/outputs/2026-10-11-v1.2.2-end-sound/FruitSlice-1.2.2-debug.apk) |
+| 轻听 LightListen | [apps/musiccache](apps/musiccache/README.md) | 固定竖屏；QQ 音乐网页登录、原生搜索与歌单、后台播放和自动缓存 | [LightListen-0.3.1-debug.apk](apps/musiccache/outputs/2026-10-11-v0.3.1-portrait/LightListen-0.3.1-debug.apk) |
 
 ## 目录约定
 
@@ -59,7 +60,7 @@ AI 提交填写当次实际使用的模型名，不使用 `AI`、`Codex` 等工�
 
 ## 新电脑首次设置
 
-1. 安装 Git、Android Studio 和项目需要的 JDK / Android SDK，并登录有权访问本私有仓库的 GitHub 账号。通过 Git Credential Manager、GitHub Desktop 或 SSH 管理登录凭据，不在仓库 URL 中放令牌。
+1. 安装 Git、Android Studio 和项目需要的 JDK / Android SDK。公开仓库可以直接克隆；推送时登录有写入权限的 GitHub 账号。通过 Git Credential Manager、GitHub Desktop 或 SSH 管理登录凭据，不在仓库 URL 中放令牌。
 2. 进入准备保存项目的父目录，然后克隆：
 
 ```powershell
@@ -157,4 +158,10 @@ git commit -m 'gpt-6.1-sol: forcesense - 描述本次变更'
 git push
 ```
 
-仓库跟踪源码、构建配置、Gradle Wrapper、说明文档和有意保留的交付文件。Gradle 缓存、构建临时目录、IDE 配置、`local.properties`、本机编译的检查类和签名密钥由 `.gitignore` 排除；它们仍可在本机使用。设备验证记录可能包含设备序列号，后续若改成公开仓库，应先审查这些记录。
+仓库跟踪源码、构建配置、Gradle Wrapper、说明文档和有意保留的交付文件。Gradle 缓存、构建临时目录、IDE 配置、`local.properties`、本机编译的检查类和签名密钥由 `.gitignore` 排除；它们仍可在本机使用。仓库已公开，新增设备验证记录在提交前检查账号信息、登录截图及凭据；历史原始记录保持不变。
+
+## 仓库自动检查
+
+在仓库根目录运行 `python scripts/check-repository.py`，检查 APP 独立构建文件、项目索引、构建脚本执行权限、提交标题 hook、误跟踪的本机配置和嵌套 Git。脚本只读，不构建或安装 APP；应用行为仍按各项目 README 验证。加 `--local` 可额外核对当前克隆的 Git 身份与 hook 配置。
+
+GitHub 的 Repository checks 工作流在推送和 PR 时执行相同检查，并核对新增提交的标题格式。通过 PR 合并到 `main`，保留功能分支及原始交付证据；其他工作目录正在使用的分支不自动删除。

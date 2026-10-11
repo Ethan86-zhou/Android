@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "run": "test_20261011_215620_2f4ae091",
+  "phase": "online",
+  "fixture": "generated-440Hz-2s-PCM",
+  "checks": [
+    {
+      "name": "在线首段Range",
+      "ok": true,
+      "detail": "206; bytes 0-32767/64044; 32768 字节"
+    },
+    {
+      "name": "测试流程完成",
+      "ok": false,
+      "detail": "TypeError: Failed to fetch"
+    }
+  ],
+  "passed": false,
+  "engine": {
+    "diskBytes": 32768,
+    "networkBytes": 32768,
+    "hitBytes": 0,
+    "blockedRequests": 0,
+    "entries": [
+      {
+        "key": "5ca5eb3289d383b5b386b9337ca1a2794550caa0e5cbfd3d562eb879f52751b4",
+        "label": "WAV · 5ca5eb3289",
+        "cachedBytes": 32768,
+        "totalBytes": 64044,
+        "complete": false
+      }
+    ],
+    "events": [
+      "读取中止，未保存该区间 5ca5eb3289",
+      "网络读取 5ca5eb3289，范围 32768–64043",
+      "已保存完整响应区间 5ca5eb3289",
+      "网络读取 5ca5eb3289，范围 0–32767",
+      "已恢复联网"
+    ]
+  },
+  "pid": 14349,
+  "nativeOffline": false
+}

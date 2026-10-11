@@ -1,0 +1,157 @@
+{
+  "appVersion": "0.1.2",
+  "diskBytes": 6852792,
+  "networkBytes": 3848284,
+  "hitBytes": 0,
+  "blockedRequests": 4,
+  "entries": [
+    {
+      "key": "a082d8f0bc3b5cb4af81c85280161bb7fc72b9da57b5615faa621cc7c54d27ba",
+      "label": "M4A · a082d8f0bc",
+      "cachedBytes": 65536,
+      "totalBytes": 2742364,
+      "complete": false,
+      "fresh": true,
+      "canCombineRanges": true,
+      "spans": [
+        [
+          0,
+          65535
+        ]
+      ]
+    },
+    {
+      "key": "b03ad698b5be644677a928bbdb45374a98c89b92086d0cb4152449c4254ee8b6",
+      "label": "M4A · b03ad698b5",
+      "cachedBytes": 65536,
+      "totalBytes": 2962892,
+      "complete": false,
+      "fresh": true,
+      "canCombineRanges": true,
+      "spans": [
+        [
+          0,
+          65535
+        ]
+      ]
+    },
+    {
+      "key": "0d210184b13809a752935fb8653cda202d5b3cd1cc947306c490039fd9bd83b0",
+      "label": "M4A · 0d210184b1",
+      "cachedBytes": 65536,
+      "totalBytes": 2742364,
+      "complete": false,
+      "fresh": true,
+      "canCombineRanges": true,
+      "spans": [
+        [
+          0,
+          65535
+        ]
+      ]
+    },
+    {
+      "key": "e96e0417005756af5f87fae04c8e146e8f14c2310b6d7e154c46f7ca2ae533fa",
+      "label": "M4A · e96e041700",
+      "cachedBytes": 65536,
+      "totalBytes": 2742364,
+      "complete": false,
+      "fresh": true,
+      "canCombineRanges": true,
+      "spans": [
+        [
+          0,
+          65535
+        ]
+      ]
+    },
+    {
+      "key": "f3bd11a0329f9b51ad1e31d8bb2580a742871d096f450d37fce4821e03ec0fb9",
+      "label": "M4A · f3bd11a032",
+      "cachedBytes": 2742364,
+      "totalBytes": 2742364,
+      "complete": true,
+      "fresh": true,
+      "canCombineRanges": true,
+      "spans": [
+        [
+          0,
+          2742363
+        ]
+      ]
+    },
+    {
+      "key": "383e4897d1695bc0d65385af2b6281eccf63a38ad6c6658214c9669cda8257b3",
+      "label": "M4A · 383e4897d1",
+      "cachedBytes": 737280,
+      "totalBytes": 2742364,
+      "complete": false,
+      "fresh": true,
+      "canCombineRanges": true,
+      "spans": [
+        [
+          0,
+          737279
+        ]
+      ]
+    },
+    {
+      "key": "f40bdef4cca5b8424793bbf66f1222cc2eec493c727edd3157e70843a1e00f3a",
+      "label": "M4A · f40bdef4cc",
+      "cachedBytes": 2742364,
+      "totalBytes": 2742364,
+      "complete": true,
+      "fresh": true,
+      "canCombineRanges": true,
+      "spans": [
+        [
+          0,
+          2742363
+        ]
+      ]
+    },
+    {
+      "key": "51f8f90372fe9e7f020a8e933ee68fa0bd96eb41b163f022f3de83eab91c186e",
+      "label": "M4A · 51f8f90372",
+      "cachedBytes": 368640,
+      "totalBytes": 2962892,
+      "complete": false,
+      "fresh": true,
+      "canCombineRanges": true,
+      "spans": [
+        [
+          0,
+          368639
+        ]
+      ]
+    }
+  ],
+  "events": [
+    "离线缺段或已过期 51f8f90372",
+    "离线缺段或已过期 51f8f90372",
+    "离线缺段或已过期 51f8f90372",
+    "离线缺段或已过期 51f8f90372",
+    "已切换离线：仅返回完整覆盖的本机区间",
+    "已保存完整响应区间 51f8f90372",
+    "网络读取 51f8f90372，范围 65536–368639",
+    "已保存完整响应区间 51f8f90372",
+    "网络读取 51f8f90372，范围 0–65535",
+    "已保存完整响应区间 f40bdef4cc",
+    "网络读取 f40bdef4cc，范围 2580480–2742363",
+    "已保存完整响应区间 f40bdef4cc",
+    "网络读取 f40bdef4cc，范围 2211840–2580479",
+    "已保存完整响应区间 f40bdef4cc",
+    "网络读取 f40bdef4cc，范围 1843200–2211839",
+    "已保存完整响应区间 f40bdef4cc",
+    "网络读取 f40bdef4cc，范围 1474560–1843199",
+    "已保存完整响应区间 f40bdef4cc",
+    "网络读取 f40bdef4cc，范围 1105920–1474559",
+    "已保存完整响应区间 f40bdef4cc",
+    "网络读取 f40bdef4cc，范围 737280–1105919",
+    "已保存完整响应区间 f40bdef4cc",
+    "网络读取 f40bdef4cc，范围 368640–737279",
+    "已保存完整响应区间 f40bdef4cc"
+  ],
+  "offline": true,
+  "webHost": "y.qq.com"
+}

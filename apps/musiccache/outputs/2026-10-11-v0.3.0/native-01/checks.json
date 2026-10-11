@@ -1,0 +1,81 @@
+[
+  {
+    "name": "existing login preserved and all 14 favorites loaded",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "name": "playlist lists all 69 songs",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "name": "native queue contains all 69",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "name": "old complete cache reused with zero audio redownload",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "name": "real native audio output track active",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "name": "native seek to middle",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "name": "background automatic transition resolves next song",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "name": "background time advances",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "name": "system media pause stops progression",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "name": "system media resume works",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "name": "temporary audio focus interruption and recovery",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "name": "background queue and current progress persisted",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "name": "69th song plays in native player",
+    "passed": true,
+    "detail": null
+  },
+  {
+    "name": "official search provides 90 results over three pages",
+    "passed": true,
+    "detail": [
+      "显示前 90 首（官网报告 1035 条结果）；可用更精确关键词缩小范围"
+    ]
+  },
+  {
+    "name": "empty search has explicit result",
+    "passed": true,
+    "detail": [
+      "QQ 官方搜索未返回匹配歌曲，可换个关键词"
+    ]
+  }
+]

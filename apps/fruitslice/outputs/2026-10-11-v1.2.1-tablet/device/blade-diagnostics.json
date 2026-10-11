@@ -1,0 +1,3395 @@
+[
+  {
+    "kind": "received-touch",
+    "action": 0,
+    "downTime": 1953785760,
+    "eventTime": 1953785760,
+    "receivedAt": 1953785771,
+    "samples": [
+      {
+        "time": 1953785760,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 100,
+            "y": 250,
+            "pixelX": 256,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.016680467873811722,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 0,
+    "downTime": 1953785760,
+    "eventTime": 1953785760,
+    "returnedAt": 1953785771,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      100
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953785760,
+    "eventTime": 1953786465,
+    "receivedAt": 1953786466,
+    "samples": [
+      {
+        "time": 1953786465,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 600,
+            "y": 250,
+            "pixelX": 1536,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.5667425394058228,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953785760,
+    "eventTime": 1953786465,
+    "returnedAt": 1953786471,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      600
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 1,
+    "downTime": 1953785760,
+    "eventTime": 1953786471,
+    "receivedAt": 1953786472,
+    "samples": [
+      {
+        "time": 1953786471,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 600,
+            "y": 250,
+            "pixelX": 1536,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 500,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.5740414261817932,
+    "beforeStartedAt": 1953786465,
+    "beforeLastEventTime": 1953786465
+  },
+  {
+    "kind": "injected-touch",
+    "action": 1,
+    "downTime": 1953785760,
+    "eventTime": 1953786471,
+    "returnedAt": 1953786478,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      600
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 0,
+    "downTime": 1953786478,
+    "eventTime": 1953786478,
+    "receivedAt": 1953786487,
+    "samples": [
+      {
+        "time": 1953786478,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 100,
+            "y": 250,
+            "pixelX": 256,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.008457968942821026,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 0,
+    "downTime": 1953786478,
+    "eventTime": 1953786478,
+    "returnedAt": 1953786488,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      100
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953786478,
+    "eventTime": 1953786488,
+    "receivedAt": 1953786488,
+    "samples": [
+      {
+        "time": 1953786488,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 109.99984741210938,
+            "y": 250,
+            "pixelX": 281.599609375,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.008457968942821026,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953786478,
+    "eventTime": 1953786488,
+    "returnedAt": 1953786489,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      110
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953786478,
+    "eventTime": 1953787049,
+    "receivedAt": 1953787051,
+    "samples": [
+      {
+        "time": 1953787049,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 900,
+            "y": 250,
+            "pixelX": 2304,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 9.999847412109375,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.5669602155685425,
+    "beforeStartedAt": 1953786488,
+    "beforeLastEventTime": 1953786488
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953786478,
+    "eventTime": 1953787049,
+    "returnedAt": 1953787052,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      900
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 1,
+    "downTime": 1953786478,
+    "eventTime": 1953787306,
+    "receivedAt": 1953787307,
+    "samples": [
+      {
+        "time": 1953787306,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 900,
+            "y": 250,
+            "pixelX": 2304,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 9.999847412109375,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.8250994086265564,
+    "beforeStartedAt": 1953786488,
+    "beforeLastEventTime": 1953786488
+  },
+  {
+    "kind": "injected-touch",
+    "action": 1,
+    "downTime": 1953786478,
+    "eventTime": 1953787306,
+    "returnedAt": 1953787311,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      900
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 0,
+    "downTime": 1953787311,
+    "eventTime": 1953787311,
+    "receivedAt": 1953787325,
+    "samples": [
+      {
+        "time": 1953787311,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 100,
+            "y": 250,
+            "pixelX": 256,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.008814115077257156,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 0,
+    "downTime": 1953787311,
+    "eventTime": 1953787311,
+    "returnedAt": 1953787326,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      100
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953787311,
+    "eventTime": 1953787326,
+    "receivedAt": 1953787326,
+    "samples": [
+      {
+        "time": 1953787326,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 109.99984741210938,
+            "y": 250,
+            "pixelX": 281.599609375,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.008814115077257156,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953787311,
+    "eventTime": 1953787326,
+    "returnedAt": 1953787327,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      110
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953787311,
+    "eventTime": 1953787888,
+    "receivedAt": 1953787889,
+    "samples": [
+      {
+        "time": 1953787888,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 900,
+            "y": 250,
+            "pixelX": 2304,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 9.999847412109375,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.5755271315574646,
+    "beforeStartedAt": 1953787326,
+    "beforeLastEventTime": 1953787326
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953787311,
+    "eventTime": 1953787888,
+    "returnedAt": 1953787890,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      900
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 1,
+    "downTime": 1953787311,
+    "eventTime": 1953787895,
+    "receivedAt": 1953787896,
+    "samples": [
+      {
+        "time": 1953787895,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 900,
+            "y": 250,
+            "pixelX": 2304,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 9.999847412109375,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.5836942791938782,
+    "beforeStartedAt": 1953787326,
+    "beforeLastEventTime": 1953787326
+  },
+  {
+    "kind": "injected-touch",
+    "action": 1,
+    "downTime": 1953787311,
+    "eventTime": 1953787895,
+    "returnedAt": 1953787903,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      900
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 0,
+    "downTime": 1953787904,
+    "eventTime": 1953787904,
+    "receivedAt": 1953787912,
+    "samples": [
+      {
+        "time": 1953787904,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 100,
+            "y": 250,
+            "pixelX": 256,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.008431665599346161,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 0,
+    "downTime": 1953787904,
+    "eventTime": 1953787904,
+    "returnedAt": 1953787913,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      100
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953787904,
+    "eventTime": 1953787913,
+    "receivedAt": 1953787914,
+    "samples": [
+      {
+        "time": 1953787913,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 109.99984741210938,
+            "y": 250,
+            "pixelX": 281.599609375,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.008431665599346161,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953787904,
+    "eventTime": 1953787913,
+    "returnedAt": 1953787914,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      110
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953787904,
+    "eventTime": 1953788475,
+    "receivedAt": 1953788477,
+    "samples": [
+      {
+        "time": 1953788475,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 900,
+            "y": 250,
+            "pixelX": 2304,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 9.999847412109375,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.5668044090270996,
+    "beforeStartedAt": 1953787913,
+    "beforeLastEventTime": 1953787913
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953787904,
+    "eventTime": 1953788475,
+    "returnedAt": 1953788477,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      900
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 1,
+    "downTime": 1953787904,
+    "eventTime": 1953788479,
+    "receivedAt": 1953788481,
+    "samples": [
+      {
+        "time": 1953788479,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 900,
+            "y": 250,
+            "pixelX": 2304,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 9.999847412109375,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.5754254460334778,
+    "beforeStartedAt": 1953787913,
+    "beforeLastEventTime": 1953787913
+  },
+  {
+    "kind": "injected-touch",
+    "action": 1,
+    "downTime": 1953787904,
+    "eventTime": 1953788479,
+    "returnedAt": 1953788486,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      900
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 0,
+    "downTime": 1953788487,
+    "eventTime": 1953788487,
+    "receivedAt": 1953788497,
+    "samples": [
+      {
+        "time": 1953788487,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 100,
+            "y": 250,
+            "pixelX": 256,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.008584271185100079,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 0,
+    "downTime": 1953788487,
+    "eventTime": 1953788487,
+    "returnedAt": 1953788497,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      100
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953788487,
+    "eventTime": 1953788497,
+    "receivedAt": 1953788498,
+    "samples": [
+      {
+        "time": 1953788497,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 109.99984741210938,
+            "y": 250,
+            "pixelX": 281.599609375,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.008584271185100079,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953788487,
+    "eventTime": 1953788497,
+    "returnedAt": 1953788499,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      110
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953788487,
+    "eventTime": 1953789060,
+    "receivedAt": 1953789063,
+    "samples": [
+      {
+        "time": 1953789060,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 900,
+            "y": 250,
+            "pixelX": 2304,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 9.999847412109375,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.5755749344825745,
+    "beforeStartedAt": 1953788497,
+    "beforeLastEventTime": 1953788497
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953788487,
+    "eventTime": 1953789060,
+    "returnedAt": 1953789065,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      900
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 1,
+    "downTime": 1953788487,
+    "eventTime": 1953789071,
+    "receivedAt": 1953789072,
+    "samples": [
+      {
+        "time": 1953789071,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 900,
+            "y": 250,
+            "pixelX": 2304,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 9.999847412109375,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.5835167169570923,
+    "beforeStartedAt": 1953788497,
+    "beforeLastEventTime": 1953788497
+  },
+  {
+    "kind": "injected-touch",
+    "action": 1,
+    "downTime": 1953788487,
+    "eventTime": 1953789071,
+    "returnedAt": 1953789078,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      900
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 0,
+    "downTime": 1953789079,
+    "eventTime": 1953789079,
+    "receivedAt": 1953789091,
+    "samples": [
+      {
+        "time": 1953789079,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 100,
+            "y": 250,
+            "pixelX": 256,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.008660363964736462,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 0,
+    "downTime": 1953789079,
+    "eventTime": 1953789079,
+    "returnedAt": 1953789092,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      100
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953789079,
+    "eventTime": 1953789092,
+    "receivedAt": 1953789093,
+    "samples": [
+      {
+        "time": 1953789092,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 109.99984741210938,
+            "y": 250,
+            "pixelX": 281.599609375,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.008660363964736462,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953789079,
+    "eventTime": 1953789092,
+    "returnedAt": 1953789095,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      110
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953789079,
+    "eventTime": 1953789656,
+    "receivedAt": 1953789658,
+    "samples": [
+      {
+        "time": 1953789656,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 900,
+            "y": 250,
+            "pixelX": 2304,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 9.999847412109375,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.5754220485687256,
+    "beforeStartedAt": 1953789092,
+    "beforeLastEventTime": 1953789092
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953789079,
+    "eventTime": 1953789656,
+    "returnedAt": 1953789660,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      900
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 1,
+    "downTime": 1953789079,
+    "eventTime": 1953789662,
+    "receivedAt": 1953789664,
+    "samples": [
+      {
+        "time": 1953789662,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 900,
+            "y": 250,
+            "pixelX": 2304,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 9.999847412109375,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.5833414793014526,
+    "beforeStartedAt": 1953789092,
+    "beforeLastEventTime": 1953789092
+  },
+  {
+    "kind": "injected-touch",
+    "action": 1,
+    "downTime": 1953789079,
+    "eventTime": 1953789662,
+    "returnedAt": 1953789670,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      900
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 0,
+    "downTime": 1953789671,
+    "eventTime": 1953789671,
+    "receivedAt": 1953789681,
+    "samples": [
+      {
+        "time": 1953789671,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 100,
+            "y": 250,
+            "pixelX": 256,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.00854093674570322,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 0,
+    "downTime": 1953789671,
+    "eventTime": 1953789671,
+    "returnedAt": 1953789682,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      100
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953789671,
+    "eventTime": 1953789682,
+    "receivedAt": 1953789684,
+    "samples": [
+      {
+        "time": 1953789682,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 900,
+            "y": 250,
+            "pixelX": 2304,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.00854093674570322,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953789671,
+    "eventTime": 1953789682,
+    "returnedAt": 1953789685,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      900
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953789671,
+    "eventTime": 1953789685,
+    "receivedAt": 1953789688,
+    "samples": [
+      {
+        "time": 1953789685,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 700,
+            "y": 250,
+            "pixelX": 1792,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 800,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.016929112374782562,
+    "beforeStartedAt": 1953789682,
+    "beforeLastEventTime": 1953789682
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953789671,
+    "eventTime": 1953789685,
+    "returnedAt": 1953789689,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      700
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "observed-state",
+    "phase": "path-before-clipped-segment",
+    "pathUsed": 1000,
+    "started": true,
+    "exhausted": false,
+    "engineElapsed": 0.02491478994488716,
+    "observedAt": 1953789695,
+    "startedAt": 1953789682,
+    "lastEventTime": 1953789685,
+    "wallSinceStarted": 13
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953789671,
+    "eventTime": 1953789700,
+    "receivedAt": 1953789702,
+    "samples": [
+      {
+        "time": 1953789700,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 100,
+            "y": 250,
+            "pixelX": 256,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 1000,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.02491478994488716,
+    "beforeStartedAt": 1953789682,
+    "beforeLastEventTime": 1953789685
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953789671,
+    "eventTime": 1953789700,
+    "returnedAt": 1953789717,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      100
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "observed-state",
+    "phase": "path-after-clipped-segment",
+    "pathUsed": 1200,
+    "started": true,
+    "exhausted": true,
+    "engineElapsed": 0.04696603864431381,
+    "observedAt": 1953789718,
+    "startedAt": 1953789682,
+    "lastEventTime": 1953789700,
+    "wallSinceStarted": 36
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953789671,
+    "eventTime": 1953789723,
+    "receivedAt": 1953789724,
+    "samples": [
+      {
+        "time": 1953789723,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 800,
+            "y": 250,
+            "pixelX": 2048,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 1200,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.04985619708895683,
+    "beforeStartedAt": 1953789682,
+    "beforeLastEventTime": 1953789700
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953789671,
+    "eventTime": 1953789723,
+    "returnedAt": 1953789725,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      800
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 1,
+    "downTime": 1953789671,
+    "eventTime": 1953789728,
+    "receivedAt": 1953789730,
+    "samples": [
+      {
+        "time": 1953789728,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 800,
+            "y": 250,
+            "pixelX": 2048,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 1200,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.057877134531736374,
+    "beforeStartedAt": 1953789682,
+    "beforeLastEventTime": 1953789700
+  },
+  {
+    "kind": "injected-touch",
+    "action": 1,
+    "downTime": 1953789671,
+    "eventTime": 1953789728,
+    "returnedAt": 1953789736,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      800
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 0,
+    "downTime": 1953789736,
+    "eventTime": 1953789736,
+    "receivedAt": 1953789745,
+    "samples": [
+      {
+        "time": 1953789736,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 450,
+            "y": 250,
+            "pixelX": 1152,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.07467885315418243,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953789736,
+    "eventTime": 1953789754,
+    "receivedAt": 1953789756,
+    "samples": [
+      {
+        "time": 1953789754,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 470.0000915527344,
+            "y": 250,
+            "pixelX": 1203.2001953125,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.08273036032915115,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953789736,
+    "eventTime": 1953789765,
+    "receivedAt": 1953789766,
+    "samples": [
+      {
+        "time": 1953789765,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 490.0001525878906,
+            "y": 250,
+            "pixelX": 1254.400390625,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 20.000091552734375,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.09122005105018616,
+    "beforeStartedAt": 1953789754,
+    "beforeLastEventTime": 1953789754
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953789736,
+    "eventTime": 1953789777,
+    "receivedAt": 1953789778,
+    "samples": [
+      {
+        "time": 1953789777,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 509.9998474121094,
+            "y": 250,
+            "pixelX": 1305.599609375,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 40.000152587890625,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.10785531252622604,
+    "beforeStartedAt": 1953789754,
+    "beforeLastEventTime": 1953789765
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953789736,
+    "eventTime": 1953789787,
+    "receivedAt": 1953789787,
+    "samples": [
+      {
+        "time": 1953789787,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 529.9999389648438,
+            "y": 250,
+            "pixelX": 1356.7998046875,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 59.999847412109375,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.1161576583981514,
+    "beforeStartedAt": 1953789754,
+    "beforeLastEventTime": 1953789777
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953789736,
+    "eventTime": 1953789797,
+    "receivedAt": 1953789797,
+    "samples": [
+      {
+        "time": 1953789797,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 550,
+            "y": 250,
+            "pixelX": 1408,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 79.99993896484375,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.12452702969312668,
+    "beforeStartedAt": 1953789754,
+    "beforeLastEventTime": 1953789787
+  },
+  {
+    "kind": "received-touch",
+    "action": 1,
+    "downTime": 1953789736,
+    "eventTime": 1953789797,
+    "receivedAt": 1953789798,
+    "samples": [
+      {
+        "time": 1953789797,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 550,
+            "y": 250,
+            "pixelX": 1408,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 100,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.12452702969312668,
+    "beforeStartedAt": 1953789754,
+    "beforeLastEventTime": 1953789797
+  },
+  {
+    "kind": "received-touch",
+    "action": 0,
+    "downTime": 1953789833,
+    "eventTime": 1953789833,
+    "receivedAt": 1953789837,
+    "samples": [
+      {
+        "time": 1953789833,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 100,
+            "y": 250,
+            "pixelX": 256,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.008576354011893272,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 0,
+    "downTime": 1953789833,
+    "eventTime": 1953789833,
+    "returnedAt": 1953789837,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      100
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953789833,
+    "eventTime": 1953789837,
+    "receivedAt": 1953789837,
+    "samples": [
+      {
+        "time": 1953789837,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 500,
+            "y": 250,
+            "pixelX": 1280,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.008576354011893272,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953789833,
+    "eventTime": 1953789837,
+    "returnedAt": 1953789838,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      500
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 261,
+    "downTime": 1953789833,
+    "eventTime": 1953789838,
+    "receivedAt": 1953789838,
+    "samples": [
+      {
+        "time": 1953789838,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 500,
+            "y": 250,
+            "pixelX": 1280,
+            "pixelY": 640,
+            "isResampled": false
+          },
+          {
+            "id": 1,
+            "x": 100,
+            "y": 250,
+            "pixelX": 256,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 400,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.008576354011893272,
+    "beforeStartedAt": 1953789837,
+    "beforeLastEventTime": 1953789837
+  },
+  {
+    "kind": "injected-touch",
+    "action": 261,
+    "downTime": 1953789833,
+    "eventTime": 1953789838,
+    "returnedAt": 1953789838,
+    "ids": [
+      0,
+      1
+    ],
+    "logicalX": [
+      500,
+      100
+    ],
+    "logicalY": [
+      250,
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953789833,
+    "eventTime": 1953789838,
+    "receivedAt": 1953789839,
+    "samples": [
+      {
+        "time": 1953789838,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 500,
+            "y": 250,
+            "pixelX": 1280,
+            "pixelY": 640,
+            "isResampled": false
+          },
+          {
+            "id": 1,
+            "x": 500,
+            "y": 250,
+            "pixelX": 1280,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 400,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.008576354011893272,
+    "beforeStartedAt": 1953789837,
+    "beforeLastEventTime": 1953789837
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953789833,
+    "eventTime": 1953789838,
+    "returnedAt": 1953789839,
+    "ids": [
+      0,
+      1
+    ],
+    "logicalX": [
+      500,
+      500
+    ],
+    "logicalY": [
+      250,
+      250
+    ]
+  },
+  {
+    "kind": "observed-state",
+    "phase": "two-pointer-path",
+    "pathUsed": 800,
+    "started": true,
+    "exhausted": false,
+    "engineElapsed": 0.0166257806122303,
+    "observedAt": 1953789844,
+    "startedAt": 1953789837,
+    "lastEventTime": 1953789838,
+    "wallSinceStarted": 7
+  },
+  {
+    "kind": "received-touch",
+    "action": 6,
+    "downTime": 1953789833,
+    "eventTime": 1953789846,
+    "receivedAt": 1953789846,
+    "samples": [
+      {
+        "time": 1953789846,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 500,
+            "y": 250,
+            "pixelX": 1280,
+            "pixelY": 640,
+            "isResampled": false
+          },
+          {
+            "id": 1,
+            "x": 500,
+            "y": 250,
+            "pixelX": 1280,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 800,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.0166257806122303,
+    "beforeStartedAt": 1953789837,
+    "beforeLastEventTime": 1953789838
+  },
+  {
+    "kind": "injected-touch",
+    "action": 6,
+    "downTime": 1953789833,
+    "eventTime": 1953789846,
+    "returnedAt": 1953789847,
+    "ids": [
+      0,
+      1
+    ],
+    "logicalX": [
+      500,
+      500
+    ],
+    "logicalY": [
+      250,
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 261,
+    "downTime": 1953789833,
+    "eventTime": 1953789847,
+    "receivedAt": 1953789847,
+    "samples": [
+      {
+        "time": 1953789847,
+        "current": true,
+        "pointers": [
+          {
+            "id": 1,
+            "x": 500,
+            "y": 250,
+            "pixelX": 1280,
+            "pixelY": 640,
+            "isResampled": false
+          },
+          {
+            "id": 2,
+            "x": 100,
+            "y": 250,
+            "pixelX": 256,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 800,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.0166257806122303,
+    "beforeStartedAt": 1953789837,
+    "beforeLastEventTime": 1953789846
+  },
+  {
+    "kind": "injected-touch",
+    "action": 261,
+    "downTime": 1953789833,
+    "eventTime": 1953789847,
+    "returnedAt": 1953789847,
+    "ids": [
+      1,
+      2
+    ],
+    "logicalX": [
+      500,
+      100
+    ],
+    "logicalY": [
+      250,
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953789833,
+    "eventTime": 1953789847,
+    "receivedAt": 1953789848,
+    "samples": [
+      {
+        "time": 1953789847,
+        "current": true,
+        "pointers": [
+          {
+            "id": 1,
+            "x": 500,
+            "y": 250,
+            "pixelX": 1280,
+            "pixelY": 640,
+            "isResampled": false
+          },
+          {
+            "id": 2,
+            "x": 500,
+            "y": 250,
+            "pixelX": 1280,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 800,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.0166257806122303,
+    "beforeStartedAt": 1953789837,
+    "beforeLastEventTime": 1953789846
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953789833,
+    "eventTime": 1953789847,
+    "returnedAt": 1953789848,
+    "ids": [
+      1,
+      2
+    ],
+    "logicalX": [
+      500,
+      500
+    ],
+    "logicalY": [
+      250,
+      250
+    ]
+  },
+  {
+    "kind": "observed-state",
+    "phase": "rotated-pointer-path",
+    "pathUsed": 1200,
+    "started": true,
+    "exhausted": true,
+    "engineElapsed": 0.02501177042722702,
+    "observedAt": 1953789863,
+    "startedAt": 1953789837,
+    "lastEventTime": 1953789847,
+    "wallSinceStarted": 26
+  },
+  {
+    "kind": "received-touch",
+    "action": 6,
+    "downTime": 1953789833,
+    "eventTime": 1953789865,
+    "receivedAt": 1953789865,
+    "samples": [
+      {
+        "time": 1953789865,
+        "current": true,
+        "pointers": [
+          {
+            "id": 1,
+            "x": 500,
+            "y": 250,
+            "pixelX": 1280,
+            "pixelY": 640,
+            "isResampled": false
+          },
+          {
+            "id": 2,
+            "x": 500,
+            "y": 250,
+            "pixelX": 1280,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 1200,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.02501177042722702,
+    "beforeStartedAt": 1953789837,
+    "beforeLastEventTime": 1953789847
+  },
+  {
+    "kind": "injected-touch",
+    "action": 6,
+    "downTime": 1953789833,
+    "eventTime": 1953789865,
+    "returnedAt": 1953789866,
+    "ids": [
+      1,
+      2
+    ],
+    "logicalX": [
+      500,
+      500
+    ],
+    "logicalY": [
+      250,
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 261,
+    "downTime": 1953789833,
+    "eventTime": 1953789866,
+    "receivedAt": 1953789867,
+    "samples": [
+      {
+        "time": 1953789866,
+        "current": true,
+        "pointers": [
+          {
+            "id": 2,
+            "x": 500,
+            "y": 250,
+            "pixelX": 1280,
+            "pixelY": 640,
+            "isResampled": false
+          },
+          {
+            "id": 3,
+            "x": 100,
+            "y": 250,
+            "pixelX": 256,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 1200,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.02501177042722702,
+    "beforeStartedAt": 1953789837,
+    "beforeLastEventTime": 1953789847
+  },
+  {
+    "kind": "injected-touch",
+    "action": 261,
+    "downTime": 1953789833,
+    "eventTime": 1953789866,
+    "returnedAt": 1953789867,
+    "ids": [
+      2,
+      3
+    ],
+    "logicalX": [
+      500,
+      100
+    ],
+    "logicalY": [
+      250,
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953789833,
+    "eventTime": 1953789870,
+    "receivedAt": 1953789870,
+    "samples": [
+      {
+        "time": 1953789870,
+        "current": true,
+        "pointers": [
+          {
+            "id": 2,
+            "x": 500,
+            "y": 250,
+            "pixelX": 1280,
+            "pixelY": 640,
+            "isResampled": false
+          },
+          {
+            "id": 3,
+            "x": 800,
+            "y": 250,
+            "pixelX": 2048,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 1200,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.04172348603606224,
+    "beforeStartedAt": 1953789837,
+    "beforeLastEventTime": 1953789847
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953789833,
+    "eventTime": 1953789870,
+    "returnedAt": 1953789871,
+    "ids": [
+      2,
+      3
+    ],
+    "logicalX": [
+      500,
+      800
+    ],
+    "logicalY": [
+      250,
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 6,
+    "downTime": 1953789833,
+    "eventTime": 1953789878,
+    "receivedAt": 1953789879,
+    "samples": [
+      {
+        "time": 1953789878,
+        "current": true,
+        "pointers": [
+          {
+            "id": 2,
+            "x": 500,
+            "y": 250,
+            "pixelX": 1280,
+            "pixelY": 640,
+            "isResampled": false
+          },
+          {
+            "id": 3,
+            "x": 800,
+            "y": 250,
+            "pixelX": 2048,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 1200,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.050154734402894974,
+    "beforeStartedAt": 1953789837,
+    "beforeLastEventTime": 1953789847
+  },
+  {
+    "kind": "injected-touch",
+    "action": 6,
+    "downTime": 1953789833,
+    "eventTime": 1953789878,
+    "returnedAt": 1953789879,
+    "ids": [
+      2,
+      3
+    ],
+    "logicalX": [
+      500,
+      800
+    ],
+    "logicalY": [
+      250,
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 1,
+    "downTime": 1953789833,
+    "eventTime": 1953789879,
+    "receivedAt": 1953789880,
+    "samples": [
+      {
+        "time": 1953789879,
+        "current": true,
+        "pointers": [
+          {
+            "id": 3,
+            "x": 800,
+            "y": 250,
+            "pixelX": 2048,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 1200,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.050154734402894974,
+    "beforeStartedAt": 1953789837,
+    "beforeLastEventTime": 1953789847
+  },
+  {
+    "kind": "injected-touch",
+    "action": 1,
+    "downTime": 1953789833,
+    "eventTime": 1953789879,
+    "returnedAt": 1953789887,
+    "ids": [
+      3
+    ],
+    "logicalX": [
+      800
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 0,
+    "downTime": 1953789887,
+    "eventTime": 1953789887,
+    "receivedAt": 1953789896,
+    "samples": [
+      {
+        "time": 1953789887,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 100,
+            "y": 250,
+            "pixelX": 256,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.008099636062979698,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 0,
+    "downTime": 1953789887,
+    "eventTime": 1953789887,
+    "returnedAt": 1953789896,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      100
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953789887,
+    "eventTime": 1953789967,
+    "receivedAt": 1953790519,
+    "samples": [
+      {
+        "time": 1953789967,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 109.99984741210938,
+            "y": 250,
+            "pixelX": 281.599609375,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.6245582103729248,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953789887,
+    "eventTime": 1953790517,
+    "receivedAt": 1953790521,
+    "samples": [
+      {
+        "time": 1953789987,
+        "current": false,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 120.00007629394531,
+            "y": 250,
+            "pixelX": 307.2001953125,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      },
+      {
+        "time": 1953790517,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 900,
+            "y": 250,
+            "pixelX": 2304,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 9.999847412109375,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.6329997777938843,
+    "beforeStartedAt": 1953789967,
+    "beforeLastEventTime": 1953789967
+  },
+  {
+    "kind": "received-touch",
+    "action": 1,
+    "downTime": 1953789887,
+    "eventTime": 1953790528,
+    "receivedAt": 1953790529,
+    "samples": [
+      {
+        "time": 1953790528,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 900,
+            "y": 250,
+            "pixelX": 2304,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 9.999847412109375,
+    "beforeStarted": true,
+    "beforeExhausted": true,
+    "beforeEngineElapsed": 0.6411799192428589,
+    "beforeStartedAt": 1953789967,
+    "beforeLastEventTime": 1953789967
+  },
+  {
+    "kind": "injected-touch",
+    "action": 1,
+    "downTime": 1953789887,
+    "eventTime": 1953790528,
+    "returnedAt": 1953790536,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      900
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 0,
+    "downTime": 1953790536,
+    "eventTime": 1953790536,
+    "receivedAt": 1953790545,
+    "samples": [
+      {
+        "time": 1953790536,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 100,
+            "y": 250,
+            "pixelX": 256,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.00849104207009077,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 0,
+    "downTime": 1953790536,
+    "eventTime": 1953790536,
+    "returnedAt": 1953790546,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      100
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953790536,
+    "eventTime": 1953790546,
+    "receivedAt": 1953790547,
+    "samples": [
+      {
+        "time": 1953790546,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 109.99984741210938,
+            "y": 250,
+            "pixelX": 281.599609375,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.00849104207009077,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953790536,
+    "eventTime": 1953790546,
+    "returnedAt": 1953790547,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      110
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 3,
+    "downTime": 1953790536,
+    "eventTime": 1953790547,
+    "receivedAt": 1953790548,
+    "samples": [
+      {
+        "time": 1953790547,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 109.99984741210938,
+            "y": 250,
+            "pixelX": 281.599609375,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 9.999847412109375,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.00849104207009077,
+    "beforeStartedAt": 1953790546,
+    "beforeLastEventTime": 1953790546
+  },
+  {
+    "kind": "injected-touch",
+    "action": 3,
+    "downTime": 1953790536,
+    "eventTime": 1953790547,
+    "returnedAt": 1953790548,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      110
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 0,
+    "downTime": 1953790554,
+    "eventTime": 1953790554,
+    "receivedAt": 1953790563,
+    "samples": [
+      {
+        "time": 1953790554,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 450,
+            "y": 250,
+            "pixelX": 1152,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.025448907166719437,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953790554,
+    "eventTime": 1953790573,
+    "receivedAt": 1953790574,
+    "samples": [
+      {
+        "time": 1953790573,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 470.0000915527344,
+            "y": 250,
+            "pixelX": 1203.2001953125,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.03356703370809555,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953790554,
+    "eventTime": 1953790583,
+    "receivedAt": 1953790584,
+    "samples": [
+      {
+        "time": 1953790583,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 490.0001525878906,
+            "y": 250,
+            "pixelX": 1254.400390625,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 20.000091552734375,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.04185494780540466,
+    "beforeStartedAt": 1953790573,
+    "beforeLastEventTime": 1953790573
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953790554,
+    "eventTime": 1953790599,
+    "receivedAt": 1953790600,
+    "samples": [
+      {
+        "time": 1953790599,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 509.9998474121094,
+            "y": 250,
+            "pixelX": 1305.599609375,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 40.000152587890625,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.05880953371524811,
+    "beforeStartedAt": 1953790573,
+    "beforeLastEventTime": 1953790583
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953790554,
+    "eventTime": 1953790610,
+    "receivedAt": 1953790612,
+    "samples": [
+      {
+        "time": 1953790610,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 529.9999389648438,
+            "y": 250,
+            "pixelX": 1356.7998046875,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 59.999847412109375,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.07529156655073166,
+    "beforeStartedAt": 1953790573,
+    "beforeLastEventTime": 1953790599
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953790554,
+    "eventTime": 1953790621,
+    "receivedAt": 1953790623,
+    "samples": [
+      {
+        "time": 1953790621,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 550,
+            "y": 250,
+            "pixelX": 1408,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 79.99993896484375,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.08343114703893661,
+    "beforeStartedAt": 1953790573,
+    "beforeLastEventTime": 1953790610
+  },
+  {
+    "kind": "received-touch",
+    "action": 1,
+    "downTime": 1953790554,
+    "eventTime": 1953790623,
+    "receivedAt": 1953790624,
+    "samples": [
+      {
+        "time": 1953790623,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 550,
+            "y": 250,
+            "pixelX": 1408,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 100,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.08343114703893661,
+    "beforeStartedAt": 1953790573,
+    "beforeLastEventTime": 1953790621
+  },
+  {
+    "kind": "received-touch",
+    "action": 0,
+    "downTime": 1953790659,
+    "eventTime": 1953790659,
+    "receivedAt": 1953790663,
+    "samples": [
+      {
+        "time": 1953790659,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 100,
+            "y": 250,
+            "pixelX": 256,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.008257969282567501,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 0,
+    "downTime": 1953790659,
+    "eventTime": 1953790659,
+    "returnedAt": 1953790664,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      100
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953790659,
+    "eventTime": 1953790664,
+    "receivedAt": 1953790664,
+    "samples": [
+      {
+        "time": 1953790664,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 109.99984741210938,
+            "y": 250,
+            "pixelX": 281.599609375,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.008257969282567501,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953790659,
+    "eventTime": 1953790664,
+    "returnedAt": 1953790665,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      110
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953790659,
+    "eventTime": 1953790679,
+    "receivedAt": 1953790679,
+    "samples": [
+      {
+        "time": 1953790679,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 500,
+            "y": 388.4998474121094,
+            "pixelX": 1280,
+            "pixelY": 994.5595703125,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.01644020900130272,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953790659,
+    "eventTime": 1953790679,
+    "returnedAt": 1953790680,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      500
+    ],
+    "logicalY": [
+      388.5
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 1,
+    "downTime": 1953790659,
+    "eventTime": 1953790680,
+    "receivedAt": 1953790681,
+    "samples": [
+      {
+        "time": 1953790680,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 500,
+            "y": 388.4998474121094,
+            "pixelX": 1280,
+            "pixelY": 994.5595703125,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.01644020900130272,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "injected-touch",
+    "action": 1,
+    "downTime": 1953790659,
+    "eventTime": 1953790680,
+    "returnedAt": 1953790687,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      500
+    ],
+    "logicalY": [
+      388.5
+    ]
+  },
+  {
+    "kind": "received-touch",
+    "action": 0,
+    "downTime": 1953790902,
+    "eventTime": 1953790902,
+    "receivedAt": 1953790913,
+    "samples": [
+      {
+        "time": 1953790902,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 500,
+            "y": 388.4998474121094,
+            "pixelX": 1280,
+            "pixelY": 994.5595703125,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.01644020900130272,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953790902,
+    "eventTime": 1953790920,
+    "receivedAt": 1953790927,
+    "samples": [
+      {
+        "time": 1953790920,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 500,
+            "y": 388.4998474121094,
+            "pixelX": 1280,
+            "pixelY": 994.5595703125,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.01644020900130272,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953790902,
+    "eventTime": 1953790934,
+    "receivedAt": 1953790935,
+    "samples": [
+      {
+        "time": 1953790934,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 500,
+            "y": 388.4998474121094,
+            "pixelX": 1280,
+            "pixelY": 994.5595703125,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.01644020900130272,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953790902,
+    "eventTime": 1953790942,
+    "receivedAt": 1953790944,
+    "samples": [
+      {
+        "time": 1953790942,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 500,
+            "y": 388.4998474121094,
+            "pixelX": 1280,
+            "pixelY": 994.5595703125,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.01644020900130272,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953790902,
+    "eventTime": 1953790950,
+    "receivedAt": 1953790952,
+    "samples": [
+      {
+        "time": 1953790950,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 500,
+            "y": 388.4998474121094,
+            "pixelX": 1280,
+            "pixelY": 994.5595703125,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.01644020900130272,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953790902,
+    "eventTime": 1953790959,
+    "receivedAt": 1953790961,
+    "samples": [
+      {
+        "time": 1953790959,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 500,
+            "y": 388.4998474121094,
+            "pixelX": 1280,
+            "pixelY": 994.5595703125,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.01644020900130272,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "received-touch",
+    "action": 1,
+    "downTime": 1953790902,
+    "eventTime": 1953790961,
+    "receivedAt": 1953790962,
+    "samples": [
+      {
+        "time": 1953790961,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 500,
+            "y": 388.4998474121094,
+            "pixelX": 1280,
+            "pixelY": 994.5595703125,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.01644020900130272,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "received-touch",
+    "action": 0,
+    "downTime": 1953791000,
+    "eventTime": 1953791000,
+    "receivedAt": 1953791005,
+    "samples": [
+      {
+        "time": 1953791000,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 420.0000915527344,
+            "y": 250,
+            "pixelX": 1075.2001953125,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.05009879916906357,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953791000,
+    "eventTime": 1953791015,
+    "receivedAt": 1953791015,
+    "samples": [
+      {
+        "time": 1953791015,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 452.00006103515625,
+            "y": 250,
+            "pixelX": 1157.1201171875,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 0,
+    "beforeStarted": false,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.05823531001806259,
+    "beforeStartedAt": 0,
+    "beforeLastEventTime": -1
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953791000,
+    "eventTime": 1953791033,
+    "receivedAt": 1953791034,
+    "samples": [
+      {
+        "time": 1953791033,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 484.0000305175781,
+            "y": 250,
+            "pixelX": 1239.0400390625,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 31.999969482421875,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.07500546425580978,
+    "beforeStartedAt": 1953791015,
+    "beforeLastEventTime": 1953791015
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953791000,
+    "eventTime": 1953791043,
+    "receivedAt": 1953791045,
+    "samples": [
+      {
+        "time": 1953791043,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 516,
+            "y": 250,
+            "pixelX": 1320.9599609375,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 63.99993896484375,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.09195233881473541,
+    "beforeStartedAt": 1953791015,
+    "beforeLastEventTime": 1953791033
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953791000,
+    "eventTime": 1953791055,
+    "receivedAt": 1953791056,
+    "samples": [
+      {
+        "time": 1953791055,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 547.9999389648438,
+            "y": 250,
+            "pixelX": 1402.8798828125,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 95.99990844726562,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.10001249611377716,
+    "beforeStartedAt": 1953791015,
+    "beforeLastEventTime": 1953791043
+  },
+  {
+    "kind": "received-touch",
+    "action": 2,
+    "downTime": 1953791000,
+    "eventTime": 1953791065,
+    "receivedAt": 1953791066,
+    "samples": [
+      {
+        "time": 1953791065,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 579.9999389648438,
+            "y": 250,
+            "pixelX": 1484.7998046875,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 127.99984741210938,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.10813406109809875,
+    "beforeStartedAt": 1953791015,
+    "beforeLastEventTime": 1953791055
+  },
+  {
+    "kind": "received-touch",
+    "action": 1,
+    "downTime": 1953791000,
+    "eventTime": 1953791067,
+    "receivedAt": 1953791068,
+    "samples": [
+      {
+        "time": 1953791067,
+        "current": true,
+        "pointers": [
+          {
+            "id": 0,
+            "x": 579.9999389648438,
+            "y": 250,
+            "pixelX": 1484.7998046875,
+            "pixelY": 640,
+            "isResampled": false
+          }
+        ]
+      }
+    ],
+    "resampleFlagAvailable": false,
+    "beforePathUsed": 159.99984741210938,
+    "beforeStarted": true,
+    "beforeExhausted": false,
+    "beforeEngineElapsed": 0.10813406109809875,
+    "beforeStartedAt": 1953791015,
+    "beforeLastEventTime": 1953791065
+  },
+  {
+    "kind": "injected-touch",
+    "action": 0,
+    "downTime": 1953795358,
+    "eventTime": 1953795358,
+    "returnedAt": 1953795373,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      100
+    ],
+    "logicalY": [
+      250
+    ]
+  },
+  {
+    "kind": "injected-touch",
+    "action": 2,
+    "downTime": 1953795358,
+    "eventTime": 1953795373,
+    "returnedAt": 1953795376,
+    "ids": [
+      0
+    ],
+    "logicalX": [
+      110
+    ],
+    "logicalY": [
+      250
+    ]
+  }
+]

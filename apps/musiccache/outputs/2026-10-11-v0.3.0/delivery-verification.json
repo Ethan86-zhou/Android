@@ -1,0 +1,65 @@
+{
+  "app": "LightListen",
+  "version": "0.3.0",
+  "apk": "LightListen-0.3.0-debug.apk",
+  "apkSha256": "5786d2991b61ca948e166216047f1de75b743844e142181cf703f0e619d246a6",
+  "apkBytes": 5517339,
+  "baseCommit": "5dedbfc65cb4615ed6f84961b85f1b92e5b95ca5",
+  "appWorkingTreeDirty": true,
+  "sourceManifest": "source-sha256.json",
+  "sourceManifestSha256": "013dff006148c46b1bc95bc3d53677a772ff0e10d541459b5884bead1f3d702f",
+  "sourceNote": "Manifest hashes identify the tested working-tree source; baseCommit alone does not identify uncommitted code.",
+  "productionSourceUnchangedSinceNativeAcceptance": true,
+  "device": "Samsung SM-S9080 / Android 16",
+  "checks": {
+    "native": {
+      "passed": true,
+      "count": 15,
+      "sameApk": true
+    },
+    "screenOff": {
+      "passed": true,
+      "count": 3,
+      "sameApk": true
+    },
+    "isolatedCache": {
+      "passed": true,
+      "count": 50,
+      "sameApk": true
+    }
+  },
+  "originalAudio": {
+    "originalFiles": 55,
+    "currentFiles": 76,
+    "newFiles": 21,
+    "missing": [],
+    "changed": [],
+    "allOriginalAudioPreserved": true
+  },
+  "finalState": {
+    "appVersion": "0.3.0",
+    "state": 3,
+    "isPlaying": true,
+    "playWhenReady": true,
+    "positionMs": 20691,
+    "durationMs": 213159,
+    "currentMediaId": "000MDaNK0krdFb",
+    "queueIndex": 66,
+    "queueSize": 69,
+    "errorCode": 0,
+    "diskBytes": 20643552,
+    "networkBytes": 5505836,
+    "hitBytes": 3939102,
+    "validationRequests": 2,
+    "validationBytes": 2,
+    "reusedSignedLinks": 2
+  },
+  "passed": false,
+  "limits": [
+    "Real songs 1, 2 and 69 sampled; not an uninterrupted 69-song playback test.",
+    "Search reads at most 90 results and displays provider total.",
+    "AGP lint completed with Kotlin dependency metadata compatibility diagnostics.",
+    "Initial screen test incorrectly required Asleep; Samsung Dozing/DOZE_SUSPEND validated separately in native-03-screenoff."
+  ],
+  "phoneLeft": "Paused, screen woken, ordinary keyguard remains; login and cached audio preserved."
+}

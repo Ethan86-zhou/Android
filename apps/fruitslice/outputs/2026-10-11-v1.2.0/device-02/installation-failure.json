@@ -1,0 +1,10 @@
+{
+  "passed": false,
+  "stage": "install",
+  "reason": "ADB install exited 1 while the Samsung USB connection disconnected; subsequent adb devices was empty. No instrumentation ran in this attempt.",
+  "apkSha256": "562371e203a91a20f9f24105b8f6c1ef342346a2c313b60c7978324b219c385b",
+  "sourceCommit": "22b68942c2e5f857f10f8bd9d0d8a389f5486aab",
+  "sourceContent": "Working tree feature changes were uncommitted.",
+  "reconnectedSerial": "R5CT92GMYBM",
+  "reconnectedTransportId": 2
+}

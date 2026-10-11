@@ -1,0 +1,44 @@
+{
+  "score": 93,
+  "sliced": 6,
+  "remaining": 53.54450225830078,
+  "elapsed": 6.454784870147705,
+  "misses": 3,
+  "mode": "DOUBLE",
+  "switches": 1,
+  "modeRemaining": 5.369354248046875,
+  "maxCombo": 3,
+  "bombsHit": 0,
+  "overlay": "RESULT",
+  "historyCount": 8,
+  "best": 168,
+  "worldHeight": 625,
+  "scale": 2.559999942779541,
+  "offsetX": 0,
+  "bladeLocked": false,
+  "bladeStarted": false,
+  "bladePath": 0,
+  "touchCount": 0,
+  "fruits": [
+    {
+      "id": 9,
+      "type": 5,
+      "x": 199.90225219726562,
+      "y": 622.0781860351562,
+      "vx": 2.5918209552764893,
+      "vy": 1113.78564453125,
+      "r": 35,
+      "points": 12
+    },
+    {
+      "id": 10,
+      "type": 2,
+      "x": 550.5664672851562,
+      "y": 643.0490112304688,
+      "vx": 40.35308074951172,
+      "vy": 1113.7650146484375,
+      "r": 56,
+      "points": 5
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+精简原生播放器：架构边界与实机验收草案（2026-10-11）
+性质：只读审查后的实施/验收建议，不是新播放器已经通过的证明。
+
+一、必须保持的架构边界
+1. 同进程的 PlayerRuntime 持有唯一 RangeCache/CacheProxy，仍使用 files/audio-cache；
+   MediaSessionService 持有播放器和队列，Activity 只连接控制器/展示页面。
+   现有 MainActivity.onDestroy 会 cancelActive/destroy WebView，不能照搬到共享 runtime。
+   RangeCache 的锁只在单个 Java 实例内；不要在同目录建立第二实例或另开播放器进程。
+   不另套 SimpleCache，不复制原有音频。保留 applicationId、签名、默认 WebView profile。
+
+2. Media3 DataSource 只接收稳定的 qqmusic://song/<songmid>；临时 URL/请求头仅留内存。
+   走 CacheProxy.intercept(String, method, headers)，不走 WebView 专用 available/skip 适配。
+   把 DataSpec.position/length 映射到 HTTP Range，逐项校验 206 起点、终点、总长和实读长度。
+   200 忽略 Range 时须真正读取并丢弃前缀（计入网络量），或给明确错误，不能伪 skip。
+   position 等于总长时正常 EOF，大于总长时报 POSITION_OUT_OF_RANGE；越界长度读到文件尾。
+   read(0)、提前 EOF、失败后的 close、重复 close、取消/切歌、算术溢出均需覆盖。
+   原缓存只提交完整 HTTP 响应区间：无界整首请求提前 seek 会丢弃未完成片段。
+   推荐原生读取拆成有界片段；若暂不拆，应明确早停缓存限制，不能显示已完整缓存。
+
+3. songmid 是曲目身份，不是音频文件版本。旧 MAGIC2 仍仅精确 URL 命中后迁移身份；
+   不从曲名、songmid、相似哈希或文件大小猜旧资源。MAGIC3/alias 继续验证具体源版本。
+   新签名只能在当前 URL 实际单字节 206 校验后，以同来源/路径/质量、强 ETag、总长、MIME
+   和可缓存策略匹配旧音频。no-store/no-cache、条件头、403、版本变化不得放宽。
+   持久化队列只含 songmid、必要展示元数据和进度；不落盘签名 URL、Cookie、认证请求头。
+
+4. 官方 WebView 的 resolver 必须在 Activity 离开/重建后仍可为下一首工作，并只在主线程使用。
+   每次结果绑定请求编号、songmid、质量和队列代数；过期异步回调不能切回上一首。
+   搜索/喜欢/解析串行或隔离，限定官方来源，验证返回结构和媒体白名单；不信任任意页面回调。
+   不读取 document.cookie 或 CookieManager.getCookie，不将 Cookie 导出到原生播放器。
+   登录按需展示官方页/用户触发的登录弹窗，继续使用已有 profile；取消登录应能返回首页。
+   解析页不得同时发声或后台下载第二份音频；原生播放器应是唯一实际播放源。
+   登录过期、网页改版、超时和 renderer 退出需终止当前解析并显示可重试状态，不能无限等待。
+
+5. MediaSessionService 声明 mediaPlayback 前台服务类型及对应权限；播放器开启音频焦点管理、
+   耳机断开暂停和适当屏幕关闭唤醒模式。API 35+ 后台获取焦点要求前台服务已建立。
+   Activity 销毁不 release 播放器；服务销毁/明确停止才释放播放器、session、解析任务。
+   系统/耳机控制只操作现有队列；只有本 App 可写队列；不接受外部任意 URL/DRM 配置。
+   401/403 不以旧音频兜底。重新获取链接要有有限重试，并防止连续错误导致跳歌死循环。
+
+二、精简验收矩阵（每项记录预期、实测、证据、通过/失败）
+A. 升级保留：覆盖安装前后核对已安装 APK 哈希、36 个既有音频文件名/哈希、默认登录状态。
+   不卸载/清数据/重置 profile。新产物、源码 manifest、日志写入新的版本目录。
+B. 原生首页：启动即能搜索、打开“我的喜欢”、查看队列和播放控制；只在需要时展示官方登录页。
+   搜索至少两次、含中文/空结果；喜欢列表与官方页当前账户一致，分页/空列表有明确状态。
+C. 登录链路：已有登录保留；在隔离 profile 验证未登录、取消登录、登录完成、认证失效。
+   不为测试主动退出真实账户。切换账户后不得显示另一账户的旧喜欢列表。
+D. 播放与身份：至少两首真实可播歌曲依次加入队列；开始、暂停、继续、上/下一首、拖动有效，
+   曲名/歌手/songmid/时长对应，快速连点切歌不被旧 resolver 回调覆盖，无网页+原生双重音频。
+E. 后台核心：A 播放后 Home/锁屏，A 结束自动进入 B；B 开始前须实际触发新的网页解析。
+   用 Activity 重建/关闭页面复测；记录 MediaSession 状态、曲目、时间推进、前台服务和音频输出。
+   仅在前台预先解析好 B 后播放，不足以证明后台 resolver 可用。
+F. 系统控制：锁屏/通知/媒体按键的播放暂停和上下首与首页一致；耳机断开暂停。
+   其他播放器抢焦点时本 App 暂停/按策略降低音量，不能双响；返回/恢复遵守用户暂停状态。
+   没有真实耳机时媒体按键注入只能证明 session 路由，硬件断开需标记未验证。
+G. 自动缓存：新歌曲播放后缓存增长；中途 seek/下一首后只提交完整响应片段，不误报完整；
+   回到前段统计真实复用量。完整播放后缓存区间覆盖全长，并独立校验完整内容 SHA-256。
+H. 旧缓存复用：使用已有完整歌曲，经新签名验证后原生开始/中段/尾段/重开首页重播；
+   普通音频 networkBytes 增量为 0，单字节 validationBytes 单独计数，磁盘音频文件不增加。
+   同曲不同音质/版本必须重新获取，不可仅凭 songmid 命中；旧未识别记录原位保留。
+I. 失败边界：隔离夹具覆盖 403、过期 URL、不同 ETag、弱/缺 ETag、no-store/no-cache、
+   200 忽略 Range、截断响应、缓存缺段、错误 MIME、解析超时和失效回调。
+   新请求被拒绝时没有旧音频输出，错误可见且没有无限重试；严格离线无任何校验/音频联网。
+J. 生命周期：后台当前曲及换曲持续；暂停后重新打开首页状态一致；进程重建后恢复队列元数据，
+   重新解析临时 URL。系统杀进程与用户 force-stop 分开，不承诺强停后自动复活。
+K. 隐私：检查新增持久化/日志/MediaSession extras/异常，不出现 Cookie、完整签名 URL、
+   任意账号凭据或原始认证响应；用户音频不导出。公开证据仅含哈希、计数、必要曲目元数据。
+L. 回归：新 APK 上重跑既有隔离缓存验证，并增加真正 Media3 DataSource/Service 路径的测试。
+   旧 WebView 的 50 项通过不能代替原生后台播放通过；自测进程不能触及真实 profile 或清缓存。
+
+三、证据口径
+“完整缓存”需要字节覆盖和长度；“实际播放”需要时间推进及运行中的实际音频输出证据。
+“重复播放不重下载”要同时检查音频网络计数、独立校验计数、缓存读取量、原音频文件哈希；
+不等于网页/认证/请求头零流量。分位置播放不等于从头到尾连续播放。
+Media3 的 Player.STATE_READY 或 UI 播放图标本身不是正在输出声音的证明。
+
+官方依据（审查时查阅）
+MediaSessionService/前台权限/控制器和恢复：
+https://developer.android.com/media/media3/session/background-playback
+DataSource open/read/close 边界：
+https://developer.android.com/reference/androidx/media3/datasource/DataSource
+Android 15+ 音频焦点约束：
+https://developer.android.com/media/optimize/audio-focus
+耳机断开与屏幕关闭唤醒配置：
+https://developer.android.com/reference/androidx/media3/exoplayer/ExoPlayer.Builder

@@ -1,0 +1,9 @@
+{
+  "passed": false,
+  "status": "Layout preview only; full instrumented acceptance pending",
+  "screenNowAwake": true,
+  "sourceBaseCommit": "64ee7b1cce57b79a2123a960a8dd9bc4a9a227fd",
+  "apkSha256": "36ff1c01ed894b8de5d0689bca63ba8a538bbb4763893fb27246aa11f8c97929",
+  "untouchedFirstInstallHistoryRestored": true,
+  "onlyZeroUntouchedPreviewRounds": true
+}

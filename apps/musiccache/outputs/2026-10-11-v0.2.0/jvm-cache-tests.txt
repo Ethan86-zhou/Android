@@ -1,0 +1,10 @@
+MusicCache v0.2.0 pure Java cache regression
+Date: 2026-10-11
+Command: .\tools\cache-tests\run.ps1
+Result: PASS 333 cache checks (real disk + loopback HTTP; no QQ login/playback claim)
+
+Coverage: range overlap, holes, suffix/open ranges, truncated bodies, total/version changes, persistence, cache policy, strict offline, cancellation, Chromium available/skip/read and response-header adaptation; signed-link one-byte authorization/version probe; strong ETag/MIME/length/resource identity; unknown query and origin isolation; denied permission and changed content; no-store/weak-validator/conditional-request behavior; file sharing without duplicate audio; alias restart and version invalidation; legacy MAGIC2 exact-URL lazy migration with original audio bytes retained.
+
+Statistics distinguish validationRequests and validationBytes from audio networkBytes. Only a verified complete source with a matching strong validator may be reused after a successful current-URL 206 bytes 0-0 response.
+
+This is JVM disk/HTTP evidence. Android WebView, real QQ login, playback, and device network evidence require the separately recorded device acceptance. No phone or normal application data was operated on by this test.

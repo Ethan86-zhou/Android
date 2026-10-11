@@ -1,0 +1,119 @@
+{
+  "schema": 1,
+  "run": "test_20261011_234813_be04d92b",
+  "phase": "partial_offline",
+  "fixture": "generated-440Hz-2s-PCM",
+  "checks": [
+    {
+      "name": "部分资源已缓存段命中",
+      "ok": true,
+      "detail": "206; bytes 0-4095/64044; 4096 字节"
+    },
+    {
+      "name": "未缓存尾段明确失败",
+      "ok": true,
+      "detail": "HTTP 504; 正文读取完成=0 字节; Content-Length=0"
+    },
+    {
+      "name": "部分缓存不冒充整首",
+      "ok": true,
+      "detail": "HTTP 504; 正文读取完成=39 字节; Content-Length=39"
+    },
+    {
+      "name": "no-store不持久缓存",
+      "ok": true,
+      "detail": "HTTP 504; 正文读取完成=39 字节; Content-Length=39"
+    },
+    {
+      "name": "截断响应不污染缓存",
+      "ok": true,
+      "detail": "HTTP 504; 正文读取完成=0 字节; Content-Length=0"
+    },
+    {
+      "name": "忽略Range的响应不污染缓存",
+      "ok": true,
+      "detail": "HTTP 504; 正文读取完成=0 字节; Content-Length=0"
+    },
+    {
+      "name": "未经在线认证的新签名离线不复用",
+      "ok": true,
+      "detail": "HTTP 504; 正文读取完成=39 字节; Content-Length=39"
+    },
+    {
+      "name": "认证拒绝的签名离线不复用",
+      "ok": true,
+      "detail": "HTTP 504; 正文读取完成=39 字节; Content-Length=39"
+    }
+  ],
+  "passed": true,
+  "engine": {
+    "appVersion": "0.3.0",
+    "diskBytes": 132184,
+    "networkBytes": 0,
+    "hitBytes": 4096,
+    "blockedRequests": 7,
+    "validationBytes": 0,
+    "validationRequests": 0,
+    "reusedSignedLinks": 0,
+    "entries": [
+      {
+        "key": "1898dc918206313d8fa466767036190e6310486b5afe7f8d52c37b450574e31c",
+        "label": "WAV · 1898dc9182",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      {
+        "key": "b81bebef6de18280c316fea9294a712f300e02d1c671d9cc69c39caf37f7c4f2",
+        "label": "WAV · b81bebef6d",
+        "cachedBytes": 64044,
+        "totalBytes": 64044,
+        "complete": true,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            64043
+          ]
+        ]
+      },
+      {
+        "key": "b8cf7dbb94c37dc11e913d2236f14d2e55a24fb819b4d473d90c3f8bf4f17975",
+        "label": "WAV · b8cf7dbb94",
+        "cachedBytes": 4096,
+        "totalBytes": 64044,
+        "complete": false,
+        "fresh": true,
+        "canCombineRanges": true,
+        "spans": [
+          [
+            0,
+            4095
+          ]
+        ]
+      }
+    ],
+    "events": [
+      "离线缺段或已过期 2068505bbe",
+      "离线缺段或已过期 11bb4d3b89",
+      "离线缺段或已过期 e7a7683f89",
+      "离线缺段或已过期 bd543d4dd4",
+      "离线缺段或已过期 ccc7eeb024",
+      "离线缺段或已过期 b8cf7dbb94",
+      "离线缺段或已过期 b8cf7dbb94",
+      "缓存命中 b8cf7dbb94，范围 0–4095",
+      "已切换离线：仅返回完整覆盖的本机区间"
+    ]
+  },
+  "pid": 15181,
+  "nativeOffline": true
+}

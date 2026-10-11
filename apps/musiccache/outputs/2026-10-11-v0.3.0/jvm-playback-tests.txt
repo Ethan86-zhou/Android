@@ -1,0 +1,10 @@
+MusicCache v0.3.0 native DataSource contract regression
+Date: 2026-10-11
+Command: .\tools\playback-tests\run.ps1
+Result: PASS 51 native DataSource checks (real HTTP/disk; Media3 API stubs, no device playback claim)
+
+Coverage: sequential 256 KiB bounded ranges, full-file returned length, nonzero seek across chunks, requested length extending beyond EOF, exact EOF and out-of-range HTTP416 including Long.MAX_VALUE, full cached replay with zero HTTP, early close retaining only committed chunks, origin200 ignored Range with actual prefix consumption/counting, unknown-length200 streaming, no-store, 403, redirect rejection, mismatched Content-Range, nonaudio MIME, truncated body, strong ETag or total changes between chunks, resolver/public URI/exception privacy, persisted metadata without signed URLs.
+
+Test executes production CacheDataSource, PlayerRuntime, CacheProxy and RangeCache with real temporary storage and a loopback HTTP server at port8765. Android/Media3 API containers are narrow JVM stubs. API compatibility was separately checked using the real Media3 1.11.1 dependency and Android assembleDebug/lintDebug; that build succeeded before the final diagnostic ticker addition and Range overflow correction. Final application build and real-device playback are separate acceptance steps.
+
+No phone, normal app profile or existing user cache was modified by this regression. Fixture server stopped and workers shut down after success.
