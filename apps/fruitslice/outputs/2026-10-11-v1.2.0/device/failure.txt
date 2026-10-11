@@ -1,0 +1,5 @@
+java.lang.AssertionError: A fast blade can use 1000 logical units before reaching its 1200-unit limit
+	at com.ethan.fruitslice.GameInstrumentation.expect(GameInstrumentation.java:518)
+	at com.ethan.fruitslice.GameInstrumentation.antiScribbleChecks(GameInstrumentation.java:264)
+	at com.ethan.fruitslice.GameInstrumentation.onStart(GameInstrumentation.java:77)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2653)

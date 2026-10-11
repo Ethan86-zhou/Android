@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "verifiedAt": "2026-10-11T19:09:21.686796+08:00",
+  "device": "SM-S9080",
+  "serial": "R5CT92GMYBM",
+  "versionName": "1.2.0",
+  "versionCode": 5,
+  "apkSha256": "44a99b9ad2c10d5268fb2ab0e5ccbc6d8efc63a3e5c21a565acdab7ba7a1bf69",
+  "installedApkSha256": "44a99b9ad2c10d5268fb2ab0e5ccbc6d8efc63a3e5c21a565acdab7ba7a1bf69",
+  "freshNaturalWaveElapsed": 0.33711138367652893,
+  "minimumRadius": 28,
+  "maximumRadius": 56,
+  "minimumDiameterRatio": 0.5,
+  "cleanBladeOnLaunch": true,
+  "userPayloadExactlyPreserved": true,
+  "historyScores": [
+    2260,
+    1643,
+    885,
+    637,
+    547,
+    506,
+    466,
+    228,
+    167,
+    163
+  ],
+  "best": 2260,
+  "runtimeAppCrash": false
+}

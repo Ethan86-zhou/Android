@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "payloadExactlyRestored": true,
+  "best": 2260,
+  "historyScores": [
+    2260,
+    1643,
+    885,
+    637,
+    547,
+    506,
+    466,
+    228,
+    167,
+    163
+  ],
+  "states": [
+    {
+      "kind": "observed-state",
+      "phase": "path-before-clipped-segment",
+      "pathUsed": 1000,
+      "started": true,
+      "exhausted": false,
+      "engineElapsed": 0.06965499371290207,
+      "observedAt": 226157087,
+      "startedAt": 226157042,
+      "lastEventTime": 226157066,
+      "wallSinceStarted": 45
+    },
+    {
+      "kind": "observed-state",
+      "phase": "path-after-clipped-segment",
+      "pathUsed": 1200,
+      "started": true,
+      "exhausted": true,
+      "engineElapsed": 0.10292218625545502,
+      "observedAt": 226157123,
+      "startedAt": 226157042,
+      "lastEventTime": 226157094,
+      "wallSinceStarted": 81
+    },
+    {
+      "kind": "observed-state",
+      "phase": "two-pointer-path",
+      "pathUsed": 800.0001220703125,
+      "started": true,
+      "exhausted": false,
+      "engineElapsed": 0.05177129805088043,
+      "observedAt": 226157418,
+      "startedAt": 226157389,
+      "lastEventTime": 226157401,
+      "wallSinceStarted": 29
+    },
+    {
+      "kind": "observed-state",
+      "phase": "rotated-pointer-path",
+      "pathUsed": 1200,
+      "started": true,
+      "exhausted": true,
+      "engineElapsed": 0.08417582511901855,
+      "observedAt": 226157452,
+      "startedAt": 226157389,
+      "lastEventTime": 226157429,
+      "wallSinceStarted": 63
+    }
+  ],
+  "resampledPoints": 21,
+  "changedSincePreviousBuildSnapshot": [
+    "app/src/androidTest/java/com/ethan/fruitslice/GameInstrumentation.java"
+  ],
+  "productionApkUnchanged": true
+}
