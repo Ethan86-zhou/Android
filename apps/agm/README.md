@@ -71,8 +71,10 @@ adb shell am start -n com.agm.blank/.MainActivity
 
 本次交付目录为 `outputs/2026-10-12-gradle-migration/`，保存新 APK 和 `verification.md`，不覆盖旧验证记录。记录中应包含 APK SHA-256、源码基线提交以及构建时未提交源码的快照清单。
 
-迁移基于仓库提交 `b832f09106bfd3b88a119dfb5a89536120f2cc8f`，在 `feature/agm-import` 分支集成；当前迁移内容仍是未提交的工作区改动，尚未推送。此基线提交本身不包含本次 AGM 导入。
+迁移基于仓库提交 `b832f09106bfd3b88a119dfb5a89536120f2cc8f`，源码导入提交为 `f39b5af88719b12c70fb2994646ecafc90ad9f58`，工作分支为 `feature/agm-import`。首次构建时的源码快照与验证记录原样保留，后续验证使用独立目录。
 
-已通过 Gradle debug 构建、7 项 JUnit 测试、页面测试和仓库结构检查。Lint 为 0 错误、4 条提示，详见 [验证记录](outputs/2026-10-12-gradle-migration/verification.md)。新旧 APK 的签名证书一致。当前手机未连接，本次迁移版本尚未完成真机安装、启动及传感器验证，旧版本的真机结果不作为本次验证。
+已通过 Gradle debug 构建、7 项 JUnit 测试、页面测试和仓库结构检查。Lint 为 0 错误、4 条提示，详见 [构建验证记录](outputs/2026-10-12-gradle-migration/verification.md)。新旧 APK 的签名证书一致。
+
+2026-10-12 已在三星 SM-S9080 / Android 16 上对同一交付 APK 完成覆盖安装、数据保留、实时传感器、归零/对齐按钮、前后台恢复及冷启动检查，详见 [独立真机记录](outputs/2026-10-12-device-validation/verification.md)。本轮未进行有角度基准的物理转动或高度精度测量。
 
 实现参考：[Android SensorManager](https://developer.android.com/reference/android/hardware/SensorManager)。
