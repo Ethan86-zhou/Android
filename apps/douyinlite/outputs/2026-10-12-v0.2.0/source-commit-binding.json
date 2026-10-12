@@ -1,0 +1,10 @@
+{
+  "version": "0.2.0",
+  "source_commit": "c71203d33df972624efa775236fe8a0732877a57",
+  "source_branch": "codex/douyin-lite-v1",
+  "apk": "LightSwipe-0.2.0-debug.apk",
+  "apk_sha256": "5c7448a390cbd1e95d654c2151d1d3b4a12fcebaad36299ecbb819366b17af37",
+  "verification_record": "delivery-verification.json",
+  "verification_record_sha256": "f4e947a8545c6a50ac4dce3eaadca02c11bfcdd2b768280f16c135085caed06e",
+  "note": "This commit contains the final implementation, APK and original evidence. The verification record identifies the precommit base plus exact working-tree file hashes. This binding is added afterward to name the implementation commit without a self-reference."
+}
