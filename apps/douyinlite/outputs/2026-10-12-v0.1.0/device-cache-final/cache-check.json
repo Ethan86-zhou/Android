@@ -1,0 +1,15 @@
+{
+  "checks": {
+    "loginPresentBefore": true,
+    "oneGiBThresholdVisible": true,
+    "loginPreservationExplained": true,
+    "loginPresentAfterClear": true,
+    "cacheBytesObservedLower": true,
+    "loginPresentAfterReload": true,
+    "officialTagsAfterReload": true
+  },
+  "cacheMiBBefore": 17.8,
+  "cacheMiBAfter": 0.1,
+  "passed": true,
+  "finishedAtEpochMs": 1791817884500
+}

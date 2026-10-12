@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "probe": true,
+  "port": 9225,
+  "startedAtEpochMs": 1791817562468,
+  "selectedStage": {
+    "all": true
+  },
+  "passed": false,
+  "phases": {
+    "preflight": {
+      "passed": true,
+      "checks": {
+        "expectedNativeScreen": true,
+        "mediaApiReady": true,
+        "visibleVideoAvailable": true,
+        "visibleVideoPlaying": true,
+        "startsAtNormalRate": true,
+        "probeReady": true,
+        "probeNoGenerationErrors": true
+      },
+      "screenWidth": 1440,
+      "screenHeight": 3088,
+      "initial": {
+        "apiReady": true,
+        "available": true,
+        "playing": true,
+        "boosted": false,
+        "boostRequested": false,
+        "paused": false,
+        "rate": 1,
+        "currentTime": 2.573058,
+        "duration": 2.939341,
+        "videoCount": 2,
+        "allVideosPaused": false,
+        "allVideoRatesOne": true,
+        "featuredLabelPresent": false,
+        "recommendedLabelPresent": false,
+        "probeReady": true,
+        "probeActiveIndex": 1,
+        "probeTransitions": 13,
+        "probeErrorCount": 0
+      }
+    },
+    "playback": {
+      "passed": true,
+      "checks": {
+        "playbackReferencePresent": true,
+        "sameVideoForPlaybackMeasure": true,
+        "playbackTimeAdvanced": true
+      },
+      "measurement": {
+        "referencePresent": true,
+        "changed": false,
+        "previousRateRestorationApplicable": false,
+        "previousRateRestored": true,
+        "timeAdvanced": true,
+        "timeDelta": 0.9278870000000001
+      }
+    },
+    "ordinary": {
+      "passed": false,
+      "checks": {
+        "ordinaryStartsAtNormalRate": true,
+        "ordinaryReferencePresent": true,
+        "ordinarySwipeDoesNotBoost": true,
+        "ordinarySwipeChangesCard": false
+      },
+      "before": {
+        "apiReady": true,
+        "available": true,
+        "playing": true,
+        "boosted": false,
+        "boostRequested": false,
+        "paused": false,
+        "rate": 1,
+        "currentTime": 0.578554,
+        "duration": 2.939341,
+        "videoCount": 2,
+        "allVideosPaused": false,
+        "allVideoRatesOne": true,
+        "featuredLabelPresent": false,
+        "recommendedLabelPresent": false,
+        "probeReady": true,
+        "probeActiveIndex": 1,
+        "probeTransitions": 13,
+        "probeErrorCount": 0
+      },
+      "after": {
+        "apiReady": true,
+        "available": true,
+        "playing": true,
+        "boosted": false,
+        "boostRequested": false,
+        "paused": false,
+        "rate": 1,
+        "currentTime": 2.141932,
+        "duration": 2.939341,
+        "videoCount": 2,
+        "allVideosPaused": false,
+        "allVideoRatesOne": true,
+        "featuredLabelPresent": false,
+        "recommendedLabelPresent": false,
+        "probeReady": true,
+        "probeActiveIndex": 1,
+        "probeTransitions": 13,
+        "probeErrorCount": 0
+      },
+      "reference": {
+        "referencePresent": true,
+        "changed": false,
+        "previousRateRestorationApplicable": false,
+        "previousRateRestored": true,
+        "timeAdvanced": true,
+        "timeDelta": 1.5648879999999998
+      }
+    }
+  },
+  "unexpectedError": false,
+  "cleanupSucceeded": true,
+  "finishedAtEpochMs": 1791817565508
+}
