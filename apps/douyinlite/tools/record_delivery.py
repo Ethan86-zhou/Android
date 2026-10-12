@@ -1,16 +1,20 @@
-"""归档当前源码、最终APK及独立设备记录，不读取登录文件或网页内容。"""
+"""归档明确指定的本次构建与验收，不读取登录文件或网页内容。"""
+import argparse
+import ast
+from datetime import datetime, timezone, timedelta
 import hashlib
 import json
 import os
 from pathlib import Path
+import re
+import shutil
 import subprocess
-from datetime import datetime, timezone, timedelta
+import xml.etree.ElementTree as ET
+
 
 APP = Path(__file__).resolve().parents[1]
 ROOT = APP.parents[1]
-OUTPUT = APP / 'outputs/2026-10-12-v0.1.0'
-APK = OUTPUT / 'LightSwipe-0.1.0-debug.apk'
-ADB = Path(os.environ['ANDROID_HOME']) / 'platform-tools/adb.exe'
+PACKAGE = 'com.zhou.douyinlite'
 
 
 def digest(path):
@@ -18,60 +22,257 @@ def digest(path):
 
 
 def command(args, cwd=ROOT):
-    return subprocess.check_output([str(x) for x in args], cwd=cwd, text=True, encoding='utf-8').strip()
+    return subprocess.check_output([str(x) for x in args], cwd=cwd,
+                                   text=True, encoding='utf-8').strip()
 
 
-sources = [ROOT / 'README.md']
-for name in ['README.md', '.gitignore', '.gitattributes', 'build.gradle', 'settings.gradle', 'gradle.properties', 'gradlew', 'gradlew.bat', 'app/build.gradle']:
-    sources.append(APP / name)
-for directory in ['app/src', 'gradle', 'tools']:
-    sources.extend(p for p in (APP / directory).rglob('*') if p.is_file()
-                   and not {'build', '__pycache__', 'classes'}.intersection(p.relative_to(APP).parts))
+def require(condition, message):
+    if not condition:
+        raise ValueError(message)
 
-source_hashes = {p.relative_to(ROOT).as_posix(): digest(p) for p in sorted(set(sources))}
-installed_path = command([ADB, 'shell', 'pm', 'path', 'com.zhou.douyinlite']).splitlines()[0].removeprefix('package:')
-installed_sha = command([ADB, 'shell', 'sha256sum', installed_path]).split()[0]
-assert installed_sha == digest(APK), 'Installed APK differs from delivery APK'
 
-reports = []
-for directory in ['device-probe-final', 'device-real-01', 'device-cache-final']:
-    for p in sorted((OUTPUT / directory).glob('*.json')):
-        data = json.loads(p.read_text(encoding='utf-8'))
-        checks = data.get('checks', {}) or {
-            f'{phase}/{key}': value for phase, entry in data.get('phases', {}).items()
-            for key, value in entry.get('checks', {}).items()
-        }
-        assert data['passed'] and all(checks.values()), f'Device checks failed: {directory}'
-        reports.append({'path': p.relative_to(APP).as_posix(), 'sha256': digest(p),
-                        'passed': data['passed'], 'check_count': len(checks)})
+def reference(path):
+    """仓库内用相对路径；显式指定的外部证据保留绝对路径。"""
+    path = path.resolve(strict=True)
+    try:
+        name = path.relative_to(APP).as_posix()
+    except ValueError:
+        name = str(path)
+    return {'path': name, 'sha256': digest(path)}
 
-record = {
-    'recorded_at_shanghai': datetime.now(timezone(timedelta(hours=8))).isoformat(),
-    'version': '0.1.0', 'package': 'com.zhou.douyinlite',
-    'apk': {'path': APK.relative_to(APP).as_posix(), 'bytes': APK.stat().st_size,
-            'sha256': digest(APK), 'installed_sha256': installed_sha},
-    'device': {'model': command([ADB, 'shell', 'getprop', 'ro.product.model']),
-               'android': command([ADB, 'shell', 'getprop', 'ro.build.version.release']),
-               'sdk': command([ADB, 'shell', 'getprop', 'ro.build.version.sdk'])},
-    'source_base_commit': command(['git', 'rev-parse', 'HEAD']),
-    'source_branch': command(['git', 'branch', '--show-current']),
-    'source_identity_note': 'APK built from uncommitted changes on this base; per-file SHA256 below identifies the exact source.',
-    'source_files_sha256': source_hashes,
-    'build': {'assembleDebug': 'passed', 'lintDebug': 'passed', 'lint_errors': 0,
-              'lint_warnings': 4, 'warning_scope': 'fixed portrait orientation, main and debug probe'},
-    'host_tests': {'media_scenarios': 14, 'gesture_checks': 33, 'cache_checks': 42,
-                   'symbolic_link_checks_skipped': 3},
-    'final_apk_device_reports': reports,
-    'cache': {'mode': 'LOAD_DEFAULT', 'soft_threshold_bytes': 1073741824,
-              'observed_manual_clear_mib': [17.8, 0.1], 'login_retained_after_clear_and_reload': True,
-              'physical_one_gib_pressure_tested': False,
-              'scope': 'Recognized resource cache; website and login data are measured separately. No hard disk cap or offline playback guarantee.'},
-    'privacy': {'website_screenshots_private_and_gitignored': True,
-                'account_cookie_and_video_urls_not_in_reports': True,
-                'debug_probe_uses_separate_process_and_webview_profile': True},
-    'runtime_model': 'gpt-6.1-sol',
-    'runtime_model_evidence': 'Current session turn_context model was verified before local commit.',
-}
-(OUTPUT / 'delivery-verification.json').write_text(json.dumps(record, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-print(json.dumps({'installed_apk_matches': True, 'source_files': len(source_hashes),
-                  'device_reports': reports}, ensure_ascii=False))
+
+def report_checks(data):
+    """同时检查顶层和分阶段 checks，拒绝字符串或数字冒充 true。"""
+    checks = {}
+
+    def visit(value, prefix=''):
+        if isinstance(value, dict):
+            if 'passed' in value:
+                require(value['passed'] is True, f'Report failed at {prefix or "root"}')
+            for key, item in value.items():
+                name = f'{prefix}/{key}' if prefix else key
+                if key == 'checks':
+                    require(isinstance(item, dict), f'{name} must be an object')
+                    for check, result in item.items():
+                        require(result is True, f'Check is not true: {name}/{check}')
+                        checks[f'{name}/{check}'] = result
+                else:
+                    visit(item, name)
+        elif isinstance(value, list):
+            for index, item in enumerate(value):
+                visit(item, f'{prefix}/{index}')
+
+    visit(data)
+    return checks
+
+
+def read_report(path, apk_sha, require_checks=True):
+    data = json.loads(path.read_text(encoding='utf-8-sig'))
+    require(isinstance(data, dict), f'Report must be an object: {path}')
+    require(data.get('passed') is True, f'Report did not pass: {path}')
+    checks = report_checks(data)
+    if require_checks:
+        require(bool(checks), f'Report has no explicit checks: {path}')
+    # 新报告可以直接声明 APK；没有该字段的报告仍由调用者显式选择。
+    declared_sha = data.get('apk_sha256') or data.get('apkSha256')
+    if declared_sha is not None:
+        require(str(declared_sha).lower() == apk_sha, f'Report APK differs: {path}')
+    summary = reference(path)
+    summary.update(passed=True, check_count=len(checks))
+    return data, summary
+
+
+def build_result(log_path, lint_path):
+    raw = log_path.read_bytes()
+    encoding = 'utf-16' if raw.startswith((b'\xff\xfe', b'\xfe\xff')) else 'utf-8-sig'
+    log = raw.decode(encoding).replace('\r\n', '\n').replace('\r', '\n')
+    log = re.sub(r'\x1b\[[0-9;]*[A-Za-z]', '', log)
+    require('BUILD SUCCESSFUL' in log, 'Final build log does not show BUILD SUCCESSFUL')
+    require('BUILD FAILED' not in log and 'FAILURE: Build failed' not in log,
+            'Final build log contains a failed build')
+    result = {'log': reference(log_path), 'lint_report': reference(lint_path)}
+    for task in ('assembleDebug', 'lintDebug'):
+        entries = re.findall(r'^> Task :(?:app:)?' + task + r'(?:[ \t]+([^\r\n]*))?$',
+                             log, flags=re.MULTILINE)
+        require(bool(entries), f'Final build log has no {task} task')
+        state = entries[-1].strip() or 'EXECUTED'
+        require(state not in ('FAILED', 'SKIPPED', 'NO-SOURCE'), f'{task} did not complete: {state}')
+        result[task] = 'passed'
+        result[f'{task}_gradle_state'] = state
+    document = ET.parse(lint_path).getroot()
+    require(document.tag == 'issues', 'Unrecognized lint XML root')
+    severities = {}
+    for issue in document.findall('issue'):
+        severity = issue.get('severity', 'Unknown')
+        severities[severity] = severities.get(severity, 0) + 1
+    errors = sum(count for severity, count in severities.items()
+                 if severity.lower() in ('fatal', 'error'))
+    require(errors == 0, f'Lint has {errors} errors')
+    result.update(lint_errors=errors,
+                  lint_warnings=sum(count for severity, count in severities.items()
+                                    if severity.lower() == 'warning'),
+                  lint_issues_by_severity=severities)
+    return result
+
+
+def integer_expression(text):
+    """仅允许 Java 整数字面量的加减乘，不执行源码表达式。"""
+    text = re.sub(r'(?<=\d)[lL]\b', '', text).replace('_', '')
+
+    def number(node):
+        if isinstance(node, ast.Constant) and type(node.value) is int:
+            return node.value
+        if isinstance(node, ast.BinOp):
+            left, right = number(node.left), number(node.right)
+            if isinstance(node.op, ast.Mult):
+                return left * right
+            if isinstance(node.op, ast.Add):
+                return left + right
+            if isinstance(node.op, ast.Sub):
+                return left - right
+        raise ValueError('Unsupported cache threshold expression')
+
+    return number(ast.parse(text, mode='eval').body)
+
+
+def cache_result(report_path, apk_sha):
+    source = APP / 'app/src/main/java/com/zhou/douyinlite/CacheController.java'
+    text = source.read_text(encoding='utf-8')
+    match = re.search(r'\bSOFT_LIMIT_BYTES\s*=\s*([^;]+);', text)
+    require(match is not None, 'Cache threshold declaration missing')
+    threshold = integer_expression(match.group(1))
+    require(threshold > 0, 'Invalid cache threshold')
+    result = {
+        'threshold_source': reference(source),
+        'soft_threshold_bytes': threshold,
+        'one_gib_soft_threshold_unchanged': threshold == 1024 ** 3,
+        'physical_one_gib_pressure_tested': False,
+        'scope': 'Recognized resource cache; website and login data are measured separately. '
+                 'No hard disk cap or offline playback guarantee.',
+    }
+    if 'setCacheMode(WebSettings.LOAD_DEFAULT)' in text:
+        result['mode'] = 'LOAD_DEFAULT'
+    if report_path is not None:
+        data, summary = read_report(report_path, apk_sha)
+        result['device_report'] = summary
+        # 只收录显式指定报告中的实际数值，不沿用任何历史缓存观察。
+        observations = {key: data[key] for key in (
+            'cacheMiBBefore', 'cacheMiBAfter', 'cacheBytesBefore', 'cacheBytesAfter',
+            'siteBytesBefore', 'siteBytesAfter', 'limitBytes')
+            if key in data and type(data[key]) in (int, float)}
+        if observations:
+            result['observations'] = observations
+        checks = data.get('checks', {})
+        if checks.get('loginPresentAfterClear') is True and checks.get('loginPresentAfterReload') is True:
+            result['login_retained_after_clear_and_reload'] = True
+    return result
+
+
+def source_hashes():
+    sources = [ROOT / 'README.md']
+    for name in ('README.md', '.gitignore', '.gitattributes', 'build.gradle', 'settings.gradle',
+                 'gradle.properties', 'gradlew', 'gradlew.bat', 'app/build.gradle'):
+        sources.append(APP / name)
+    for directory in ('app/src', 'gradle', 'tools'):
+        sources.extend(path for path in (APP / directory).rglob('*') if path.is_file()
+                       and not {'build', '__pycache__', 'classes', 'node_modules'}.intersection(
+                           path.relative_to(APP).parts))
+    return {path.relative_to(ROOT).as_posix(): digest(path) for path in sorted(set(sources))}
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--version', required=True)
+    parser.add_argument('--output', required=True, type=Path, help='本次交付目录，按当前工作目录解析')
+    parser.add_argument('--device-report', required=True, action='append', type=Path,
+                        help='本次通过的设备 JSON，可重复指定；不自动扫描旧记录')
+    parser.add_argument('--build-log', required=True, type=Path, help='最终 assembleDebug lintDebug 完整日志')
+    parser.add_argument('--lint-report', required=True, type=Path, help='本次 lint-results-debug.xml')
+    parser.add_argument('--host-test-report', type=Path, help='本次主机检查 JSON，passed=true，可含 counts')
+    parser.add_argument('--cache-report', type=Path, help='本次缓存实机报告；未指定则不写实际缓存量值')
+    parser.add_argument('--apk', type=Path, help='默认使用交付目录中的 LightSwipe-<version>-debug.apk')
+    parser.add_argument('--serial', help='明确选择已安装本次 APK 的设备')
+    parser.add_argument('--adb', type=Path, help='覆盖本机 adb 路径')
+    parser.add_argument('--runtime-model', help='经当前运行配置确认的实际模型名，不推断')
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+    output = args.output.resolve(strict=True)
+    destination = output / 'delivery-verification.json'
+    require(not destination.exists(), f'Refusing to overwrite existing record: {destination}')
+    apk = (args.apk or output / f'LightSwipe-{args.version}-debug.apk').resolve(strict=True)
+    gradle = (APP / 'app/build.gradle').read_text(encoding='utf-8')
+    version = re.search(r'\bversionName\s+[\'\"]([^\'\"]+)', gradle)
+    require(version is not None and version.group(1) == args.version,
+            'Requested version differs from current app/build.gradle')
+    apk_sha = digest(apk)
+    reports = []
+    for path in dict.fromkeys(path.resolve(strict=True) for path in args.device_report):
+        _, summary = read_report(path, apk_sha)
+        reports.append(summary)
+    build = build_result(args.build_log, args.lint_report)
+    cache = cache_result(args.cache_report, apk_sha)
+    host = None
+    if args.host_test_report is not None:
+        data, summary = read_report(args.host_test_report, apk_sha, require_checks=False)
+        host = {'report': summary}
+        if 'counts' in data:
+            require(isinstance(data['counts'], dict), 'Host counts must be an object')
+            require(all(type(value) is int and value >= 0 for value in data['counts'].values()),
+                    'Host counts must be nonnegative integers')
+            host['counts'] = data['counts']
+        if 'skipped' in data:
+            host['skipped'] = data['skipped']
+    adb = args.adb
+    if adb is None:
+        sdk = os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')
+        adb = Path(sdk) / 'platform-tools' / ('adb.exe' if os.name == 'nt' else 'adb') if sdk else shutil.which('adb')
+    require(adb is not None, 'Set ANDROID_HOME or pass --adb')
+    adb_prefix = [adb] + (['-s', args.serial] if args.serial else [])
+    installed_paths = [line.removeprefix('package:') for line in
+                       command(adb_prefix + ['shell', 'pm', 'path', PACKAGE]).splitlines()
+                       if line.startswith('package:')]
+    require(bool(installed_paths), f'Package is not installed: {PACKAGE}')
+    installed_path = next((path for path in installed_paths if path.endswith('/base.apk')),
+                          installed_paths[0])
+    installed_sha = command(adb_prefix + ['shell', 'sha256sum', installed_path]).split()[0].lower()
+    require(installed_sha == apk_sha, 'Installed APK differs from delivery APK')
+    record = {
+        'recorded_at_shanghai': datetime.now(timezone(timedelta(hours=8))).isoformat(),
+        'version': args.version,
+        'package': PACKAGE,
+        'apk': {**reference(apk), 'bytes': apk.stat().st_size, 'installed_sha256': installed_sha},
+        'device': {'serial': command(adb_prefix + ['get-serialno']),
+                   'model': command(adb_prefix + ['shell', 'getprop', 'ro.product.model']),
+                   'android': command(adb_prefix + ['shell', 'getprop', 'ro.build.version.release']),
+                   'sdk': command(adb_prefix + ['shell', 'getprop', 'ro.build.version.sdk'])},
+        'source_base_commit': command(['git', 'rev-parse', 'HEAD']),
+        'source_branch': command(['git', 'branch', '--show-current']),
+        'source_worktree_status': command(['git', 'status', '--porcelain', '--', 'README.md', 'apps/douyinlite']),
+        'source_identity_note': 'Base commit plus per-file SHA256 identifies the recorded source snapshot; '
+                                'uncommitted changes are not represented by the base commit alone.',
+        'source_files_sha256': source_hashes(),
+        'build': build,
+        'final_apk_device_reports': reports,
+        'cache': cache,
+    }
+    if host is not None:
+        record['host_tests'] = host
+    if args.runtime_model:
+        record['runtime_model'] = args.runtime_model
+        record['runtime_model_evidence'] = 'Explicitly provided by the caller after checking current runtime configuration.'
+    # x 模式防止并行调用在检查后覆盖已有原始交付记录。
+    with destination.open('x', encoding='utf-8', newline='\n') as stream:
+        stream.write(json.dumps(record, ensure_ascii=False, indent=2) + '\n')
+    print(json.dumps({'record': str(destination), 'installed_apk_matches': True,
+                      'source_files': len(record['source_files_sha256']),
+                      'device_reports': reports}, ensure_ascii=False))
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except (ValueError, OSError, subprocess.SubprocessError, ET.ParseError) as error:
+        raise SystemExit(f'Delivery record refused: {error}') from error

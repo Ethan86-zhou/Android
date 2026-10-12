@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "checks": {
+    "uiScenariosPassed": true,
+    "mediaScenariosPassed": true,
+    "gestureChecksPassed": true,
+    "cacheChecksPassed": true
+  },
+  "counts": {
+    "ui_scenarios": 21,
+    "media_scenarios": 14,
+    "gesture_checks": 33,
+    "cache_checks": 42
+  },
+  "skipped": {
+    "symbolic_link_checks": 3,
+    "reason": "Windows symbolic link creation unavailable"
+  },
+  "reports": [
+    {
+      "path": "host-ui-final.txt",
+      "sha256": "299f1374ee6b7a2af7c67b31dadd46a439c44cab906e81a8af5791ba2880a857"
+    },
+    {
+      "path": "host-media.txt",
+      "sha256": "c4e7286c84b6d2ea561c883104423008b39272c1feebacebb0967c3ba7ed3e0d"
+    },
+    {
+      "path": "host-gesture.txt",
+      "sha256": "89d5d6fa08e393dd1a0e17437a2f1702b6fed1b87e90324a2ac0d7e68e8ce3e7"
+    },
+    {
+      "path": "host-cache.txt",
+      "sha256": "1adb0400182778b3b4fc59d567f97bf34087c24d21100db35d24d3b26663c092"
+    }
+  ]
+}

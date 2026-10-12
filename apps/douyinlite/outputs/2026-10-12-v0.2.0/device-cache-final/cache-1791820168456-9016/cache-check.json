@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 2,
+  "startedAtEpochMs": 1791820168456,
+  "port": 9224,
+  "checks": {
+    "compactChannelsBefore": true,
+    "accountRecognizedBefore": true,
+    "loggedInBefore": true,
+    "oneGiBThresholdVisible": true,
+    "loginPreservationExplained": true,
+    "cacheSizeBeforeObserved": true,
+    "accountRecognizedAfterClear": true,
+    "loggedInAfterClear": true,
+    "cacheSizeAfterObserved": true,
+    "cacheBytesObservedNotHigher": true,
+    "accountRecognizedAfterReload": true,
+    "loggedInAfterReload": true,
+    "compactChannelsAfterReload": true
+  },
+  "cacheMiBBefore": 24,
+  "cacheMiBAfter": 1.7,
+  "cacheReductionObserved": true,
+  "passed": true,
+  "unexpectedError": false,
+  "cleanupSucceeded": true,
+  "accountBefore": {
+    "fullOfficialLayout": true,
+    "loginEntryVisible": false,
+    "accountEntryVisible": true,
+    "recognized": true,
+    "loggedIn": true
+  },
+  "panelBefore": {
+    "oneGiBThresholdVisible": true,
+    "loginPreservationExplained": true,
+    "sizeAvailable": true,
+    "cacheMiB": 24
+  },
+  "accountAfterClear": {
+    "fullOfficialLayout": true,
+    "loginEntryVisible": false,
+    "accountEntryVisible": true,
+    "recognized": true,
+    "loggedIn": true
+  },
+  "panelAfter": {
+    "oneGiBThresholdVisible": true,
+    "loginPreservationExplained": true,
+    "sizeAvailable": true,
+    "cacheMiB": 1.7
+  },
+  "accountAfterReload": {
+    "fullOfficialLayout": true,
+    "loginEntryVisible": false,
+    "accountEntryVisible": true,
+    "recognized": true,
+    "loggedIn": true
+  },
+  "finishedAtEpochMs": 1791820207625
+}
