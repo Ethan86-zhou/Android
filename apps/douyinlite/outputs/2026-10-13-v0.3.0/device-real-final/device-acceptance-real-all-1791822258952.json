@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "probe": false,
+  "port": 9224,
+  "startedAtEpochMs": 1791822258952,
+  "selectedStage": {
+    "all": true
+  },
+  "passed": false,
+  "phases": {
+    "preflight": {
+      "passed": false,
+      "checks": {
+        "expectedNativeScreen": true,
+        "nativeFeaturedTabPresent": true,
+        "nativeRecommendedTabPresent": true,
+        "mediaApiReady": true,
+        "visibleVideoAvailable": true,
+        "visibleVideoPlaying": false
+      },
+      "screenWidth": 1440,
+      "screenHeight": 3088,
+      "initial": {
+        "apiReady": true,
+        "available": true,
+        "playing": false,
+        "boosted": false,
+        "boostRequested": false,
+        "paused": false,
+        "rate": 1,
+        "currentTime": 206.019784,
+        "duration": 573.708333,
+        "videoCount": 4,
+        "allVideosPaused": true,
+        "allVideoRatesOne": true,
+        "uiApiReady": true,
+        "uiChannelValid": true,
+        "uiCleanApplied": true,
+        "probeReady": false,
+        "probeActiveIndex": 0,
+        "probeTransitions": 0,
+        "probeErrorCount": 0
+      }
+    }
+  },
+  "unexpectedError": false,
+  "cleanupSucceeded": true,
+  "finishedAtEpochMs": 1791822285716
+}

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
@@ -14,9 +16,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityEvent;
 import android.window.OnBackInvokedCallback;
 import android.window.OnBackInvokedDispatcher;
 import android.webkit.CookieManager;
@@ -31,6 +35,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONObject;
@@ -61,6 +66,22 @@ public class MainActivity extends Activity {
     private View recommendMark;
     private TextView error;
     private ProgressBar progress;
+    private LinearLayout playerBar;
+    private Button playback;
+    private PlaybackSeekBar videoProgress;
+    private TextView seekTime;
+    private boolean playerContextActive;
+    private boolean mediaAvailable;
+    private boolean mediaSeekable;
+    private long currentMediaId;
+    private double mediaDuration;
+    private boolean draggingSeek;
+    private boolean seekDragCancelled;
+    private boolean ignoreSeekTouch;
+    private long dragMediaId;
+    private long dragPageGeneration;
+    private double dragDuration;
+    private long playerControlGeneration;
     private String mediaScript;
     private String uiScript;
     private String selectedChannel = "recommend";
@@ -125,6 +146,16 @@ public class MainActivity extends Activity {
         FrameLayout.LayoutParams speedLayout = new FrameLayout.LayoutParams(-2,dp(32),Gravity.TOP|Gravity.CENTER_HORIZONTAL);
         speedLayout.topMargin = dp(8);
         gestures.addView(speed,speedLayout);
+        seekTime = new TextView(this);
+        seekTime.setTextColor(Color.WHITE); seekTime.setTextSize(13);
+        seekTime.setGravity(Gravity.CENTER); seekTime.setPadding(dp(12),0,dp(12),0);
+        seekTime.setContentDescription("拖动进度时间");
+        GradientDrawable timeBackground = new GradientDrawable();
+        timeBackground.setColor(0xDD252529); timeBackground.setCornerRadius(dp(16));
+        seekTime.setBackground(timeBackground); seekTime.setVisibility(View.GONE);
+        FrameLayout.LayoutParams timeLayout = new FrameLayout.LayoutParams(-2,dp(32),Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL);
+        timeLayout.bottomMargin=dp(48);
+        gestures.addView(seekTime,timeLayout);
         error = new TextView(this);
         error.setTextColor(Color.WHITE); error.setBackgroundColor(0xEE202027);
         error.setGravity(Gravity.CENTER); error.setTextSize(16);
@@ -136,6 +167,7 @@ public class MainActivity extends Activity {
             @Override public void onUnavailable() { toast("当前没有可加速的视频"); }
         });
         root.addView(gestures,new LinearLayout.LayoutParams(-1,0,1));
+        createPlayerBar(root);
         setContentView(root); root.requestApplyInsets();
         // Android 16 不再把系统返回交给旧 onBackPressed，注册当前平台回调。
         if (Build.VERSION.SDK_INT>=33) {
@@ -179,7 +211,7 @@ public class MainActivity extends Activity {
             }
             @Override public void onPageStarted(WebView w,String url,android.graphics.Bitmap icon) {
                 updateHost(w,url);
-                if (w==browser) { pageGeneration++; gestures.setBoostAllowed(false); error.setVisibility(View.GONE); }
+                if (w==browser) { pageGeneration++; resetPlayerControls(); gestures.setBoostAllowed(false); error.setVisibility(View.GONE); }
             }
             @Override public void onPageFinished(WebView w,String url) {
                 if (closing || !browsers.contains(w)) return;
@@ -213,6 +245,7 @@ public class MainActivity extends Activity {
             @Override public void onPermissionRequest(PermissionRequest request) { request.deny(); }
             @Override public boolean onCreateWindow(WebView w,boolean dialog,boolean userGesture,Message message) {
                 if (!userGesture || closing) return false;
+                resetPlayerControls();
                 gestures.setBoostAllowed(false);
                 Dialog popup = new Dialog(MainActivity.this); popups.add(popup);
                 LinearLayout content = new LinearLayout(MainActivity.this); content.setOrientation(LinearLayout.VERTICAL);
@@ -302,7 +335,7 @@ public class MainActivity extends Activity {
     }
 
     private void chooseChannel(String channel) {
-        gestures.resetBoost(); cleanUi=true; rememberChannel(channel);
+        resetPlayerControls(); gestures.resetBoost(); cleanUi=true; rememberChannel(channel);
         pendingChannel=channel; pendingFallbackUsed=false;
         if (isOfficialMainDocument(browser,browser.getUrl())) fulfillChannelIntent(pageGeneration);
         else { pendingFallbackUsed=true; browser.loadUrl(channelUrl(channel)); }
@@ -325,7 +358,7 @@ public class MainActivity extends Activity {
     }
 
     private void showAccountPage() {
-        gestures.resetBoost(); cleanUi=false; pendingChannel=null;
+        resetPlayerControls(); gestures.resetBoost(); cleanUi=false; pendingChannel=null;
         if (isOfficialMainDocument(browser,browser.getUrl())) {
             browser.evaluateJavascript("window.LightSwipeUi?.setClean(false)",null);
         } else browser.loadUrl(channelUrl(selectedChannel));
@@ -369,10 +402,186 @@ public class MainActivity extends Activity {
         });
     }
 
+    /** 底栏占自己的布局高度，不覆盖官网视频，也不进入边缘长按手势区域。 */
+    @SuppressLint("ClickableViewAccessibility") // 正常触摸由 SeekBar 处理；仅吞掉已取消拖动的后续事件。
+    private void createPlayerBar(LinearLayout root) {
+        playerBar = new LinearLayout(this); playerBar.setGravity(Gravity.CENTER_VERTICAL);
+        playerBar.setBackgroundColor(Color.rgb(16,16,20)); playerBar.setVisibility(View.GONE);
+        playback = button("▶",v->togglePlayback()); playback.setTextSize(18);
+        playback.setContentDescription("播放视频"); playback.setEnabled(false);
+        playerBar.addView(playback,new LinearLayout.LayoutParams(dp(44),dp(44)));
+        videoProgress = new PlaybackSeekBar(this); videoProgress.setMax(10000);
+        videoProgress.setContentDescription("视频进度"); videoProgress.setEnabled(false);
+        videoProgress.setMinimumHeight(dp(44)); videoProgress.setPadding(dp(10),0,dp(12),0);
+        videoProgress.setProgressTintList(ColorStateList.valueOf(Color.WHITE));
+        videoProgress.setSecondaryProgressTintList(ColorStateList.valueOf(0xFF45454B));
+        videoProgress.setProgressBackgroundTintList(ColorStateList.valueOf(0xFF45454B));
+        GradientDrawable thumb = new GradientDrawable(); thumb.setShape(GradientDrawable.OVAL);
+        thumb.setColor(Color.WHITE); thumb.setSize(dp(8),dp(8));
+        videoProgress.setThumb(thumb); videoProgress.setThumbOffset(dp(4));
+        videoProgress.setSplitTrack(false);
+        videoProgress.setOnTouchListener((view,event)->{
+            int action=event.getActionMasked();
+            if (action==MotionEvent.ACTION_DOWN) {
+                ignoreSeekTouch=false; seekDragCancelled=false;
+            } else if (action==MotionEvent.ACTION_CANCEL || event.getPointerCount()>1
+                    || action==MotionEvent.ACTION_POINTER_DOWN || action==MotionEvent.ACTION_POINTER_UP) {
+                cancelSeekDrag();
+                seekDragCancelled=true; ignoreSeekTouch=true;
+            }
+            if (ignoreSeekTouch) {
+                if (action==MotionEvent.ACTION_UP || action==MotionEvent.ACTION_CANCEL) ignoreSeekTouch=false;
+                return true;
+            }
+            return false;
+        });
+        videoProgress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override public void onProgressChanged(SeekBar bar,int value,boolean fromUser) {
+                if (!fromUser) return;
+                if (draggingSeek && !seekDragCancelled) showSeekTime(value);
+                else if (!draggingSeek && startSeek(false)) finishSeek(value);
+            }
+            @Override public void onStartTrackingTouch(SeekBar bar) {
+                if (!startSeek(true)) {
+                    seekDragCancelled=true; ignoreSeekTouch=true; return;
+                }
+            }
+            @Override public void onStopTrackingTouch(SeekBar bar) { finishSeek(bar.getProgress()); }
+        });
+        playerBar.addView(videoProgress,new LinearLayout.LayoutParams(0,dp(44),1));
+        root.addView(playerBar,new LinearLayout.LayoutParams(-1,dp(44)));
+    }
+
+    /** 自然播放不连续播报进度变化；用户操作、焦点事件和节点当前 range 保持系统行为。 */
+    private static final class PlaybackSeekBar extends SeekBar {
+        private boolean playbackProgressUpdate;
+
+        PlaybackSeekBar(Context context) { super(context); }
+
+        void setPlaybackProgress(int value) {
+            if (getProgress()==value) return;
+            playbackProgressUpdate=true;
+            try { super.setProgress(value); }
+            finally { playbackProgressUpdate=false; }
+        }
+
+        @Override public void sendAccessibilityEventUnchecked(AccessibilityEvent event) {
+            if (Build.VERSION.SDK_INT>=30 && playbackProgressUpdate && !isAccessibilityFocused()
+                    && event.getEventType()==AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED
+                    && event.getContentChangeTypes()==AccessibilityEvent.CONTENT_CHANGE_TYPE_STATE_DESCRIPTION) {
+                event.recycle(); return;
+            }
+            super.sendAccessibilityEventUnchecked(event);
+        }
+    }
+
+    private boolean startSeek(boolean showTime) {
+        if (!canControlPlayer() || !mediaSeekable || currentMediaId<=0
+                || !Double.isFinite(mediaDuration) || mediaDuration<=0) return false;
+        playerControlGeneration++; draggingSeek=true; seekDragCancelled=false;
+        dragMediaId=currentMediaId; dragPageGeneration=pageGeneration; dragDuration=mediaDuration;
+        if (showTime) showSeekTime(videoProgress.getProgress());
+        return true;
+    }
+
+    private boolean canControlPlayer() {
+        return !closing && foreground && cleanUi && popups.isEmpty() && playerContextActive;
+    }
+
+    private void showSeekTime(int progressValue) {
+        seekTime.setText(String.format(Locale.ROOT,"%s / %s",
+                playTime(dragDuration*progressValue/10000.0),playTime(dragDuration)));
+        seekTime.setVisibility(View.VISIBLE);
+    }
+
+    private static String playTime(double value) {
+        long seconds=(long)Math.max(0,Double.isFinite(value) ? value : 0);
+        if (seconds>=3600) return String.format(Locale.ROOT,"%d:%02d:%02d",seconds/3600,(seconds/60)%60,seconds%60);
+        return String.format(Locale.ROOT,"%d:%02d",seconds/60,seconds%60);
+    }
+
+    /** 取消时先清原生状态，再给 SeekBar CANCEL；onStopTrackingTouch 因而不会提交进度。 */
+    private void cancelSeekDrag() {
+        if (!draggingSeek) return;
+        draggingSeek=false; seekDragCancelled=true; ignoreSeekTouch=true;
+        playerControlGeneration++; seekTime.setVisibility(View.GONE);
+        long now=android.os.SystemClock.uptimeMillis();
+        MotionEvent cancel=MotionEvent.obtain(now,now,MotionEvent.ACTION_CANCEL,0,0,0);
+        try { videoProgress.onTouchEvent(cancel); } finally { cancel.recycle(); }
+        videoProgress.setPressed(false);
+    }
+
+    private void resetPlayerControls() {
+        cancelSeekDrag(); playerControlGeneration++;
+        playerContextActive=false; mediaAvailable=false; mediaSeekable=false;
+        currentMediaId=0; mediaDuration=0;
+        if (playerBar!=null) playerBar.setVisibility(View.GONE);
+        if (seekTime!=null) seekTime.setVisibility(View.GONE);
+        if (videoProgress!=null) { videoProgress.setEnabled(false); videoProgress.setProgress(0); }
+        if (playback!=null) playback.setEnabled(false);
+    }
+
+    private void updatePlayerControls(JSONObject media,JSONObject ui) {
+        boolean context=foreground && cleanUi && popups.isEmpty()
+                && (isProbe() ? media.optBoolean("available") : ui!=null && ui.optBoolean("playerActive"));
+        long id=media.optLong("mediaId",0);
+        double duration=media.optDouble("duration",Double.NaN);
+        boolean available=media.optBoolean("available") && id>0;
+        boolean seekable=available && media.optBoolean("seekable") && Double.isFinite(duration) && duration>0;
+        if (draggingSeek && (!context || !seekable || id!=dragMediaId || pageGeneration!=dragPageGeneration)) cancelSeekDrag();
+        playerContextActive=context; mediaAvailable=available; mediaSeekable=seekable;
+        currentMediaId=id; mediaDuration=duration;
+        playerBar.setVisibility(context ? View.VISIBLE : View.GONE);
+        playback.setEnabled(context && available);
+        boolean playing=media.optBoolean("playing");
+        String icon=playing ? "Ⅱ" : "▶";
+        String description=playing ? "暂停视频" : "播放视频";
+        if (!icon.contentEquals(playback.getText())) playback.setText(icon);
+        if (!description.equals(playback.getContentDescription())) playback.setContentDescription(description);
+        videoProgress.setEnabled(context && seekable);
+        if (!draggingSeek) {
+            double current=media.optDouble("currentTime",0);
+            double fraction=seekable && Double.isFinite(current) ? Math.max(0,Math.min(1,current/duration)) : 0;
+            videoProgress.setPlaybackProgress((int)Math.round(fraction*10000));
+            seekTime.setVisibility(View.GONE);
+        }
+    }
+
+    private void togglePlayback() {
+        if (!canControlPlayer() || !mediaAvailable || currentMediaId<=0) return;
+        long generation=pageGeneration, id=currentMediaId, controls=++playerControlGeneration;
+        String script="(function(){var media=window.LightSwipe;"
+                +"if(!media||media.status().mediaId!=="+id+"||typeof media.togglePlayback!=='function')return null;"
+                +"return {media:media.togglePlayback(),ui:window.LightSwipeUi?.status()};})()";
+        browser.evaluateJavascript(script,value->applyPlayerAction(value,generation,id,controls));
+    }
+
+    private void finishSeek(int progressValue) {
+        if (!draggingSeek) return;
+        draggingSeek=false; seekTime.setVisibility(View.GONE);
+        long generation=dragPageGeneration, id=dragMediaId, controls=++playerControlGeneration;
+        if (seekDragCancelled || !canControlPlayer() || !mediaSeekable
+                || generation!=pageGeneration || id<=0 || id!=currentMediaId) return;
+        String fraction=String.format(Locale.ROOT,"%.6f",Math.max(0,Math.min(10000,progressValue))/10000.0);
+        String script="(function(){var media=window.LightSwipe;"
+                +"if(!media||typeof media.seek!=='function')return null;"
+                +"return {media:media.seek("+fraction+","+id+"),ui:window.LightSwipeUi?.status()};})()";
+        browser.evaluateJavascript(script,value->applyPlayerAction(value,generation,id,controls));
+    }
+
+    private void applyPlayerAction(String value,long generation,long id,long controls) {
+        if (!canControlPlayer() || generation!=pageGeneration || controls!=playerControlGeneration || id!=currentMediaId) return;
+        try {
+            JSONObject result=new JSONObject(value);
+            updatePlayerControls(result.getJSONObject("media"),result.optJSONObject("ui"));
+        } catch(Exception ignored) { /* 官网可能刚换片；下一次既有状态检查会更新控件。 */ }
+    }
+
     private final Runnable tick = new Runnable() {
         @Override public void run() {
             if (!foreground || closing) return;
             long generation=pageGeneration;
+            long controls=playerControlGeneration;
             browser.evaluateJavascript("({media:window.LightSwipe?.status(),ui:window.LightSwipeUi?.status()})",value->{
                 if (!foreground || closing || generation!=pageGeneration) return;
                 try {
@@ -382,11 +591,15 @@ public class MainActivity extends Activity {
                     if (status.optBoolean("playing") && popups.isEmpty()) getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                     else getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                     JSONObject ui=result.optJSONObject("ui");
+                    if (controls==playerControlGeneration) updatePlayerControls(status,ui);
                     if (ui!=null && pendingChannel==null && isOfficialMainDocument(browser,browser.getUrl())) {
                         String channel=ui.optString("channel","");
                         if (!channel.equals(selectedChannel) && ("featured".equals(channel) || "recommend".equals(channel))) rememberChannel(channel);
                     }
-                } catch(Exception ignored) { gestures.setBoostAllowed(false); }
+                } catch(Exception ignored) {
+                    gestures.setBoostAllowed(false);
+                    if (controls==playerControlGeneration) resetPlayerControls();
+                }
             });
             long now=android.os.SystemClock.elapsedRealtime();
             if (now-lastTrim>30000) { lastTrim=now; cache.trimIfNeeded(browser); }
@@ -395,7 +608,7 @@ public class MainActivity extends Activity {
     };
 
     private void menu() {
-        gestures.resetBoost();
+        cancelSeekDrag(); gestures.resetBoost();
         new AlertDialog.Builder(this).setTitle("轻刷 "+BuildConfig.VERSION_NAME)
             .setItems(new String[]{cleanUi ? "登录 / 账号" : "返回精简界面","刷新当前网页","缓存与网站数据","手势说明"},(d,index)->{
                 if (index==0) { if (cleanUi) showAccountPage(); else chooseChannel(selectedChannel); }
@@ -447,7 +660,7 @@ public class MainActivity extends Activity {
         handler.removeCallbacks(tick); handler.post(tick);
     }
     @Override protected void onPause() {
-        foreground=false; handler.removeCallbacks(tick); gestures.setBoostAllowed(false);
+        foreground=false; resetPlayerControls(); handler.removeCallbacks(tick); gestures.setBoostAllowed(false);
         syncPlayback();
         for (WebView w:browsers) w.onPause();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -456,6 +669,7 @@ public class MainActivity extends Activity {
     @Override public void onBackPressed() { handleBack(); }
 
     private void handleBack() {
+        cancelSeekDrag();
         if (gestures.isBoostLocked()) { gestures.resetBoost(); return; }
         if (!cleanUi) { chooseChannel(selectedChannel); return; }
         // 官网精选详情使用浮层，并不一定添加浏览器历史；先交给官网关闭浮层。
@@ -467,12 +681,14 @@ public class MainActivity extends Activity {
     }
 
     private void navigateBack() {
+        resetPlayerControls();
         if (browser.canGoBack()) browser.goBack();
         else if (isTaskRoot()) moveTaskToBack(true);
         else finish();
     }
     @Override protected void onDestroy() {
         closing=true; foreground=false; boostGeneration++; pageGeneration++;
+        resetPlayerControls();
         if (Build.VERSION.SDK_INT>=33 && backCallback!=null) {
             getOnBackInvokedDispatcher().unregisterOnBackInvokedCallback(backCallback);
         }

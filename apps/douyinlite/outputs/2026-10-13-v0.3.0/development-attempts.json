@@ -1,0 +1,10 @@
+{
+  "build_log": "build-final.txt",
+  "apk_sha256": "0d1975adfed44ffb929c976df9bb5e3291420f2552638f87640c5f2084bc2cc3",
+  "source_base_commit": "e87c90d71c429adbff6b30e75a4319623c7f9c81",
+  "failed_runs": [
+    "device-mobile-final-01",
+    "device-mobile-final-02"
+  ],
+  "reason": "Shell uiautomator dump could not obtain a one-second accessibility idle interval while passive progress updates occurred every 700 ms. The first run had no checks; the second reached native play/pause checks then could not re-dump the playing screen. These runs are not final acceptance."
+}
