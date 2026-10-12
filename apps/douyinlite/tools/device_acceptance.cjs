@@ -42,6 +42,7 @@ let currentPhase;
 let touchDown = false;
 let nativeInputStarted = false;
 let sentHome = false;
+const nativeDumpPath = `/sdcard/lightswipe-acceptance-${report.startedAtEpochMs}-${process.pid}.xml`;
 
 function shell(...args) {
     return execFileSync(adb, ['shell', ...args.map(String)], {
@@ -62,9 +63,34 @@ function nativeSwipe(upward = true) {
     shell('input', 'touchscreen', 'swipe', 750, upward ? 2350 : 950, 750, upward ? 950 : 2350, 400);
 }
 
+function nativeButton(description) {
+    // 只在内存中读取 UI 层级，不把网页/账号文字写进验收记录。
+    let xml;
+    try {
+        shell('uiautomator', 'dump', nativeDumpPath);
+        xml = shell('cat', nativeDumpPath);
+    } finally { shell('rm', '-f', nativeDumpPath); }
+    for (const match of xml.matchAll(/<node\b[^>]*>/g)) {
+        const attributes = Object.fromEntries([...match[0].matchAll(/([\w:-]+)="([^"]*)"/g)]
+            .map(value => [value[1], value[2]]));
+        if (attributes.package !== 'com.zhou.douyinlite' || attributes.class !== 'android.widget.Button'
+                || attributes['content-desc'] !== description || attributes.enabled !== 'true') continue;
+        const bounds = attributes.bounds?.match(/^\[(-?\d+),(-?\d+)\]\[(-?\d+),(-?\d+)\]$/);
+        if (!bounds) continue;
+        const [, left, top, right, bottom] = bounds.map(Number);
+        if (right <= left || bottom <= top || left < 0 || top < 0) continue;
+        return {x: Math.round((left + right) / 2), y: Math.round((top + bottom) / 2)};
+    }
+    return null;
+}
+
 function nativeUnlock() {
+    const button = nativeButton('恢复正常播放速度');
+    // 浮层只在加速期间显示；不存在时不向视频画面发送额外点击。
+    if (!button) return false;
     nativeInputStarted = true;
-    shell('input', 'touchscreen', 'tap', 1030, 170);
+    shell('input', 'touchscreen', 'tap', button.x, button.y);
+    return true;
 }
 
 function resumeActivity() {
@@ -141,13 +167,16 @@ const initializePageReferences = `(() => {
         sample() {
             const status = window.LightSwipe?.status(), videos = Array.from(document.querySelectorAll('video'));
             const number = value => Number.isFinite(value) ? value : 0;
-            const body = document.body?.innerText || '';
+            const ui = window.LightSwipeUi?.status?.();
             return {apiReady: !!status, available: !!status?.available, playing: !!status?.playing,
                 boosted: !!status?.boosted, boostRequested: !!status?.boostRequested, paused: !!status?.paused,
                 rate: number(status?.rate), currentTime: number(status?.currentTime), duration: number(status?.duration),
                 videoCount: number(status?.videoCount), allVideosPaused: videos.length > 0 && videos.every(v => v.paused),
                 allVideoRatesOne: videos.length > 0 && videos.every(v => Math.abs(v.playbackRate - 1) < 0.03),
-                featuredLabelPresent: body.includes('精选'), recommendedLabelPresent: body.includes('推荐'),
+                uiApiReady: !!ui && typeof window.LightSwipeUi?.select === 'function'
+                    && typeof window.LightSwipeUi?.setClean === 'function',
+                uiChannelValid: ui?.channel === 'featured' || ui?.channel === 'recommend',
+                uiCleanApplied: !!ui?.clean && !!ui?.applied,
                 probeReady: !!window.probeState?.ready, probeActiveIndex: number(window.probeState?.activeIndex),
                 probeTransitions: number(window.probeState?.transitions),
                 probeErrorCount: number(window.probeState?.errors?.length)};
@@ -207,6 +236,8 @@ async function main() {
         record.screenWidth = last ? Number(last[1]) : 0;
         record.screenHeight = last ? Number(last[2]) : 0;
         assert('expectedNativeScreen', record.screenWidth === 1440 && record.screenHeight === 3088);
+        assert('nativeFeaturedTabPresent', !!nativeButton('精选'));
+        assert('nativeRecommendedTabPresent', !!nativeButton('推荐'));
         record.initial = await until(s => s.apiReady && s.available && s.playing && (mode !== 'probe' || s.probeReady), 20000);
         assert('mediaApiReady', record.initial.apiReady);
         assert('visibleVideoAvailable', record.initial.available);
@@ -221,8 +252,9 @@ async function main() {
                 assert('probeFirstCardPrecondition', first.probeActiveIndex === 0);
             }
         } else {
-            assert('featuredLabelPresent', record.initial.featuredLabelPresent);
-            assert('recommendedLabelPresent', record.initial.recommendedLabelPresent);
+            assert('uiApiReady', record.initial.uiApiReady);
+            assert('uiChannelValid', record.initial.uiChannelValid);
+            assert('uiCleanApplied', record.initial.uiCleanApplied);
         }
     });
 
@@ -279,7 +311,9 @@ async function main() {
     });
 
     if (stage === 'all' || stage === 'unlock') await phase('unlock', async record => {
-        nativeUnlock();
+        if (stage === 'unlock') record.locked = await nativeLock();
+        record.nativeUnlockControlTapped = nativeUnlock();
+        assert('nativeUnlockControlVisible', record.nativeUnlockControlTapped);
         record.after = await until(s => near(s.rate, 1) && !s.boosted && !s.boostRequested);
         assert('nativeButtonRestoresOne', near(record.after.rate, 1) && !record.after.boosted && !record.after.boostRequested);
     });

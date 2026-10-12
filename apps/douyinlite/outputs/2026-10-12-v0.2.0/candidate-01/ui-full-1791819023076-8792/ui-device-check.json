@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "startedAtEpochMs": 1791819023076,
+  "port": 9224,
+  "selectedStage": {
+    "full": true
+  },
+  "phases": {
+    "preflight": {
+      "passed": true,
+      "checks": {
+        "compactUiReady": true,
+        "knownInitialChannel": true,
+        "nativeFeaturedTabPresent": true,
+        "nativeRecommendedTabPresent": true,
+        "nativeSettingsPresent": true,
+        "normalSpeedHasNoOverlay": true
+      },
+      "initial": {
+        "uiApiReady": true,
+        "channelFeatured": false,
+        "channelRecommended": true,
+        "clean": true,
+        "applied": true,
+        "layoutReady": true,
+        "headerPresent": true,
+        "navigationPresent": true,
+        "headerVisible": false,
+        "navigationVisible": false,
+        "mainPresent": true,
+        "mainLeft": 0,
+        "mainTop": 0,
+        "mainWidth": 768.0000610351562,
+        "viewportWidth": 768,
+        "viewportHeight": 1471,
+        "visibleFeaturedCards": 0,
+        "mediaApiReady": true,
+        "visibleVideoAvailable": true,
+        "visibleVideoPlaying": true,
+        "loginEntryVisible": false,
+        "accountEntryVisible": false
+      }
+    },
+    "featuredChannel": {
+      "passed": false,
+      "checks": {
+        "uiApiReady": true,
+        "expectedChannel": true,
+        "cleanLayoutReady": true,
+        "nativeTabSelected": true,
+        "officialHeaderPresent": true,
+        "officialNavigationPresent": true,
+        "officialHeaderHidden": true,
+        "officialNavigationHidden": true,
+        "contentPresent": true,
+        "contentAtLeftEdge": true,
+        "contentAtTopEdge": true,
+        "contentFillsViewportWidth": true,
+        "featuredCardsAvailable": false
+      },
+      "after": {
+        "uiApiReady": true,
+        "channelFeatured": true,
+        "channelRecommended": false,
+        "clean": true,
+        "applied": true,
+        "layoutReady": true,
+        "headerPresent": true,
+        "navigationPresent": true,
+        "headerVisible": false,
+        "navigationVisible": false,
+        "mainPresent": true,
+        "mainLeft": 0,
+        "mainTop": 0,
+        "mainWidth": 768.0000610351562,
+        "viewportWidth": 768,
+        "viewportHeight": 1471,
+        "visibleFeaturedCards": 0,
+        "mediaApiReady": true,
+        "visibleVideoAvailable": false,
+        "visibleVideoPlaying": false,
+        "loginEntryVisible": false,
+        "accountEntryVisible": false
+      }
+    }
+  },
+  "passed": false,
+  "unexpectedError": false,
+  "cleanupSucceeded": true,
+  "finishedAtEpochMs": 1791819045589
+}

@@ -1,11 +1,19 @@
 const fs = require('node:fs');
 // 仅用于本机验收；不保存Cookie、视频地址或账号信息。
 async function connect(port, match = 'douyin.com') {
-  const pages = await (await fetch(`http://127.0.0.1:${port}/json/list`)).json();
+  const pages = await (await fetch(`http://127.0.0.1:${port}/json/list`, {signal: AbortSignal.timeout(5000)})).json();
   const page = pages.find(p => p.type === 'page' && p.url.includes(match));
   if (!page) throw new Error('No matching debug page');
   const ws = new WebSocket(page.webSocketDebuggerUrl);
-  await new Promise((resolve, reject) => { ws.onopen = resolve; ws.onerror = reject; });
+  await new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      try { ws.close(); } catch (_) { /* 连接尚未建立时关闭也不输出调试地址。 */ }
+      reject(new Error('Debug connection timed out'));
+    }, 5000);
+    ws.onopen = () => { clearTimeout(timer); resolve(); };
+    ws.onerror = () => { clearTimeout(timer); reject(new Error('Debug connection unavailable')); };
+    ws.onclose = () => { clearTimeout(timer); reject(new Error('Debug connection closed')); };
+  });
   let id = 0; const pending = new Map();
   ws.onmessage = e => { const m = JSON.parse(e.data); if (pending.has(m.id)) { pending.get(m.id)(m); pending.delete(m.id); } };
   const call = (method, params = {}) => new Promise((resolve, reject) => {
