@@ -1,0 +1,9 @@
+{
+  "version": "0.3.1",
+  "source_commit": "def7caf8083802be883ad579ff1619cc843c70e2",
+  "apk": "LightSwipe-0.3.1-debug.apk",
+  "apk_sha256": "a334041201985750a623b3c95e2a5a760fcac69044115157b8e9bffb75a09301",
+  "verification_record": "delivery-verification.json",
+  "verification_record_sha256": "354d06b7ec0b7e23069c5e5f4acd0d6d646f503747e9ede2486ab7169dab373e",
+  "note": "The named source commit contains this implementation, APK and original evidence. The delivery record also binds the precommit source snapshot with exact per-file hashes."
+}
