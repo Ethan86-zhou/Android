@@ -81,14 +81,31 @@ function node(rect = { left: 0, top: 0, right: 400, bottom: 800 }, style = {}) {
 
 function video(options = {}) {
     const element = node(options.rect, options.style);
-    return Object.assign(element, {
+    const result = Object.assign(element, {
         tagName: 'VIDEO', isConnected: true, playbackRate: 1,
         preservesPitch: false, webkitPreservesPitch: false,
         currentTime: 12, duration: 60, readyState: 4, paused: false, ended: false,
+        currentSrc: 'blob:mock-video', src: 'blob:mock-video', seekable: timeRanges([0, 60]),
         pauseCalls: 0, playCalls: 0,
         pause() { this.pauseCalls++; this.paused = true; },
         play() { this.playCalls++; this.paused = false; return Promise.resolve(); }
     }, options);
+    let currentTime = result.currentTime;
+    result.timeWrites = 0;
+    Object.defineProperty(result, 'currentTime', {
+        get: () => currentTime,
+        set(value) { this.timeWrites++; currentTime = value; },
+        configurable: true
+    });
+    return result;
+}
+
+function timeRanges(...ranges) {
+    return {
+        length: ranges.length,
+        start: index => ranges[index][0],
+        end: index => ranges[index][1]
+    };
 }
 
 function check(name, test) {
@@ -104,9 +121,11 @@ check('empty page is safe and status contains no website or account metadata', (
     assert.equal(state.boosted, false);
     assert.equal(state.videoCount, 0);
     assert.equal(state.rate, null);
+    assert.equal(state.mediaId, 0);
+    assert.equal(state.seekable, false);
     assert.deepEqual(Object.keys(state).sort(), [
         'available', 'boostRequested', 'boosted', 'currentTime', 'destroyed',
-        'duration', 'paused', 'playing', 'rate', 'videoCount'
+        'duration', 'mediaId', 'paused', 'playing', 'rate', 'seekable', 'videoCount'
     ].sort());
     assert.equal(h.api().setBoost(false).boostRequested, false);
     assert.equal(h.timers.size, 0);
@@ -318,6 +337,269 @@ check('non-finite media times serialize safely and denied play promises are hand
     h.api().pause();
     h.api().resume();
     assert.equal(item.playCalls, 1);
+});
+
+check('media identity stays stable across time and playback changes without exposing sources', () => {
+    const h = harness();
+    const item = video({ currentSrc: 'blob:private-current', src: 'blob:private-declared' });
+    h.setVideos(item);
+    const first = h.api().status();
+    assert(Number.isInteger(first.mediaId) && first.mediaId > 0);
+    assert.equal(first.seekable, true);
+    item.currentTime = 24;
+    item.paused = true;
+    item.playbackRate = 1.25;
+    assert.equal(h.api().status().mediaId, first.mediaId);
+    assert(!JSON.stringify(first).includes('private'));
+    assert.equal(h.timers.size, 0);
+});
+
+check('seek commits once and preserves playing state, exact rate and pitch', () => {
+    const h = harness();
+    const item = video({ playbackRate: 1.5 });
+    h.setVideos(item);
+    const state = h.api().seek(0.5, h.api().status().mediaId);
+    assert.equal(state.accepted, true);
+    assert.equal(item.currentTime, 30);
+    assert.equal(item.timeWrites, 1);
+    assert.equal(item.paused, false);
+    assert.equal(item.playCalls, 0);
+    assert.equal(item.pauseCalls, 0);
+    assert.equal(item.playbackRate, 1.5);
+    assert.equal(item.preservesPitch, false);
+    assert.equal(h.timers.size, 0);
+});
+
+check('seek leaves a paused video paused and keeps locked boost intact', () => {
+    const h = harness();
+    const item = video({ paused: true, playbackRate: 1.25 });
+    h.setVideos(item);
+    h.api().setBoost(true);
+    assert.equal(h.api().seek(0.25, h.api().status().mediaId).accepted, true);
+    assert.equal(item.currentTime, 15);
+    assert.equal(item.paused, true);
+    assert.equal(item.playbackRate, 2);
+    assert.equal(h.api().status().boostRequested, true);
+    assert.equal(item.playCalls + item.pauseCalls, 0);
+    h.api().setBoost(false);
+    assert.equal(item.playbackRate, 1.25);
+});
+
+check('seek clamps fractions and avoids the exact duration at the final boundary', () => {
+    const h = harness();
+    const item = video();
+    h.setVideos(item);
+    const id = h.api().status().mediaId;
+    assert.equal(h.api().seek(-4, id).accepted, true);
+    assert.equal(item.currentTime, 0);
+    assert.equal(h.api().seek(0, id).accepted, true);
+    assert.equal(item.currentTime, 0);
+    assert.equal(h.api().seek(1, id).accepted, true);
+    assert.equal(item.currentTime, 59.95);
+    assert.equal(h.api().seek(4, id).accepted, true);
+    assert.equal(item.currentTime, 59.95);
+    assert.equal(item.timeWrites, 4);
+});
+
+check('seek respects a nonzero start and chooses the closest range boundary across gaps', () => {
+    const h = harness();
+    const item = video({ duration: 100, currentTime: 50, seekable: timeRanges([10, 20], [40, 60], [80, 95]) });
+    h.setVideos(item);
+    const id = h.api().status().mediaId;
+    assert.equal(h.api().seek(0, id).accepted, true);
+    assert.equal(item.currentTime, 10);
+    h.api().seek(0.28, id);
+    assert.equal(item.currentTime, 20);
+    h.api().seek(0.32, id);
+    assert.equal(item.currentTime, 40);
+    h.api().seek(1, id);
+    assert.equal(item.currentTime, 95);
+});
+
+check('equidistant gaps prefer the boundary nearest the previous play position', () => {
+    const h = harness();
+    const item = video({ duration: 100, currentTime: 70, seekable: timeRanges([0, 20], [40, 60]) });
+    h.setVideos(item);
+    h.api().seek(0.3, h.api().status().mediaId);
+    assert.equal(item.currentTime, 40);
+    assert.equal(item.timeWrites, 1);
+});
+
+check('very short media keeps a valid final position inside its seekable interval', () => {
+    const h = harness();
+    const item = video({ duration: 0.02, seekable: timeRanges([0.01, 0.02]) });
+    h.setVideos(item);
+    assert.equal(h.api().seek(1, h.api().status().mediaId).accepted, true);
+    assert.equal(item.currentTime, 0.015);
+});
+
+check('NaN, infinite and nonnumeric seek fractions never change playback', () => {
+    const h = harness();
+    const item = video();
+    h.setVideos(item);
+    const id = h.api().status().mediaId;
+    for (const fraction of [NaN, Infinity, -Infinity, undefined, null, '0.5', true]) {
+        assert.equal(h.api().seek(fraction, id).accepted, false);
+    }
+    assert.equal(item.currentTime, 12);
+    assert.equal(item.timeWrites, 0);
+    assert.equal(item.playCalls + item.pauseCalls, 0);
+});
+
+check('unknown live duration, empty and invalid seekable ranges disable seeking', () => {
+    for (const options of [
+        { duration: Infinity }, { duration: NaN }, { duration: 0 }, { duration: -1 },
+        { seekable: timeRanges() }, { seekable: null },
+        { seekable: timeRanges([10, 10], [40, 20], [NaN, 50], [0, Infinity], [70, 80]) },
+        { seekable: { length: 1, start() { throw new Error('unavailable'); } } }
+    ]) {
+        const h = harness();
+        const item = video(options);
+        h.setVideos(item);
+        const state = h.api().status();
+        assert.equal(state.seekable, false);
+        assert.equal(h.api().seek(0.5, state.mediaId).accepted, false);
+        assert.equal(item.currentTime, 12);
+        assert.equal(item.timeWrites, 0);
+    }
+});
+
+check('seekable intervals are clipped to actual finite media duration', () => {
+    const h = harness();
+    const item = video({ seekable: timeRanges([-10, 100]) });
+    h.setVideos(item);
+    const id = h.api().status().mediaId;
+    assert.equal(h.api().seek(-1, id).accepted, true);
+    assert.equal(item.currentTime, 0);
+    assert.equal(h.api().seek(1, id).accepted, true);
+    assert.equal(item.currentTime, 59.95);
+});
+
+check('same-node declared source changes invalidate an old drag before currentSrc updates', () => {
+    const h = harness();
+    const item = video();
+    h.setVideos(item);
+    const oldId = h.api().status().mediaId;
+    item.src = 'blob:replacement-declared';
+    const denied = h.api().seek(0.8, oldId);
+    assert.equal(denied.accepted, false);
+    assert(denied.mediaId > oldId);
+    assert.equal(item.timeWrites, 0);
+    assert.equal(h.api().status().mediaId, denied.mediaId);
+    assert.equal(h.api().seek(0.8, denied.mediaId).accepted, true);
+});
+
+check('same-node current source changes invalidate an old drag without a status poll', () => {
+    const h = harness();
+    const item = video();
+    h.setVideos(item);
+    const oldId = h.api().status().mediaId;
+    item.currentSrc = 'blob:replacement-loaded';
+    const denied = h.api().seek(0.8, oldId);
+    assert.equal(denied.accepted, false);
+    assert(denied.mediaId > oldId);
+    assert.equal(item.timeWrites, 0);
+    assert.equal(h.api().status().mediaId, denied.mediaId);
+});
+
+check('swiping to an existing offscreen video invalidates the previous drag', () => {
+    const h = harness();
+    const first = video();
+    const next = video({ rect: { left: 0, top: 800, right: 400, bottom: 1600 } });
+    h.setVideos(first, next);
+    const oldId = h.api().status().mediaId;
+    first.getBoundingClientRect = () => ({ left: 0, top: -800, right: 400, bottom: 0 });
+    next.getBoundingClientRect = () => ({ left: 0, top: 0, right: 400, bottom: 800 });
+    const denied = h.api().seek(0.8, oldId);
+    assert.equal(denied.accepted, false);
+    assert(denied.mediaId > oldId);
+    assert.equal(first.timeWrites + next.timeWrites, 0);
+    assert.equal(h.api().seek(0.8, denied.mediaId).accepted, true);
+    assert.equal(next.currentTime, 48);
+    assert.equal(first.currentTime, 12);
+});
+
+check('no visible target exposes mediaId zero and rejects seek and toggle', () => {
+    const h = harness();
+    const item = video();
+    h.setVideos(item);
+    const oldId = h.api().status().mediaId;
+    item.isConnected = false;
+    assert.equal(h.api().status().mediaId, 0);
+    assert.equal(h.api().seek(0.5, oldId).accepted, false);
+    assert.equal(h.api().togglePlayback().accepted, false);
+    item.isConnected = true;
+    assert(h.api().status().mediaId > oldId);
+    assert.equal(item.timeWrites + item.playCalls + item.pauseCalls, 0);
+});
+
+check('background and destroyed APIs reject both controls without extra state changes', () => {
+    const h = harness();
+    const item = video();
+    h.setVideos(item);
+    const id = h.api().status().mediaId;
+    h.api().pause();
+    const pauseCalls = item.pauseCalls;
+    assert.equal(h.api().seek(0.5, id).accepted, false);
+    assert.equal(h.api().togglePlayback().accepted, false);
+    assert.equal(item.pauseCalls, pauseCalls);
+    assert.equal(item.timeWrites + item.playCalls, 0);
+    h.api().resume();
+    h.document.hidden = true; // 即便 visibilitychange 还未送达，也不能在后台操控。
+    assert.equal(h.api().seek(0.5, id).accepted, false);
+    assert.equal(h.api().togglePlayback().accepted, false);
+    h.document.hidden = false;
+    h.api().destroy();
+    const before = item.playCalls + item.pauseCalls;
+    assert.equal(h.api().seek(0.5, id).accepted, false);
+    assert.equal(h.api().togglePlayback().accepted, false);
+    assert.equal(item.playCalls + item.pauseCalls, before);
+    assert.equal(item.timeWrites, 0);
+    assert.equal(h.api().status().mediaId, 0);
+});
+
+check('toggle changes only visible media and preserves rate without idle monitoring', () => {
+    const h = harness();
+    const item = video({ playbackRate: 1.5 });
+    const offscreen = video({ rect: { left: 0, top: 800, right: 400, bottom: 1600 } });
+    h.setVideos(item, offscreen);
+    assert.equal(h.api().togglePlayback().accepted, true);
+    assert.equal(item.paused, true);
+    assert.equal(item.pauseCalls, 1);
+    assert.equal(h.api().togglePlayback().accepted, true);
+    assert.equal(item.paused, false);
+    assert.equal(item.playCalls, 1);
+    assert.equal(item.playbackRate, 1.5);
+    assert.equal(offscreen.playCalls + offscreen.pauseCalls, 0);
+    assert.equal(h.timers.size, 0);
+});
+
+check('toggle handles a rejected play promise and a throwing player', () => {
+    const h = harness();
+    const item = video({ paused: true });
+    item.play = function () { this.playCalls++; return Promise.reject(new Error('blocked')); };
+    h.setVideos(item);
+    const result = h.api().togglePlayback();
+    assert.equal(result.accepted, true);
+    assert.equal(result.playing, false);
+    assert.equal(item.playCalls, 1);
+    item.play = function () { throw new Error('player removed'); };
+    assert.equal(h.api().togglePlayback().accepted, false);
+    assert.equal(item.paused, true);
+});
+
+check('a throwing currentTime setter rejects seek without touching playback or boost', () => {
+    const h = harness();
+    const item = video({ playbackRate: 1.5 });
+    h.setVideos(item);
+    Object.defineProperty(item, 'currentTime', {
+        get: () => 12,
+        set() { throw new Error('unavailable'); }
+    });
+    assert.equal(h.api().seek(0.5, h.api().status().mediaId).accepted, false);
+    assert.equal(item.currentTime, 12);
+    assert.equal(item.playCalls + item.pauseCalls, 0);
+    assert.equal(item.playbackRate, 1.5);
 });
 
 console.log(`MediaControlCheck: ${checks} scenario checks passed`);

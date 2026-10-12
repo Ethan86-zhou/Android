@@ -18,6 +18,11 @@
     var intervalId = null;
     var pendingSync = null;
     var observer = null;
+    var mediaSequence = 0;
+    var identifiedVideo = null;
+    var identifiedCurrentSrc = '';
+    var identifiedSrc = '';
+    var identifiedMediaId = 0;
 
     function suspended() {
         return manualPaused || pageHidden;
@@ -84,6 +89,96 @@
             }
         });
         return best;
+    }
+
+    function mediaId(video) {
+        if (!video) {
+            identifiedVideo = null;
+            identifiedCurrentSrc = '';
+            identifiedSrc = '';
+            identifiedMediaId = 0;
+            return 0;
+        }
+        // 地址只留在闭包里用于识别换源，原生端只接收无含义的数字编号。
+        var currentSrc = video.currentSrc || '';
+        var src = video.src || '';
+        if (video !== identifiedVideo || currentSrc !== identifiedCurrentSrc || src !== identifiedSrc) {
+            identifiedVideo = video;
+            identifiedCurrentSrc = currentSrc;
+            identifiedSrc = src;
+            identifiedMediaId = ++mediaSequence;
+        }
+        return identifiedMediaId;
+    }
+
+    function seekRanges(video) {
+        var duration = video ? finiteNumber(video.duration, 0) : 0;
+        if (duration <= 0) return [];
+        var ranges = [];
+        try {
+            // TimeRanges 是本次读取时的快照，不用 buffered 推测可拖动区间。
+            var seekable = video.seekable;
+            if (!seekable || !Number.isInteger(seekable.length) || seekable.length < 1) return [];
+            for (var index = 0; index < seekable.length; index++) {
+                var start = seekable.start(index);
+                var end = seekable.end(index);
+                if (!Number.isFinite(start) || !Number.isFinite(end)) continue;
+                start = Math.max(0, start);
+                end = Math.min(duration, end);
+                if (end > start) ranges.push({ start: start, end: end });
+            }
+        } catch (_) { return []; }
+        return ranges;
+    }
+
+    function operationResult(accepted) {
+        var state = snapshot();
+        state.accepted = accepted;
+        return state;
+    }
+
+    function seekPlayback(fraction, expectedMediaId) {
+        var video = destroyed ? null : selectedVideo(videos());
+        var currentMediaId = mediaId(video);
+        if (!video || suspended() || document.hidden ||
+            typeof fraction !== 'number' || !Number.isFinite(fraction) ||
+            expectedMediaId !== currentMediaId) return operationResult(false);
+        var ranges = seekRanges(video);
+        if (!ranges.length) return operationResult(false);
+        var duration = video.duration;
+        var requested = Math.max(0, Math.min(1, fraction)) * duration;
+        var current = finiteNumber(video.currentTime, 0);
+        var target = null;
+        var bestDistance = Infinity;
+        ranges.forEach(function (range) {
+            // 避开真正片尾，防止网站把拖到 100% 解释成播完后自动换片。
+            var end = range.end === duration ? range.end - Math.min(0.05, (range.end - range.start) / 2) : range.end;
+            var candidate = Math.max(range.start, Math.min(end, requested));
+            var distance = Math.abs(candidate - requested);
+            if (distance < bestDistance || (distance === bestDistance &&
+                Math.abs(candidate - current) < Math.abs(target - current))) {
+                target = candidate;
+                bestDistance = distance;
+            }
+        });
+        // 只在抬手时执行一次；不改变播放/暂停状态，也不改变锁定倍率。
+        try { video.currentTime = target; } catch (_) { return operationResult(false); }
+        return operationResult(true);
+    }
+
+    function togglePlayback() {
+        var video = destroyed ? null : selectedVideo(videos());
+        if (!video || suspended() || document.hidden) return operationResult(false);
+        try {
+            if (video.paused || video.ended) {
+                var promise = video.play();
+                // accepted 代表已提交操作；异步自动播放拒绝仍由 status 显示暂停。
+                if (promise && typeof promise.catch === 'function') promise.catch(function () {});
+            } else {
+                video.pause();
+            }
+        } catch (_) { return operationResult(false); }
+        return operationResult(true);
     }
 
     function restoreVideo(video) {
@@ -178,6 +273,8 @@
         var video = selectedVideo(list);
         return {
             available: !!video,
+            mediaId: mediaId(video),
+            seekable: seekRanges(video).length > 0,
             boosted: !!video && boostRequested && !suspended() && originals.has(video) && video.playbackRate === BOOST_RATE,
             playing: isPlaying(video),
             currentTime: video ? finiteNumber(video.currentTime, 0) : 0,
@@ -255,6 +352,8 @@
             sync();
             return snapshot();
         },
+        togglePlayback: togglePlayback,
+        seek: seekPlayback,
         pause: function () {
             if (destroyed) return snapshot();
             var wasSuspended = suspended();

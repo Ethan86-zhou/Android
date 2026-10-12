@@ -29,6 +29,9 @@
         'html[data-light-swipe-clean][data-light-swipe-channel="recommend"] #slidelist #sliderVideo{width:100%!important;height:100%!important;min-height:0!important;}',
         'html[data-light-swipe-clean][data-light-swipe-channel="recommend"] #slidelist .playerContainer,html[data-light-swipe-clean][data-light-swipe-channel="recommend"] #slidelist .slider-video,html[data-light-swipe-clean][data-light-swipe-channel="recommend"] #slidelist .xgplayer{width:100%!important;height:100%!important;max-width:none!important;min-height:0!important;}',
         'html[data-light-swipe-clean][data-light-swipe-channel="recommend"] #slidelist video{object-fit:contain!important;}',
+        // 原生播放条位于 WebView 外；只收起完整播放器的桌面控件，不影响精选卡片预览及官网弹窗。
+        'html[data-light-swipe-clean] #slidelist.recommend-slidelist .xgplayer xg-controls.xgplayer-controls,html[data-light-swipe-clean] .modal-video-container .xgplayer xg-controls.xgplayer-controls{display:none!important;}',
+        'html[data-light-swipe-clean] #slidelist.recommend-slidelist .xgplayer xg-video-container,html[data-light-swipe-clean] .modal-video-container .xgplayer xg-video-container{height:100%!important;}',
         'html[data-light-swipe-clean][data-light-swipe-channel="featured"] #douyin-right-container .parent-route-container.route-scroll-container{width:100%!important;max-width:none!important;min-width:0!important;height:100vh!important;height:100dvh!important;padding:0!important;}',
         'html[data-light-swipe-clean][data-light-swipe-channel="featured"] #douyin-right-container .parent-route-container .discover-tab-container{width:100%!important;min-width:0!important;}',
         // 只收起已确认的精选分类条，登录浮层不属于该容器。
@@ -128,7 +131,9 @@
             channel: current,
             applied: !destroyed && official() && clean && !!root && root.hasAttribute(CLEAN_ATTRIBUTE) && !!document.getElementById(STYLE_ID),
             clean: clean,
-            layoutReady: !destroyed && official() && !!layout && !!document.getElementById('douyin-right-container')
+            layoutReady: !destroyed && official() && !!layout && !!document.getElementById('douyin-right-container'),
+            playerActive: !destroyed && official() && clean && !document.hidden &&
+                ((current === 'recommend' && anyVisible('#slidelist.recommend-slidelist')) || anyVisible('.modal-video-container'))
         };
     }
 
@@ -165,6 +170,14 @@
                     style.visibility === 'collapse' || Number.parseFloat(style.opacity) === 0) return false;
         }
         return true;
+    }
+
+    function anyVisible(selector) {
+        var elements = document.querySelectorAll(selector);
+        for (var i = 0; i < elements.length; i++) {
+            if (visible(elements[i])) return true;
+        }
+        return false;
     }
 
     function dismissVideo() {

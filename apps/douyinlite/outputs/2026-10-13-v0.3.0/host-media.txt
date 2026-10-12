@@ -1,0 +1,33 @@
+PASS empty page is safe and status contains no website or account metadata
+PASS largest visible intersection wins over a bigger offscreen video
+PASS display, visibility, zero opacity, hidden ancestors and clipping are respected
+PASS same visible area prefers the playing video without starting paused media
+PASS cancel restores the exact previous rate and pitch without idle polling
+PASS locked boost follows replacement video and restores the old video
+PASS low-frequency fallback tracks video positions without a DOM mutation
+PASS background stops all playback and resumes only the original visible playing video
+PASS paused or replaced media is not autostarted on returning to the app
+PASS visibility and native lifecycle ordering preserves one resume candidate
+PASS website autoplay is stopped while backgrounded without polling
+PASS script injected into an already hidden page immediately pauses its media
+PASS pagehide, destroy and reinjection restore rates and release observers
+PASS non-finite media times serialize safely and denied play promises are handled
+PASS media identity stays stable across time and playback changes without exposing sources
+PASS seek commits once and preserves playing state, exact rate and pitch
+PASS seek leaves a paused video paused and keeps locked boost intact
+PASS seek clamps fractions and avoids the exact duration at the final boundary
+PASS seek respects a nonzero start and chooses the closest range boundary across gaps
+PASS equidistant gaps prefer the boundary nearest the previous play position
+PASS very short media keeps a valid final position inside its seekable interval
+PASS NaN, infinite and nonnumeric seek fractions never change playback
+PASS unknown live duration, empty and invalid seekable ranges disable seeking
+PASS seekable intervals are clipped to actual finite media duration
+PASS same-node declared source changes invalidate an old drag before currentSrc updates
+PASS same-node current source changes invalidate an old drag without a status poll
+PASS swiping to an existing offscreen video invalidates the previous drag
+PASS no visible target exposes mediaId zero and rejects seek and toggle
+PASS background and destroyed APIs reject both controls without extra state changes
+PASS toggle changes only visible media and preserves rate without idle monitoring
+PASS toggle handles a rejected play promise and a throwing player
+PASS a throwing currentTime setter rejects seek without touching playback or boost
+MediaControlCheck: 32 scenario checks passed

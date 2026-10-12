@@ -156,7 +156,7 @@ check('only the two official HTTPS hosts receive styles and routing hooks', () =
 check('status exposes only layout state and does not read account or media fields', () => {
     const h = harness();
     const state = h.api().status();
-    assert.deepEqual(Object.keys(state).sort(), ['applied', 'channel', 'clean', 'layoutReady']);
+    assert.deepEqual(Object.keys(state).sort(), ['applied', 'channel', 'clean', 'layoutReady', 'playerActive']);
     assert.equal(state.channel, 'recommend');
     assert.equal(state.layoutReady, false);
     h.element({ id: 'douyin-right-container' });
@@ -175,6 +175,86 @@ check('styles are scoped and preserve navigation nodes, dialogs and playback', (
     assert(!/(^|,)\s*(header|nav|aside|dialog)\s*\{/.test(css));
     assert(!source.includes('removeChild'));
     assert(!source.includes('playbackRate'));
+});
+
+check('desktop playback controls and reserved height change only inside the two full player roots', () => {
+    const h = harness();
+    const rules = h.css().split('\n');
+    const controls = rules.filter(rule => rule.includes('xg-controls'));
+    assert.equal(controls.length, 1);
+    const heights = rules.filter(rule => rule.includes('xg-video-container'));
+    assert.equal(heights.length, 1);
+    for (const rule of [...controls, ...heights]) {
+        const selectors = rule.slice(0, rule.indexOf('{')).split(',');
+        assert.equal(selectors.length, 2);
+        assert(selectors.every(selector => selector.startsWith('html[data-light-swipe-clean] ')), 'account mode must opt out of every playback override');
+        assert(selectors.some(selector => selector.includes('#slidelist.recommend-slidelist .xgplayer ')), 'recommendation override needs the full player root');
+        assert(selectors.some(selector => selector.includes('.modal-video-container .xgplayer ')), 'featured override needs the modal player root');
+        assert(selectors.every(selector => !selector.includes('.jingxuanVideoCard')), 'grid preview players remain untouched');
+    }
+    assert(controls[0].includes('xg-controls.xgplayer-controls'));
+    assert(controls[0].includes('display:none!important'));
+    assert(heights[0].includes('height:100%!important'));
+    assert(!h.css().includes('.player-position-box-bottom'), 'metadata offset waits for device visual evidence');
+    h.api().setClean(false);
+    assert.equal(h.css(), undefined, 'account mode restores website control styling');
+    assert.equal(h.document.documentElement.hasAttribute('data-light-swipe-clean'), false);
+});
+
+check('playerActive identifies full recommendation players and visible featured modals only', () => {
+    const h = harness();
+    assert.equal(h.api().status().playerActive, false);
+    const list = h.element();
+    h.mount('#slidelist.recommend-slidelist', list);
+    assert.equal(h.api().status().playerActive, true);
+    h.navigate('/jingxuan');
+    h.mount('#douyin-right-container .jingxuan-scroll-element .discover-video-card-item', h.element());
+    h.mount('.jingxuanVideoCard .xgplayer', h.element());
+    assert.equal(h.api().status().playerActive, false, 'grid previews and a stale recommendation route do not show native playback controls');
+    const modal = h.element(); h.mount('.modal-video-container', modal);
+    assert.equal(h.api().status().playerActive, true);
+    modal.hidden = true;
+    assert.equal(h.api().status().playerActive, false);
+    assert.equal(h.document.dispatched.length, 0, 'observing active player does not close the modal');
+});
+
+check('playerActive excludes zero-sized, detached and ancestor-hidden complete players', () => {
+    const h = harness();
+    const list = h.element(); h.mount('#slidelist.recommend-slidelist', list);
+    const parent = h.element(); list.parentElement = parent;
+    assert.equal(h.api().status().playerActive, true);
+    for (const style of [{ display: 'none' }, { visibility: 'hidden' }, { opacity: '0' }]) {
+        parent.style = style;
+        assert.equal(h.api().status().playerActive, false);
+    }
+    parent.style = {}; parent.hidden = true;
+    assert.equal(h.api().status().playerActive, false);
+    parent.hidden = false;
+    list.getBoundingClientRect = () => ({ width: 300, height: 0 });
+    assert.equal(h.api().status().playerActive, false);
+    list.getBoundingClientRect = () => ({ width: 300, height: 600 });
+    list.isConnected = false;
+    assert.equal(h.api().status().playerActive, false);
+    list.isConnected = true;
+    assert.equal(h.api().status().playerActive, true);
+});
+
+check('playerActive is disabled for account mode, nonofficial pages, hidden documents and destroyed instances', () => {
+    const h = harness();
+    h.mount('#slidelist.recommend-slidelist', h.element());
+    h.mount('.modal-video-container', h.element());
+    assert.equal(h.api().status().playerActive, true);
+    assert.equal(h.api().setClean(false).playerActive, false);
+    assert.equal(h.api().setClean(true).playerActive, true);
+    h.document.hidden = true;
+    assert.equal(h.api().status().playerActive, false);
+    h.document.hidden = false;
+    h.navigate('https://example.test/?recommend=1');
+    assert.equal(h.api().status().playerActive, false);
+    h.navigate('https://www.douyin.com/?recommend=1');
+    assert.equal(h.api().status().playerActive, true);
+    h.api().destroy();
+    assert.equal(h.api().status().playerActive, false);
 });
 
 check('featured pathname takes precedence over a stale recommendation tab', () => {
