@@ -290,8 +290,8 @@ check('featured grid uses semantic card ancestry and restores every marker', () 
     h.mount('#douyin-right-container .jingxuan-scroll-element .discover-video-card-item', card);
     h.tick();
     assert.equal(grid.hasAttribute('data-light-swipe-card-grid'), true);
-    assert(h.css().includes('repeat(2,minmax(0,1fr))'));
-    assert(h.css().includes('@media(max-width:360px)'));
+    assert(h.css().includes('grid-template-columns:minmax(0,1fr)!important'));
+    assert(!h.css().includes('@media(max-width:360px)'));
     h.api().setClean(false);
     assert.equal(grid.hasAttribute('data-light-swipe-card-grid'), false);
     assert.equal(h.document.documentElement.hasAttribute('data-light-swipe-clean'), false);

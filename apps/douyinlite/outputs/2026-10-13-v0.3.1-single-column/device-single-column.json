@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "checks": {
+    "featuredReady": true,
+    "oneRenderedTrack": true,
+    "cardsFillTrack": true,
+    "cardsStackVertically": true,
+    "noHorizontalOverflow": true,
+    "nativeSwipeScrolls": true,
+    "singleColumnAfterScrolling": true
+  },
+  "observations": {
+    "before": {
+      "featured": true,
+      "columns": 1,
+      "trackWidth": 742.133,
+      "gridTop": -12.000000953674316,
+      "viewportWidth": 768,
+      "scrollWidth": 768,
+      "rows": [
+        {
+          "left": 10.000000953674316,
+          "top": 0,
+          "width": 742.1333618164062,
+          "height": 512.4500122070312
+        },
+        {
+          "left": 10.000000953674316,
+          "top": 530.4500122070312,
+          "width": 742.1333618164062,
+          "height": 507.45001220703125
+        },
+        {
+          "left": 10.000000953674316,
+          "top": 1055.9000244140625,
+          "width": 742.1333618164062,
+          "height": 507.45001220703125
+        },
+        {
+          "left": 10.000000953674316,
+          "top": 1581.35009765625,
+          "width": 742.1333618164062,
+          "height": 507.45001220703125
+        }
+      ]
+    },
+    "after": {
+      "featured": true,
+      "columns": 1,
+      "trackWidth": 742.133,
+      "gridTop": -914.1333618164062,
+      "viewportWidth": 768,
+      "scrollWidth": 768,
+      "rows": [
+        {
+          "left": 10.000000953674316,
+          "top": -902.1333618164062,
+          "width": 742.1333618164062,
+          "height": 512.4500122070312
+        },
+        {
+          "left": 10.000000953674316,
+          "top": -371.683349609375,
+          "width": 742.1333618164062,
+          "height": 507.45001220703125
+        },
+        {
+          "left": 10.000000953674316,
+          "top": 153.7666778564453,
+          "width": 742.1333618164062,
+          "height": 507.45001220703125
+        },
+        {
+          "left": 10.000000953674316,
+          "top": 679.2166748046875,
+          "width": 742.1333618164062,
+          "height": 507.45001220703125
+        }
+      ]
+    }
+  },
+  "apk_sha256": "a334041201985750a623b3c95e2a5a760fcac69044115157b8e9bffb75a09301"
+}

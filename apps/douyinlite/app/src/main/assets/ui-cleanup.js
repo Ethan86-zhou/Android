@@ -38,10 +38,9 @@
         'html[data-light-swipe-clean][data-light-swipe-channel="featured"] #douyin-right-container .parent-route-container .discover-tab-container>.discover-tab-bar,html[data-light-swipe-clean][data-light-swipe-channel="featured"] #douyin-right-container .parent-route-container .discover-tab-container>div:not(.semi-tabs-content){display:none!important;}',
         'html[data-light-swipe-clean][data-light-swipe-channel="featured"] #douyin-right-container .parent-route-container .discover-tab-container>.semi-tabs-content{width:100%!important;height:100vh!important;height:100dvh!important;padding-top:0!important;min-width:0!important;}',
         'html[data-light-swipe-clean][data-light-swipe-channel="featured"] #douyin-right-container .jingxuanFeedList,html[data-light-swipe-clean][data-light-swipe-channel="featured"] #douyin-right-container .jingxuan-scroll-element{width:100%!important;min-width:0!important;max-width:none!important;margin:0!important;}',
-        'html[data-light-swipe-clean][data-light-swipe-channel="featured"] #douyin-right-container [data-light-swipe-card-grid]{box-sizing:border-box!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;width:100%!important;min-width:0!important;max-width:none!important;gap:18px 10px!important;padding:12px 10px!important;}',
+        'html[data-light-swipe-clean][data-light-swipe-channel="featured"] #douyin-right-container [data-light-swipe-card-grid]{box-sizing:border-box!important;display:grid!important;grid-template-columns:minmax(0,1fr)!important;width:100%!important;min-width:0!important;max-width:none!important;gap:18px!important;padding:12px 10px!important;}',
         'html[data-light-swipe-clean][data-light-swipe-channel="featured"] #douyin-right-container [data-light-swipe-card-grid]>.discover-video-card-item{box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:none!important;}',
-        'html[data-light-swipe-clean][data-light-swipe-channel="featured"] #douyin-right-container .jingxuanVideoCard{width:100%!important;min-width:0!important;max-width:none!important;}',
-        '@media(max-width:360px){html[data-light-swipe-clean][data-light-swipe-channel="featured"] #douyin-right-container [data-light-swipe-card-grid]{grid-template-columns:minmax(0,1fr)!important;}}'
+        'html[data-light-swipe-clean][data-light-swipe-channel="featured"] #douyin-right-container .jingxuanVideoCard{width:100%!important;min-width:0!important;max-width:none!important;}'
     ].join('\n');
 
     function official() {
