@@ -1,0 +1,62 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Optional, untracked local debug signing config for upgrading an existing installation.
+def debugSigningFile = rootProject.file('signing.properties')
+def debugSigning = new Properties()
+if (debugSigningFile.exists()) {
+    debugSigningFile.withInputStream { debugSigning.load(it) }
+    ['storeFile', 'storePassword', 'keyAlias', 'keyPassword'].each { key ->
+        if (!debugSigning.getProperty(key)?.trim()) {
+            throw new GradleException("Missing ${key} in local signing.properties")
+        }
+    }
+}
+
+android {
+    namespace 'com.agm.blank'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.agm.blank'
+        minSdk 23
+        targetSdk 34
+        versionCode 1
+        versionName '1.0'
+    }
+
+    signingConfigs {
+        debug {
+            if (debugSigningFile.exists()) {
+                storeFile rootProject.file(debugSigning.getProperty('storeFile'))
+                storePassword debugSigning.getProperty('storePassword')
+                keyAlias debugSigning.getProperty('keyAlias')
+                keyPassword debugSigning.getProperty('keyPassword')
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+}
+
+// Optional UI tests; set -PnodeExecutable=/path/to/node if Node is not on PATH.
+tasks.register('testSensorUi', Exec) {
+    group = 'verification'
+    description = 'Checks offline sensor UI data binding and independent attitude sources.'
+    workingDir rootProject.projectDir
+    commandLine providers.gradleProperty('nodeExecutable').getOrElse('node'), 'tests/sensors.test.cjs'
+}

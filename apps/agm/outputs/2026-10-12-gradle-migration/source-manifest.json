@@ -1,0 +1,80 @@
+{
+  "baselineCommit": "b832f09106bfd3b88a119dfb5a89536120f2cc8f",
+  "branch": "feature/agm-import",
+  "state": "uncommitted working tree import",
+  "algorithm": "SHA-256",
+  "files": [
+    {
+      "path": "app/build.gradle",
+      "sha256": "9165192b26b28b0ffe103a3c0893a71bd22958b65058e75fdab1eb2ad255114f"
+    },
+    {
+      "path": "app/src/main/AndroidManifest.xml",
+      "sha256": "ac6c71dac53427593488f8b525aa81465d1a4eb8914a20279701d82d156ed7f5"
+    },
+    {
+      "path": "app/src/main/assets/aircraft.svg",
+      "sha256": "3163822eb7f37b6b40c8a0ca237deb67e0c9b7056f3b7c0ead30ccffd359a1ed"
+    },
+    {
+      "path": "app/src/main/assets/center.svg",
+      "sha256": "489bff17562ec0fa715ad20bbdb993a23f3cf755ab171c4cc1f5caeeeab8d047"
+    },
+    {
+      "path": "app/src/main/assets/instrument.html",
+      "sha256": "a01f13a7c1a6eaa135d638f5455c1030259fd5b4662e02bdba35332f1b8b1102"
+    },
+    {
+      "path": "app/src/main/assets/sensors.js",
+      "sha256": "346f2c16f5a3e414e410c2638c6bcfbf6f23cde666378f40d6370771123577db"
+    },
+    {
+      "path": "app/src/main/java/com/agm/blank/GyroHeading.java",
+      "sha256": "2708b8646b94618ac266841ec15428370b6c4db3148b038f883764cfa2048d05"
+    },
+    {
+      "path": "app/src/main/java/com/agm/blank/MainActivity.java",
+      "sha256": "56c7d2f9ebd7f72bd8747f53ac88bcbe94348c26f563571aedd0b5328edc1081"
+    },
+    {
+      "path": "app/src/main/res/values/strings.xml",
+      "sha256": "4e31d3338891107c32179c0d7279b9a89579b1575ab96e8594ce2804c3770b73"
+    },
+    {
+      "path": "app/src/test/java/com/agm/blank/GyroHeadingTest.java",
+      "sha256": "c721ff0e1f3ba92850b6dad0fc4e4afa0189b7e31744219821969ba425fc2c62"
+    },
+    {
+      "path": "build.gradle",
+      "sha256": "c3c0cf04da0fc239f391c774554d97d890018ab6e37e87cc62f6070d0c8c9909"
+    },
+    {
+      "path": "gradle.properties",
+      "sha256": "f4c3e518ea59704ef913e6d51ef8bd0f968792a650a67d4f8189a8bb3ca6100d"
+    },
+    {
+      "path": "gradle/wrapper/gradle-wrapper.jar",
+      "sha256": "2db75c40782f5e8ba1fc278a5574bab070adccb2d21ca5a6e5ed840888448046"
+    },
+    {
+      "path": "gradle/wrapper/gradle-wrapper.properties",
+      "sha256": "89b3eda78bad4b8ceaaa3ad93b3506102ae1c6898b5e8440b7b67d4f6060d41a"
+    },
+    {
+      "path": "gradlew",
+      "sha256": "a3648413b47ef77af21d5ebc36c687c7d103aaef3e17f33de7d4f080a6f300a3"
+    },
+    {
+      "path": "gradlew.bat",
+      "sha256": "57931b17dd228e5c24dac90e815d0bf82477e831a4618dfab4136f5446b42a9f"
+    },
+    {
+      "path": "settings.gradle",
+      "sha256": "52fee80437955c581143fca4056e8db5274f299130c38f1248f6ef78ee83a26a"
+    },
+    {
+      "path": "tests/sensors.test.cjs",
+      "sha256": "b37b5f0710521681d9860d32364e62d9426245c6fa10891833e28014ffbb2146"
+    }
+  ]
+}

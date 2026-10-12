@@ -12,6 +12,7 @@ GitHub 仓库：[Ethan86-zhou/Android](https://github.com/Ethan86-zhou/Android)�
 | 拾词 Lexi | [apps/lexi](apps/lexi/README.md) | 内置 ECDICT 离线英汉词库，快捷查词、单词本、笔记与 CSV / Markdown / JSON 导出恢复 | [Lexi-1.0.2-debug.apk](apps/lexi/outputs/2026-10-11-v1.0.2/Lexi-1.0.2-debug.apk) |
 | 果刃 FruitSlice | [apps/fruitslice](apps/fruitslice/README.md) | 手机与平板横屏切水果，抬手出刀，彩虹果实随机换模式，本机最高分 10 局；Android 14 起 | [FruitSlice-1.2.2-debug.apk](apps/fruitslice/outputs/2026-10-11-v1.2.2-end-sound/FruitSlice-1.2.2-debug.apk) |
 | 轻听 LightListen | [apps/musiccache](apps/musiccache/README.md) | 固定竖屏；QQ 音乐网页登录、原生搜索与歌单、后台播放和自动缓存 | [LightListen-0.3.1-debug.apk](apps/musiccache/outputs/2026-10-11-v0.3.1-portrait/LightListen-0.3.1-debug.apk) |
+| IMU Flight Lab（AGM） | [apps/agm](apps/agm/README.md) | 横屏传感器仪表，纯陀螺相对姿态与系统融合对照、磁/陀螺双航向、气压高度 | [IMU-Flight-Lab-1.0-debug.apk](apps/agm/outputs/2026-10-12-gradle-migration/IMU-Flight-Lab-1.0-debug.apk) |
 
 ## 目录约定
 
