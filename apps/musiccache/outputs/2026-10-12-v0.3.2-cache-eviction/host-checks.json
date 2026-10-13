@@ -1,0 +1,11 @@
+{
+  "baseCommit": "b832f09106bfd3b88a119dfb5a89536120f2cc8f",
+  "cacheFilesBefore": 156,
+  "scope": "Cache hash-only inventory; no audio bytes or credentials exported",
+  "regressions": {
+    "dataSourceChecks": 51,
+    "pythonTests": 20,
+    "fixtureNodeTests": 14,
+    "catalogChecks": 48
+  }
+}

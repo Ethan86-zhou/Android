@@ -359,15 +359,39 @@ public final class RangeCache {
         if (old != null && (validator.isEmpty() || old.total != total || !old.validator.equals(validator) || !old.mime.equals(mime) || !expiryIsFresh(old.expiry))) {
             invalidateKey(key);
         }
-        // 有界空间：保留现有证据，满了停止新增，不静默删掉用户正在验证的音频。
-        if (sizeBytes() + reserved + expectedLength > maxTotal) return null;
         if (records.containsKey(key) && records.get(key).chunks.size() >= 9999) return null;
+        if (!makeRoom(key, expectedLength)) return null;
         reserved += expectedLength;
         try {
             return new WriteSession(key, label(url, key), mime, total, start, expectedLength,
                 expiry, validator, storedHeaders(headers), generation, revisions.getOrDefault(key, 0L), isHeuristic(headers),
                 validHash(resourceKey) ? resourceKey : "");
         } catch (IOException error) { reserved -= expectedLength; throw error; }
+    }
+
+    /** 优先淘汰过期音频，其次淘汰最久未保存的音频；保留正在追加的资源和所有写入预留量。 */
+    private boolean makeRoom(String protectedKey, long expectedLength) throws IOException {
+        if (reserved > maxTotal - expectedLength) return false;
+        long available = maxTotal - reserved - expectedLength;
+        Record current = records.get(protectedKey);
+        long protectedBytes = 0;
+        if (current != null) for (Chunk chunk : current.chunks) protectedBytes += chunk.length;
+        // 即使删掉其它所有歌曲也放不下时，不能无意义地清空其它缓存。
+        if (protectedBytes > available) return false;
+        if (sizeBytes() <= available) return true;
+        long now = System.currentTimeMillis();
+        List<Record> candidates = new ArrayList<>(records.values());
+        candidates.removeIf(record -> record.key.equals(protectedKey));
+        // 元数据更新时间跨进程保留，无需更改已有缓存文件格式；读取不会改变淘汰顺序。
+        candidates.sort(Comparator.comparing((Record record) -> record.expiry > now)
+                .thenComparingLong(record -> new File(directory, record.key + ".meta").lastModified())
+                .thenComparing(record -> record.key));
+        for (Record record : candidates) {
+            // 同时删除引用别名、提升版本修订，防止尚未结束的旧响应重新写回被淘汰资源。
+            invalidateKey(record.key);
+            if (sizeBytes() <= available) return true;
+        }
+        return false;
     }
 
     public final class WriteSession implements Closeable {
