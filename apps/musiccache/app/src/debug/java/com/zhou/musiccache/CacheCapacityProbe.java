@@ -135,6 +135,23 @@ final class CacheCapacityProbe {
                 && reservations.sizeBytes() == BUDGET && audioBytes(reservationDirectory) == BUDGET
                 && !hasTemporary(reservationDirectory),
                 "Cancelled writes release all reserved capacity for a subsequent full-budget response");
+
+        File cancelledDirectory = new File(root, "cancelled-full");
+        RangeCache cancelled = new RangeCache(cancelledDirectory, BUDGET, BUDGET);
+        boolean original = put(cancelled, OLD, 512, 0, oldBytes) && put(cancelled, RECENT, 512, 0, recentBytes);
+        check(checks, failed, "cancel_at_full_setup", original, "Two generated responses fill committed capacity");
+        try (RangeCache.WriteSession partial = cancelled.begin(NEW, MIME, 512, 0, 512, HEADERS)) {
+            if (partial == null) throw new IOException("Cannot stage generated response");
+            partial.append(newBytes, 0, 128);
+            check(checks, failed, "partial_retains_old_audio", cancelled.sizeBytes() == BUDGET
+                    && Arrays.equals(read(cancelled, OLD), oldBytes) && Arrays.equals(read(cancelled, RECENT), recentBytes),
+                    "Downloading at full capacity leaves both previous responses readable");
+            check(checks, failed, "truncated_response_rejected", !partial.finish(), "Only 128 of 512 promised bytes arrived");
+        }
+        RangeCache afterCancel = new RangeCache(cancelledDirectory, BUDGET, BUDGET);
+        check(checks, failed, "cancel_at_full_survives_restart", afterCancel.sizeBytes() == BUDGET
+                && Arrays.equals(read(afterCancel, OLD), oldBytes) && Arrays.equals(read(afterCancel, RECENT), recentBytes)
+                && !hasTemporary(cancelledDirectory), "Cancelled replacement leaves committed bytes intact across restart");
     }
 
     private static boolean put(RangeCache cache, String url, long total, long start, byte[] bytes) throws IOException {

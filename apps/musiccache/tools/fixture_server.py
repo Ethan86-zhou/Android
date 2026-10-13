@@ -37,6 +37,9 @@ ETAG = '"tone-' + TONE_SHA256 + '"'
 CHANGED_TONE = make_tone(660)
 CHANGED_SHA256 = hashlib.sha256(CHANGED_TONE).hexdigest()
 CHANGED_ETAG = '"tone-' + CHANGED_SHA256 + '"'
+# Native DataSource checks raw byte transport, not decoding. Longer than two 256 KiB reads.
+NATIVE_BYTES = bytes((index * 71 + index // 13) & 255 for index in range(256 * 1024 * 2 + 4321))
+NATIVE_CHANGED_BYTES = bytes(value ^ 0x5A for value in NATIVE_BYTES)
 
 
 def parse_range(value: str | None, size: int) -> tuple[int, int, int]:
@@ -99,7 +102,7 @@ class FixtureServer:
             def _serve(self, send_body: bool):
                 location = urlsplit(self.path)
                 query = parse_qs(location.query, keep_blank_values=True)
-                filenames = {"full.wav", "partial.wav", "no-store.wav", "truncated.wav", "ignore-range.wav"}
+                filenames = {"full.wav", "partial.wav", "no-store.wav", "truncated.wav", "ignore-range.wav", "native.wav"}
                 filename = location.path.removeprefix("/media/")
                 if (not location.path.startswith("/media/") or filename not in filenames
                         or query.get("run") != [owner.run_id]
@@ -120,6 +123,9 @@ class FixtureServer:
                     return
                 resource = CHANGED_TONE if variant == "changed" else TONE
                 validator = CHANGED_ETAG if variant == "changed" else ETAG
+                if filename == "native.wav":
+                    resource = NATIVE_CHANGED_BYTES if variant == "changed" else NATIVE_BYTES
+                    validator = '"native-' + hashlib.sha256(resource).hexdigest() + '"'
                 effective_range = request_range
                 if filename == "ignore-range.wav" or self.headers.get("If-Range") not in (None, validator):
                     effective_range = None

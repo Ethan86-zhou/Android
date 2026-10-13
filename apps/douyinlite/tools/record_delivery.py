@@ -35,9 +35,11 @@ def reference(path):
     """仓库内用相对路径；显式指定的外部证据保留绝对路径。"""
     path = path.resolve(strict=True)
     try:
-        name = path.relative_to(APP).as_posix()
+        path.relative_to(ROOT)
     except ValueError:
         name = str(path)
+    else:
+        name = Path(os.path.relpath(path, APP)).as_posix()
     return {'path': name, 'sha256': digest(path)}
 
 
@@ -190,7 +192,27 @@ def source_hashes():
         sources.extend(path for path in (APP / directory).rglob('*') if path.is_file()
                        and not {'build', '__pycache__', 'classes', 'node_modules'}.intersection(
                            path.relative_to(APP).parts))
-    return {path.relative_to(ROOT).as_posix(): digest(path) for path in sorted(set(sources))}
+    committed, working = {}, {}
+    for path in sorted(set(sources)):
+        name = path.relative_to(ROOT).as_posix()
+        raw = path.read_bytes()
+        working[name] = hashlib.sha256(raw).hexdigest()
+        committed[name] = normalized_source_digest(path, raw)
+    return committed, working
+
+
+def normalized_source_digest(path, raw):
+    """按该路径的 Git clean 规则取字节；新文件、未暂存修改也对应实际构建输入。
+
+    仅写内容寻址的 blob，不暂存文件或改变索引。不能只取索引中的旧源码，
+    也不能对二进制附件无条件替换换行；让 Git 应用 .gitattributes。
+    """
+    name = path.relative_to(ROOT).as_posix()
+    object_id = subprocess.check_output(
+        ['git', 'hash-object', '-w', '--path=' + name, '--stdin'],
+        input=raw, cwd=ROOT).decode('ascii').strip()
+    normalized = subprocess.check_output(['git', 'cat-file', 'blob', object_id], cwd=ROOT)
+    return hashlib.sha256(normalized).hexdigest()
 
 
 def parse_args():
@@ -252,6 +274,7 @@ def main():
                           installed_paths[0])
     installed_sha = command(adb_prefix + ['shell', 'sha256sum', installed_path]).split()[0].lower()
     require(installed_sha == apk_sha, 'Installed APK differs from delivery APK')
+    committed_sources, working_sources = source_hashes()
     record = {
         'recorded_at_shanghai': datetime.now(timezone(timedelta(hours=8))).isoformat(),
         'version': args.version,
@@ -266,7 +289,11 @@ def main():
         'source_worktree_status': command(['git', 'status', '--porcelain', '--', 'README.md', 'apps/douyinlite']),
         'source_identity_note': 'Base commit plus per-file SHA256 identifies the recorded source snapshot; '
                                 'uncommitted changes are not represented by the base commit alone.',
-        'source_files_sha256': source_hashes(),
+        'source_files_sha256': committed_sources,
+        'source_worktree_sha256': working_sources,
+        'source_hash_policy': 'source_files_sha256 hashes Git-clean normalized blobs; '
+                              'source_worktree_sha256 preserves the exact local build inputs. '
+                              'Historical delivery records are unchanged.',
         'build': build,
         'final_apk_device_reports': reports,
         'cache': cache,

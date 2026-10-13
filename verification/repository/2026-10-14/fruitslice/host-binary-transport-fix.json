@@ -1,0 +1,19 @@
+{
+  "verifiedDate": "2026-10-14",
+  "hostTests": {
+    "passed": true,
+    "count": 12,
+    "scope": "Mock-device regression, no real-device operations in this follow-up",
+    "newCases": [
+      "Reject LF-to-CRLF altered download before injection",
+      "Reject 0x1A-truncated upload before replacing any official file",
+      "Round trip all byte values in a 1 MiB fixture",
+      "Reject legacy backup without device-verified raw hash marker"
+    ]
+  },
+  "sourceHashes": "source-sha256-binary-fix.json",
+  "apkUnchanged": true,
+  "transport": "exec-out raw read plus device SHA256; exec-in upload plus device SHA256 before publish",
+  "earlierEvidenceLimitation": "adb-readonly-check.json and any earlier history-preservation record using shell -T for raw bytes do not establish original raw byte identity on Windows; shell output may translate LF and shell input may stop at 0x1A. Preserve those records as prior attempts; use a new device run after the original history is reviewed.",
+  "deviceValidation": "Pending parent-owned raw-data verification and history-only recheck."
+}

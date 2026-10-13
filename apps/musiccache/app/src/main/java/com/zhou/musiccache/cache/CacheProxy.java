@@ -69,6 +69,20 @@ public final class CacheProxy {
     }
     public Snapshot snapshot() { return new Snapshot(this); }
 
+    /** 原生播放器专用身份。来自代理对象，不读取服务器可伪造的自定义响应头。 */
+    public static String playbackVersion(WebResourceResponse response) {
+        return response instanceof AudioResponse ? ((AudioResponse) response).playbackVersion : "";
+    }
+
+    private static final class AudioResponse extends WebResourceResponse {
+        final String playbackVersion;
+        AudioResponse(String mime, int status, String reason, Map<String, String> headers,
+                      InputStream body, String playbackVersion) {
+            super(mime, null, status, reason, headers, body);
+            this.playbackVersion = playbackVersion;
+        }
+    }
+
     public WebResourceResponse intercept(WebResourceRequest request) {
         WebResourceResponse response = intercept(request.getUrl().toString(), request.getMethod(), request.getRequestHeaders());
         int originalStatus = response == null ? 0 : response.getStatusCode();
@@ -208,8 +222,8 @@ public final class CacheProxy {
                 int count = in.read(bytes, offset, length); if (count > 0) hitBytes.addAndGet(count); return count;
             }
         };
-        return new WebResourceResponse(cached.mimeType, null, cached.statusCode,
-                cached.statusCode == 206 ? "Partial Content" : "OK", cached.headers, counted);
+        return new AudioResponse(cached.mimeType, cached.statusCode,
+                cached.statusCode == 206 ? "Partial Content" : "OK", cached.headers, counted, cached.playbackVersion);
     }
 
     private static final class ProbeResult {
@@ -365,7 +379,8 @@ public final class CacheProxy {
             // 本实验的持久化由RangeCache独占；防止WebView另有不可观测的磁盘音频副本。
             response.put("Cache-Control", "no-store");
             String reason = reasonFor(status);
-            WebResourceResponse result = new WebResourceResponse(mime, null, status, reason, response, stream);
+            WebResourceResponse result = new AudioResponse(mime, status, reason, response, stream,
+                    RangeCache.playbackVersion(originalHeaders));
             handedOff = true;
             return result;
         } finally {

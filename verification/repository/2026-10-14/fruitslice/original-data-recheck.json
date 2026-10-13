@@ -1,0 +1,7 @@
+{
+  "deviceRawReadVerified": true,
+  "rawBytes": 3318,
+  "rawSha256": "8a453fdf77a3623cd90d1d1f8b95e0d138cdcefefc9ac0a9e107886aadb1ca9b",
+  "matchesPretestSnapshotAfterReversingKnownLfExpansion": true,
+  "expansionReproducesPretestSnapshot": true
+}

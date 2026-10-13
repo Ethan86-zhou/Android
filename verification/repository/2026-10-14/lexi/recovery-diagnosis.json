@@ -1,0 +1,10 @@
+{
+  "fixtureBytes": 1048576,
+  "includesEveryBytePair": true,
+  "shellOutputBytes": 1052672,
+  "shellOutputIsExactLfExpansion": true,
+  "inverseReconstructsEveryByte": true,
+  "backupMatchesExactExpansionOfCandidate": true,
+  "candidateBytes": 581632,
+  "candidateSha256": "d18d3cf8a1807f23176501e371196fbdbdab7c974f75c0e35b83098f5a0bc0ff"
+}

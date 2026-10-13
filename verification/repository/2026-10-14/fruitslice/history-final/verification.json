@@ -1,0 +1,50 @@
+{
+  "verifiedAt": "2026-10-14T01:17:58.081891+08:00",
+  "device": "SM-S9080",
+  "android": "16",
+  "api": 36,
+  "apkSha256": "60d7290cb2a00f3e98f5fe33fc415033a0d15ab414176f333b1132755887e901",
+  "testApkSha256": "eca82fa5adab2f880dce00bd3b15aabf36d8563088394d746acba8c1b2b3fb14",
+  "sourceCommit": "6b70dcaa1ea1b9426a81cca317b92e8daf8f61d6",
+  "sourceContent": "source-sha256.json is authoritative if working tree contains changes",
+  "deviceChecks": {
+    "passed": true,
+    "checks": 330,
+    "results": [
+      "Local persistence: 303 checks passed in isolated preferences",
+      "Existing phone records migrate to at most ten rounds",
+      "Phone rank 1 keeps the correct original high-score round",
+      "Phone rank 2 keeps the correct original high-score round",
+      "Phone rank 3 keeps the correct original high-score round",
+      "Phone rank 4 keeps the correct original high-score round",
+      "Phone rank 5 keeps the correct original high-score round",
+      "Phone rank 6 keeps the correct original high-score round",
+      "Phone rank 7 keeps the correct original high-score round",
+      "Phone rank 8 keeps the correct original high-score round",
+      "Phone rank 9 keeps the correct original high-score round",
+      "Phone rank 10 keeps the correct original high-score round",
+      "Upgrade preserves lifetime best",
+      "Ranked history persists in device storage",
+      "Persisted rank 1 survives reload",
+      "Persisted rank 2 survives reload",
+      "Persisted rank 3 survives reload",
+      "Persisted rank 4 survives reload",
+      "Persisted rank 5 survives reload",
+      "Persisted rank 6 survives reload",
+      "Persisted rank 7 survives reload",
+      "Persisted rank 8 survives reload",
+      "Persisted rank 9 survives reload",
+      "Persisted rank 10 survives reload",
+      "On-disk payload is upgraded and physically contains no more than ten results",
+      "Real touch opens the ranked history screen",
+      "Browsing ranked history freezes the round",
+      "Acceptance leaves no test-created checkpoint or extra completed round"
+    ],
+    "screenshots": [
+      "08-top-ten-history.png"
+    ],
+    "method": "Isolated ranking/migration checks plus existing phone records and real touchscreen history navigation. No synthetic game results added to user history."
+  },
+  "runtimeAppCrash": false,
+  "fixtureHistory": "Migration examined, original preference files restored byte-for-byte in finally"
+}

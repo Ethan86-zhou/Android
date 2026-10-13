@@ -1,0 +1,15 @@
+{
+  "verifiedDate": "2026-10-14",
+  "passed": true,
+  "scope": "ADB history preservation helpers after real transport validation",
+  "hostTests": 8,
+  "deviceReadOnlyEvidence": "adb-readonly-check.json",
+  "sourceHashes": "source-sha256-adb-fix.json",
+  "changes": [
+    "shell -T preserves remote command status and binary stdout",
+    "dd streams bytes to a temporary preference file then mv publishes it",
+    "run-as failures abort before instrumentation"
+  ],
+  "apkUnchanged": true,
+  "fullDeviceAcceptance": "Owned by the parent task; this check did not run the app, inject fixtures, or write device data."
+}

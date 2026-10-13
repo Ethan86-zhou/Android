@@ -1,0 +1,27 @@
+{
+  "recoveredOriginalWordbook": true,
+  "method": "Reversed verified Windows adb shell LF expansion; staged exec-in, device SHA-256 and exec-out verification before rename",
+  "sourceBackupPreserved": true,
+  "damagedDeviceCopyPreservedPrivately": true,
+  "sqliteIntegrityPassed": true,
+  "recordCounts": {
+    "wordbook": 1182,
+    "history": 9
+  },
+  "files": [
+    {
+      "file": "lexi-wordbook.db",
+      "bytes": 581632,
+      "sha256": "d18d3cf8a1807f23176501e371196fbdbdab7c974f75c0e35b83098f5a0bc0ff",
+      "deviceHashMatches": true,
+      "byteForByteMatches": true
+    },
+    {
+      "file": "lexi-wordbook.db-journal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "deviceHashMatches": true,
+      "byteForByteMatches": true
+    }
+  ]
+}

@@ -310,6 +310,17 @@ def main() -> int:
                 add("isolated cache capacity and eviction", capacity_ok, capacity)
                 if not capacity_ok:
                     raise RuntimeError("Capacity probe failed; inspect capacity.json")
+                native_version = device.report(run_id, "native-version", args.timeout)
+                write_json(output / "native-version.json", native_version)
+                version_checks = native_version.get("checks", [])
+                version_ok = (native_version.get("passed") is True and native_version.get("run") == run_id
+                              and native_version.get("pid") == native_report.get("pid")
+                              and native_version.get("actualMedia3DataSource") is True
+                              and isinstance(version_checks, list) and len(version_checks) >= 15
+                              and all(isinstance(item, dict) and item.get("ok") is True for item in version_checks))
+                add("isolated native mixed-cache playback version checks", version_ok, native_version)
+                if not version_ok:
+                    raise RuntimeError("Native version probe failed; inspect native-version.json")
             # Screenshots are confined to the selftest UI; never capture the normal login page.
             if native_report.get("run") == run_id and native_report.get("phase") == phase:
                 captured = capture_selftest_screenshot(device, output / f"{phase}.png")

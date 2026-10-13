@@ -22,6 +22,7 @@ public final class GameEngineCheck {
         bladePathAndPointers();
         bladeInvalidSamples();
         bladeScoringAcrossModes();
+        bladeDenseSampling();
         System.out.println("GameEngineCheck: " + checks + " checks passed");
     }
 
@@ -438,8 +439,8 @@ public final class GameEngineCheck {
         check(!limiter.isStarted() && !limiter.isExhausted(), "Waiting finger has no running deadline");
         check(!limiter.expire(Long.MAX_VALUE), "Long press without a real swipe never expires");
         near(limiter.pathUsed(), 0, 0, "Pre-swipe jitter does not spend the path budget");
-        check(limiter.move(7, 0, 0, 2, 0, 20000, 1000) != null,
-                "First movement of exactly two units starts the blade after a long press");
+        check(limiter.move(7, 1.99f, 0, 2, 0, 20000, 1000) != null,
+                "Cumulative movement of exactly two units starts the blade after a long press");
         check(limiter.isStarted(), "Real movement starts the deadline");
         check(limiter.move(7, 2, 0, 2.25f, 0, 20001, 1000) != null,
                 "Sub-two-unit movement after starting still spends path");
@@ -623,6 +624,66 @@ public final class GameEngineCheck {
             engine.endStroke();
             equal(engine.score, 40 * multiplier, "A fresh gesture reaches fruit beyond the old blade boundary");
         }
+    }
+
+    /** Identical physical paths must not depend on the touch hardware's sample rate. */
+    private static void bladeDenseSampling() {
+        for (GameEngine.Mode mode : GameEngine.Mode.values()) {
+            for (boolean prestarted : new boolean[]{false, true}) {
+                for (float step : new float[]{3f, 1.5f, .75f, .375f}) {
+                    GameEngine engine = new GameEngine(1101);
+                    engine.mode = mode;
+                    engine.spawnFruit(0, 200, 200, 0, 0, 28);
+                    BladeLimiter limiter = new BladeLimiter();
+                    limiter.press(1);
+                    if (prestarted) limitedSlice(engine, limiter, 1, 96, 200, 100, 200, 0);
+                    int samples = Math.round(150 / step);
+                    for (int i = 1; i <= samples; i++) {
+                        limitedSlice(engine, limiter, 1, 100 + (i - 1) * step, 200,
+                                100 + i * step, 200, 400L * i / samples);
+                    }
+                    engine.endStroke();
+                    equal(engine.sliced, 1, "Dense and coarse samples cut the same fruit in " + mode);
+                    equal(engine.score, mode == GameEngine.Mode.DOUBLE ? 40 : 20,
+                            "Sampling density and prior blade activation cannot alter the score");
+                    near(limiter.pathUsed(), prestarted ? 154 : 150, .001f,
+                            "Startup lead-in remains part of the path allowance");
+                }
+            }
+        }
+
+        BladeLimiter limiter = new BladeLimiter();
+        limiter.press(1);
+        for (int i = 0; i < 100; i++) {
+            check(limiter.move(1, 200, 200, 200, 200, i * 1000L, 1000) == null,
+                    "Stationary samples never start a blade even after a long hold");
+        }
+        check(!limiter.isStarted(), "A stationary held finger retains its future blade");
+        check(limiter.move(1, 200, 200, 201.5f, 200, 100000, 1000) == null,
+                "One small segment waits for further movement");
+        limiter.press(2);
+        check(limiter.move(2, 700, 200, 701.5f, 200, 100000, 1000) == null,
+                "Different fingers cannot add their pre-start jitter together");
+        limiter.release(1);
+        limiter.press(1);
+        check(limiter.move(1, 100, 200, 101, 200, 100001, 1000) == null,
+                "A released pointer does not retain its pending distance when its ID is reused");
+        check(limiter.move(2, 701.5f, 200, 702, 200, 100002, 1000) != null,
+                "The remaining finger can start using its own cumulative movement");
+        near(limiter.pathUsed(), 2, 0, "Only the starting finger's lead-in is counted");
+        check(limiter.move(1, 101, 200, 101.5f, 200, 100501, 1000) != null,
+                "Other fingers inherit a started blade and may use short samples");
+        check(limiter.move(1, 101.5f, 200, 102, 200, 100502, 1000) == null,
+                "Dense samples still expire exactly five hundred milliseconds after start");
+        limiter.cancel();
+        limiter.press(3);
+        for (int i = 1; i <= 1600; i++) {
+            limiter.move(3, (i - 1) * .75f, 200, i * .75f, 200, i / 4, 1000);
+        }
+        check(limiter.isExhausted(), "Dense samples exhaust at exactly 1.2 field widths");
+        near(limiter.pathUsed(), 1200, .001f, "Dense sampling never adds free path at startup");
+        check(limiter.move(3, 1200, 200, 1200.75f, 200, 401, 1000) == null,
+                "Tiny movement cannot bypass an exhausted blade");
     }
 
     /** Mirrors the view's single permitted entry point without Android dependencies. */

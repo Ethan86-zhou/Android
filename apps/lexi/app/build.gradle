@@ -7,14 +7,19 @@ android {
         applicationId 'com.ethan.lexi'
         minSdk 30
         targetSdk 36
-        versionCode 3
-        versionName '1.0.2'
+        versionCode 4
+        versionName '1.0.3'
         testInstrumentationRunner 'com.ethan.lexi.DictionaryInstrumentation'
     }
     androidResources { noCompress 'pack' }
+    buildFeatures { buildConfig true }
     buildTypes { release { minifyEnabled false } }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+}
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.json:json:20240303'
 }

@@ -9,6 +9,7 @@ import android.os.Looper;
 /** 仅调试构建：测试进程自行退出，真实网页登录进程始终不参与测试重启。 */
 public final class SelfTestActivity extends MainActivity {
     private boolean exitScheduled;
+    private volatile boolean nativeProbeFinished = true;
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
         // 跟随父类的隔离运行约束；只在联网首轮生成容量探针数据。
@@ -23,10 +24,19 @@ public final class SelfTestActivity extends MainActivity {
                     || uri.getPort() != 8765) return;
         }
         CacheCapacityProbe.run(getFilesDir(), run);
+        nativeProbeFinished = false;
+        new Thread(() -> {
+            try { com.zhou.musiccache.playback.PlaybackVersionProbe.run(getFilesDir(), run); }
+            finally { nativeProbeFinished = true; }
+        }, "native-playback-version-probe").start();
     }
     @Override protected boolean isSelfTestActivity() { return true; }
     @Override protected void onSelfTestReported() {
         if (exitScheduled) return;
+        if (!nativeProbeFinished) {
+            new Handler(Looper.getMainLooper()).postDelayed(this::onSelfTestReported, 100);
+            return;
+        }
         exitScheduled = true;
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             finishAndRemoveTask();

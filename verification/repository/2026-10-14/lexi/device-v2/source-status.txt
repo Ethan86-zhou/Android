@@ -1,0 +1,10 @@
+ M apps/lexi/README.md
+ M apps/lexi/app/build.gradle
+ M apps/lexi/app/src/main/java/com/ethan/lexi/MainActivity.java
+ M apps/lexi/app/src/main/java/com/ethan/lexi/WordbookExport.java
+ M apps/lexi/app/src/main/res/xml/data_extraction_rules.xml
+ M apps/lexi/tools/device_acceptance.py
+?? apps/lexi/app/src/test/java/com/ethan/lexi/WordbookExportTest.java
+?? apps/lexi/tools/device_data_guard.py
+?? apps/lexi/tools/test_device_binary_transport.py
+?? apps/lexi/tools/test_device_data_guard.py

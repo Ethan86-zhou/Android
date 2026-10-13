@@ -1,0 +1,15 @@
+{
+  "restored": true,
+  "byteIdentical": true,
+  "backupId": "cc2292ef2f8b4636ad7bbabfb87cf771",
+  "files": {
+    "fruit_slice_history.xml": {
+      "existed": true,
+      "sha256": "a05cd5dffb54748d0ea45e6639b0880912c13f508530c693d6032ba4bb4109a3"
+    },
+    "fruit_slice_history.xml.bak": {
+      "existed": false,
+      "sha256": null
+    }
+  }
+}

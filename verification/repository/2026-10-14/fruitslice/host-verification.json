@@ -1,0 +1,48 @@
+{
+  "verifiedDate": "2026-10-14",
+  "sourceCommit": "6b70dcaa1ea1b9426a81cca317b92e8daf8f61d6",
+  "sourceContent": "source-sha256.json records reviewed uncommitted app source; integration commit is recorded by the parent task",
+  "version": "1.2.3",
+  "versionCode": 8,
+  "build": {
+    "tasks": [
+      "assembleDebug",
+      "assembleDebugAndroidTest",
+      "lintDebug"
+    ],
+    "passed": true,
+    "lintErrors": 0,
+    "lintWarnings": 1,
+    "warning": "Existing sensorLandscape orientation recommendation"
+  },
+  "hostTests": {
+    "GameEngineCheck": {
+      "passed": true,
+      "checks": 3034,
+      "covers": [
+        "sampling density 3/1.5/0.75/0.375 logical units",
+        "all modes and prior activation",
+        "stationary long hold",
+        "per-finger startup threshold and pointer ID reuse",
+        "500 ms deadline and 1200-unit path limit"
+      ]
+    },
+    "test_device_acceptance": {
+      "passed": true,
+      "tests": 7,
+      "covers": [
+        "failure finally restores exact XML and bak bytes",
+        "missing and empty files are distinct",
+        "unrelated preferences preserved",
+        "disconnection recovery from disk",
+        "wrong device and corrupt backup rejected",
+        "success restores exact bytes"
+      ]
+    }
+  },
+  "deviceValidation": "Not performed by this subtask; parent task owns the connected device",
+  "apkSha256": {
+    "FruitSlice-1.2.3-androidTest.apk": "eca82fa5adab2f880dce00bd3b15aabf36d8563088394d746acba8c1b2b3fb14",
+    "FruitSlice-1.2.3-debug.apk": "60d7290cb2a00f3e98f5fe33fc415033a0d15ab414176f333b1132755887e901"
+  }
+}

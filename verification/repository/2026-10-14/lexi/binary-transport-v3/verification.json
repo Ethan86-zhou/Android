@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "generatedDataOnly": true,
+  "userDatabaseTouched": false,
+  "transport": "ASCII base64 upload over shell-v2; private device decode; exec-out download; device SHA-256 verification",
+  "checks": [
+    {
+      "name": "all_byte_pairs_1_mib",
+      "bytes": 1048576,
+      "sha256": "142f275caa52fca4eef536dccb3e4aa587f57f9a28169b51477ef5ccd49ee67e",
+      "passed": true
+    },
+    {
+      "name": "empty",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "controls",
+      "bytes": 9000,
+      "sha256": "11f8cb07952ec7d89e605bcd42eb1e48977e53c1044704c4321b215cbadee264",
+      "passed": true
+    },
+    {
+      "name": "successful_exit_truncated_upload_rejected",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+PASS 78 native DataSource checks (real HTTP/disk; Media3 API stubs, no device playback claim)

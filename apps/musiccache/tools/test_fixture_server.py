@@ -4,7 +4,7 @@ import http.client
 import unittest
 
 from fixture_server import (CHANGED_ETAG, CHANGED_SHA256, CHANGED_TONE,
-                            ETAG, FixtureServer, TONE, TONE_SHA256, parse_range)
+                            ETAG, FixtureServer, TONE, TONE_SHA256, parse_range, NATIVE_BYTES, NATIVE_CHANGED_BYTES)
 
 
 class FixtureTests(unittest.TestCase):
@@ -32,6 +32,17 @@ class FixtureTests(unittest.TestCase):
         self.assertEqual(response.status, 200)
         self.assertEqual(response.getheader("ETag"), ETAG)
         self.assertEqual(hashlib.sha256(response.read()).hexdigest(), TONE_SHA256)
+
+    def test_native_multi_chunk_fixture(self):
+        response = self.request("native.wav", headers={"Range": "bytes=262144-524287"})
+        self.assertEqual(response.status, 206)
+        self.assertEqual(response.getheader("Content-Range"), f"bytes 262144-524287/{len(NATIVE_BYTES)}")
+        self.assertEqual(response.read(), NATIVE_BYTES[262144:524288])
+        original_etag = response.getheader("ETag")
+        changed = self.request("native.wav", query="run=host_test&variant=changed")
+        self.assertNotEqual(changed.getheader("ETag"), original_etag)
+        self.assertEqual(changed.read(), NATIVE_CHANGED_BYTES)
+        self.assertEqual(len(NATIVE_BYTES), len(NATIVE_CHANGED_BYTES))
 
     def test_two_ranges_reconstruct_exact_bytes(self):
         chunks = []

@@ -1,0 +1,7 @@
+Exception in thread "main" androidx.media3.datasource.DataSourceException: ��ȡ�ڼ�����汾�����仯
+	at com.zhou.musiccache.playback.CacheDataSource.failure(CacheDataSource.java:267)
+	at com.zhou.musiccache.playback.CacheDataSource.openChunk(CacheDataSource.java:162)
+	at com.zhou.musiccache.playback.CacheDataSource.read(CacheDataSource.java:224)
+	at com.zhou.musiccache.playback.PlaybackDataSourceTest.readAll(PlaybackDataSourceTest.java:314)
+	at com.zhou.musiccache.playback.PlaybackDataSourceTest.mixedCachePlayback(PlaybackDataSourceTest.java:115)
+	at com.zhou.musiccache.playback.PlaybackDataSourceTest.main(PlaybackDataSourceTest.java:92)

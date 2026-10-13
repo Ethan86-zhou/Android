@@ -1,0 +1,7 @@
+.warning: in the working copy of 'Example.java', CRLF will be replaced by LF the next time Git touches it
+.warning: in the working copy of 'Example.java', CRLF will be replaced by LF the next time Git touches it
+..
+----------------------------------------------------------------------
+Ran 4 tests in 13.434s
+
+OK

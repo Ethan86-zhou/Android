@@ -1,7 +1,9 @@
 package com.ethan.fruitslice;
 
 import android.app.Activity;
+import android.app.Application;
 import android.app.Instrumentation;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -34,6 +36,7 @@ public final class GameInstrumentation extends Instrumentation {
     private File evidence;
     private SharedPreferences production;
     private String originalPayload;
+    private GameTestApplication testApplication;
     private boolean historyOnly;
     private float bladeTouchScale, bladeTouchLeft;
     private java.lang.reflect.Field bladeStartedAt, bladeLastEventTime;
@@ -43,6 +46,13 @@ public final class GameInstrumentation extends Instrumentation {
     private final JSONArray screenshots = new JSONArray();
     private final JSONArray bladeDiagnostics = new JSONArray();
     private final JSONArray audioDiagnostics = new JSONArray();
+
+    @Override public Application newApplication(ClassLoader loader, String name, Context context)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        testApplication = (GameTestApplication) super.newApplication(
+                GameTestApplication.class.getClassLoader(), GameTestApplication.class.getName(), context);
+        return testApplication;
+    }
 
     @Override public void onCreate(Bundle arguments) {
         super.onCreate(arguments);
@@ -55,6 +65,8 @@ public final class GameInstrumentation extends Instrumentation {
         try {
             production = getTargetContext().getSharedPreferences("fruit_slice_history", 0);
             originalPayload = production.getString("payload_v1", null);
+            if (testApplication == null) throw new AssertionError("Test-only history isolation is unavailable");
+            if (historyOnly) testApplication.useProductionHistoryForReadOnlyAcceptance();
             evidence = new File(getTargetContext().getFilesDir(), "device-tests");
             if (!evidence.exists() && !evidence.mkdirs()) throw new AssertionError("Cannot create evidence");
             int storage = HistoryChecks.run(getTargetContext());
@@ -70,6 +82,8 @@ public final class GameInstrumentation extends Instrumentation {
                 finish(Activity.RESULT_OK, result);
                 return;
             }
+            expect(production != testApplication.getSharedPreferences("fruit_slice_history", 0),
+                    "Gameplay fixtures use a separate preference file from production history");
             expect(view.art.usesRealisticFruitAssets(), "All six realistic whole fruits and six cut faces load offline");
             JSONObject artwork = new JSONObject(view.art.assetDiagnostics());
             expect(artwork.getInt("wholeAssets") == 6 && artwork.getInt("cutAssets") == 6,
@@ -85,6 +99,7 @@ public final class GameInstrumentation extends Instrumentation {
             viewportAndLargeScreenChecks();
             sizeAndScoreChecks();
             antiScribbleChecks();
+            denseSamplingChecks();
             fixture(() -> {
                 view.engine.restart(); view.engine.fruits.clear();
                 view.engine.spawnFruit(0, 430, 250, 0, 0, 28);
@@ -179,12 +194,12 @@ public final class GameInstrumentation extends Instrumentation {
                     .put("results", results).put("screenshots", screenshots).put("artwork", artwork)
                     .put("viewport", viewportDiagnostics)
                     .put("audio", audioDiagnostics)
-                    .put("method", "Real touchscreen MotionEvents plus explicit test-only scene fixtures; storage uses isolated preferences. The result score is a test fixture.");
+                    .put("method", "Real touchscreen MotionEvents plus explicit test-only scene fixtures. All gameplay and storage fixtures use private test-only preferences; production history is never written.");
             write("device-checks.json", report.toString(2));
             write("blade-diagnostics.json", bladeDiagnosticText());
             write("audio-diagnostics.json", audioDiagnostics.toString(2));
             result.putString("stream", "PASS: " + checks + " device checks\n");
-            restoreHistory();
+            finishAcceptance();
             result.putInt("checks", checks);
             finish(Activity.RESULT_OK, result);
         } catch (Throwable failure) {
@@ -193,7 +208,7 @@ public final class GameInstrumentation extends Instrumentation {
             try { if (viewportDiagnostics != null) write("viewport-diagnostics.json", viewportDiagnostics.toString(2)); }
             catch (Exception ignored) { }
             try { write("device-failure.txt", android.util.Log.getStackTraceString(failure)); } catch (Exception ignored) { }
-            try { restoreHistory(); } catch (Exception ignored) { }
+            try { finishAcceptance(); } catch (Exception cleanupFailure) { failure.addSuppressed(cleanupFailure); }
             result.putString("stream", "FAIL: " + android.util.Log.getStackTraceString(failure));
             finish(Activity.RESULT_CANCELED, result);
         }
@@ -482,6 +497,38 @@ public final class GameInstrumentation extends Instrumentation {
         swipe(365, 250, 655, 250, 60);
         expect(read(() -> view.engine.score == 50 && view.engine.sliced == 2),
                 "Double mode doubles different size rewards to 40 and 10");
+    }
+
+    private void denseSamplingChecks() throws Exception {
+        for (GameEngine.Mode mode : new GameEngine.Mode[]{GameEngine.Mode.CLASSIC, GameEngine.Mode.DOUBLE}) {
+            for (boolean prestarted : new boolean[]{false, true}) {
+                for (float step : new float[]{3f, 1.5f}) {
+                    quietBladeScene(mode);
+                    fixture(() -> view.engine.spawnFruit(0, 200, 250, 0, 0, 28));
+                    long base = SystemClock.uptimeMillis() - 400;
+                    MotionEvent down = bladeEvent(base - 1, base - 1, MotionEvent.ACTION_DOWN,
+                            new int[]{0}, new float[]{prestarted ? 96 : 100}, new float[]{250});
+                    sendPointerSync(down); down.recycle();
+                    int samples = Math.round(150 / step);
+                    int first = prestarted ? 0 : 1;
+                    MotionEvent batch = bladeEvent(base - 1, base + 400L * first / samples, MotionEvent.ACTION_MOVE,
+                            new int[]{0}, new float[]{100 + first * step}, new float[]{250});
+                    for (int i = first + 1; i <= samples; i++) {
+                        batch.addBatch(base + 400L * i / samples,
+                                bladeCoordinates(new float[]{100 + i * step}, new float[]{250}), 0);
+                    }
+                    sendPointerSync(batch); batch.recycle();
+                    expect(read(() -> view.engine.sliced == 1
+                                    && view.engine.score == (mode == GameEngine.Mode.DOUBLE ? 40 : 20)),
+                            "Real batched touch samples at " + step + " units cut identically in " + mode
+                                    + " (prestarted=" + prestarted + ")");
+                    expect(Math.abs(read(() -> view.bladeLimiter.pathUsed()) - (prestarted ? 154 : 150)) < .1f,
+                            "Batched touch density does not change the consumed path allowance");
+                    bladeTouch(base - 1, MotionEvent.ACTION_UP, new int[]{0}, new float[]{250}, new float[]{250});
+                }
+            }
+        }
+        quietBladeScene(GameEngine.Mode.CLASSIC);
     }
 
     private void antiScribbleChecks() throws Exception {
@@ -793,9 +840,16 @@ public final class GameInstrumentation extends Instrumentation {
         for (int i = 0; i < actual.size(); i++) {
             expect(actual.get(i).id.equals(reloaded.records().get(i).id), "Persisted rank " + (i + 1) + " survives reload");
         }
-        JSONObject persisted = new JSONObject(production.getString("payload_v1", ""));
-        expect(persisted.getInt("version") == 2 && persisted.getJSONArray("records").length() <= 10,
-                "On-disk payload is upgraded and physically contains no more than ten results");
+        String persistedRaw = production.getString("payload_v1", null);
+        if (persistedRaw == null) {
+            expect(originalPayload == null && actual.isEmpty() && reloaded.bestScore() == 0
+                            && reloaded.getCheckpoint() == null,
+                    "A fresh installation may have no payload and still represents valid empty history");
+        } else {
+            JSONObject persisted = new JSONObject(persistedRaw);
+            expect(persisted.getInt("version") == 2 && persisted.getJSONArray("records").length() <= 10,
+                    "On-disk payload is upgraded and physically contains no more than ten results");
+        }
         tap(890, 46);
         expect(read(() -> view.overlay == GameView.Overlay.HISTORY), "Real touch opens the ranked history screen");
         float remaining = read(() -> view.engine.remaining);
@@ -814,13 +868,13 @@ public final class GameInstrumentation extends Instrumentation {
         write("device-checks.json", report.toString(2));
     }
 
-    private void restoreHistory() {
+    private void finishAcceptance() {
         if (activity != null) { runOnMainSync(() -> activity.finish()); waitForIdleSync(); }
-        if (production != null) {
-            SharedPreferences.Editor editor = production.edit().remove("payload_v1");
-            if (originalPayload != null) editor.putString("payload_v1", originalPayload);
-            if (!editor.commit()) throw new AssertionError("Could not restore original history after device tests");
-            new HistoryStore(getTargetContext()); // Apply the current top-ten policy to restored legacy data.
+        if (!historyOnly && production != null && testApplication != null) {
+            if (!java.util.Objects.equals(originalPayload, production.getString("payload_v1", null))) {
+                throw new AssertionError("Gameplay acceptance modified production history");
+            }
+            testApplication.removeTestHistory();
         }
     }
 

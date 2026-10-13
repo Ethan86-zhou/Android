@@ -1,0 +1,22 @@
+{
+  "reviewDate": "2026-10-14",
+  "sourceCommit": "6b70dcaa1ea1b9426a81cca317b92e8daf8f61d6",
+  "sourceDirty": false,
+  "sourceManifest": "source-sha256.json",
+  "apkSha256": "857037145d3c50f694dcfa5d5240af442d49c5bfa22c38f8b8232fc4dc64dcd8",
+  "checks": {
+    "unitTests": 7,
+    "sensorUiTestsPassed": true,
+    "lintErrors": 0,
+    "lintWarnings": 4
+  },
+  "buildPassed": true,
+  "deviceChecks": "coordinated separately by parent task",
+  "reviewScope": "All app Java, resources, build settings and existing test sources; AGM sensor integration, display coordinates, offline WebView bridge and lifecycle",
+  "changes": [],
+  "limitations": [
+    "No known defect requiring an app source change found in this review.",
+    "Signing properties absent in integration checkout; compare original certificate before device update.",
+    "No calibrated physical angle or altitude measurement in host tests."
+  ]
+}

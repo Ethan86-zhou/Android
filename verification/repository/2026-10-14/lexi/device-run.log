@@ -1,0 +1,18 @@
+PASS: 211 device checks
+Evidence: C:\Users\zhou\.codex\worktrees\android-review-test-merge\Android\verification\repository\2026-10-14\lexi\device
+Traceback (most recent call last):
+  File "C:\Users\zhou\.codex\worktrees\android-review-test-merge\Android\apps\lexi\tools\device_acceptance.py", line 166, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\zhou\.codex\worktrees\android-review-test-merge\Android\apps\lexi\tools\device_acceptance.py", line 87, in main
+    with preserve_wordbook(adb, private_backup, output / "data-preservation.json"):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 148, in __exit__
+    next(self.gen)
+    ~~~~^^^^^^^^^^
+  File "C:\Users\zhou\.codex\worktrees\android-review-test-merge\Android\apps\lexi\tools\device_data_guard.py", line 105, in preserve_wordbook
+    restore_wordbook(adb, backup, report, command)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zhou\.codex\worktrees\android-review-test-merge\Android\apps\lexi\tools\device_data_guard.py", line 70, in restore_wordbook
+    raise RuntimeError("Device wordbook does not match private host backup after restore")
+RuntimeError: Device wordbook does not match private host backup after restore

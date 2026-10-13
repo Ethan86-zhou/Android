@@ -1,8 +1,12 @@
-# 轻刷 LightSwipe · v0.4.0
+# 轻刷 LightSwipe · v0.4.1
 
 使用中国大陆抖音官方网页的轻量 Android 浏览器。独立包名 `com.zhou.douyinlite`，不需要安装抖音原生 APP；账号、内容、推荐和播放权限由官网决定。
 
-[安装包 LightSwipe-0.4.0-debug.apk](outputs/2026-10-13-v0.4.0/LightSwipe-0.4.0-debug.apk)，106,937 字节，约 107 KB。使用手机系统 WebView，不把浏览器引擎重复打入 APK。实际 App 数据占用另计。
+[安装包 LightSwipe-0.4.1-debug.apk](outputs/2026-10-14-v0.4.1-review-fixes/LightSwipe-0.4.1-debug.apk)，65,788 字节。使用手机系统 WebView，不把浏览器引擎重复打入 APK。实际 App 数据占用另计。
+
+本次审查补齐 Android 各存储域的备份排除规则。交付工具同时记录 Git 规范化源码哈希与构建时本机原始字节哈希，避免 Windows 换行转换使后续克隆无法核对；历史记录原样保留。
+
+2026-10-14：主机媒体 42 组、界面 29 组、手势 33 项、缓存 85 项、交付哈希 5 项检查通过；构建及 lint 完成。三星 SM-S9080 / Android 16 的频道、精简布局、详情返回和账号界面 66 项，以及暂停/后台/返回的缓冲保留 20 项实测通过，登录保留。本版未重新做 20 次连续切片或断网压测。独立记录见 [本次整合验证](../../verification/repository/2026-10-14/douyinlite/)。
 
 ## 使用
 

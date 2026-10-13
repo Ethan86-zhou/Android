@@ -1,0 +1,13 @@
+{
+  "fruit_slice_history.xml": {
+    "exists": true,
+    "bytes": 3322,
+    "sha256": "a05cd5dffb54748d0ea45e6639b0880912c13f508530c693d6032ba4bb4109a3"
+  },
+  "fruit_slice_history.xml.bak": {
+    "exists": false,
+    "bytes": null,
+    "sha256": null
+  },
+  "unreadable_package_exit_status": 1
+}
