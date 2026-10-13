@@ -156,7 +156,7 @@ check('only the two official HTTPS hosts receive styles and routing hooks', () =
 check('status exposes only layout state and does not read account or media fields', () => {
     const h = harness();
     const state = h.api().status();
-    assert.deepEqual(Object.keys(state).sort(), ['applied', 'channel', 'clean', 'layoutReady', 'playerActive']);
+    assert.deepEqual(Object.keys(state).sort(), ['applied', 'channel', 'clean', 'detailOpen', 'layoutReady', 'navigationPending', 'pendingChannel', 'playerActive']);
     assert.equal(state.channel, 'recommend');
     assert.equal(state.layoutReady, false);
     h.element({ id: 'douyin-right-container' });
@@ -175,6 +175,8 @@ check('styles are scoped and preserve navigation nodes, dialogs and playback', (
     assert(!/(^|,)\s*(header|nav|aside|dialog)\s*\{/.test(css));
     assert(!source.includes('removeChild'));
     assert(!source.includes('playbackRate'));
+    const slideRule = css.match(/#slidelist \.page-recommend-container\{([^}]+)\}/)[1];
+    assert(!/(?:^|;)height:|margin-bottom:/.test(slideRule), 'website slide height and gap must match its swipe distance');
 });
 
 check('desktop playback controls and reserved height change only inside the two full player roots', () => {
@@ -358,7 +360,8 @@ check('late SPA anchors fulfill one pending channel request without page reload'
     const h = harness();
     assert.equal(h.api().select('featured'), true);
     assert.equal(h.navigations.length, 0);
-    const anchor = h.element({ textContent: '精选', href: 'https://www.douyin.com/jingxuan' });
+    const anchor = h.element({ textContent: '精选', href: 'https://www.douyin.com/jingxuan',
+        onClick: () => h.window.history.pushState({}, '', '/jingxuan') });
     h.mount('#douyin-navigation a', anchor);
     h.tick(); h.mutate(); h.tick(1500);
     assert.equal(anchor.clicks, 1);
@@ -368,7 +371,7 @@ check('late SPA anchors fulfill one pending channel request without page reload'
 check('missing anchors cause one fallback with the observed official navigation parameters', () => {
     const h = harness('https://www.douyin.com/jingxuan');
     assert.equal(h.api().select('recommend'), true);
-    h.tick(1200);
+    h.tick(5000);
     assert.deepEqual(h.navigations, ['https://www.douyin.com/?is_from_mobile_home=1&recommend=1&from_nav=1']);
     h.tick(5000); h.api().select('recommend'); h.tick(5000);
     assert.equal(h.navigations.length, 1);
@@ -378,8 +381,44 @@ check('a newer channel choice cancels an old pending choice', () => {
     const h = harness();
     h.api().select('featured');
     h.api().select('recommend');
-    h.tick(1500);
+    h.tick(6000);
     assert.equal(h.navigations.length, 0);
+});
+
+check('an accepted anchor click remains pending until the requested route is observed', () => {
+    const h = harness();
+    const anchor = h.element({ textContent: '精选', href: 'https://www.douyin.com/jingxuan' });
+    h.mount('#douyin-navigation a', anchor);
+    assert.equal(h.api().select('featured'), true);
+    assert.equal(h.api().status().navigationPending, true);
+    assert.equal(h.api().status().pendingChannel, 'featured');
+    for (let i = 0; i < 5; i++) h.api().status();
+    assert.equal(anchor.clicks, 1, 'polls must not re-click an in-flight route');
+    h.tick(5000);
+    assert.equal(h.navigations.length, 1, 'ignored click must still reach bounded fallback');
+});
+
+check('late route completion cancels fallback and stale timer cannot override a new choice', () => {
+    const h = harness();
+    const anchor = h.element({ textContent: '精选', href: 'https://www.douyin.com/jingxuan' });
+    h.mount('#douyin-navigation a', anchor);
+    h.api().select('featured');
+    h.tick(800); h.window.history.pushState({}, '', '/jingxuan'); h.tick();
+    assert.equal(h.api().status().navigationPending, false);
+    h.api().select('recommend'); h.api().select('featured');
+    h.tick(6000);
+    assert.equal(h.navigations.length, 0);
+    assert.equal(h.api().status().channel, 'featured');
+});
+
+check('offscreen modal does not keep the player or dismissal active', () => {
+    const h = harness('https://www.douyin.com/jingxuan');
+    h.window.innerWidth = 300; h.window.innerHeight = 600;
+    h.mount('.modal-video-container', h.element({getBoundingClientRect: () =>
+        ({left:0,top:650,width:300,height:600,right:300,bottom:1250})}));
+    assert.equal(h.api().status().detailOpen, false);
+    assert.equal(h.api().status().playerActive, false);
+    assert.equal(h.api().dismissVideo(), false);
 });
 
 check('account mode cancels pending navigation before anchors appear or fallback fires', () => {
@@ -394,6 +433,16 @@ check('account mode cancels pending navigation before anchors appear or fallback
     assert.equal(h.navigations.length, 0);
     assert.equal(h.api().status().clean, false);
     assert.equal(h.css(), undefined);
+});
+
+check('native navigation deadline can cancel a webpage request without restarting it', () => {
+    const h = harness();
+    h.api().select('featured');
+    assert.equal(h.api().status().navigationPending, true);
+    h.api().cancelNavigation(); h.tick(6000);
+    assert.equal(h.api().status().navigationPending, false);
+    assert.equal(h.api().status().pendingChannel, null);
+    assert.equal(h.navigations.length, 0);
 });
 
 check('normal video route changes and repeated status reads never create a navigation intent', () => {

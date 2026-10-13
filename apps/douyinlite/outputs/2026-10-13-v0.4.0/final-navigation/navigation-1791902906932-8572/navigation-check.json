@@ -1,0 +1,494 @@
+{
+  "schemaVersion": 1,
+  "startedAtEpochMs": 1791902906932,
+  "passed": false,
+  "checks": {
+    "initialToolbarAvailable": true,
+    "initialCleanChannelReady": true,
+    "burst1DeviceTimingCaptured": true,
+    "burst1TouchTimingValid": true,
+    "burst1WebRouteSettled": true,
+    "burst1NativeLastTargetSelected": true,
+    "burst1NoOpeningTimeoutPrompt": true,
+    "burst1RouteRemainsSettled": true,
+    "burst1ViewportHeightStable": true,
+    "burst2DeviceTimingCaptured": true,
+    "burst2TouchTimingValid": true,
+    "burst2WebRouteSettled": true,
+    "burst2NativeLastTargetSelected": true,
+    "burst2NoOpeningTimeoutPrompt": true,
+    "burst2RouteRemainsSettled": true,
+    "burst2ViewportHeightStable": true,
+    "burst3DeviceTimingCaptured": true,
+    "burst3TouchTimingValid": true,
+    "burst3WebRouteSettled": true,
+    "burst3NativeLastTargetSelected": true,
+    "burst3NoOpeningTimeoutPrompt": true,
+    "burst3RouteRemainsSettled": true,
+    "burst3ViewportHeightStable": true,
+    "burst4DeviceTimingCaptured": true,
+    "burst4TouchTimingValid": false,
+    "cleanupSucceeded": true
+  },
+  "observations": {
+    "bursts": [
+      {
+        "round": 1,
+        "expectedFeatured": true,
+        "timing": {
+          "taps": [
+            {
+              "featured": true,
+              "startedAtEpochMs": 1791902909495,
+              "finishedAtEpochMs": 1791902909554,
+              "durationMs": 59
+            },
+            {
+              "featured": false,
+              "startedAtEpochMs": 1791902909632,
+              "finishedAtEpochMs": 1791902909674,
+              "durationMs": 42
+            },
+            {
+              "featured": true,
+              "startedAtEpochMs": 1791902909745,
+              "finishedAtEpochMs": 1791902909781,
+              "durationMs": 36
+            }
+          ],
+          "gapsMs": [
+            78,
+            71
+          ],
+          "startIntervalsMs": [
+            137,
+            113
+          ],
+          "allInputDurationsNonnegative": true,
+          "allRequestedGapsBetween50And100Ms": true
+        },
+        "result": {
+          "expectedFeatured": true,
+          "settled": true,
+          "sampleErrors": 0,
+          "web": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": true,
+            "recommended": false,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          },
+          "nativeSelected": true,
+          "nativeOtherUnselected": true,
+          "timeoutPromptAbsent": true,
+          "afterNativeRead": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": true,
+            "recommended": false,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          }
+        }
+      },
+      {
+        "round": 1,
+        "expectedFeatured": false,
+        "timing": {
+          "taps": [
+            {
+              "featured": false,
+              "startedAtEpochMs": 1791902926195,
+              "finishedAtEpochMs": 1791902926229,
+              "durationMs": 34
+            },
+            {
+              "featured": true,
+              "startedAtEpochMs": 1791902926302,
+              "finishedAtEpochMs": 1791902926344,
+              "durationMs": 42
+            },
+            {
+              "featured": false,
+              "startedAtEpochMs": 1791902926415,
+              "finishedAtEpochMs": 1791902926450,
+              "durationMs": 35
+            }
+          ],
+          "gapsMs": [
+            73,
+            71
+          ],
+          "startIntervalsMs": [
+            107,
+            113
+          ],
+          "allInputDurationsNonnegative": true,
+          "allRequestedGapsBetween50And100Ms": true
+        },
+        "result": {
+          "expectedFeatured": false,
+          "settled": true,
+          "sampleErrors": 0,
+          "web": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": false,
+            "recommended": true,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          },
+          "nativeSelected": true,
+          "nativeOtherUnselected": true,
+          "timeoutPromptAbsent": true,
+          "afterNativeRead": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": false,
+            "recommended": true,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          }
+        }
+      },
+      {
+        "round": 2,
+        "expectedFeatured": true,
+        "timing": {
+          "taps": [
+            {
+              "featured": true,
+              "startedAtEpochMs": 1791902933453,
+              "finishedAtEpochMs": 1791902933489,
+              "durationMs": 36
+            },
+            {
+              "featured": false,
+              "startedAtEpochMs": 1791902933560,
+              "finishedAtEpochMs": 1791902933598,
+              "durationMs": 38
+            },
+            {
+              "featured": true,
+              "startedAtEpochMs": 1791902933668,
+              "finishedAtEpochMs": 1791902933700,
+              "durationMs": 32
+            }
+          ],
+          "gapsMs": [
+            71,
+            70
+          ],
+          "startIntervalsMs": [
+            107,
+            108
+          ],
+          "allInputDurationsNonnegative": true,
+          "allRequestedGapsBetween50And100Ms": true
+        },
+        "result": {
+          "expectedFeatured": true,
+          "settled": true,
+          "sampleErrors": 0,
+          "web": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": true,
+            "recommended": false,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          },
+          "nativeSelected": true,
+          "nativeOtherUnselected": true,
+          "timeoutPromptAbsent": true,
+          "afterNativeRead": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": true,
+            "recommended": false,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          }
+        }
+      },
+      {
+        "round": 2,
+        "expectedFeatured": false,
+        "timing": {
+          "taps": [
+            {
+              "featured": false,
+              "startedAtEpochMs": 1791902938603,
+              "finishedAtEpochMs": 1791902938659,
+              "durationMs": 56
+            },
+            {
+              "featured": true,
+              "startedAtEpochMs": 1791902938764,
+              "finishedAtEpochMs": 1791902938848,
+              "durationMs": 84
+            },
+            {
+              "featured": false,
+              "startedAtEpochMs": 1791902938942,
+              "finishedAtEpochMs": 1791902939035,
+              "durationMs": 93
+            }
+          ],
+          "gapsMs": [
+            105,
+            94
+          ],
+          "startIntervalsMs": [
+            161,
+            178
+          ],
+          "allInputDurationsNonnegative": true,
+          "allRequestedGapsBetween50And100Ms": false
+        }
+      }
+    ],
+    "refresh": [],
+    "lifecycle": [],
+    "states": {
+      "burst1": {
+        "expectedFeatured": true,
+        "settled": true,
+        "sampleErrors": 0,
+        "web": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "nativeSelected": true,
+        "nativeOtherUnselected": true,
+        "timeoutPromptAbsent": true,
+        "afterNativeRead": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        }
+      },
+      "burst2": {
+        "expectedFeatured": false,
+        "settled": true,
+        "sampleErrors": 0,
+        "web": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": false,
+          "recommended": true,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "nativeSelected": true,
+        "nativeOtherUnselected": true,
+        "timeoutPromptAbsent": true,
+        "afterNativeRead": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": false,
+          "recommended": true,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        }
+      },
+      "burst3": {
+        "expectedFeatured": true,
+        "settled": true,
+        "sampleErrors": 0,
+        "web": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "nativeSelected": true,
+        "nativeOtherUnselected": true,
+        "timeoutPromptAbsent": true,
+        "afterNativeRead": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        }
+      }
+    },
+    "nativeSnapshots": [
+      {
+        "temporaryPauseUsed": false,
+        "pausedCount": 0,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 0,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      },
+      {
+        "temporaryPauseUsed": false,
+        "pausedCount": 0,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 0,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      },
+      {
+        "temporaryPauseUsed": false,
+        "pausedCount": 0,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 0,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      },
+      {
+        "temporaryPauseUsed": false,
+        "pausedCount": 0,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 0,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      }
+    ],
+    "toolbar": {
+      "featured": {
+        "x": 578,
+        "y": 168
+      },
+      "recommended": {
+        "x": 863,
+        "y": 168
+      },
+      "more": {
+        "x": 1358,
+        "y": 183
+      }
+    },
+    "initial": {
+      "apiReady": true,
+      "clean": true,
+      "applied": true,
+      "featured": true,
+      "recommended": false,
+      "layoutReady": true,
+      "navigationPending": false,
+      "detailOpen": false,
+      "hidden": false,
+      "suspended": false,
+      "viewportHeight": 1383,
+      "viewportWidth": 768,
+      "refreshMarkerPresent": false
+    },
+    "lastBurstTiming": {
+      "lineCount": 6,
+      "timestamps": [
+        1791902938603,
+        1791902938659,
+        1791902938764,
+        1791902938848,
+        1791902938942,
+        1791902939035
+      ]
+    }
+  },
+  "unexpectedError": false,
+  "cleanupSucceeded": true,
+  "finishedAtEpochMs": 1791902941010
+}

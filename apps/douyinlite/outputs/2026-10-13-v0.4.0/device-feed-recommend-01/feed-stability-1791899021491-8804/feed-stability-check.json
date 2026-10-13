@@ -1,0 +1,238 @@
+{
+  "schemaVersion": 1,
+  "startedAtEpochMs": 1791899021491,
+  "requestedSwipeCount": 20,
+  "cssPixelTolerance": 2,
+  "passed": false,
+  "checks": {
+    "nativeViewportAvailable": true,
+    "initialFeedReady": true,
+    "initialActiveSlideVisible": true,
+    "initialContainerStartsAtViewportTop": true,
+    "initialActiveSlideStartsAtContainerTop": true,
+    "initialActiveSlideMatchesVisibleContainerHeight": true,
+    "initialNoDocumentScroll": true,
+    "swipe01Passed": true,
+    "swipe02Passed": false,
+    "cleanupSucceeded": true
+  },
+  "observations": {
+    "steps": [
+      {
+        "index": 1,
+        "elapsedMs": 2693,
+        "passed": true,
+        "checks": {
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "samples": 5,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": 0,
+          "afterTranslateY": -1396,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396.0001220703125,
+          "afterAdjacentPitch": 1396.0001220703125,
+          "beforeAdjacentGap": 12,
+          "afterAdjacentGap": 12
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 3,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 2,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -1396
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 2,
+            "time": 1.207226,
+            "duration": 8.798956,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 7.459439999999999,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 2,
+        "elapsedMs": 10006,
+        "passed": false,
+        "checks": {
+          "transitionSettled": false,
+          "realFeedTransition": false,
+          "activeSlideVisible": false,
+          "containerStartsAtViewportTop": false,
+          "activeSlideStartsAtContainerTop": false,
+          "activeSlideMatchesVisibleContainerHeight": false,
+          "noDocumentScroll": false,
+          "viewportHeightStable": false,
+          "sameFeedContext": false,
+          "withinTenSeconds": false
+        },
+        "samples": 33,
+        "sampleErrors": 1,
+        "transition": {
+          "translationAvailable": false,
+          "beforeTranslateY": -1396,
+          "afterTranslateY": 0,
+          "translateDelta": 0,
+          "beforeAdjacentPitch": 1396.0001220703125,
+          "afterAdjacentPitch": 0,
+          "beforeAdjacentGap": 12,
+          "afterAdjacentGap": 0
+        }
+      }
+    ],
+    "nativeViewport": {
+      "left": 0,
+      "top": 273,
+      "width": 1440,
+      "height": 2594
+    },
+    "initial": {
+      "settled": true,
+      "samples": 8,
+      "sampleErrors": 0,
+      "sample": {
+        "kind": "recommend",
+        "clean": true,
+        "playerActive": true,
+        "documentHidden": false,
+        "viewport": {
+          "width": 768,
+          "height": 1383,
+          "visualTop": 0,
+          "visualHeight": 1383.4666748046875
+        },
+        "container": {
+          "present": true,
+          "token": 1,
+          "top": 0,
+          "left": 0,
+          "height": 1383.466796875,
+          "width": 768.0000610351562,
+          "visibleTop": 0,
+          "visibleHeight": 1383,
+          "visibleWidth": 768
+        },
+        "activeSlide": {
+          "present": true,
+          "token": 2,
+          "top": 0,
+          "left": 0,
+          "height": 1384.0001220703125,
+          "width": 768.0000610351562,
+          "intersectionArea": 1062144,
+          "topError": 0,
+          "heightError": 1.0001220703125
+        },
+        "visibleSlideCount": 1,
+        "slideCount": 2,
+        "transforms": [
+          {
+            "depth": 0,
+            "values": [
+              1,
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
+        ],
+        "spacings": [
+          {
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          }
+        ],
+        "scroll": {
+          "documentTop": 0,
+          "windowY": 0,
+          "containerTop": 0
+        },
+        "media": {
+          "available": true,
+          "id": 1,
+          "time": 0,
+          "duration": 0,
+          "playing": false,
+          "readyState": 0,
+          "buffering": false,
+          "bufferedAhead": 0,
+          "suspended": false
+        }
+      }
+    }
+  },
+  "unexpectedError": false,
+  "cleanupSucceeded": true,
+  "failureKind": "transition-timeout",
+  "finishedAtEpochMs": 1791899041086
+}

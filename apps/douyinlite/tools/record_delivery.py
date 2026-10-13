@@ -138,9 +138,20 @@ def integer_expression(text):
 def cache_result(report_path, apk_sha):
     source = APP / 'app/src/main/java/com/zhou/douyinlite/CacheController.java'
     text = source.read_text(encoding='utf-8')
-    match = re.search(r'\bSOFT_LIMIT_BYTES\s*=\s*([^;]+);', text)
+    declaration = r'\bstatic\s+final\s+long\s+SOFT_LIMIT_BYTES\s*=\s*([^;]+);'
+    match = re.search(declaration, text)
     require(match is not None, 'Cache threshold declaration missing')
-    threshold = integer_expression(match.group(1))
+    expression = match.group(1).strip()
+    public_alias_source = None
+    # 仅展开本项目明确约定的单层别名；不解析任意成员引用或执行 Java/Python 表达式。
+    if expression == 'CachePolicy.SOFT_LIMIT_BYTES':
+        public_alias_source = source
+        source = source.with_name('CachePolicy.java')
+        policy_text = source.read_text(encoding='utf-8')
+        policy_match = re.search(declaration, policy_text)
+        require(policy_match is not None, 'Cache policy threshold declaration missing')
+        expression = policy_match.group(1).strip()
+    threshold = integer_expression(expression)
     require(threshold > 0, 'Invalid cache threshold')
     result = {
         'threshold_source': reference(source),
@@ -150,6 +161,8 @@ def cache_result(report_path, apk_sha):
         'scope': 'Recognized resource cache; website and login data are measured separately. '
                  'No hard disk cap or offline playback guarantee.',
     }
+    if public_alias_source is not None:
+        result['public_alias_source'] = reference(public_alias_source)
     if 'setCacheMode(WebSettings.LOAD_DEFAULT)' in text:
         result['mode'] = 'LOAD_DEFAULT'
     if report_path is not None:

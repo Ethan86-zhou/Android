@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "startedAtEpochMs": 1791900305686,
+  "passed": false,
+  "blocked": true,
+  "blockedReasons": {
+    "noUnbufferedSeekableTail": true
+  },
+  "checks": {},
+  "observations": {
+    "initial": {
+      "apiReady": true,
+      "recommended": true,
+      "clean": true,
+      "playerActive": true,
+      "available": true,
+      "seekable": true,
+      "foreground": true,
+      "online": true,
+      "duration": 37.268094,
+      "mediaId": 24,
+      "boosted": false,
+      "eligibleTail": false
+    }
+  },
+  "unexpectedError": false,
+  "cleanupSucceeded": true,
+  "finishedAtEpochMs": 1791900305775
+}

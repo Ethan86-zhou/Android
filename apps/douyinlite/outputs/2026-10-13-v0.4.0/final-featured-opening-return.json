@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "checks": {
+    "cardOpensVideo": true,
+    "openedViewportStable": true,
+    "backReturnsToOriginalList": true,
+    "returnedViewportStable": true
+  },
+  "observations": {
+    "opened": {
+      "detail": true,
+      "playing": true,
+      "height": 1383
+    },
+    "back": {
+      "featured": true,
+      "detail": false,
+      "ready": true,
+      "sameRoute": true,
+      "height": 1383
+    }
+  },
+  "requestedCacheClearing": false
+}
