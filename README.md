@@ -13,6 +13,7 @@ GitHub 仓库：[Ethan86-zhou/Android](https://github.com/Ethan86-zhou/Android)�
 | 果刃 FruitSlice | [apps/fruitslice](apps/fruitslice/README.md) | 手机与平板横屏切水果，抬手出刀，彩虹果实随机换模式，本机最高分 10 局；Android 14 起 | [FruitSlice-1.2.2-debug.apk](apps/fruitslice/outputs/2026-10-11-v1.2.2-end-sound/FruitSlice-1.2.2-debug.apk) |
 | 轻听 LightListen | [apps/musiccache](apps/musiccache/README.md) | 固定竖屏；QQ 音乐网页登录、原生搜索与歌单、后台播放和自动缓存 | [LightListen-0.3.2-debug.apk](apps/musiccache/outputs/2026-10-12-v0.3.2-cache-eviction/LightListen-0.3.2-debug.apk) |
 | 轻刷 LightSwipe | [apps/douyinlite](apps/douyinlite/README.md) | 抖音官网精选单列 / 推荐、固定视频视口、手机播放与缓冲提示、边缘长按加速、1 GiB 缓存提醒与手动清理 | [LightSwipe-0.4.0-debug.apk](apps/douyinlite/outputs/2026-10-13-v0.4.0/LightSwipe-0.4.0-debug.apk) |
+| IMU Flight Lab（AGM） | [apps/agm](apps/agm/README.md) | 横屏传感器仪表，纯陀螺相对姿态与系统融合对照、磁/陀螺双航向、气压高度 | [IMU-Flight-Lab-1.0-debug.apk](apps/agm/outputs/2026-10-12-gradle-migration/IMU-Flight-Lab-1.0-debug.apk) |
 
 ## 目录约定
 
