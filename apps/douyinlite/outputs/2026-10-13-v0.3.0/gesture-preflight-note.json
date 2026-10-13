@@ -1,0 +1,5 @@
+{
+  "apk_sha256": "185f9e95d73fce8340de38151fffcd35aeccc1a724eb86ee9b2e564454cb817a",
+  "failed_run": "device-real-final",
+  "reason": "The gesture suite requires a playing video. The mobile-player suite intentionally preserves pause state after seeking and channel return; the initial gesture preflight therefore stopped at visibleVideoPlaying=false. The native Play button was then used to establish the required playing state before rerunning."
+}

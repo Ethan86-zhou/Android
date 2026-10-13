@@ -1,0 +1,7 @@
+{
+  "passed": false,
+  "generatedDataOnly": true,
+  "userDatabaseTouched": false,
+  "transport": "exec-in upload with independently verified exec-out download",
+  "failure": "One temporary upload readback did not equal generated fixture despite successful adb exit; this scheme was rejected and replaced by shell-v2 ASCII base64 upload and private device decode."
+}

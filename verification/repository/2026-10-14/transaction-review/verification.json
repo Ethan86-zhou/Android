@@ -1,0 +1,68 @@
+{
+  "verifiedAtUtc": "2026-10-13T17:57:40.923075+00:00",
+  "passed": true,
+  "helperSha256": "cb0d6339fdd92991aa8ddc98925aa52e02ac0698a5c8f29492bce0fcac539877",
+  "testScriptSha256": "7bedcb38ac6bd09fc1084ff24d9c5a8570158346937304576a855f08b646cfc9",
+  "generatedHostFilesOnly": true,
+  "adbInvoked": false,
+  "deviceTouched": false,
+  "scope": "Real host Bash worker behavior; Android detached-client scenarios have separate device evidence.",
+  "checkCount": 7,
+  "checks": [
+    {
+      "scenario": "commit_exact_set",
+      "passed": true,
+      "exitCode": 0,
+      "state": "committed",
+      "exactFileSet": true,
+      "copiesRetained": true
+    },
+    {
+      "scenario": "failure_after_first_publish",
+      "passed": true,
+      "exitCode": 91,
+      "state": "rolled_back",
+      "exactFileSet": true,
+      "copiesRetained": true
+    },
+    {
+      "scenario": "failure_after_second_publish",
+      "passed": true,
+      "exitCode": 91,
+      "state": "rolled_back",
+      "exactFileSet": true,
+      "copiesRetained": true
+    },
+    {
+      "scenario": "corrupt_second_stage",
+      "passed": true,
+      "exitCode": 1,
+      "state": "failed_preparation",
+      "exactFileSet": true,
+      "copiesRetained": true
+    },
+    {
+      "scenario": "term_after_committed_marker",
+      "passed": true,
+      "exitCode": 130,
+      "state": "committed",
+      "exactFileSet": true,
+      "copiesRetained": true
+    },
+    {
+      "scenario": "rollback_and_marker_failure_then_local_recovery",
+      "passed": true,
+      "lockRetainedDuringFailure": true,
+      "state": "rolled_back",
+      "exactFileSet": true,
+      "copiesRetained": true
+    },
+    {
+      "scenario": "preparing_with_ready_marker_aborts_safely",
+      "passed": true,
+      "mode": "abort",
+      "state": "failed_preparation",
+      "exactFileSet": true
+    }
+  ]
+}

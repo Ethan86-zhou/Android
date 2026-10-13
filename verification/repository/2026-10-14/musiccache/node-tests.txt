@@ -1,0 +1,79 @@
+✔ Content-Length must be a single numeric value equal to the consumed body (10.0531ms)
+✔ new signature proves one-byte validation and a whole-song disk hit without duplicate storage (99.5608ms)
+✔ duplicate download or storage cannot pass signature reuse checks (86.2153ms)
+✔ changed ETag requires the new audio bytes and a new download (59.4398ms)
+✔ returning old bytes under a changed ETag is rejected (58.8857ms)
+✔ authorization rejection never counts a cached song or a second download (9.3897ms)
+✔ getBytes consumes the response and exposes Content-Length (5.416ms)
+✔ offline miss succeeds only after reading an HTTP 504 empty body (2.9205ms)
+✔ offline TypeError is a failure rather than proof of a cache miss (2.9702ms)
+✔ offline status, body and duplicate length failures cannot be accepted (7.6322ms)
+✔ non-Range HTTP 504 permits a readable error body with exact single length (4.2767ms)
+✔ an unreadable HTTP 504 body fails (1.747ms)
+✔ truncated body expects TypeError and never accepts a timeout (3.8106ms)
+✔ ignored upstream Range requires readable HTTP 502 with an empty body (7.597ms)
+QQ catalog script regression
+RecordedAt: 2026-10-13T16:54:19.555Z
+Source: app/src/main/java/com/zhou/musiccache/player/QQWebSource.java
+SourceSHA256: 0870b843f5f5388eb0e6375d6cc67976685a7d0001a9ec3d2be839049cfcd567
+Scope: extracted JavaScript with simulated QQ SDK/DOM; not live QQ, Android lifecycle, or Java pagination-loop validation.
+ok 1 - playlist: all 69 rows survive the real extraction script
+ok 2 - playlist: polling starts only one request
+ok 3 - playlist: official config-first/array-second SDK shape
+ok 4 - playlist: dynamic playlist ID
+ok 5 - playlist: duration metadata mapping
+ok 6 - playlist: only minimal metadata and counts retained
+ok 7 - playlist: completed polling does not refetch
+ok 8 - playlist: first page has 100 rows
+ok 9 - playlist: second page uses offset 100
+ok 10 - playlist: explicit zero-song result
+ok 11 - playlist: unavailable, filtered, and invalid identifiers counted
+ok 12 - playlist: permission rejection fails closed
+ok 13 - playlist: oversized server page rejected
+ok 14 - playlist: missing total rejected
+ok 15 - playlist: exception text not returned
+ok 16 - playlist: wrong page playlist ID blocks request
+ok 17 - playlist: wrong origin blocks request
+ok 18 - playlist: stale promise cannot overwrite newer request
+ok 19 - favorites: read only own favorite ID
+ok 20 - favorites: another profile is not accepted as own favorites
+ok 21 - playlist directory: duplicate anchors removed and play count not treated as song count
+ok 22 - playlist directory: explicit song count recognized
+PASS 22 playlist/catalog JavaScript checks
+ok 23 - search: real SDK response shape yields 30 rows and reported total
+ok 24 - search: one SDK request
+ok 25 - search: official module and method
+ok 26 - search: validated page size and page number
+ok 27 - search: query and source parameter
+ok 28 - search: caller provides no credentials
+ok 29 - search: minimal metadata mapping
+ok 30 - search: no raw response retained
+ok 31 - search: polling does not repeat a completed request
+ok 32 - search: three pages supply 90 distinct identifiers
+ok 33 - search: page numbers increment
+ok 34 - search: Java source declares finite three-page bound
+ok 35 - search: valid zero-match result
+ok 36 - search: short final page metadata
+ok 37 - search: top-level rejection fails closed
+ok 38 - search: request rejection fails closed
+ok 39 - search: oversized page fails closed
+ok 40 - search: missing total fails closed
+ok 41 - search: exception detail not exposed
+ok 42 - search: origin guard
+ok 43 - search: path guard
+ok 44 - search: unavailable SDK does not silently fall back to DOM rows
+ok 45 - search: query quoting and placeholder order prevent injection/corruption
+ok 46 - search: stale reply cannot replace a newer token
+ok 47 - search: invalid song identifier counted
+ok 48 - search change retains playlist/favorite entry points
+PASS 26 search/catalog JavaScript checks
+PASS 48 checks total; production source unchanged; no network or device access.
+✔ tools\test_qq_catalog.mjs (452.4157ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 814.7609

@@ -36,6 +36,8 @@ public final class HistoryChecks {
             HistoryStore store = new HistoryStore(isolated);
             require(store.records().isEmpty() && store.bestScore() == 0 && store.getCheckpoint() == null,
                     "new store is empty"); count++;
+            require(!preferences.contains("payload_v1") && new HistoryStore(isolated).records().isEmpty(),
+                    "missing payload is a stable empty installation and does not need JSON parsing"); count++;
 
             Set<String> ids = new HashSet<>();
             for (int i = 0; i < 250; i++) {

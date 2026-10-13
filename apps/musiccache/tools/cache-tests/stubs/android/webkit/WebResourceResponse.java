@@ -2,7 +2,7 @@ package android.webkit;
 import java.io.InputStream;
 import java.util.Map;
 /** JVM适配器只提供Android响应容器；不会模拟WebView播放器或网页登录。 */
-public final class WebResourceResponse {
+public class WebResourceResponse {
     private final String mimeType;
     private final int statusCode;
     private Map<String, String> headers;

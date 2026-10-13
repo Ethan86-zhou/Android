@@ -1,0 +1,34 @@
+{
+  "verifiedDate": "2026-10-14",
+  "passed": true,
+  "scope": "Acceptance tooling only; application code and APK are unchanged",
+  "hostAdapterTests": {
+    "passed": true,
+    "count": 16,
+    "includes": [
+      "Durable transaction ID before worker launch",
+      "Reconnection reuses pending transaction without force-stop",
+      "New backup/restore refuses active restore lock",
+      "Transport corruption and wrong device rejected"
+    ]
+  },
+  "realDeviceTransactionScenarios": {
+    "passed": true,
+    "count": 5,
+    "evidence": "transaction-device-probe-03/verification.json",
+    "sourceStable": true,
+    "generatedCacheDataOnly": true,
+    "realHistoryTouched": false,
+    "activityLaunched": false,
+    "includes": [
+      "Normal full-set publication",
+      "Failure after first publication restores complete previous set",
+      "Own ADB launcher killed after first publication then reconnects to committed transaction",
+      "Own ADB launcher killed then worker failure rolls back complete previous set",
+      "Failure after deleting bak restores original bak and xml"
+    ]
+  },
+  "sharedHelperSha256": "cb0d6339fdd92991aa8ddc98925aa52e02ac0698a5c8f29492bce0fcac539877",
+  "sourceHashes": "source-sha256-transaction-fix.json",
+  "earlierAttempts": "Probe 01 was an earlier worker. Probe 02 changed helper source during the run and is not final-source validation; both are preserved."
+}

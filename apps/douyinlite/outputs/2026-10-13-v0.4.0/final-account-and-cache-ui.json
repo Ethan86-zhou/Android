@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "checks": {
+    "loggedInAccountRetained": true,
+    "advisoryOneGiBVisible": true,
+    "noAutomaticClearExplained": true,
+    "explicitManualClearExplained": true,
+    "manualButtonPresent": true
+  },
+  "account": {
+    "headerVisible": true,
+    "avatar": true,
+    "login": false
+  },
+  "requestedCacheClearing": false
+}

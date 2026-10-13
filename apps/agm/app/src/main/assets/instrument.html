@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>IMU Flight Lab</title>
+<style>
+*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#060b11;font-family:Inter,Arial,sans-serif;color:#ebf7ff;-webkit-user-select:none;user-select:none}body{background:linear-gradient(to bottom,#081822 50%,#131211 50%)}
+#screen{position:absolute;width:915px;height:412px;transform-origin:top left;background:#060b11;overflow:hidden}p{margin:0;position:absolute;white-space:pre;line-height:1.21} .sky,.ground,.horizon{position:absolute;left:0;width:100%}.sky{top:0;height:206px;background:rgba(26,122,184,.12)}.ground{top:206px;height:206px;background:rgba(140,79,36,.1)}.horizon{top:205px;height:2px;background:rgba(235,247,255,.18)}
+.glass{position:absolute;background:rgba(235,247,255,.05);border:1px solid rgba(235,247,255,.13);border-radius:18px}.label{font-size:10px;font-weight:600;color:rgba(235,247,255,.48)}.value{font-size:14px;font-weight:500;color:rgba(235,247,255,.94);font-variant-numeric:tabular-nums}.unit{font-size:9px;color:rgba(235,247,255,.42)}.cyan{color:rgba(51,219,255,.92)}.amber{color:rgba(255,184,61,.98)}.green{color:rgba(89,255,173,.92)}.divider{position:absolute;height:1px;background:rgba(235,247,255,.08)}
+.heading{left:278px;top:12px;width:360px;height:42px;border-radius:14px}.sensors{left:16px;top:68px;width:152px;height:326px}.sensor{position:absolute;left:13px;width:136px;height:70px}.sensor .label{top:0}.sensor .value{top:20px}.sensor .unit{top:42px}.sensor .divider{top:61px;left:-2px;width:128px}
+.attitude{position:absolute;left:182px;top:64px;width:587px;height:330px;overflow:hidden}.line{position:absolute;border-radius:1px;background:rgba(235,247,255,.42)}.pitch{position:absolute;font-size:10px;font-weight:500;color:rgba(235,247,255,.44)}.ghost{position:absolute;left:211.5px;top:124px;width:164px;height:36px;opacity:.28}.ghost i{position:absolute;background:#ebf7ff;border-radius:2px}.aircraft{position:absolute;left:211.5px;top:86.9px;width:164px;height:42px;transform:rotate(-12.4deg)}
+.readout{left:174px;top:270px;width:238px;height:32px;border-radius:14px;background:rgba(235,247,255,.04);font-size:13px;font-weight:600}.altitude{left:783px;top:68px;width:116px;height:286px}.tick-label{font-size:10px;color:rgba(235,247,255,.46)}
+#zero{left:783px;top:362px;width:116px;height:32px;border-radius:12px;background:rgba(235,247,255,.03);border-color:rgba(51,219,255,.3);color:rgba(51,219,255,.9);font:600 10px Inter,Arial,sans-serif;cursor:pointer;padding:0}#zero:active{background:rgba(51,219,255,.18)}#zero:focus-visible{outline:2px solid #33dbff}.telemetry{left:286px;top:379px;width:366px;height:25px;border-radius:11px;background:rgba(235,247,255,.03)}
+</style></head><body><main id="screen" aria-label="IMU flight instrument demo">
+<div class="sky"></div><div class="ground"></div><div class="horizon"></div>
+<p style="left:18px;top:14px;font-size:12px;font-weight:600;color:rgba(235,247,255,.86)">IMU FLIGHT LAB</p>
+<p class="green" style="left:18px;top:32px;font-size:10px;font-weight:500">CONNECTING · LANDSCAPE</p>
+<section class="glass heading" aria-label="Independent magnetic and gyroscope headings" style="left:240px;top:6px;width:490px;height:52px">
+<p id="magHeading" class="green" style="left:12px;top:6px;font-size:12px;font-weight:600">MAG —°</p>
+<p id="gyroHeading" class="amber" style="left:12px;top:29px;font-size:12px;font-weight:600">GYRO —°</p>
+<div style="position:absolute;left:131px;top:3px;width:230px;height:44px">
+<p style="left:0;top:0;font-size:9px;color:#98a6af">N</p><p style="left:55px;top:0;font-size:9px;color:#98a6af">E</p><p style="left:112px;top:0;font-size:9px;color:#98a6af">S</p><p style="left:169px;top:0;font-size:9px;color:#98a6af">W</p><p style="right:0;top:0;font-size:9px;color:#98a6af">N</p>
+<div style="position:absolute;top:20px;width:230px;height:1px;background:#63727b"></div>
+<div id="magPointer" style="position:absolute;top:14px;width:3px;height:10px;background:#59ffad;transform:translateX(-50%)"></div>
+<div id="gyroPointer" style="position:absolute;top:26px;width:3px;height:10px;background:#ffb83d;transform:translateX(-50%)"></div></div>
+<p style="left:379px;top:7px;font-size:9px;color:#98a6af">GYRO − MAG</p><p id="headingDelta" style="left:379px;top:25px;font-size:14px">—°</p>
+</section>
+<button id="alignHeading" class="glass cyan" style="left:747px;top:14px;width:152px;height:34px;border-radius:12px;font:600 11px Arial">ALIGN HEADING</button>
+<section class="glass sensors" aria-label="Sensor readings"><p class="label" style="left:13px;top:13px">SENSORS</p>
+<div class="sensor" style="top:41px"><p class="label cyan">ACC</p><p class="value">—  —  —</p><p class="unit">m/s²</p><div class="divider"></div></div>
+<div class="sensor" style="top:111px"><p class="label amber">GYRO</p><p class="value">+3.2  −1.8  +0.6</p><p class="unit">°/s</p><div class="divider"></div></div>
+<div class="sensor" style="top:181px"><p class="label green">MAG</p><p class="value">285°   47.2</p><p class="unit">µT</p><div class="divider"></div></div>
+<div class="sensor" style="top:251px"><p class="label" style="color:#ebf7ff">BARO</p><p class="value">1012.8</p><p class="unit">hPa</p></div></section>
+<section class="attitude" aria-label="Attitude indicator">
+<div class="line" style="left:16px;top:142px;width:555px;height:2px;background:rgba(235,247,255,.64)"></div>
+<div id="pitchMarks"></div>
+<div class="line" style="left:292.5px;top:28px;width:2px;height:226px;background:rgba(51,219,255,.48)"></div><div class="line" style="left:288.5px;top:26px;width:10px;height:2px;background:rgba(51,219,255,.7)"></div>
+<img src="center.svg" alt="Neutral center" style="position:absolute;left:288.5px;top:137px;width:10px;height:10px">
+<div class="ghost"><i style="left:0;top:16px;width:68px;height:3px"></i><i style="left:96px;top:16px;width:68px;height:3px"></i><i style="left:0;top:10px;width:3px;height:9px"></i><i style="left:161px;top:10px;width:3px;height:9px"></i><i style="left:80px;top:4px;width:4px;height:16px"></i></div>
+<img class="fusion-aircraft" src="aircraft.svg" alt="System fused attitude" style="position:absolute;left:211.5px;top:121px;width:164px;height:42px;opacity:.9;filter:hue-rotate(145deg) saturate(1.4)"><img class="aircraft" src="aircraft.svg" alt="Aircraft: roll plus 12.4 degrees, pitch minus 6.8 degrees">
+<div id="rollMarks"></div><p style="left:176px;top:258px;font-size:9px;color:#ffb83d">GYRO · RELATIVE ZERO</p><div class="glass readout"><p class="amber" style="left:17px;top:9px">ROLL  +12.4°</p><p class="amber" style="left:125px;top:9px">PITCH  −6.8°</p></div></section>
+<section class="glass altitude" aria-label="Relative altitude"><p class="label" style="left:13px;top:13px">REL ALT</p><p id="alt" style="left:13px;top:33px;font-size:30px;font-weight:600">+3.6</p><p style="left:83px;top:46px;font-size:11px;color:rgba(235,247,255,.5)">m</p><div class="line" style="left:11px;top:111px;width:88px;height:1.5px;background:rgba(51,219,255,.68)"></div><div id="altMarks"></div><div class="divider" style="left:13px;top:173px;width:88px"></div><p style="left:13px;top:187px;font-size:11px;color:rgba(235,247,255,.62)">1012.8 hPa</p><p id="delta" class="green" style="left:13px;top:208px;font-size:11px">ΔH +3.6 m</p></section>
+<button id="zeroGyro" class="glass amber" style="left:190px;top:335px;width:132px;height:34px;border-radius:12px;font:600 11px Arial">ZERO GYRO</button><button class="glass" id="zero" aria-label="Set ground altitude to zero">SET GROUND 0</button>
+<div class="glass telemetry"><p id="status" style="left:13px;top:7px;font-size:9px;color:rgba(235,247,255,.58)">WAITING FOR SENSORS</p></div>
+<p style="left:184px;top:396px;font-size:9px;color:#ffb83d">AMBER = GYRO</p><p style="left:184px;top:381px;font-size:9px;color:#33dbff">CYAN = FUSION</p><p id="fusionReadout" style="left:360px;top:365px;font-size:10px;color:#33dbff">FUSION —</p>
+</main><script>
+function rect(parent,x,y,w,h,color){var d=document.createElement('div');d.className='line';d.style.cssText='left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+h+'px;'+(color?'background:'+color:'');parent.appendChild(d)}
+function label(parent,text,x,y,cls){var p=document.createElement('p');p.className=cls;p.textContent=text;p.style.left=x+'px';p.style.top=y+'px';parent.appendChild(p)}
+var pitch=document.getElementById('pitchMarks');[-30,-20,-10,10,20,30].forEach(function(n){var y=142+n*3.2,w=Math.abs(n)===20?82:54,x=293.5-w/2;rect(pitch,x,y,w,1.5);label(pitch,Math.abs(n),x-26,y-7,'pitch');label(pitch,Math.abs(n),x+w+12,y-7,'pitch')});
+var roll=document.getElementById('rollMarks');[[233.5,11.81],[252.14,3.12],[272.01,-2.21],[292.5,-4],[312.99,-2.21],[332.86,3.12],[351.5,11.81]].forEach(function(p,i){rect(roll,p[0],p[1],2,i===3?10:7,'rgba(235,247,255,'+(i===3?'.8':'.32')+')')});
+var alt=document.getElementById('altMarks');[78,96,112,128,146].forEach(function(y,i){rect(alt,13,y-1,22,i===2?2:1.5,'rgba(235,247,255,'+(i===2?'.72':'.32')+')');label(alt,['+8','+4','0','−4','−8'][i],45,y-7,'tick-label')});
+function resize(){var s=Math.min(innerWidth/915,innerHeight/412),screen=document.getElementById('screen');screen.style.transform='scale('+s+')';screen.style.left=(innerWidth-915*s)/2+'px';screen.style.top=(innerHeight-412*s)/2+'px'}addEventListener('resize',resize);resize();
+</script><script src="sensors.js"></script></body></html>

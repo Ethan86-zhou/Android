@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "startedAtEpochMs": 1791904177705,
+  "checks": {
+    "ForegroundPlayableRecommendedVideoCaptured": true,
+    "PausedBaselineHasBufferedPoint": true,
+    "BeforeSameSavedVideo": true,
+    "BeforeVisibility": true,
+    "BeforeStillPaused": true,
+    "BeforeTimeUnchanged": true,
+    "BeforeBufferedPointRetained": true,
+    "ExistingResourceCacheObserved": true,
+    "BackgroundWaitCrossesObservationGrace": true,
+    "originalPlaybackStateRestored": true
+  },
+  "observations": {
+    "capture": {
+      "captured": true,
+      "originalPaused": false,
+      "originalRate": 1
+    },
+    "baseline": {
+      "ready": true,
+      "time": 18.968801,
+      "bufferPoint": 18.993800999999998,
+      "bufferStart": 0,
+      "bufferEnd": 32.275736,
+      "bufferRangeCount": 1
+    },
+    "before": {
+      "saved": true,
+      "hidden": false,
+      "sameNode": true,
+      "sameSource": true,
+      "paused": true,
+      "ended": false,
+      "time": 18.968801,
+      "rate": 1,
+      "timeDifference": 0,
+      "baselineReady": true,
+      "bufferPointRetained": true,
+      "bufferRangeCount": 1
+    },
+    "diskBefore": {
+      "cacheKiB": 28791,
+      "webViewAndSiteKiB": 7379,
+      "totalKiB": 36170
+    },
+    "backgroundElapsedMs": 12007,
+    "backgroundAttachAttempts": 3
+  },
+  "requestedCacheClearing": false,
+  "physicalOneGiBPressureTested": false,
+  "passed": false,
+  "unexpectedError": true,
+  "cleanupSucceeded": true,
+  "finishedAtEpochMs": 1791904206587
+}

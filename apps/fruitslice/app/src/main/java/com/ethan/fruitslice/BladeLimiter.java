@@ -1,6 +1,8 @@
 package com.ethan.fruitslice;
 
 import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /** One shared blade budget for all fingers until every finger leaves the screen. */
@@ -19,6 +21,7 @@ public final class BladeLimiter {
     }
 
     private final Set<Integer> pointers = new HashSet<>();
+    private final Map<Integer, Double> pendingTravel = new HashMap<>();
     private boolean started, exhausted;
     private long startedAt, lastEventTime = -1L;
     private double used, pathLimit;
@@ -28,6 +31,7 @@ public final class BladeLimiter {
     }
 
     public void release(int pointerId) {
+        pendingTravel.remove(pointerId);
         if (pointers.remove(pointerId) && pointers.isEmpty()) reset();
     }
 
@@ -37,8 +41,9 @@ public final class BladeLimiter {
     }
 
     /**
-     * Starts with the first movement of at least two logical units. The width at that
+     * Starts after one finger has moved a cumulative two logical units. The width at that
      * point fixes this blade's path allowance; later fingers cannot refresh it.
+     * High-frequency touch samples may each be shorter than the starting threshold.
      * Invalid or out-of-order samples leave the budget unchanged.
      */
     public Cut move(int pointerId, float fromX, float fromY, float toX, float toY,
@@ -54,13 +59,21 @@ public final class BladeLimiter {
         if (expire(eventTime)) return null;
         lastEventTime = eventTime;
         if (!started) {
-            if (length < 2d) return null;
+            double pending = pendingTravel.getOrDefault(pointerId, 0d);
+            if (pending + length < 2d) {
+                pendingTravel.put(pointerId, pending + length);
+                return null;
+            }
             started = true;
             startedAt = eventTime;
             pathLimit = proposedLimit;
+            // Count the lead-in distance too, so denser sampling cannot extend the blade.
+            used = Math.min(pending, pathLimit);
+            pendingTravel.clear();
         }
         if (length == 0d) return null;
         double remaining = pathLimit - used;
+        if (remaining <= 0d) { exhausted = true; return null; }
         if (length >= remaining) {
             double fraction = remaining / length;
             used = pathLimit;
@@ -89,5 +102,6 @@ public final class BladeLimiter {
         startedAt = 0L;
         lastEventTime = -1L;
         used = pathLimit = 0d;
+        pendingTravel.clear();
     }
 }

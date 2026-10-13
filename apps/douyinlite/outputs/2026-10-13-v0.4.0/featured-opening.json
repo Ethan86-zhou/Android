@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checks": {
+    "featuredDetailOpened": true,
+    "visibleVideoAvailable": true,
+    "videoPlaying": true,
+    "viewportUnchanged": true
+  },
+  "observations": {
+    "beforeHeight": 1383,
+    "afterHeight": 1383
+  }
+}

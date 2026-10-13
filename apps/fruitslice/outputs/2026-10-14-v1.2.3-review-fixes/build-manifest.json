@@ -1,0 +1,10 @@
+{
+  "version": "1.2.3",
+  "sourceCommit": "6b70dcaa1ea1b9426a81cca317b92e8daf8f61d6",
+  "sourceContent": "../../../../verification/repository/2026-10-14/fruitslice/source-sha256.json",
+  "apkSha256": {
+    "FruitSlice-1.2.3-androidTest.apk": "eca82fa5adab2f880dce00bd3b15aabf36d8563088394d746acba8c1b2b3fb14",
+    "FruitSlice-1.2.3-debug.apk": "60d7290cb2a00f3e98f5fe33fc415033a0d15ab414176f333b1132755887e901"
+  },
+  "deviceValidation": "See current integration task device evidence; historical device results do not validate these APKs."
+}

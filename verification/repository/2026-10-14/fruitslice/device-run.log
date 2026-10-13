@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "C:\Users\zhou\.codex\worktrees\android-review-test-merge\Android\apps\fruitslice\tools\device_acceptance.py", line 177, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\zhou\.codex\worktrees\android-review-test-merge\Android\apps\fruitslice\tools\device_acceptance.py", line 127, in main
+    with preserve_history(run, app, output):
+         ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "C:\Users\zhou\.codex\worktrees\android-review-test-merge\Android\apps\fruitslice\tools\device_acceptance.py", line 85, in preserve_history
+    backup = backup_history(run, app)
+  File "C:\Users\zhou\.codex\worktrees\android-review-test-merge\Android\apps\fruitslice\tools\device_acceptance.py", line 38, in backup_history
+    data = read_history_file(run, name)
+  File "C:\Users\zhou\.codex\worktrees\android-review-test-merge\Android\apps\fruitslice\tools\device_acceptance.py", line 27, in read_history_file
+    raise RuntimeError("Could not determine history file state: " + name)
+RuntimeError: Could not determine history file state: fruit_slice_history.xml

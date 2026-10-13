@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "startedAtEpochMs": 1791904633035,
+  "checks": {
+    "ForegroundPlayableRecommendedVideoCaptured": true,
+    "PausedBaselineHasBufferedPoint": true,
+    "BeforeSameSavedVideo": true,
+    "BeforeVisibility": true,
+    "BeforeStillPaused": true,
+    "BeforeTimeUnchanged": true,
+    "BeforeBufferedPointRetained": true,
+    "ExistingResourceCacheObserved": true,
+    "BackgroundWaitCrossesObservationGrace": true,
+    "NativeBackgroundConfirmed": true,
+    "BackgroundResourceCacheNotBulkCleared": true,
+    "BackgroundTotalDataNotBulkCleared": true,
+    "ForegroundSameSavedVideo": true,
+    "ForegroundVisibility": true,
+    "ForegroundStillPaused": true,
+    "ForegroundTimeUnchanged": true,
+    "ForegroundBufferedPointRetained": true,
+    "ForegroundResourceCacheNotBulkCleared": true,
+    "ForegroundTotalDataNotBulkCleared": true,
+    "originalPlaybackStateRestored": true
+  },
+  "observations": {
+    "capture": {
+      "captured": true,
+      "originalPaused": false,
+      "originalRate": 1
+    },
+    "baseline": {
+      "ready": true,
+      "time": 445.038275,
+      "bufferPoint": 445.063275,
+      "bufferStart": 422.266666,
+      "bufferEnd": 454.391291,
+      "bufferRangeCount": 2
+    },
+    "before": {
+      "saved": true,
+      "hidden": false,
+      "sameNode": true,
+      "sameSource": true,
+      "paused": true,
+      "ended": false,
+      "time": 445.038275,
+      "rate": 1,
+      "timeDifference": 0,
+      "baselineReady": true,
+      "bufferPointRetained": true,
+      "bufferRangeCount": 2
+    },
+    "diskBefore": {
+      "cacheKiB": 28783,
+      "webViewAndSiteKiB": 7435,
+      "totalKiB": 36218
+    },
+    "backgroundElapsedMs": 12003,
+    "nativeBackgroundConfirmed": true,
+    "diskBackground": {
+      "cacheKiB": 28783,
+      "webViewAndSiteKiB": 7435,
+      "totalKiB": 36218
+    },
+    "foreground": {
+      "saved": true,
+      "hidden": false,
+      "sameNode": true,
+      "sameSource": true,
+      "paused": true,
+      "ended": false,
+      "time": 445.038275,
+      "rate": 1,
+      "timeDifference": 0,
+      "baselineReady": true,
+      "bufferPointRetained": true,
+      "bufferRangeCount": 2
+    },
+    "diskForeground": {
+      "cacheKiB": 28783,
+      "webViewAndSiteKiB": 7443,
+      "totalKiB": 36226
+    }
+  },
+  "requestedCacheClearing": false,
+  "physicalOneGiBPressureTested": false,
+  "passed": true,
+  "unexpectedError": false,
+  "cleanupSucceeded": true,
+  "finishedAtEpochMs": 1791904646657
+}

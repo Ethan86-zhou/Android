@@ -1,0 +1,39 @@
+{
+  "version": "0.3.3",
+  "apk": "apps/musiccache/outputs/2026-10-14-v0.3.3-review-fixes/final-02/LightListen-0.3.3-debug.apk",
+  "apkSha256": "42300edc0ac22415557b698fd75d695bcceeb4682b87c2ee84a4b4cb779f01a3",
+  "baseCommit": "6b70dcaa1ea1b9426a81cca317b92e8daf8f61d6",
+  "sourceNote": "Working-tree changes identified by source-final-02-sha256.json; baseCommit alone is not this build.",
+  "sourceManifestSha256": "135fb252cb0d7a2d107390d41903f2fbe5f1636234ce4df96c732a5ba5eb0c5b",
+  "hostChecks": {
+    "cache": 430,
+    "dataSource": 78,
+    "python": 21,
+    "webFixture": 14,
+    "qqCatalog": 48
+  },
+  "regressionBefore": {
+    "mixedCachePlayback": "playback-before.txt",
+    "evictionBeforeComplete": "eviction-before.txt"
+  },
+  "regressionAfter": {
+    "cache": "cache-final-02.txt",
+    "dataSource": "playback-final-02.txt",
+    "python": "python-tests.txt",
+    "javascript": "node-tests.txt"
+  },
+  "build": {
+    "assembleDebug": "passed",
+    "lintDebug": "completed",
+    "log": "build-lint-final-02.txt",
+    "limitation": "Existing Kotlin 2.2 dependency metadata is newer than the AGP 8.7.3 lint analyzer; not a warning-free full analysis."
+  },
+  "deviceEvidence": "apps/musiccache/outputs/2026-10-14-v0.3.3-review-fixes/final-02/device-01/verification.json (separate root-agent acceptance; host checks do not claim audio output or QQ songs)",
+  "changes": [
+    "Internal hashed version identity across cache/network responses; no raw ETag persisted",
+    "Reject mixing unidentified old cached bytes with network or replaced snapshots",
+    "Delay eviction until complete response and metadata publication; committed audio 256 MiB and staging <=64 MiB",
+    "Debug-only isolated Android DataSource and full-capacity cancellation probes",
+    "Eviction IO failure preserves published bytes, counts undeleted payloads, attempts later victims, suspends admission/other commits, and retries recovery"
+  ]
+}

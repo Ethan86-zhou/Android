@@ -1,0 +1,42 @@
+{
+  "startedAtEpochMs": 1791821920029,
+  "passed": false,
+  "checks": {
+    "recommendedPlayerReady": true,
+    "desktopControlsHidden": true,
+    "nativePlaybackControlPresent": true,
+    "nativeSeekControlPresent": true,
+    "seekTouchHeightAtLeast44Dp": true,
+    "nativePauseVideoAvailable": true,
+    "nativePauseWorks": true,
+    "pauseStopsTime": true,
+    "nativePlayAdvancesTime": true,
+    "forwardPauseVideoAvailable": true
+  },
+  "observations": {
+    "initial": {
+      "available": true,
+      "playing": false,
+      "suspended": false,
+      "seekable": true,
+      "mediaId": 1,
+      "time": 676.293575,
+      "duration": 754.166667,
+      "rate": 1,
+      "boosted": false,
+      "clean": true,
+      "playerActive": true,
+      "recommended": true,
+      "featured": false,
+      "desktopControlsVisible": false,
+      "modalVisible": false,
+      "gridReferencePresent": false,
+      "sameGridAddress": false,
+      "leftGridAddress": false,
+      "cardsVisible": 0
+    }
+  },
+  "unexpectedError": true,
+  "cleanupSucceeded": false,
+  "finishedAtEpochMs": 1791821953836
+}

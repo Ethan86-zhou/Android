@@ -1,0 +1,35 @@
+{
+  "reviewDate": "2026-10-14",
+  "sourceCommit": "6b70dcaa1ea1b9426a81cca317b92e8daf8f61d6",
+  "sourceDirty": true,
+  "sourceManifest": "source-sha256.json",
+  "apkSha256": "ebe2157085997826e58d17d0942d74ef79df91ad1bc446528aa4d2c5e711c053",
+  "checks": {
+    "unitTests": 6,
+    "hostDataProtectionTests": 10,
+    "lintErrors": 0,
+    "lintWarnings": 3,
+    "dictionaryIntegrityPassed": true,
+    "dictionaryEntries": 770611,
+    "realBinaryTransportChecks": 4
+  },
+  "buildPassed": true,
+  "deviceChecks": "coordinated separately by parent task",
+  "reviewScope": "All app Java, resources, build settings and existing test sources; Lexi export, wordbook storage and device-data preservation fixes",
+  "changes": [
+    "Stage exports before opening destination; stream JSON under byte limit",
+    "Exclude actual Android backup domains",
+    "Durable private host snapshot and finally restore/check during acceptance",
+    "Match backup device serial and provide --restore-backup recovery entry point"
+  ],
+  "limitations": [
+    "Provider failure during final destination copy can still interrupt the output file; serialization failures preserve an old backup.",
+    "Host process kill or device disconnect retains private backup for recovery.",
+    "Original shell-binary guard failed on Windows, and was replaced after restoring original user bytes. Full new device acceptance is coordinated separately by the parent task."
+  ],
+  "buildLog": "build-final.txt",
+  "dataProtectionEvidence": "binary-transport-v3/verification.json",
+  "initialDeviceRun": "Failed during host restore; preserved in device/ and device-run.log",
+  "recovery": "recovery/data-recovery.json confirms complete original DB recovered and verified",
+  "transport": "ASCII base64 upload via shell-v2, decode in app sandbox, exec-out download, independent device checksums and readback before rename"
+}

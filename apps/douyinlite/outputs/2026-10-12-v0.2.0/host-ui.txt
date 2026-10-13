@@ -1,0 +1,19 @@
+PASS only the two official HTTPS hosts receive styles and routing hooks
+PASS status exposes only layout state and does not read account or media fields
+PASS styles are scoped and preserve navigation nodes, dialogs and playback
+PASS featured pathname takes precedence over a stale recommendation tab
+PASS active recommendation tab and query both identify the channel
+PASS featured grid uses semantic card ancestry and restores every marker
+PASS SPA history hooks preserve return values and update layout without page completion
+PASS mutation batches debounce without a polling or self-triggering loop
+PASS hidden pages wait until visibility resumes and retain clean mode preference
+PASS channel selection clicks exact official anchors even when CSS hides their parent
+PASS late SPA anchors fulfill one pending channel request without page reload
+PASS missing anchors cause one fallback with the observed official navigation parameters
+PASS a newer channel choice cancels an old pending choice
+PASS account mode cancels pending navigation before anchors appear or fallback fires
+PASS normal video route changes and repeated status reads never create a navigation intent
+PASS destroy removes style, pending actions, observers, event handlers and owned history hooks
+PASS destroy preserves a newer website history wrapper
+PASS reinjecting replaces the prior instance without duplicate observers
+18 UI cleanup scenario groups passed.

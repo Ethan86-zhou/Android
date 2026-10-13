@@ -40,7 +40,7 @@ public final class CacheDataSource extends BaseDataSource {
     private Map<String, List<String>> publicHeaders = Collections.emptyMap();
     private InputStream body;
     private long position, requestRemaining, remaining, chunkRemaining, resourceLength;
-    private String firstEtag, firstMime;
+    private String firstVersion, firstMime;
     private boolean started, terminalStream;
 
     public static final class Factory implements DataSource.Factory {
@@ -87,7 +87,7 @@ public final class CacheDataSource extends BaseDataSource {
         }
         publicUri = spec.uri;
         position = spec.position; requestRemaining = spec.length; remaining = C.LENGTH_UNSET;
-        resourceLength = C.LENGTH_UNSET; firstEtag = null; firstMime = null;
+        resourceLength = C.LENGTH_UNSET; firstVersion = null; firstMime = null;
         transferInitializing(spec);
         try {
             resolved = resolver.resolve(song);
@@ -157,11 +157,11 @@ public final class CacheDataSource extends BaseDataSource {
         if (!(mime.startsWith("audio/") || mime.equals("application/octet-stream"))) {
             throw failure("服务器未返回音频", PlaybackException.ERROR_CODE_IO_INVALID_HTTP_CONTENT_TYPE);
         }
-        String etag = header(responseHeaders, "ETag");
-        if (firstMime != null && (!firstMime.equals(mime) || (isStrong(firstEtag) && !firstEtag.equals(etag)))) {
+        String version = CacheProxy.playbackVersion(response);
+        if (firstMime != null && (!firstMime.equals(mime) || !firstVersion.equals(version))) {
             throw failure("读取期间歌曲版本发生变化", PlaybackException.ERROR_CODE_IO_UNSPECIFIED);
         }
-        if (firstMime == null) { firstMime = mime; firstEtag = etag; }
+        if (firstMime == null) { firstMime = mime; firstVersion = version; }
         String rawLength = header(responseHeaders, "Content-Length");
         long length = rawLength.isEmpty() ? C.LENGTH_UNSET : number(rawLength);
         if (!rawLength.isEmpty() && length < 0) throw failure("音频长度无效", PlaybackException.ERROR_CODE_IO_UNSPECIFIED);
@@ -255,7 +255,7 @@ public final class CacheDataSource extends BaseDataSource {
 
     @Override public void close() {
         cleanupBody(); resolved = null; requestHeaders = null; publicUri = null;
-        publicHeaders = Collections.emptyMap(); firstEtag = null; firstMime = null;
+        publicHeaders = Collections.emptyMap(); firstVersion = null; firstMime = null;
         if (started) { started = false; transferEnded(); }
     }
 
@@ -272,5 +272,4 @@ public final class CacheDataSource extends BaseDataSource {
         }
         return "";
     }
-    private static boolean isStrong(String value) { return value != null && value.startsWith("\"") && value.endsWith("\""); }
 }

@@ -1,0 +1,4 @@
+Exception in thread "main" java.lang.AssertionError: full cache admits a new resource by evicting old audio
+	at com.zhou.musiccache.cache.CacheEngineTest.check(CacheEngineTest.java:704)
+	at com.zhou.musiccache.cache.CacheEngineTest.quotaTests(CacheEngineTest.java:155)
+	at com.zhou.musiccache.cache.CacheEngineTest.main(CacheEngineTest.java:29)

@@ -1,0 +1,96 @@
+{
+  "passed": true,
+  "generatedCacheDataOnly": true,
+  "realHistoryTouched": false,
+  "activityLaunched": false,
+  "deviceCacheRoot": "cache/fruitslice-transaction-probe-bff1e285161f4a8e87a62daaf7794dc9",
+  "sharedHelperSha256Before": "2f16defc23d2d376e186aadf45fd0a71509589a9f1c5307a625fe780c3ea9978",
+  "sharedHelperSha256After": "817ecb94152c7899b75d91ee9f7aaa171e8aac8718676e5eb92d21bcf1935488",
+  "checks": [
+    {
+      "scenario": "commit",
+      "live": "cache/fruitslice-transaction-probe-bff1e285161f4a8e87a62daaf7794dc9/commit/live",
+      "transaction": "cache/fruitslice-transaction-probe-bff1e285161f4a8e87a62daaf7794dc9/commit/transaction",
+      "faultAfterPublication": 0,
+      "passed": true,
+      "state": "committed",
+      "ownLauncherTerminated": false,
+      "publicationObservedBeforeDisconnect": false,
+      "liveHashes": {
+        "history.xml": "367fc019f458e2cf4d21430b005fbf72ab8869ef7764359abeb9c25a1bf27c24",
+        "history.xml.bak": "529dd287dbde10c5f49df58d009b61760f6d28ccc5e710622b635b35f2ef9d65"
+      },
+      "workerSha256": "434fe8a720e0284b1a76a93c8a6b4ebe180c35e54456f7ff613b990c3e4659f6",
+      "rollbackAndStagingRetained": true,
+      "unrelatedFileUnchanged": true
+    },
+    {
+      "scenario": "rollback_after_first_publish",
+      "live": "cache/fruitslice-transaction-probe-bff1e285161f4a8e87a62daaf7794dc9/rollback_after_first_publish/live",
+      "transaction": "cache/fruitslice-transaction-probe-bff1e285161f4a8e87a62daaf7794dc9/rollback_after_first_publish/transaction",
+      "faultAfterPublication": 1,
+      "passed": true,
+      "state": "rolled_back",
+      "ownLauncherTerminated": false,
+      "publicationObservedBeforeDisconnect": false,
+      "liveHashes": {
+        "history.xml": "61e83036c4144915522d4d60c34a8c774d905ff9c5e9cc4ffdae7c6562f9e8dd",
+        "history.xml.bak": "8a638e98c40d3ee1ce7b4e997c86ec6717e988ee2830a34e7adf9bacc2eec9b8"
+      },
+      "workerSha256": "71ea6ad7b5129136cc640efb089b97dc9989dbba3f644f9a47f6feaff4d86519",
+      "rollbackAndStagingRetained": true,
+      "unrelatedFileUnchanged": true
+    },
+    {
+      "scenario": "disconnect_then_commit",
+      "live": "cache/fruitslice-transaction-probe-bff1e285161f4a8e87a62daaf7794dc9/disconnect_then_commit/live",
+      "transaction": "cache/fruitslice-transaction-probe-bff1e285161f4a8e87a62daaf7794dc9/disconnect_then_commit/transaction",
+      "faultAfterPublication": 0,
+      "passed": true,
+      "state": "committed",
+      "ownLauncherTerminated": true,
+      "publicationObservedBeforeDisconnect": true,
+      "liveHashes": {
+        "history.xml": "367fc019f458e2cf4d21430b005fbf72ab8869ef7764359abeb9c25a1bf27c24",
+        "history.xml.bak": "529dd287dbde10c5f49df58d009b61760f6d28ccc5e710622b635b35f2ef9d65"
+      },
+      "workerSha256": "5ef0ef290b3727f3c345c04bc193744cf2eb3b8ff38d85e5f37ebd763fc47443",
+      "rollbackAndStagingRetained": true,
+      "unrelatedFileUnchanged": true
+    },
+    {
+      "scenario": "disconnect_then_rollback",
+      "live": "cache/fruitslice-transaction-probe-bff1e285161f4a8e87a62daaf7794dc9/disconnect_then_rollback/live",
+      "transaction": "cache/fruitslice-transaction-probe-bff1e285161f4a8e87a62daaf7794dc9/disconnect_then_rollback/transaction",
+      "faultAfterPublication": 1,
+      "passed": true,
+      "state": "rolled_back",
+      "ownLauncherTerminated": true,
+      "publicationObservedBeforeDisconnect": true,
+      "liveHashes": {
+        "history.xml": "61e83036c4144915522d4d60c34a8c774d905ff9c5e9cc4ffdae7c6562f9e8dd",
+        "history.xml.bak": "8a638e98c40d3ee1ce7b4e997c86ec6717e988ee2830a34e7adf9bacc2eec9b8"
+      },
+      "workerSha256": "cb21c309a7e42875425a32d51cf03e52ecede8c37e6955154e503cc7817d3f2e",
+      "rollbackAndStagingRetained": true,
+      "unrelatedFileUnchanged": true
+    },
+    {
+      "scenario": "rollback_after_removing_bak",
+      "live": "cache/fruitslice-transaction-probe-bff1e285161f4a8e87a62daaf7794dc9/rollback_after_removing_bak/live",
+      "transaction": "cache/fruitslice-transaction-probe-bff1e285161f4a8e87a62daaf7794dc9/rollback_after_removing_bak/transaction",
+      "faultAfterPublication": 2,
+      "passed": true,
+      "state": "rolled_back",
+      "ownLauncherTerminated": false,
+      "publicationObservedBeforeDisconnect": false,
+      "liveHashes": {
+        "history.xml": "61e83036c4144915522d4d60c34a8c774d905ff9c5e9cc4ffdae7c6562f9e8dd",
+        "history.xml.bak": "8a638e98c40d3ee1ce7b4e997c86ec6717e988ee2830a34e7adf9bacc2eec9b8"
+      },
+      "workerSha256": "e84223ebdf08765962367515e9c13a83eed7b77fefc62586efef4d4630d8fbaf",
+      "rollbackAndStagingRetained": true,
+      "unrelatedFileUnchanged": true
+    }
+  ]
+}

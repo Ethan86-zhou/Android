@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "startedAtEpochMs": 1791899276127,
+  "passed": false,
+  "checks": {
+    "initialToolbarAvailable": true,
+    "initialCleanChannelReady": true,
+    "burst1DeviceTimingCaptured": true,
+    "burst1TouchTimingValid": false,
+    "cleanupSucceeded": true
+  },
+  "observations": {
+    "bursts": [
+      {
+        "round": 1,
+        "expectedFeatured": true,
+        "timing": {
+          "taps": [
+            {
+              "featured": true,
+              "startedAtEpochMs": 1791899278953,
+              "finishedAtEpochMs": 1791899278996,
+              "durationMs": 43
+            },
+            {
+              "featured": false,
+              "startedAtEpochMs": 1791899279101,
+              "finishedAtEpochMs": 1791899279138,
+              "durationMs": 37
+            },
+            {
+              "featured": true,
+              "startedAtEpochMs": 1791899279240,
+              "finishedAtEpochMs": 1791899279280,
+              "durationMs": 40
+            }
+          ],
+          "gapsMs": [
+            105,
+            102
+          ],
+          "startIntervalsMs": [
+            148,
+            139
+          ],
+          "allInputDurationsNonnegative": true,
+          "allRequestedGapsBetween50And100Ms": false
+        }
+      }
+    ],
+    "refresh": [],
+    "lifecycle": [],
+    "states": {},
+    "toolbar": {
+      "featured": {
+        "x": 578,
+        "y": 168
+      },
+      "recommended": {
+        "x": 863,
+        "y": 168
+      },
+      "more": {
+        "x": 1358,
+        "y": 183
+      }
+    },
+    "initial": {
+      "apiReady": true,
+      "clean": true,
+      "applied": true,
+      "featured": false,
+      "recommended": true,
+      "layoutReady": true,
+      "navigationPending": false,
+      "detailOpen": false,
+      "hidden": false,
+      "suspended": false,
+      "viewportHeight": 1383,
+      "viewportWidth": 768,
+      "refreshMarkerPresent": false
+    },
+    "lastBurstTiming": {
+      "lineCount": 6,
+      "timestamps": [
+        1791899278953,
+        1791899278996,
+        1791899279101,
+        1791899279138,
+        1791899279240,
+        1791899279280
+      ]
+    }
+  },
+  "unexpectedError": false,
+  "cleanupSucceeded": true,
+  "finishedAtEpochMs": 1791899280515
+}

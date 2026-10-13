@@ -1,0 +1,1 @@
+PASS 381 cache checks (real disk + loopback HTTP; no QQ login/playback claim)

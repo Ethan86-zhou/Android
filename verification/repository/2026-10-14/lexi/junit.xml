@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ethan.lexi.WordbookExportTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-10-13T16:53:54" hostname="DESKTOP-1FHA7MA" time="0.839">
+  <properties/>
+  <testcase name="destinationWriteFailureClosesStreamAndCleansStagingFile" classname="com.ethan.lexi.WordbookExportTest" time="0.044"/>
+  <testcase name="utf8ByteLimitNeverOpensOrTruncatesExistingBackup" classname="com.ethan.lexi.WordbookExportTest" time="0.695"/>
+  <testcase name="allFormatsReplaceDestinationOnlyAfterPreparation" classname="com.ethan.lexi.WordbookExportTest" time="0.067"/>
+  <testcase name="destinationOpenFailureCleansStagingFile" classname="com.ethan.lexi.WordbookExportTest" time="0.01"/>
+  <testcase name="nullDestinationCleansStagingFile" classname="com.ethan.lexi.WordbookExportTest" time="0.01"/>
+  <testcase name="recordLimitNeverOpensOrTruncatesExistingBackup" classname="com.ethan.lexi.WordbookExportTest" time="0.011"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

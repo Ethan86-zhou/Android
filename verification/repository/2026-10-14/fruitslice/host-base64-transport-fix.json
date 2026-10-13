@@ -1,0 +1,15 @@
+{
+  "verifiedDate": "2026-10-14",
+  "hostTests": {
+    "passed": true,
+    "count": 12,
+    "scope": "Mock-device regression; no phone operations in this follow-up"
+  },
+  "sourceHashes": "source-sha256-base64-fix.json",
+  "apkUnchanged": true,
+  "transport": "ASCII Base64 upload via shell-v2, private device decoding, exec-out download, before/after device SHA256 and host byte comparison",
+  "backupMarker": "base64-shell-v2-exec-out-device-sha256-v3",
+  "replaces": "host-binary-transport-fix.json recovery method; exec-in completion is no longer relied upon",
+  "stagingGuarantee": "Every present original file is staged and verified before any official file is renamed or removed; temporary files are cleaned after success or failure",
+  "deviceValidation": "Pending parent-owned history-only recheck; the same transport design has independently been tested by the Lexi subtask."
+}

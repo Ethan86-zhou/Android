@@ -1,0 +1,6329 @@
+{
+  "schemaVersion": 1,
+  "startedAtEpochMs": 1791905112781,
+  "requestedSwipeCount": 20,
+  "cssPixelTolerance": 2,
+  "passed": true,
+  "checks": {
+    "nativeViewportAvailable": true,
+    "initialFeedReady": true,
+    "initialActiveSlideVisible": true,
+    "initialContainerStartsAtViewportTop": true,
+    "initialActiveSlideStartsAtContainerTop": true,
+    "initialActiveSlideMatchesVisibleContainerHeight": true,
+    "initialNoDocumentScroll": true,
+    "swipe01NextItemReady": true,
+    "swipe01Passed": true,
+    "swipe02NextItemReady": true,
+    "swipe02Passed": true,
+    "swipe03NextItemReady": true,
+    "swipe03Passed": true,
+    "swipe04NextItemReady": true,
+    "swipe04Passed": true,
+    "swipe05NextItemReady": true,
+    "swipe05Passed": true,
+    "swipe06NextItemReady": true,
+    "swipe06Passed": true,
+    "swipe07NextItemReady": true,
+    "swipe07Passed": true,
+    "swipe08NextItemReady": true,
+    "swipe08Passed": true,
+    "swipe09NextItemReady": true,
+    "swipe09Passed": true,
+    "swipe10NextItemReady": true,
+    "swipe10Passed": true,
+    "swipe11NextItemReady": true,
+    "swipe11Passed": true,
+    "swipe12NextItemReady": true,
+    "swipe12Passed": true,
+    "swipe13NextItemReady": true,
+    "swipe13Passed": true,
+    "swipe14NextItemReady": true,
+    "swipe14Passed": true,
+    "swipe15NextItemReady": true,
+    "swipe15Passed": true,
+    "swipe16NextItemReady": true,
+    "swipe16Passed": true,
+    "swipe17NextItemReady": true,
+    "swipe17Passed": true,
+    "swipe18NextItemReady": true,
+    "swipe18Passed": true,
+    "swipe19NextItemReady": true,
+    "swipe19Passed": true,
+    "swipe20NextItemReady": true,
+    "swipe20Passed": true,
+    "requestedRealTransitionsCompleted": true,
+    "everyStepPassed": true,
+    "noCumulativeDrift": true,
+    "cleanupSucceeded": true
+  },
+  "observations": {
+    "steps": [
+      {
+        "index": 1,
+        "elapsedMs": 1491,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 289,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 2,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 3,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 2,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 2,
+            "time": 2.3086,
+            "duration": 8.666667,
+            "playing": false,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 6.358067,
+            "suspended": false
+          }
+        },
+        "samples": 4,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": 0,
+          "afterTranslateY": -1396,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396.0001220703125,
+          "afterAdjacentPitch": 1396.0001220703125,
+          "beforeAdjacentGap": 12,
+          "afterAdjacentGap": 12
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 3,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": false,
+            "token": 0,
+            "top": 0,
+            "height": 0,
+            "pitch": 0,
+            "gap": 0
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 2,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -1396
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 3,
+            "time": 0.697016,
+            "duration": 611.256,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 12.816792,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 2,
+        "elapsedMs": 1594,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 4496,
+        "nextItemSamples": 17,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 3,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 4,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 9,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -1396
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 3,
+            "time": 5.189297,
+            "duration": 611.256,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 14.756325,
+            "suspended": false
+          }
+        },
+        "samples": 4,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -1396,
+          "afterTranslateY": -2792,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396.0001220703125,
+          "afterAdjacentPitch": 1396.0001220703125,
+          "beforeAdjacentGap": 12,
+          "afterAdjacentGap": 12
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 4,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 5,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 9,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -2792
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 6,
+            "time": 0.98178,
+            "duration": 95.574,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 14.618219,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 3,
+        "elapsedMs": 1848,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 295,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 4,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 5,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 9,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -2792
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 6,
+            "time": 1.278542,
+            "duration": 95.574,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 14.321457,
+            "suspended": false
+          }
+        },
+        "samples": 5,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -2792,
+          "afterTranslateY": -4188,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396.0001220703125,
+          "afterAdjacentPitch": 1395.999755859375,
+          "beforeAdjacentGap": 12,
+          "afterAdjacentGap": 11.9996337890625
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 5,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 6,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 9,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -4188
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 7,
+            "time": 1.310452,
+            "duration": 731.777,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 15.036395,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 4,
+        "elapsedMs": 1536,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 281,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 5,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 6,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 9,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -4188
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 7,
+            "time": 1.58347,
+            "duration": 731.777,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 14.763377,
+            "suspended": false
+          }
+        },
+        "samples": 4,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -4188,
+          "afterTranslateY": -5584,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1395.999755859375,
+          "afterAdjacentPitch": 1396.00048828125,
+          "beforeAdjacentGap": 11.9996337890625,
+          "afterAdjacentGap": 12.0003662109375
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 6,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 7,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 9,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -5584
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 8,
+            "time": 1.001624,
+            "duration": 7.266439,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 6.131709000000001,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 5,
+        "elapsedMs": 1467,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 290,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 6,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 7,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 9,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -5584
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 8,
+            "time": 1.302772,
+            "duration": 7.266439,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 5.830561,
+            "suspended": false
+          }
+        },
+        "samples": 4,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -5584,
+          "afterTranslateY": -6980,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396.00048828125,
+          "afterAdjacentPitch": 1396,
+          "beforeAdjacentGap": 12.0003662109375,
+          "afterAdjacentGap": 11.9998779296875
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 7,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 8,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 9,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -6980
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 9,
+            "time": 0.930396,
+            "duration": 421.3,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 11.81738,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 6,
+        "elapsedMs": 1491,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 283,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 7,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 8,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 9,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -6980
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 9,
+            "time": 1.214661,
+            "duration": 421.3,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 11.533115,
+            "suspended": false
+          }
+        },
+        "samples": 4,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -6980,
+          "afterTranslateY": -8376,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396,
+          "afterAdjacentPitch": 1395.99951171875,
+          "beforeAdjacentGap": 11.9998779296875,
+          "afterAdjacentGap": 11.9993896484375
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 8,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 9,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 9,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -8376
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 10,
+            "time": 0.974095,
+            "duration": 26.967,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 14.118874,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 7,
+        "elapsedMs": 1784,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 287,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 8,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 9,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 9,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -8376
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 10,
+            "time": 1.264023,
+            "duration": 26.967,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 13.828946,
+            "suspended": false
+          }
+        },
+        "samples": 4,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -8376,
+          "afterTranslateY": -9772,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1395.99951171875,
+          "afterAdjacentPitch": 1396.0009765625,
+          "beforeAdjacentGap": 11.9993896484375,
+          "afterAdjacentGap": 12.0008544921875
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 9,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 10,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 16,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -9772
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 11,
+            "time": 1.258363,
+            "duration": 16.349682,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 14.995604,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 8,
+        "elapsedMs": 1464,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 292,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 9,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 10,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 16,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -9772
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 11,
+            "time": 1.54263,
+            "duration": 16.349682,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 14.711337,
+            "suspended": false
+          }
+        },
+        "samples": 4,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -9772,
+          "afterTranslateY": -11168,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396.0009765625,
+          "afterAdjacentPitch": 1396,
+          "beforeAdjacentGap": 12.0008544921875,
+          "afterAdjacentGap": 11.9998779296875
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 10,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 11,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 16,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -11168
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 12,
+            "time": 0.932378,
+            "duration": 599.367,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 13.022813,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 9,
+        "elapsedMs": 1477,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 288,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 10,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 11,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 16,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -11168
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 12,
+            "time": 1.22988,
+            "duration": 599.367,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 12.725311,
+            "suspended": false
+          }
+        },
+        "samples": 4,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -11168,
+          "afterTranslateY": -12564,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396,
+          "afterAdjacentPitch": 1396,
+          "beforeAdjacentGap": 11.9998779296875,
+          "afterAdjacentGap": 11.9998779296875
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 11,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 12,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 16,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -12564
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 13,
+            "time": 0.949663,
+            "duration": 529.788,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 11.613760000000001,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 10,
+        "elapsedMs": 1462,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 288,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 11,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 12,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 16,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -12564
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 13,
+            "time": 1.23878,
+            "duration": 529.788,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 11.324643,
+            "suspended": false
+          }
+        },
+        "samples": 4,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -12564,
+          "afterTranslateY": -13960,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396,
+          "afterAdjacentPitch": 1396,
+          "beforeAdjacentGap": 11.9998779296875,
+          "afterAdjacentGap": 11.9998779296875
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 12,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 13,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 16,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -13960
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 14,
+            "time": 0.933406,
+            "duration": 295.475,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 14.159586000000001,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 11,
+        "elapsedMs": 1798,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 295,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 12,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 13,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 16,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -13960
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 14,
+            "time": 1.232717,
+            "duration": 295.475,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 13.860275000000001,
+            "suspended": false
+          }
+        },
+        "samples": 5,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -13960,
+          "afterTranslateY": -15356,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396,
+          "afterAdjacentPitch": 1396,
+          "beforeAdjacentGap": 11.9998779296875,
+          "afterAdjacentGap": 11.9998779296875
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 13,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 14,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 16,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -15356
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 15,
+            "time": 1.264685,
+            "duration": 157.834,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 11.438035,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 12,
+        "elapsedMs": 1494,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 279,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 13,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 14,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 16,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -15356
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 15,
+            "time": 1.533769,
+            "duration": 157.834,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 11.168951,
+            "suspended": false
+          }
+        },
+        "samples": 4,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -15356,
+          "afterTranslateY": -16752,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396,
+          "afterAdjacentPitch": 1395.9990234375,
+          "beforeAdjacentGap": 11.9998779296875,
+          "afterAdjacentGap": 11.9989013671875
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 14,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 15,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 16,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -16752
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1395.9990234375,
+              "gap": 11.9989013671875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 16,
+            "time": 0.968944,
+            "duration": 830.867,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 11.012573999999999,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 13,
+        "elapsedMs": 1776,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 294,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 14,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 15,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 16,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -16752
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1395.9990234375,
+              "gap": 11.9989013671875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 16,
+            "time": 1.264016,
+            "duration": 830.867,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 10.717502,
+            "suspended": false
+          }
+        },
+        "samples": 5,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -16752,
+          "afterTranslateY": -18148,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1395.9990234375,
+          "afterAdjacentPitch": 1396,
+          "beforeAdjacentGap": 11.9989013671875,
+          "afterAdjacentGap": 11.9998779296875
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 15,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 16,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 16,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -18148
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.9990234375,
+              "gap": 11.9989013671875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 17,
+            "time": 0.842364,
+            "duration": 544.667,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 11.789086,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 14,
+        "elapsedMs": 1872,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 303,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 15,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 16,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 16,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -18148
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.9990234375,
+              "gap": 11.9989013671875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 17,
+            "time": 1.147957,
+            "duration": 544.667,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 11.483493,
+            "suspended": false
+          }
+        },
+        "samples": 5,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -18148,
+          "afterTranslateY": -19544,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396,
+          "afterAdjacentPitch": 1396.001953125,
+          "beforeAdjacentGap": 11.9998779296875,
+          "afterAdjacentGap": 12.0018310546875
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 16,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 17,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 23,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -19544
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396.001953125,
+              "gap": 12.0018310546875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.9990234375,
+              "gap": 11.9989013671875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 18,
+            "time": 1.246679,
+            "duration": 169.267,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 11.874,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 15,
+        "elapsedMs": 1852,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 291,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 16,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 17,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 23,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -19544
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396.001953125,
+              "gap": 12.0018310546875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.9990234375,
+              "gap": 11.9989013671875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 18,
+            "time": 1.539348,
+            "duration": 169.267,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 11.581331,
+            "suspended": false
+          }
+        },
+        "samples": 5,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -19544,
+          "afterTranslateY": -20940,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396.001953125,
+          "afterAdjacentPitch": 1396,
+          "beforeAdjacentGap": 12.0018310546875,
+          "afterAdjacentGap": 11.9998779296875
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 17,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 18,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 23,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -20940
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.001953125,
+              "gap": 12.0018310546875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.9990234375,
+              "gap": 11.9989013671875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 19,
+            "time": 1.319179,
+            "duration": 577.734,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 11.196375,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 16,
+        "elapsedMs": 1634,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 294,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 17,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 18,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 23,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -20940
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.001953125,
+              "gap": 12.0018310546875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.9990234375,
+              "gap": 11.9989013671875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 19,
+            "time": 1.612281,
+            "duration": 577.734,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 10.903273,
+            "suspended": false
+          }
+        },
+        "samples": 4,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -20940,
+          "afterTranslateY": -22336,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396,
+          "afterAdjacentPitch": 1396,
+          "beforeAdjacentGap": 11.9998779296875,
+          "afterAdjacentGap": 11.9998779296875
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 18,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 19,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 27,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -22336
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.001953125,
+              "gap": 12.0018310546875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.9990234375,
+              "gap": 11.9989013671875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 20,
+            "time": 1.07376,
+            "duration": 31.58,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 25.959573,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 17,
+        "elapsedMs": 1467,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 291,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 18,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 19,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 27,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -22336
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.001953125,
+              "gap": 12.0018310546875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.9990234375,
+              "gap": 11.9989013671875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 20,
+            "time": 1.377998,
+            "duration": 31.58,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 25.655334999999997,
+            "suspended": false
+          }
+        },
+        "samples": 4,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -22336,
+          "afterTranslateY": -23732,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396,
+          "afterAdjacentPitch": 1396,
+          "beforeAdjacentGap": 11.9998779296875,
+          "afterAdjacentGap": 11.9998779296875
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 19,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 20,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 27,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -23732
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.001953125,
+              "gap": 12.0018310546875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.9990234375,
+              "gap": 11.9989013671875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 21,
+            "time": 0.939052,
+            "duration": 629.5,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 11.924824,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 18,
+        "elapsedMs": 1515,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 288,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 19,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 20,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 27,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -23732
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.001953125,
+              "gap": 12.0018310546875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.9990234375,
+              "gap": 11.9989013671875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 21,
+            "time": 1.212565,
+            "duration": 629.5,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 11.651311,
+            "suspended": false
+          }
+        },
+        "samples": 4,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -23732,
+          "afterTranslateY": -25128,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396,
+          "afterAdjacentPitch": 1396,
+          "beforeAdjacentGap": 11.9998779296875,
+          "afterAdjacentGap": 11.9998779296875
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 20,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 21,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 27,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -25128
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.001953125,
+              "gap": 12.0018310546875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.9990234375,
+              "gap": 11.9989013671875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 22,
+            "time": 0.974328,
+            "duration": 189.467,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 11.078233,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 19,
+        "elapsedMs": 1501,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 288,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 20,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 21,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 27,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -25128
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.001953125,
+              "gap": 12.0018310546875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.9990234375,
+              "gap": 11.9989013671875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 22,
+            "time": 1.265678,
+            "duration": 189.467,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 10.786883000000001,
+            "suspended": false
+          }
+        },
+        "samples": 4,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -25128,
+          "afterTranslateY": -26524,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396,
+          "afterAdjacentPitch": 1396,
+          "beforeAdjacentGap": 11.9998779296875,
+          "afterAdjacentGap": 11.9998779296875
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 21,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 22,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 27,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -26524
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.001953125,
+              "gap": 12.0018310546875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.9990234375,
+              "gap": 11.9989013671875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 23,
+            "time": 0.974519,
+            "duration": 657.734,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 10.914119,
+            "suspended": false
+          }
+        }
+      },
+      {
+        "index": 20,
+        "elapsedMs": 1488,
+        "passed": true,
+        "checks": {
+          "nextItemReady": true,
+          "transitionSettled": true,
+          "realFeedTransition": true,
+          "activeSlideVisible": true,
+          "containerStartsAtViewportTop": true,
+          "activeSlideStartsAtContainerTop": true,
+          "activeSlideMatchesVisibleContainerHeight": true,
+          "noDocumentScroll": true,
+          "viewportHeightStable": true,
+          "sameFeedContext": true,
+          "withinTenSeconds": true
+        },
+        "gestureSent": true,
+        "nextItemWaitMs": 296,
+        "nextItemSamples": 2,
+        "nextItemSampleErrors": 0,
+        "beforeGesture": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 21,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 22,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 27,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -26524
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.001953125,
+              "gap": 12.0018310546875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.9990234375,
+              "gap": 11.9989013671875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 23,
+            "time": 1.273277,
+            "duration": 657.734,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 10.615361,
+            "suspended": false
+          }
+        },
+        "samples": 4,
+        "sampleErrors": 0,
+        "transition": {
+          "translationAvailable": true,
+          "beforeTranslateY": -26524,
+          "afterTranslateY": -27920,
+          "translateDelta": -1396,
+          "beforeAdjacentPitch": 1396,
+          "afterAdjacentPitch": 1396,
+          "beforeAdjacentGap": 11.9998779296875,
+          "afterAdjacentGap": 11.9998779296875
+        },
+        "geometry": {
+          "kind": "recommend",
+          "clean": true,
+          "playerActive": true,
+          "documentHidden": false,
+          "viewport": {
+            "width": 768,
+            "height": 1383,
+            "visualTop": 0,
+            "visualHeight": 1383.4666748046875
+          },
+          "container": {
+            "present": true,
+            "token": 1,
+            "top": 0,
+            "left": 0,
+            "height": 1383.466796875,
+            "width": 768.0000610351562,
+            "visibleTop": 0,
+            "visibleHeight": 1383,
+            "visibleWidth": 768
+          },
+          "activeSlide": {
+            "present": true,
+            "token": 22,
+            "top": 0,
+            "left": 0,
+            "height": 1384.0001220703125,
+            "width": 768.0000610351562,
+            "intersectionArea": 1062144,
+            "topError": 0,
+            "heightError": 1.0001220703125
+          },
+          "nextSlide": {
+            "present": true,
+            "token": 23,
+            "top": 1396.0001220703125,
+            "height": 1384.0001220703125,
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          },
+          "visibleSlideCount": 1,
+          "slideCount": 27,
+          "transforms": [
+            {
+              "depth": 0,
+              "values": [
+                1,
+                0,
+                0,
+                1,
+                0,
+                -27920
+              ]
+            }
+          ],
+          "spacings": [
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.001953125,
+              "gap": 12.0018310546875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.9990234375,
+              "gap": 11.9989013671875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.0009765625,
+              "gap": 12.0008544921875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1396.0001220703125,
+              "gap": 12
+            },
+            {
+              "pitch": 1395.999755859375,
+              "gap": 11.9996337890625
+            },
+            {
+              "pitch": 1396.00048828125,
+              "gap": 12.0003662109375
+            },
+            {
+              "pitch": 1396,
+              "gap": 11.9998779296875
+            },
+            {
+              "pitch": 1395.99951171875,
+              "gap": 11.9993896484375
+            }
+          ],
+          "scroll": {
+            "documentTop": 0,
+            "windowY": 0,
+            "containerTop": 0
+          },
+          "media": {
+            "available": true,
+            "id": 24,
+            "time": 0.971443,
+            "duration": 13.884126,
+            "playing": true,
+            "readyState": 4,
+            "buffering": false,
+            "bufferedAhead": 12.736889,
+            "suspended": false
+          }
+        }
+      }
+    ],
+    "nativeViewport": {
+      "left": 0,
+      "top": 273,
+      "width": 1440,
+      "height": 2594
+    },
+    "initial": {
+      "settled": true,
+      "samples": 3,
+      "sampleErrors": 0,
+      "sample": {
+        "kind": "recommend",
+        "clean": true,
+        "playerActive": true,
+        "documentHidden": false,
+        "viewport": {
+          "width": 768,
+          "height": 1383,
+          "visualTop": 0,
+          "visualHeight": 1383.4666748046875
+        },
+        "container": {
+          "present": true,
+          "token": 1,
+          "top": 0,
+          "left": 0,
+          "height": 1383.466796875,
+          "width": 768.0000610351562,
+          "visibleTop": 0,
+          "visibleHeight": 1383,
+          "visibleWidth": 768
+        },
+        "activeSlide": {
+          "present": true,
+          "token": 2,
+          "top": 0,
+          "left": 0,
+          "height": 1384.0001220703125,
+          "width": 768.0000610351562,
+          "intersectionArea": 1062144,
+          "topError": 0,
+          "heightError": 1.0001220703125
+        },
+        "nextSlide": {
+          "present": true,
+          "token": 3,
+          "top": 1396.0001220703125,
+          "height": 1384.0001220703125,
+          "pitch": 1396.0001220703125,
+          "gap": 12
+        },
+        "visibleSlideCount": 1,
+        "slideCount": 2,
+        "transforms": [
+          {
+            "depth": 0,
+            "values": [
+              1,
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
+        ],
+        "spacings": [
+          {
+            "pitch": 1396.0001220703125,
+            "gap": 12
+          }
+        ],
+        "scroll": {
+          "documentTop": 0,
+          "windowY": 0,
+          "containerTop": 0
+        },
+        "media": {
+          "available": true,
+          "id": 2,
+          "time": 2.3086,
+          "duration": 8.666667,
+          "playing": false,
+          "readyState": 4,
+          "buffering": false,
+          "bufferedAhead": 6.358067,
+          "suspended": false
+        }
+      }
+    },
+    "completedSwipeCount": 20,
+    "maximumTopError": 0,
+    "maximumDriftFromInitial": 0
+  },
+  "unexpectedError": false,
+  "cleanupSucceeded": true,
+  "failureKind": "none",
+  "finishedAtEpochMs": 1791905158205
+}

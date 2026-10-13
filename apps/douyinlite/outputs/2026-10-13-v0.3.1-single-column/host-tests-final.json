@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "checks": {
+    "uiScenariosPassed": true
+  },
+  "counts": {
+    "ui_scenarios": 25
+  },
+  "reports": [
+    {
+      "path": "host-ui.txt",
+      "sha256": "05696d4b786b7d5b5c360a1427254c551eb92e5ff4efa29f6f2ee1a91a6f8d53"
+    }
+  ]
+}

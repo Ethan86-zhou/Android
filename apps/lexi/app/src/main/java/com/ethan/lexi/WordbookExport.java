@@ -6,6 +6,9 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -15,6 +18,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.CodingErrorAction;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,6 +34,35 @@ public final class WordbookExport {
     private static final String FORMAT = "lexi-wordbook";
 
     private WordbookExport() { }
+
+    @FunctionalInterface
+    public interface Destination {
+        OutputStream open() throws IOException;
+    }
+
+    /** 先在私有缓存完整生成文件，再打开用户选定的位置，避免校验失败截断旧备份。 */
+    public static void export(File cacheDirectory, String format,
+            List<WordbookStore.SavedWord> words, Destination destination) throws IOException {
+        File prepared = File.createTempFile("lexi-export-", ".tmp", cacheDirectory);
+        try {
+            try (OutputStream output = new FileOutputStream(prepared)) {
+                if ("csv".equals(format)) writeCsv(output, words);
+                else if ("md".equals(format)) writeMarkdown(output, words);
+                else if ("json".equals(format)) writeJson(output, words);
+                else throw new IOException("不支持的导出格式");
+            }
+            try (InputStream input = new FileInputStream(prepared);
+                    OutputStream output = destination.open()) {
+                if (output == null) throw new IOException("无法写入所选位置");
+                byte[] buffer = new byte[8192];
+                int count;
+                while ((count = input.read(buffer)) != -1) output.write(buffer, 0, count);
+                output.flush();
+            }
+        } finally {
+            Files.deleteIfExists(prepared.toPath());
+        }
+    }
 
     /** Excel 直接打开可识别中文；引号、逗号、换行按 RFC 4180 转义。 */
     public static void writeCsv(OutputStream output, List<WordbookStore.SavedWord> words)
@@ -73,12 +106,12 @@ public final class WordbookExport {
             throws IOException {
         if (words.size() > MAX_IMPORT_RECORDS) throw new IOException("JSON 备份最多支持 50000 个单词");
         try {
-            JSONObject root = new JSONObject();
-            root.put("format", FORMAT);
-            root.put("version", 1);
-            root.put("app", "拾词 Lexi");
-            root.put("exportedAt", System.currentTimeMillis());
-            JSONArray entries = new JSONArray();
+            // 逐条序列化并按 UTF-8 字节计数，不在内存同时保存整个 JSON 和字节副本。
+            Writer writer = new OutputStreamWriter(new JsonLimitOutputStream(output), StandardCharsets.UTF_8);
+            writer.write("{\n  \"format\": \"" + FORMAT + "\",\n  \"version\": 1,\n"
+                    + "  \"app\": \"拾词 Lexi\",\n  \"exportedAt\": " + System.currentTimeMillis()
+                    + ",\n  \"entries\": [");
+            boolean first = true;
             for (WordbookStore.SavedWord saved : words) {
                 Entry e = saved.entry;
                 JSONObject object = new JSONObject();
@@ -94,19 +127,42 @@ public final class WordbookExport {
                 object.put("learned", saved.learned);
                 object.put("savedAt", saved.savedAt);
                 object.put("updatedAt", saved.updatedAt);
-                entries.put(object);
+                if (!first) writer.write(',');
+                writer.write('\n');
+                writer.write(object.toString(2));
+                first = false;
             }
-            root.put("entries", entries);
-            String serialized = root.toString(2);
-            if (serialized.getBytes(StandardCharsets.UTF_8).length + 1 > MAX_IMPORT_BYTES) {
-                throw new IOException("JSON 备份超过 32 MiB，请先用 CSV 导出或缩短过长笔记");
-            }
-            Writer writer = new OutputStreamWriter(output, StandardCharsets.UTF_8);
-            writer.write(serialized);
-            writer.write('\n');
+            writer.write("\n  ]\n}\n");
             writer.flush();
         } catch (JSONException exception) {
             throw new IOException("无法生成单词本备份", exception);
+        }
+    }
+
+    private static final class JsonLimitOutputStream extends OutputStream {
+        private final OutputStream output;
+        private int written;
+
+        JsonLimitOutputStream(OutputStream output) { this.output = output; }
+
+        @Override public void write(int value) throws IOException {
+            ensureCapacity(1);
+            output.write(value);
+            written++;
+        }
+
+        @Override public void write(byte[] bytes, int offset, int length) throws IOException {
+            ensureCapacity(length);
+            output.write(bytes, offset, length);
+            written += length;
+        }
+
+        @Override public void flush() throws IOException { output.flush(); }
+
+        private void ensureCapacity(int length) throws IOException {
+            if (length > MAX_IMPORT_BYTES - written) {
+                throw new IOException("JSON 备份超过 32 MiB，请先用 CSV 导出或缩短过长笔记");
+            }
         }
     }
 

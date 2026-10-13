@@ -1,0 +1,38 @@
+{
+  "version": "0.3.3",
+  "apk": "apps/musiccache/outputs/2026-10-14-v0.3.3-review-fixes/LightListen-0.3.3-debug.apk",
+  "apkSha256": "a724d00107f8fd54ca3149ecdf4ed3a6df72cd75efc13168b0c4eb2d24e943ab",
+  "baseCommit": "6b70dcaa1ea1b9426a81cca317b92e8daf8f61d6",
+  "sourceNote": "Working-tree changes are identified by source-sha256.json; baseCommit alone is not this build.",
+  "sourceManifestSha256": "e6f76040ce2866a96022df1dc521c41f3fc646aaf36f75fe5239036fddab0eac",
+  "hostChecks": {
+    "cache": 412,
+    "dataSource": 78,
+    "python": 21,
+    "webFixture": 14,
+    "qqCatalog": 48
+  },
+  "regressionBefore": {
+    "mixedCachePlayback": "playback-before.txt",
+    "evictionBeforeComplete": "eviction-before.txt"
+  },
+  "regressionAfter": {
+    "cache": "cache-after.txt",
+    "dataSource": "playback-delivery.txt",
+    "python": "python-tests.txt",
+    "javascript": "node-tests.txt"
+  },
+  "build": {
+    "assembleDebug": "passed",
+    "lintDebug": "completed",
+    "log": "build-lint-delivery.txt",
+    "limitation": "Existing Kotlin 2.2 dependency metadata is newer than the AGP 8.7.3 lint analyzer; not a warning-free full analysis."
+  },
+  "deviceEvidence": "Root agent runs device_acceptance.py serially; host checks do not claim Android audio output or QQ song acceptance.",
+  "changes": [
+    "Internal hashed version identity across cache/network responses; no raw ETag persisted",
+    "Reject mixing unidentified old cached bytes with network or replaced snapshots",
+    "Delay eviction until complete response and metadata publication; committed audio 256 MiB and staging <=64 MiB",
+    "Debug-only isolated Android DataSource and full-capacity cancellation probes"
+  ]
+}

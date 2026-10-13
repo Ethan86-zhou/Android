@@ -1,0 +1,17 @@
+{
+  "restored": true,
+  "byteIdentical": true,
+  "backupId": "5219435cf42141a2beaff9dc3797d07b",
+  "transport": "base64-shell-v2-exec-out-device-sha256-v3",
+  "deviceHashesVerified": true,
+  "files": {
+    "fruit_slice_history.xml": {
+      "existed": true,
+      "sha256": "8a453fdf77a3623cd90d1d1f8b95e0d138cdcefefc9ac0a9e107886aadb1ca9b"
+    },
+    "fruit_slice_history.xml.bak": {
+      "existed": false,
+      "sha256": null
+    }
+  }
+}

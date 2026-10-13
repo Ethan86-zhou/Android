@@ -10,6 +10,9 @@ import com.zhou.musiccache.cache.CacheProxy;
 import com.zhou.musiccache.cache.RangeCache;
 
 import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.file.Files;
@@ -67,6 +70,9 @@ public final class PlaybackDataSourceTest {
             }
             int start = (int) bounds[0], end = (int) bounds[1];
             if (path.endsWith("version.wav") && start >= CHUNK) exchange.getResponseHeaders().set("ETag", "\"two\"");
+            if (path.endsWith("weak-switch.wav") && start >= CHUNK) exchange.getResponseHeaders().set("ETag", "W/\"one\"");
+            if (path.endsWith("missing-switch.wav") && start >= CHUNK) exchange.getResponseHeaders().remove("ETag");
+            if (path.endsWith("new-validator.wav") && start < CHUNK) exchange.getResponseHeaders().remove("ETag");
             if (path.endsWith("total.wav") && start >= CHUNK) {
                 exchange.getResponseHeaders().set("Content-Range", "bytes " + start + "-" + end + "/" + (AUDIO.length + 1));
             } else if (path.endsWith("bad.wav")) {
@@ -83,6 +89,7 @@ public final class PlaybackDataSourceTest {
         server.start();
         try {
             fullAndOffline(directory.resolve("full"));
+            mixedCachePlayback(directory.resolve("mixed"));
             positions(directory.resolve("positions"));
             earlyClose(directory.resolve("early"));
             streamFallbacks(directory.resolve("fallback"));
@@ -95,6 +102,96 @@ public final class PlaybackDataSourceTest {
                 paths.sorted(Comparator.reverseOrder()).forEach(path -> { try { Files.delete(path); } catch (IOException ignored) { } });
             }
         }
+    }
+
+    private static void mixedCachePlayback(Path root) throws Exception {
+        // Seek may have cached a later range before sequential playback starts. Reopen the
+        // actual metadata so these cases also cover caches written by an earlier process.
+        for (int cachedStart : new int[] {0, CHUNK}) {
+            Path directory = root.resolve("same-" + cachedStart);
+            seed(directory, "mixed", cachedStart, CHUNK, "\"one\"");
+            CacheProxy proxy = proxy(directory); CacheDataSource source = source(proxy, "mixed");
+            source.open(spec(0, -1));
+            equal(readAll(source), AUDIO, "same version crosses cache/network boundary at " + cachedStart);
+            source.close();
+            check(proxy.snapshot().hitBytes == CHUNK, "existing partial range actually reused at " + cachedStart);
+            check(proxy.snapshot().networkBytes == AUDIO.length - CHUNK, "only missing bytes downloaded at " + cachedStart);
+        }
+        Path changed = root.resolve("changed");
+        seed(changed, "version", 0, CHUNK, "\"one\"");
+        expectBoundaryFailure(source(proxy(changed), "version"), "cached old version rejects network new version");
+
+        for (String tag : new String[] {"", "W/\"one\""}) {
+            Path directory = root.resolve(tag.isEmpty() ? "missing" : "weak");
+            seed(directory, "mixed", 0, CHUNK, tag);
+            expectBoundaryFailure(source(proxy(directory), "mixed"), "unverified cached prefix cannot mix with network " + tag);
+        }
+        for (String name : new String[] {"weak-switch", "missing-switch", "new-validator"}) {
+            expectBoundaryFailure(source(proxy(root.resolve(name)), name), "validator availability change rejects unsafe continuation " + name);
+        }
+
+        Path full = root.resolve("unverified-full");
+        seed(full, "mixed", 0, AUDIO.length, "");
+        CacheProxy offline = proxy(full); offline.setOffline(true);
+        CacheDataSource fullSource = source(offline, "mixed"); fullSource.open(spec(0, -1));
+        equal(readAll(fullSource), AUDIO, "one complete cached response without ETag remains playable across read chunks");
+        fullSource.close();
+        check(offline.snapshot().networkBytes == 0, "unverified full response stays entirely local");
+
+        // No-validator records cannot be trusted after another response replaces their bytes.
+        Path replaced = root.resolve("replaced");
+        seed(replaced, "mixed", 0, AUDIO.length, "");
+        RangeCache cache = new RangeCache(replaced.toFile());
+        CacheProxy proxy = new CacheProxy(cache, true); CacheDataSource changing = source(proxy, "mixed");
+        changing.open(spec(0, -1));
+        byte[] first = new byte[CHUNK]; int read = 0;
+        while (read < CHUNK) read += changing.read(first, read, CHUNK - read);
+        check(cache.put(url("mixed"), "audio/wav", AUDIO.length, 0, AUDIO.length,
+                new ByteArrayInputStream(AUDIO), Map.of("Cache-Control", "max-age=3600")), "replace no-validator response");
+        boolean failed = false;
+        try { changing.read(new byte[1], 0, 1); } catch (IOException expected) { failed = true; }
+        finally { changing.close(); }
+        check(failed, "replacement of unidentified cached response stops before new bytes");
+
+        Path legacy = root.resolve("legacy");
+        seed(legacy, "mixed", 0, CHUNK, "\"one\"");
+        Path metadata = legacy.resolve(RangeCache.keyForUrl(url("mixed")) + ".meta");
+        try (DataInputStream input = new DataInputStream(new ByteArrayInputStream(Files.readAllBytes(metadata)));
+             ByteArrayOutputStream bytes = new ByteArrayOutputStream(); DataOutputStream output = new DataOutputStream(bytes)) {
+            input.readInt(); output.writeInt(0x4d434132);
+            for (int i = 0; i < 4; i++) output.writeUTF(input.readUTF());
+            output.writeLong(input.readLong()); output.writeLong(input.readLong()); output.writeBoolean(input.readBoolean());
+            input.readUTF(); output.write(input.readAllBytes()); output.flush(); Files.write(metadata, bytes.toByteArray());
+        }
+        CacheDataSource oldSource = source(proxy(legacy), "mixed"); oldSource.open(spec(0, -1));
+        equal(readAll(oldSource), AUDIO, "legacy metadata's hashed ETag still matches current network response"); oldSource.close();
+
+        Path privacy = root.resolve("private-etag");
+        seed(privacy, "mixed", 0, AUDIO.length, "\"PRIVATE_ETAG_DO_NOT_PERSIST\"");
+        try (java.util.stream.Stream<Path> files = Files.list(privacy)) {
+            for (Path file : files.filter(p -> p.toString().endsWith(".meta")).toList()) {
+                String raw = new String(Files.readAllBytes(file), java.nio.charset.StandardCharsets.ISO_8859_1);
+                check(!raw.contains("PRIVATE_ETAG_DO_NOT_PERSIST"), "raw ETag stays out of metadata");
+            }
+        }
+    }
+
+    private static void seed(Path directory, String name, int start, int count, String etag) throws Exception {
+        check(new RangeCache(directory.toFile()).put(url(name), "audio/wav", AUDIO.length, start, count,
+                new ByteArrayInputStream(AUDIO, start, count),
+                Map.of("ETag", etag, "Cache-Control", "max-age=3600", "Content-Type", "audio/wav")), "prepare partial-cache scenario");
+    }
+
+    private static void expectBoundaryFailure(CacheDataSource source, String label) throws Exception {
+        ByteArrayOutputStream output = new ByteArrayOutputStream(); byte[] bytes = new byte[8192]; boolean failed = false;
+        try {
+            source.open(spec(0, -1));
+            for (int count; (count = source.read(bytes, 0, bytes.length)) >= 0;) output.write(bytes, 0, count);
+        } catch (IOException expected) {
+            failed = expected instanceof DataSourceException && "读取期间歌曲版本发生变化".equals(expected.getMessage());
+        }
+        finally { source.close(); }
+        check(failed && output.size() == CHUNK, label);
     }
 
     private static void fullAndOffline(Path path) throws Exception {
@@ -210,9 +307,9 @@ public final class PlaybackDataSourceTest {
 
     private static CacheProxy proxy(Path path) throws IOException { return new CacheProxy(new RangeCache(path.toFile()), true); }
     private static CacheDataSource source(CacheProxy proxy, String name) {
-        return new CacheDataSource(proxy, song -> new PlayerRuntime.ResolvedAudio(
-                "http://127.0.0.1:8765/media/" + name + ".wav?run=native&variant=one", Map.of()));
+        return new CacheDataSource(proxy, song -> new PlayerRuntime.ResolvedAudio(url(name), Map.of()));
     }
+    private static String url(String name) { return "http://127.0.0.1:8765/media/" + name + ".wav?run=native&variant=one"; }
     private static DataSpec spec(long start, long length) { return new DataSpec(SONG, start, length); }
     private static byte[] readAll(CacheDataSource source) throws IOException {
         ByteArrayOutputStream output = new ByteArrayOutputStream(); byte[] bytes = new byte[8192];

@@ -1,0 +1,6 @@
+{
+  "scenario": "disconnect_then_rollback",
+  "live": "cache/fruitslice-transaction-probe-47e54582866d458cb987325e16eab817/disconnect_then_rollback/live",
+  "transaction": "cache/fruitslice-transaction-probe-47e54582866d458cb987325e16eab817/disconnect_then_rollback/transaction",
+  "faultAfterPublication": 1
+}

@@ -1,0 +1,5 @@
+Exception in thread "main" java.lang.AssertionError: Unexpected cache miss
+	at com.zhou.musiccache.cache.CacheEngineTest.read(CacheEngineTest.java:749)
+	at com.zhou.musiccache.cache.CacheEngineTest.quotaAbortTests(CacheEngineTest.java:307)
+	at com.zhou.musiccache.cache.CacheEngineTest.quotaTests(CacheEngineTest.java:152)
+	at com.zhou.musiccache.cache.CacheEngineTest.main(CacheEngineTest.java:29)

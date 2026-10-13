@@ -1,0 +1,7 @@
+Starting: Intent { cmp=com.zhou.musiccache/.SelfTestActivity (has extras) }
+Status: ok
+LaunchState: COLD
+Activity: com.zhou.musiccache/.SelfTestActivity
+TotalTime: 890
+WaitTime: 899
+Complete

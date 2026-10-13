@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; media-src blob:; script-src 'unsafe-inline'; style-src 'unsafe-inline'">
+    <title>轻刷离线视频验证</title>
+    <style>
+        :root { color-scheme: dark; font-family: sans-serif; background: #07111e; color: #fff; }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; height: 100%; overflow: hidden; }
+        #feed { height: 100vh; height: 100dvh; overflow-y: auto; scroll-snap-type: y mandatory;
+            overscroll-behavior-y: contain; touch-action: pan-y; scrollbar-width: none; }
+        #feed::-webkit-scrollbar { display: none; }
+        .card { height: 100vh; height: 100dvh; width: 100%; position: relative;
+            scroll-snap-align: start; scroll-snap-stop: always; }
+        video { display: block; width: 100%; height: 100%; object-fit: cover; background: #07111e; }
+        .copy { pointer-events: none; position: absolute; left: 28px; right: 28px; bottom: 44px;
+            text-shadow: 0 2px 6px #000; font-size: 16px; line-height: 1.6; }
+        .copy strong { font-size: 24px; }
+        #hud { pointer-events: none; position: fixed; top: 12px; left: 20px; right: 20px;
+            padding: 12px 16px; border: 1px solid #ffffff33; border-radius: 12px;
+            background: #06101ed9; font-size: 14px; line-height: 1.5; white-space: pre-line; }
+    </style>
+</head>
+<body>
+    <main id="feed" aria-label="自产测试视频">
+        <section class="card" aria-label="第一条自产视频">
+            <video id="video1" width="480" height="800" muted loop playsinline preload="auto"></video>
+            <div class="copy"><strong>第一条 · 自产测试图案</strong><br>左右边缘长按进入 2 倍速，向下滑锁定<br>上滑切到第二条，点顶部速度按钮解除</div>
+        </section>
+        <section class="card" aria-label="第二条自产视频">
+            <video id="video2" width="480" height="800" muted loop playsinline preload="auto"></video>
+            <div class="copy"><strong>第二条 · 自产测试图案</strong><br>锁定应继续 2 倍速，旧视频应恢复原倍率<br>回桌面再返回，检查暂停和恢复</div>
+        </section>
+    </main>
+    <div id="hud" role="status">正在本机生成两条 3 秒循环视频…</div>
+    <script>
+    (function () {
+        'use strict';
+        var feed = document.getElementById('feed');
+        var hud = document.getElementById('hud');
+        var players = [document.getElementById('video1'), document.getElementById('video2')];
+        var scheduledScroll = false;
+        var urls = [];
+        var state = window.probeState = {
+            fixtureVersion: 1,
+            phase: 'recording',
+            ready: false,
+            activeIndex: 0,
+            transitions: 0,
+            generatedFrames: 0,
+            generatedBytes: 0,
+            visibilityChanges: 0,
+            visible: !document.hidden,
+            errors: [],
+            videos: players.map(function (_, index) {
+                return { index: index, play: 0, pause: 0, ratechange: 0, timeupdate: 0,
+                    rate: 1, paused: true, currentTime: 0, duration: 0 };
+            })
+        };
+
+        function sample(index) {
+            var player = players[index];
+            var item = state.videos[index];
+            item.rate = player.playbackRate;
+            item.paused = player.paused;
+            item.currentTime = Number.isFinite(player.currentTime) ? Math.round(player.currentTime * 1000) / 1000 : 0;
+            item.duration = Number.isFinite(player.duration) ? Math.round(player.duration * 1000) / 1000 : 0;
+        }
+
+        function show() {
+            if (!state.ready) return;
+            var item = state.videos[state.activeIndex];
+            hud.textContent = '离线自产视频 · ' + (state.activeIndex + 1) + ' / 2\n' +
+                '倍率 ' + item.rate + '× · ' + (item.paused ? '已暂停' : '播放中') +
+                ' · 切换 ' + state.transitions + ' 次';
+        }
+
+        function failure(code) {
+            if (state.errors.indexOf(code) < 0) state.errors.push(code);
+            state.phase = 'error';
+            hud.textContent = '离线验证暂不可用：' + code;
+        }
+
+        players.forEach(function (player, index) {
+            ['play', 'pause', 'ratechange', 'timeupdate'].forEach(function (name) {
+                player.addEventListener(name, function () {
+                    state.videos[index][name]++;
+                    sample(index);
+                    // 只在播放状态/倍率改变时更新显示，不向页面增加持续轮询。
+                    if (name !== 'timeupdate') show();
+                });
+            });
+            player.addEventListener('loadedmetadata', function () { sample(index); });
+            player.addEventListener('error', function () { failure('VIDEO_DECODE_' + (index + 1)); });
+        });
+
+        function play(index) {
+            if (document.hidden || !state.ready) return;
+            var result = players[index].play();
+            if (result && typeof result.catch === 'function') {
+                result.catch(function () { failure('VIDEO_PLAY_' + (index + 1)); });
+            }
+        }
+
+        function selectCard() {
+            scheduledScroll = false;
+            if (!state.ready) return;
+            var index = Math.max(0, Math.min(players.length - 1, Math.round(feed.scrollTop / feed.clientHeight)));
+            if (index === state.activeIndex) return;
+            players[state.activeIndex].pause();
+            state.activeIndex = index;
+            state.transitions++;
+            play(index);
+            show();
+        }
+
+        feed.addEventListener('scroll', function () {
+            if (!scheduledScroll) {
+                scheduledScroll = true;
+                window.requestAnimationFrame(selectCard);
+            }
+        }, { passive: true });
+        document.addEventListener('visibilitychange', function () {
+            state.visibilityChanges++;
+            state.visible = !document.hidden;
+            // 此处只记录计数；暂停/恢复由实际注入的 LightSwipe 脚本负责。
+        });
+
+        function makeVideo(index) {
+            return new Promise(function (resolve, reject) {
+                var canvas = document.createElement('canvas');
+                canvas.width = 480;
+                canvas.height = 800;
+                var context = canvas.getContext('2d');
+                if (!context || typeof canvas.captureStream !== 'function') {
+                    reject(new Error('CANVAS_STREAM_UNAVAILABLE'));
+                    return;
+                }
+                var palette = index === 0 ? ['#08345a', '#2ad9d0'] : ['#48205b', '#ffba60'];
+                function draw(elapsed) {
+                    context.fillStyle = palette[0];
+                    context.fillRect(0, 0, canvas.width, canvas.height);
+                    context.strokeStyle = '#ffffff20';
+                    context.lineWidth = 2;
+                    for (var column = 0; column < 7; column++) {
+                        context.beginPath(); context.moveTo(column * 80, 0); context.lineTo(column * 80, 800); context.stroke();
+                    }
+                    for (var row = 0; row < 11; row++) {
+                        context.beginPath(); context.moveTo(0, row * 80); context.lineTo(480, row * 80); context.stroke();
+                    }
+                    var progress = Math.min(elapsed / 3000, 1);
+                    context.fillStyle = palette[1];
+                    context.beginPath();
+                    context.arc(240 + Math.sin(progress * Math.PI * 4) * 130, 360, 60, 0, Math.PI * 2);
+                    context.fill();
+                    context.fillStyle = '#ffffff';
+                    context.textAlign = 'center';
+                    context.font = 'bold 100px sans-serif';
+                    context.fillText('0' + (index + 1), 240, 250);
+                    context.font = 'bold 48px monospace';
+                    context.fillText((elapsed / 1000).toFixed(2) + ' s', 240, 520);
+                    context.font = '24px sans-serif';
+                    context.fillText('LIGHTSWIPE LOCAL PROBE', 240, 580);
+                    context.fillStyle = palette[1];
+                    context.fillRect(48, 620, 384 * progress, 14);
+                }
+                draw(0);
+                var stream = canvas.captureStream(15);
+                var types = ['video/webm;codecs=vp8', 'video/webm;codecs=vp9', 'video/webm'];
+                var mime = types.find(function (type) { return MediaRecorder.isTypeSupported(type); });
+                var recorder;
+                try {
+                    recorder = new MediaRecorder(stream, mime ? { mimeType: mime, videoBitsPerSecond: 700000 } : undefined);
+                } catch (_) {
+                    stream.getTracks().forEach(function (track) { track.stop(); });
+                    reject(new Error('RECORDER_UNAVAILABLE'));
+                    return;
+                }
+                var parts = [];
+                var started;
+                var animation;
+                var stopTimer;
+                var stopped = false;
+                function cleanup() {
+                    stopped = true;
+                    window.cancelAnimationFrame(animation);
+                    window.clearTimeout(stopTimer);
+                    stream.getTracks().forEach(function (track) { track.stop(); });
+                }
+                recorder.addEventListener('dataavailable', function (event) {
+                    if (event.data.size) parts.push(event.data);
+                });
+                recorder.addEventListener('error', function () {
+                    cleanup();
+                    reject(new Error('RECORDING_FAILED'));
+                });
+                recorder.addEventListener('stop', function () {
+                    cleanup();
+                    var blob = new Blob(parts, { type: recorder.mimeType || 'video/webm' });
+                    if (!blob.size) { reject(new Error('EMPTY_RECORDING')); return; }
+                    state.generatedBytes += blob.size;
+                    resolve(blob);
+                });
+                function animate(now) {
+                    if (stopped) return;
+                    if (started === undefined) started = now;
+                    draw(Math.min(now - started, 3000));
+                    state.generatedFrames++;
+                    animation = window.requestAnimationFrame(animate);
+                }
+                recorder.start();
+                animation = window.requestAnimationFrame(animate);
+                stopTimer = window.setTimeout(function () {
+                    if (recorder.state !== 'inactive') recorder.stop();
+                }, 3000);
+            });
+        }
+
+        if (typeof MediaRecorder !== 'function') { failure('MEDIA_RECORDER_UNAVAILABLE'); return; }
+        Promise.all([makeVideo(0), makeVideo(1)]).then(function (blobs) {
+            blobs.forEach(function (blob, index) {
+                var url = URL.createObjectURL(blob);
+                urls.push(url);
+                players[index].src = url;
+                players[index].load();
+            });
+            state.phase = 'ready';
+            state.ready = true;
+            play(0);
+            show();
+        }).catch(function (error) { failure(error.message); });
+        window.addEventListener('pagehide', function () {
+            urls.forEach(function (url) { URL.revokeObjectURL(url); });
+            urls = [];
+        });
+    }());
+    </script>
+</body>
+</html>

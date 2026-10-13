@@ -1,0 +1,44 @@
+{
+  "recordedAt": "2026-10-11T18:09:33.806022+00:00",
+  "version": "0.3.2",
+  "sourceBaseCommit": "b832f09106bfd3b88a119dfb5a89536120f2cc8f",
+  "sourceManifest": "device-01/source-sha256.json",
+  "sourceNote": "Exact tested working-tree source is identified by hashes; baseline commit alone is not the uncommitted fix.",
+  "apkSha256": "7a2dbb2e76b06425732a5def21305d1668e242c631f161cb508b9c652ea8f1be",
+  "review": "https://github.com/Ethan86-zhou/Android/pull/1#pullrequestreview-5484231885",
+  "cacheHostChecks": 381,
+  "dataSourceHostChecks": 51,
+  "pythonTests": 20,
+  "fixtureNodeTests": 14,
+  "catalogChecks": 48,
+  "negativeControl": "Original RangeCache fails the new full-capacity admission assertion; see cache-before-fix.txt.",
+  "capacityScope": "Real Android cache engine with isolated 1 KiB synthetic-byte quotas; no pressure applied to user audio cache. QQ real-song playback was not repeated.",
+  "lintLimitation": "Existing Kotlin 2.2 metadata versus lint analyzer 2.0 compatibility diagnostics remain in build.txt; build/lint tasks exited successfully.",
+  "checks": [
+    {
+      "name": "device WebView/cache regression",
+      "ok": true,
+      "checkCount": 51
+    },
+    {
+      "name": "device capacity probe",
+      "ok": true,
+      "checkCount": 12
+    },
+    {
+      "name": "original audio cache preserved",
+      "ok": true,
+      "beforeFiles": 156,
+      "afterFiles": 156
+    },
+    {
+      "name": "installed APK matches delivery",
+      "ok": true
+    },
+    {
+      "name": "tested source unchanged",
+      "ok": true
+    }
+  ],
+  "passed": true
+}

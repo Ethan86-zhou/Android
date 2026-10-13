@@ -2,11 +2,11 @@
 
 离线横屏切水果小游戏，打开直接开局。滑动手指切开水果，避开炸弹；彩虹果实随机切换限时玩法。本机保存成绩历史，没有账号、联网、广告、内购或设置页面。全部图形与音效为本项目制作。
 
-包名：`com.ethan.fruitslice`。最低 Android 14 / API 34，版本 `1.2.2`。按用户要求适配当前连接的三星 SM-X710 平板（Android 14，1600 × 2560），同时保留 Android 16 手机的支持。
+包名：`com.ethan.fruitslice`。最低 Android 14 / API 34，版本 `1.2.3`。支持三星 SM-X710 平板（Android 14，1600 × 2560）及 Android 16 手机。
 
 ## 开始玩
 
-安装 [`FruitSlice-1.2.2-debug.apk`](outputs/2026-10-11-v1.2.2-end-sound/FruitSlice-1.2.2-debug.apk)，打开“果刃”直接进入横屏切台，不经过账号、菜单或设置。支持向任意方向快速划动与多指操作；划一刀后抬手再切，水果会被切成两半，伴随刀光、果汁、短音效和系统触感。
+安装 [`FruitSlice-1.2.3-debug.apk`](outputs/2026-10-14-v1.2.3-review-fixes/FruitSlice-1.2.3-debug.apk)，打开“果刃”直接进入横屏切台，不经过账号、菜单或设置。支持向任意方向快速划动与多指操作；划一刀后抬手再切，水果会被切成两半，伴随刀光、果汁、短音效和系统触感。
 
 平板横屏使用整个 16:10 切台，按实际窗口比例绘制，水果与触摸判定共用坐标。暂停、结算和历史卡片保持居中，右上角按钮避开系统边缘。应用声明为游戏，保留横屏玩法；Android 16 大屏对游戏方向限制的例外见 [Android 官方说明](https://developer.android.com/about/versions/16/behavior-changes-16#large-screens)。
 
@@ -55,11 +55,27 @@
 python .\tools\device_acceptance.py --serial <设备序列号> --output .\outputs\<新的验证目录>
 ```
 
-`device_acceptance.py` 使用 Python 标准库，默认从本机 Android SDK 找 ADB，也可用 `--adb` 指定。验证目录必须是全新或空目录，防止覆盖旧证据。安装失败时保留手机数据并检查签名，不自动卸载。设备测试运行器只放在单独的测试 APK，交付游戏包不包含场景注入功能；完整玩法验收后恢复测试前的记录及最高分，并按当前前 10 规则筛选。添加 `--history-only` 只验证存储规则、旧数据升级和实际触摸打开高分榜，不向用户记录写入虚构成绩。
+`device_acceptance.py` 使用 Python 标准库，默认从本机 Android SDK 找 ADB，也可用 `--adb` 指定。验证目录必须是全新或空目录，防止覆盖旧证据。安装失败时保留手机数据并检查签名，不自动卸载。设备测试运行器与隔离 Application 只放在单独的测试 APK，完整玩法测试的历史记录使用独立文件，即使测试进程中止也不会把虚构成绩写入正式记录。添加 `--history-only` 只验证存储规则、旧数据升级和实际触摸打开高分榜，不向用户记录写入虚构成绩；全新安装尚无历史文件也属于合法状态。
+
+验收脚本在启动测试前，把正式历史文件及 Android 原子写入的 `.bak` 文件保存到本机忽略目录 `build/device-data-backups/<id>/`，在 `finally` 中恢复并核对原始字节；新安装原本不存在的历史文件仍保持不存在。原始成绩不会进入公开验证目录，公开证据只记录哈希与恢复结果。若电脑进程被终止或设备断线，保留备份，重新连接同一设备后运行 `python tools/device_acceptance.py --serial <设备序列号> --restore-history build/device-data-backups/<id>`，即可恢复，无需重新执行测试或清除 APP 数据。可用 `python -m unittest discover -s tools -p test_device_acceptance.py -v` 在电脑验证失败、中断和空安装的恢复路径。
+
+原始文件通过 ADB `exec-out` 读取，并与传输前后的设备端 SHA-256 核对。恢复时仅通过 `shell -T` 传输不含换行的 ASCII Base64，在设备私有目录解码后重新读回、核对设备哈希与原始字节，避免 Windows 文本传输的换行转换、`0x1A` 截断及异步上传未完成的问题。全部临时文件通过核对后才替换正式文件；旧版传输方案的备份禁止自动写回，需先单独复核。目录列表、文件哈希、解码与状态命令均检查真实退出状态。
+
+历史 XML 与 `.bak` 由仓库的 `scripts/android_data_transaction.py` 作为同一组文件恢复：设备先保存整组原有文件的回滚副本，再由独立于 ADB 连接的工作进程发布；任一步失败就回滚整组。事务路径在启动前写入私有主机备份，设备保留恢复材料和状态。断线后用同一个备份运行 `--restore-history`，会核验或继续该事务，禁止在状态不明时删除材料或创建另一份恢复覆盖现场。正常完成并核对记录后再打开游戏。`tools/test_history_transaction_device.py` 可用独立生成的私有 cache 文件验证发布失败、断线重连与 `.bak` 删除回滚，不启动游戏或访问真实成绩。
 
 `GameEngine.java` 是纯 Java 规则与物理；`BladeLimiter.java` 按真实触摸时间限制全指共享出刀额度；`GameView.java` 绘制界面并处理触摸和生命周期；`GameArt.java` 缓存原创图形；`GameAudio.java` 在私有缓存生成原创音效；`HistoryStore.java` 保存成绩和检查点。debug 版本额外提供私有 `files/debug_state.json` 便于复核，用户界面没有调试入口。
 
 切割请求立即派发真实触摸事件，避免系统为显示补出的预测位置在快速折返时多算路程或误切。Android 15 及以上再通过 `PointerCoords.isResampled()` 排除预测点；Android 14 不调用该新接口。历史中的真实采样点仍参与切割，抬手、取消和暂停正常结束当前刀。此行为按 [Android 官方触摸派发说明](https://developer.android.com/develop/ui/views/touch-and-input/stylus-input/advanced-stylus-features) 和 [重采样说明](https://developer.android.com/reference/android/view/MotionEvent.PointerCoords#isResampled()) 实现。
+
+## 1.2.3 审查修复
+
+高频触摸硬件可能把同一次划动拆成许多不足 2 个逻辑单位的短段。现在按同一手指的累计移动起刀，起刀后所有非零短段都参与碰撞；起刀前的移动仍计入总路程，0.5 秒 / 1.2 倍切台宽限制及多指共享额度保持不变。不同采样密度的同轨迹、静止长按、换指、起刀阈值与精确收刀边界均纳入主机回归，设备测试另覆盖真实 MotionEvent 历史批次。
+
+完整玩法测试改为隔离历史；验收脚本增加可持久恢复的磁盘备份；修复全新安装运行 `--history-only` 时解析不存在的历史内容而误报失败的问题。云备份与设备迁移规则分别排除文件、数据库、偏好设置及设备加密存储等各个独立数据域。
+
+本次新构建与主机检查记录见 [`../../verification/repository/2026-10-14/fruitslice`](../../verification/repository/2026-10-14/fruitslice)，交付包保存在 [`outputs/2026-10-14-v1.2.3-review-fixes`](outputs/2026-10-14-v1.2.3-review-fixes)。实机结果以本次独立设备记录为准；以下旧版本记录不代表新构建的验证结果。
+
+三星 SM-S9080 / Android 16 上，完整玩法 437 项检查与最终历史验收 330 项通过。最终历史文件 SHA-256 与测试前原始字节一致，见 [历史保护结果](../../verification/repository/2026-10-14/fruitslice/history-final/history-preservation.json)。本次未连接平板重测。
 
 ## 1.2.2 结算音效实机验收
 

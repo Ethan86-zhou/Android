@@ -298,6 +298,29 @@ def main() -> int:
             report["checks"].extend(dict(item, phase=phase) for item in phase_checks)
             report["phases"][phase] = {"report": f"{phase}.json", "passed": all(item["ok"] for item in phase_checks)}
             pids.append(native_report.get("pid"))
+            if phase == "online":
+                capacity = json.loads(device.text("exec-out", "run-as", PACKAGE, "cat",
+                                                  f"files/selftest/{run_id}/capacity.json"))
+                write_json(output / "capacity.json", capacity)
+                capacity_checks = capacity.get("checks", [])
+                capacity_ok = (capacity.get("passed") is True and isinstance(capacity_checks, list)
+                               and len(capacity_checks) >= 8
+                               and all(isinstance(item, dict) and item.get("ok") is True
+                                       for item in capacity_checks))
+                add("isolated cache capacity and eviction", capacity_ok, capacity)
+                if not capacity_ok:
+                    raise RuntimeError("Capacity probe failed; inspect capacity.json")
+                native_version = device.report(run_id, "native-version", args.timeout)
+                write_json(output / "native-version.json", native_version)
+                version_checks = native_version.get("checks", [])
+                version_ok = (native_version.get("passed") is True and native_version.get("run") == run_id
+                              and native_version.get("pid") == native_report.get("pid")
+                              and native_version.get("actualMedia3DataSource") is True
+                              and isinstance(version_checks, list) and len(version_checks) >= 15
+                              and all(isinstance(item, dict) and item.get("ok") is True for item in version_checks))
+                add("isolated native mixed-cache playback version checks", version_ok, native_version)
+                if not version_ok:
+                    raise RuntimeError("Native version probe failed; inspect native-version.json")
             # Screenshots are confined to the selftest UI; never capture the normal login page.
             if native_report.get("run") == run_id and native_report.get("phase") == phase:
                 captured = capture_selftest_screenshot(device, output / f"{phase}.png")

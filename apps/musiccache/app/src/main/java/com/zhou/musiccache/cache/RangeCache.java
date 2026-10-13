@@ -23,6 +23,8 @@ public final class RangeCache {
     private final Map<String, Record> records = new LinkedHashMap<>();
     private final Map<String, Alias> aliases = new LinkedHashMap<>();
     private final Map<String, Long> revisions = new HashMap<>();
+    private final Set<String> pendingInvalidations = new LinkedHashSet<>();
+    private final Map<String, Long> undeletedAudio = new LinkedHashMap<>();
     private long reserved;
     private long generation;
 
@@ -66,11 +68,22 @@ public final class RangeCache {
     public static final class CachedResponse implements Closeable {
         public final InputStream body;
         public final String mimeType;
+        // 仅在应用内部传递，不能作为HTTP ETag发给网页。旧元数据也已有强ETag哈希。
+        final String playbackVersion;
         public final int statusCode;
         public final long start, endInclusive, totalBytes, length;
         public final Map<String, String> headers;
         private CachedResponse(InputStream body, Record record, long[] range, boolean partial) {
             this.body = body; mimeType = record.mime; statusCode = partial ? 206 : 200;
+            if (!record.validator.isEmpty()) playbackVersion = "etag:" + record.validator;
+            else {
+                // 没有强ETag的完整单次响应仍可分块播放，但不能与网络或替换后的文件混合。
+                // 文件名含每次写入生成的UUID；哈希仅代表这一份本机字节快照，不宣称服务器版本相同。
+                StringBuilder identity = new StringBuilder(record.key);
+                for (Chunk chunk : record.chunks) identity.append('\n').append(chunk.file)
+                        .append(':').append(chunk.start).append(':').append(chunk.length);
+                playbackVersion = "cache:" + keyForUrl(identity.toString());
+            }
             start = range[0]; endInclusive = range[1]; totalBytes = record.total; length = endInclusive - start + 1;
             Map<String, String> values = new LinkedHashMap<>(record.headers);
             values.put("Content-Length", Long.toString(length));
@@ -158,7 +171,8 @@ public final class RangeCache {
     public synchronized boolean hasReusableResource(String resourceKey) {
         if (!validHash(resourceKey)) return false;
         for (Record record : records.values()) {
-            if (resourceKey.equals(record.resourceKey) && !record.validator.isEmpty() && new Entry(record).complete) return true;
+            if (!pendingInvalidations.contains(record.key) && resourceKey.equals(record.resourceKey)
+                    && !record.validator.isEmpty() && new Entry(record).complete) return true;
         }
         return false;
     }
@@ -170,7 +184,8 @@ public final class RangeCache {
         long expiry = expiryFor(headers, System.currentTimeMillis());
         if (!validHash(resourceKey) || version.isEmpty() || !expiryIsFresh(expiry)) return false;
         for (Record source : records.values()) {
-            if (!resourceKey.equals(source.resourceKey) || !version.equals(source.validator) || source.total != total
+            if (pendingInvalidations.contains(source.key) || pendingInvalidations.contains(keyForUrl(url))
+                    || !resourceKey.equals(source.resourceKey) || !version.equals(source.validator) || source.total != total
                     || !source.mime.equalsIgnoreCase(mime) || !new Entry(source).complete) continue;
             Alias alias = new Alias();
             alias.key = keyForUrl(url); alias.sourceKey = source.key; alias.resourceKey = resourceKey;
@@ -207,13 +222,14 @@ public final class RangeCache {
     private static boolean validHash(String hash) { return hash != null && hash.matches("[0-9a-f]{64}"); }
 
     private boolean aliasMatches(Alias alias, Record source) {
-        return source != null && !alias.validator.isEmpty() && alias.sourceKey.equals(source.key)
+        return source != null && !pendingInvalidations.contains(source.key) && !pendingInvalidations.contains(alias.key)
+                && !alias.validator.isEmpty() && alias.sourceKey.equals(source.key)
                 && alias.resourceKey.equals(source.resourceKey) && alias.validator.equals(source.validator)
                 && alias.total == source.total && alias.mime.equalsIgnoreCase(source.mime) && new Entry(source).complete;
     }
 
     private void removeAlias(String key) throws IOException {
-        aliases.remove(key); Files.deleteIfExists(new File(directory, key + ".alias").toPath());
+        Files.deleteIfExists(new File(directory, key + ".alias").toPath()); aliases.remove(key);
     }
 
     public synchronized List<Entry> entries() {
@@ -226,25 +242,62 @@ public final class RangeCache {
     public synchronized long sizeBytes() {
         long total = 0;
         for (Record record : records.values()) for (Chunk chunk : record.chunks) total += chunk.length;
+        // 元数据已移除但文件删除失败的字节仍占磁盘，不能被新请求当作可用容量。
+        for (long bytes : undeletedAudio.values()) total += bytes;
         return total;
     }
 
     public synchronized void clear() throws IOException {
         generation++;
-        for (String key : new ArrayList<>(records.keySet())) invalidateKey(key);
-        for (String key : new ArrayList<>(aliases.keySet())) removeAlias(key);
+        IOException failure = null;
+        Set<String> keys = new LinkedHashSet<>(records.keySet()); keys.addAll(pendingInvalidations);
+        for (String key : keys) try { invalidateKey(key); }
+        catch (IOException error) { failure = collect(failure, error); }
+        for (String key : new ArrayList<>(aliases.keySet())) try { removeAlias(key); }
+        catch (IOException error) { pendingInvalidations.add(key); failure = collect(failure, error); }
+        failure = deletePendingAudio(failure);
+        if (failure != null) throw failure;
     }
 
     public synchronized void invalidate(String url) throws IOException { invalidateKey(keyForUrl(url)); }
 
     private void invalidateKey(String key) throws IOException {
         revisions.put(key, revisions.getOrDefault(key, 0L) + 1);
-        Record record = records.remove(key);
+        pendingInvalidations.add(key);
+        Record record = records.get(key);
         for (Alias alias : new ArrayList<>(aliases.values())) {
             if (alias.key.equals(key) || alias.sourceKey.equals(key)) removeAlias(alias.key);
         }
         Files.deleteIfExists(new File(directory, key + ".meta").toPath());
-        if (record != null) for (Chunk chunk : record.chunks) Files.deleteIfExists(new File(directory, chunk.file).toPath());
+        // 先删除持久化索引再删除其字节。索引删除失败时保留完整记录及文件，重试可恢复。
+        records.remove(key); pendingInvalidations.remove(key);
+        IOException failure = null;
+        if (record != null) for (Chunk chunk : record.chunks) {
+            try { Files.deleteIfExists(new File(directory, chunk.file).toPath()); }
+            catch (IOException error) { undeletedAudio.put(chunk.file, chunk.length); failure = collect(failure, error); }
+        }
+        if (failure != null) throw failure;
+    }
+
+    private static IOException collect(IOException first, IOException next) {
+        if (first == null) return next;
+        first.addSuppressed(next); return first;
+    }
+
+    private IOException deletePendingAudio(IOException failure) {
+        for (String name : new ArrayList<>(undeletedAudio.keySet())) {
+            try { Files.deleteIfExists(new File(directory, name).toPath()); undeletedAudio.remove(name); }
+            catch (IOException error) { failure = collect(failure, error); }
+        }
+        return failure;
+    }
+
+    /** 清理故障期间暂停接纳新缓存；故障解除后重试成功即可恢复，不要求清空仍有效的新音频。 */
+    private boolean retryPendingCleanup() {
+        IOException failure = null;
+        for (String key : new ArrayList<>(pendingInvalidations)) try { invalidateKey(key); }
+        catch (IOException error) { failure = collect(failure, error); }
+        return deletePendingAudio(failure) == null;
     }
 
     /** 只接受单区间；缺段、过期、无效区间一律返回 null，绝不把部分文件当完整歌曲。 */
@@ -255,6 +308,7 @@ public final class RangeCache {
     public synchronized CachedResponse open(String url, String rangeHeader, String resourceKey) throws IOException {
         resourceKey = validHash(resourceKey) ? resourceKey : "";
         String key = keyForUrl(url);
+        if (pendingInvalidations.contains(key)) return null;
         Record record = records.get(key);
         // 旧格式没有路径身份：只有完整URL哈希精确命中才允许回填，禁止按ETag或文件名猜测。
         if (record != null && record.resourceKey.isEmpty() && validHash(resourceKey)) {
@@ -346,6 +400,7 @@ public final class RangeCache {
 
     public synchronized WriteSession begin(String url, String mime, long total, long start, long expectedLength,
                                             Map<String, String> headers, String resourceKey) throws IOException {
+        if (!retryPendingCleanup()) return null;
         String key = keyForUrl(url);
         long expiry = expiryFor(headers, System.currentTimeMillis());
         if (expiry <= System.currentTimeMillis()) { invalidateKey(key); return null; }
@@ -359,15 +414,43 @@ public final class RangeCache {
         if (old != null && (validator.isEmpty() || old.total != total || !old.validator.equals(validator) || !old.mime.equals(mime) || !expiryIsFresh(old.expiry))) {
             invalidateKey(key);
         }
-        // 有界空间：保留现有证据，满了停止新增，不静默删掉用户正在验证的音频。
-        if (sizeBytes() + reserved + expectedLength > maxTotal) return null;
         if (records.containsKey(key) && records.get(key).chunks.size() >= 9999) return null;
+        // 下载只占有界临时预算，不提前删除任何其它已提交音频。中止或截断不能掏空缓存。
+        long stagingLimit = Math.min(maxTotal, MAX_RESOURCE_BYTES);
+        if (expectedLength > stagingLimit || reserved > stagingLimit - expectedLength
+                || evictionCandidates(key, expectedLength) == null) return null;
         reserved += expectedLength;
         try {
             return new WriteSession(key, label(url, key), mime, total, start, expectedLength,
                 expiry, validator, storedHeaders(headers), generation, revisions.getOrDefault(key, 0L), isHeuristic(headers),
                 validHash(resourceKey) ? resourceKey : "");
         } catch (IOException error) { reserved -= expectedLength; throw error; }
+    }
+
+    /** 仅规划，提交新响应成功后才执行；临时响应预算与已提交音频预算分别有上限。 */
+    private List<Record> evictionCandidates(String protectedKey, long expectedLength) {
+        long available = maxTotal - expectedLength;
+        Record current = records.get(protectedKey);
+        long protectedBytes = 0;
+        if (current != null) for (Chunk chunk : current.chunks) protectedBytes += chunk.length;
+        // 即使删掉其它所有歌曲也放不下时，不能无意义地清空其它缓存。
+        if (protectedBytes > available) return null;
+        List<Record> victims = new ArrayList<>();
+        long retained = sizeBytes();
+        if (retained <= available) return victims;
+        long now = System.currentTimeMillis();
+        List<Record> candidates = new ArrayList<>(records.values());
+        candidates.removeIf(record -> record.key.equals(protectedKey));
+        // 元数据更新时间跨进程保留，无需更改已有缓存文件格式；读取不会改变淘汰顺序。
+        candidates.sort(Comparator.comparing((Record record) -> record.expiry > now)
+                .thenComparingLong(record -> new File(directory, record.key + ".meta").lastModified())
+                .thenComparing(record -> record.key));
+        for (Record record : candidates) {
+            victims.add(record);
+            for (Chunk chunk : record.chunks) retained -= chunk.length;
+            if (retained <= available) return victims;
+        }
+        return null;
     }
 
     public final class WriteSession implements Closeable {
@@ -394,11 +477,13 @@ public final class RangeCache {
             output.write(bytes, offset, count); received += count;
         }
         public synchronized long receivedBytes() { return received; }
+        /** true仅表示发布与必要清理均成功；清理异常可能发生于新记录发布后，新记录仍保留并暂停后续接纳。 */
         public synchronized boolean finish() throws IOException {
             if (ended) return false;
             if (received != expected) { close(); return false; }
             output.getFD().sync(); output.close();
             synchronized (RangeCache.this) {
+                if (!retryPendingCleanup()) { close(); return false; }
                 if (generation != sessionGeneration || revisions.getOrDefault(key, 0L) != revision || !expiryIsFresh(expiry)) { close(); return false; }
                 Record current = records.get(key);
                 if (current != null && (current.total != total || !current.validator.equals(validator))) {
@@ -408,6 +493,9 @@ public final class RangeCache {
                     // 两个同时开始的无验证器响应也不能在提交阶段意外合并。
                     close(); return false;
                 }
+                // 同时进行的响应可能改变缓存，必须在发布时重新规划容量，不能使用开始下载时的快照。
+                List<Record> victims = evictionCandidates(key, expected);
+                if (victims == null) { close(); return false; }
                 Record next = current == null ? new Record() : current.copy();
                 next.key = key; next.label = label; next.mime = mime; next.total = total; next.validator = validator;
                 next.resourceKey = resourceKey;
@@ -423,6 +511,13 @@ public final class RangeCache {
                 }
                 records.put(key, next);
                 ended = true; reserved -= expected;
+                // 到这里新字节及其元数据已完整、持久化发布。保存失败不会损失淘汰候选。
+                // 提升候选修订并删除别名，仍阻止其在途旧响应重新写回。
+                IOException failure = null;
+                for (Record victim : victims) try { invalidateKey(victim.key); }
+                catch (IOException error) { failure = collect(failure, error); }
+                // 新响应已持久化，不能在清理故障时把它回滚。异常明确报告；新请求会先重试清理。
+                if (failure != null) throw failure;
                 return true;
             }
         }
@@ -491,6 +586,10 @@ public final class RangeCache {
         }
         // 弱ETag和仅Last-Modified不能安全用于跨HTTP响应合并Range。
         return keyForUrl(etag);
+    }
+    static String playbackVersion(Map<String, String> headers) {
+        String version = validator(headers);
+        return version.isEmpty() ? "" : "etag:" + version;
     }
     private static String label(String url, String key) {
         String extension = "audio";

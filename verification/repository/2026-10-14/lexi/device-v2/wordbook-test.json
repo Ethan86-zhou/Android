@@ -1,0 +1,22 @@
+{
+  "format": "lexi-wordbook",
+  "version": 1,
+  "app": "拾词 Lexi",
+  "exportedAt": 1791911733627,
+  "entries": [
+{
+  "id": 42432,
+  "word": "apple",
+  "phonetic": "'æpl",
+  "translation": "n. 苹果, 家伙\n[医] 苹果",
+  "definition": "n. fruit with red or yellow or green skin and sweet to tart crisp whitish flesh\nn. native Eurasian tree widely cultivated in many varieties for its firm rounded edible fruits",
+  "tags": "zk gk",
+  "exchange": "s:apples",
+  "frequency": 2446,
+  "note": "验收笔记：offline, \"词屿\"\n第二行",
+  "learned": true,
+  "savedAt": 1791911729322,
+  "updatedAt": 1791911731397
+}
+  ]
+}

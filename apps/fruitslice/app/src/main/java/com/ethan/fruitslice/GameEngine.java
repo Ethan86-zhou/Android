@@ -191,18 +191,20 @@ public final class GameEngine {
     public void slice(float x1, float y1, float x2, float y2) {
         if (gameOver || !Float.isFinite(x1) || !Float.isFinite(y1)
                 || !Float.isFinite(x2) || !Float.isFinite(y2)) return;
-        float dx = x2 - x1, dy = y2 - y1;
-        float lengthSquared = dx * dx + dy * dy;
-        if (lengthSquared < 4f) return;
+        double dx = (double) x2 - x1, dy = (double) y2 - y1;
+        double lengthSquared = dx * dx + dy * dy;
+        // BladeLimiter owns the starting threshold. Once active, every nonzero sample
+        // must collide, including sub-two-unit segments from high-rate touch hardware.
+        if (lengthSquared == 0d) return;
         if (!strokeOpen) beginStroke();
         Mode collisionMode = mode;
         List<Fruit> collisions = new ArrayList<>();
         for (Fruit fruit : fruits) {
             if (!fruit.active) continue;
-            float t = ((fruit.x - x1) * dx + (fruit.y - y1) * dy) / lengthSquared;
-            t = Math.max(0f, Math.min(1f, t));
-            float distanceX = fruit.x - (x1 + dx * t);
-            float distanceY = fruit.y - (y1 + dy * t);
+            double t = (((double) fruit.x - x1) * dx + ((double) fruit.y - y1) * dy) / lengthSquared;
+            t = Math.max(0d, Math.min(1d, t));
+            double distanceX = fruit.x - (x1 + dx * t);
+            double distanceY = fruit.y - (y1 + dy * t);
             if (distanceX * distanceX + distanceY * distanceY <= fruit.radius * fruit.radius) {
                 collisions.add(fruit);
             }

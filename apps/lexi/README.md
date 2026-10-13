@@ -1,6 +1,10 @@
 # 拾词 Lexi
 
-为三星手机开发的离线英汉词典。包名 `com.ethan.lexi`，版本 `1.0.2`。使用原生 Java / Android View，最低 Android 11，目标 Android 16；主要适配三星 SM-S9080，应用固定竖屏显示。
+为三星手机开发的离线英汉词典。包名 `com.ethan.lexi`，版本 `1.0.3`。使用原生 Java / Android View，最低 Android 11，目标 Android 16；主要适配三星 SM-S9080，应用固定竖屏显示。
+
+安装包：[Lexi-1.0.3-debug.apk](outputs/2026-10-14-v1.0.3-review-fixes/Lexi-1.0.3-debug.apk)。本轮审查修复导出校验失败截断旧备份的问题，独立验证记录见 [2026-10-14 整合检查](../../verification/repository/2026-10-14/lexi/)。
+
+三星 SM-S9080 / Android 16 的最终 211 项实机检查通过，[最终数据保护记录](../../verification/repository/2026-10-14/lexi/device-v2/data-preservation.json)确认词本原始字节恢复成功。开发验收时曾发现 Windows ADB 文本通道转换二进制数据，已修复传输工具、完整恢复 1,182 个单词和 9 条历史并重测；原失败与恢复记录保留在同一验证目录。
 
 ## 日常使用
 
@@ -16,6 +20,8 @@
 
 卸载会删除本机单词本，换机前请导出 JSON。CSV 采用 UTF-8 BOM、带引号字段和 CRLF，可正确保存中文、逗号、引号和多行笔记；以公式触发符开头的文本会加保护前缀，完整原文请以 JSON 备份为准。JSON 恢复限制为 32 MiB / 50,000 条，完整校验后在事务中合并，异常文件不会留下部分导入。
 
+导出会先在应用私有缓存完整生成文件，通过大小和条数检查后才写入所选位置。JSON 超限或生成失败时不会打开、截断已有备份；临时文件在成功或异常结束后清理。写入目标期间若文件提供方或存储设备故障，仍应保留另一份备份。应用明确排除数据库、偏好和文件目录的系统云备份及设备迁移，跨设备恢复使用主动导出的 JSON。
+
 ## 词库来源
 
 内置 [ECDICT](https://github.com/skywind3000/ECDICT) 基础英汉 CSV，保留全部词条。源数据固定到具体 Git 提交，原始 CSV 下载到被 Git 忽略的 `build/dictionary-source/`，不作为应用运行依赖。来源、源文件及数据库哈希、词条数和验证结果见 `app/src/main/assets/dictionary-source.json` 和 [DATA.md](DATA.md)。
@@ -27,7 +33,7 @@
 使用本项目独立 Wrapper：Gradle 8.11.1、Android Gradle Plugin 8.9.1、JDK 17 或兼容 JBR、Android SDK 36 / Build Tools 36.0.0。本机 SDK 路径通过不跟踪的 `local.properties` 配置，先阅读[仓库规则](../../AGENTS.md)，不需要全局 Gradle。
 
 ```powershell
-.\gradlew.bat --no-daemon assembleDebug lintDebug assembleDebugAndroidTest
+.\gradlew.bat --no-daemon testDebugUnitTest assembleDebug lintDebug assembleDebugAndroidTest
 ```
 
 重新生成词库使用 `tools/build_dictionary.py`；随仓库提供的 `dictionary.pack` 是 gzip 压缩数据，保留 `.pack` 扩展名与 `noCompress 'pack'` 设置以避免打包工具自动解压或改名。构建后的应用可直接使用词库资源，无需在手机联网下载。设备验收使用独立测试 APK：
@@ -36,4 +42,16 @@
 python tools/device_acceptance.py --output outputs/新的验证目录
 ```
 
-验收目录保存安装结果、查询性能、单词本持久化/导出恢复检查、设备截图、运行日志、APK SHA-256 和源码文件哈希。测试保存并恢复真实单词本，后端边界检查使用独立数据库。每次新构建使用新的目录，旧验证不自动适用于新 APK。
+验收目录保存安装结果、查询性能、单词本持久化/导出恢复检查、设备截图、运行日志、APK SHA-256 和源码文件哈希。测试在安装或执行前停止应用，将真实单词本及 SQLite 附属文件备份到本机被 Git 忽略的 `build/device-backups/<独立编号>/`；无论设备测试成功、报错或用户中断，都再次停止应用，恢复原始文件并逐字节哈希核对，公开结果保存为 `data-preservation.json`。主机进程被强制结束或手机断开时，私有备份仍保留，可用于恢复；不要提交这些个人数据。后端边界检查使用独立数据库。每次新构建使用新的目录，旧验证不自动适用于新 APK。
+
+本机单元测试覆盖 JSON 条数 / UTF-8 字节限额、三个导出格式、目标打开 / 写入失败及临时文件清理，确认序列化失败时旧备份字节不变。
+
+设备数据保护脚本的无手机回归：`python -m unittest discover -s tools -p test_device_data_guard.py -v`，模拟测试崩溃、键盘中断、首次安装、主机备份损坏、手机被换、私有目录访问失败及二进制传输改写 / 截断。二进制下载使用 `adb exec-out` 并独立核对设备 SHA-256；上传先编码为 ASCII Base64，经具有远端完成状态的 `adb shell -T` 传入手机私有临时文件，再由手机本地解码。不能只凭 adb 退出成功信任二进制内容。恢复时所有临时文件须先通过设备校验与读回字节比较，再替换数据库。首次安装按完整包名判断，不把测试包当作正式应用。
+
+Windows 的 `adb shell` 数据通道可能改写换行或截断二进制，旧的未校验传输备份不能自动恢复。`tools/test_device_binary_transport.py --adb 本机adb路径 --serial 手机序列号 --output 新目录` 使用手机私有缓存中的自产数据验证 1 MiB 全字节对、空文件、控制字符及截断拒绝，不读写个人单词本。
+
+若主机进程被强制结束，可在确认原手机连接后执行 `python tools/device_acceptance.py --serial 手机序列号 --restore-backup build/device-backups/对应独立编号 --output outputs/新的恢复记录目录`。恢复只使用该备份，不重新安装或运行测试；私有清单内的设备序列号和文件哈希必须匹配，否则中止。
+
+数据库及附属文件的恢复由手机私有目录中的独立事务执行，公共实现位于 `../../scripts/android_data_transaction.py`。主机先持久记录事务路径，再上传完整目标文件；手机保留整组当前文件作为回滚副本，独立进程逐项发布并核验。任一步失败会在手机本地回滚全部文件，ADB 断线不会中断该进程。提交标记原子写入后才视为成功；回滚或状态标记失败会保留锁与全部副本，阻止另一事务覆盖现场。再次执行上述恢复命令会重连同一事务；确认已完整回滚后，使用子事务重试并保留之前的副本，不覆盖原始记录。重连期间不会再次强制停止仍在运行的恢复进程。
+
+`tools/test_device_restore_transaction.py --adb 本机adb路径 --serial 手机序列号 --output 新目录` 只使用独立缓存夹具，覆盖整组提交、第二步失败、附属文件原先不存在、故障解除重试以及终止本次 ADB 客户端后的设备独立提交 / 回滚；不修改个人词本。

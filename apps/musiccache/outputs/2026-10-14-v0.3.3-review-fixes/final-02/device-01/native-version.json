@@ -1,0 +1,74 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "fixture_generated_bytes",
+      "ok": true
+    },
+    {
+      "name": "seed_same_0",
+      "ok": true
+    },
+    {
+      "name": "same_version_bytes_0",
+      "ok": true
+    },
+    {
+      "name": "same_version_cache_hit_0",
+      "ok": true
+    },
+    {
+      "name": "same_version_network_missing_only_0",
+      "ok": true
+    },
+    {
+      "name": "seed_same_262144",
+      "ok": true
+    },
+    {
+      "name": "same_version_bytes_262144",
+      "ok": true
+    },
+    {
+      "name": "same_version_cache_hit_262144",
+      "ok": true
+    },
+    {
+      "name": "same_version_network_missing_only_262144",
+      "ok": true
+    },
+    {
+      "name": "seed_changed_version",
+      "ok": true
+    },
+    {
+      "name": "changed_version_stops_at_boundary",
+      "ok": true
+    },
+    {
+      "name": "seed_unidentified_prefix",
+      "ok": true
+    },
+    {
+      "name": "unknown_prefix_does_not_mix",
+      "ok": true
+    },
+    {
+      "name": "seed_unidentified_full",
+      "ok": true
+    },
+    {
+      "name": "unidentified_full_offline",
+      "ok": true
+    }
+  ],
+  "failed": [],
+  "checkCount": 15,
+  "run": "test_20261014_011025_f43581cd",
+  "pid": 25766,
+  "appVersion": "0.3.3",
+  "generatedOnly": true,
+  "actualMedia3DataSource": true,
+  "audioOutputTested": false,
+  "elapsedMillis": 561
+}

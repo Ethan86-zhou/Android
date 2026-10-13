@@ -1,0 +1,106 @@
+{
+  "recorded_at_shanghai": "2026-10-12T23:15:46.859447+08:00",
+  "version": "0.1.0",
+  "package": "com.zhou.douyinlite",
+  "apk": {
+    "path": "outputs/2026-10-12-v0.1.0/LightSwipe-0.1.0-debug.apk",
+    "bytes": 65010,
+    "sha256": "4e194fa6916396ebfab1af72cc5946b5885c5d3df00f08d05cc2b6d5619292be",
+    "installed_sha256": "4e194fa6916396ebfab1af72cc5946b5885c5d3df00f08d05cc2b6d5619292be"
+  },
+  "device": {
+    "model": "SM-S9080",
+    "android": "16",
+    "sdk": "36"
+  },
+  "source_base_commit": "2878db1bb41f24e5be38c3dcd391e43fb61bee8e",
+  "source_branch": "codex/douyin-lite-v1",
+  "source_identity_note": "APK built from uncommitted changes on this base; per-file SHA256 below identifies the exact source.",
+  "source_files_sha256": {
+    "apps/douyinlite/.gitattributes": "1886e92a8eb2a8a76de63e3cc4097280a2ba85b69c7635a62b7a4e04c6f13627",
+    "apps/douyinlite/.gitignore": "8f2048b0e203d39bb05bba7787d22024ed119c81647d29f7fa9c5f8e58e96077",
+    "apps/douyinlite/app/build.gradle": "7594e47ad83e24a335c13b4f5628f3462b50bb8f8dcae76c703e8ba1748c7769",
+    "apps/douyinlite/app/src/debug/AndroidManifest.xml": "c4ceeaf3f3015dd78fef7175e27fb948950fc8a1d0c99b0caa3320c1b2eebeb2",
+    "apps/douyinlite/app/src/debug/assets/probe.html": "b52791a42fb984e1e4e762672a05221b980c81db34a1d22d8ea04302ec73441f",
+    "apps/douyinlite/app/src/debug/java/com/zhou/douyinlite/ProbeActivity.java": "303d096e40da750941da408470dcfb0c8fe952e57b65f8296347f40162f87f10",
+    "apps/douyinlite/app/src/main/AndroidManifest.xml": "989e72a377d93617d60d889a18fb484305c2a96a736279f85f67b6cab374c5a5",
+    "apps/douyinlite/app/src/main/assets/media-control.js": "9f8b1968941ebdf5d2929ba78b4cf351cb553ee2e6d46b5fca8dbd64924e0da9",
+    "apps/douyinlite/app/src/main/java/com/zhou/douyinlite/CacheController.java": "a6f0c975eca1efb7d2a89b497dc2e1c2ee79256227d72101fc53fcee0fd41ebd",
+    "apps/douyinlite/app/src/main/java/com/zhou/douyinlite/EdgeGestureLayout.java": "ba03dda6e70db424bf755ef54ca439fac07391301c5b9292e306fc4a220266f6",
+    "apps/douyinlite/app/src/main/java/com/zhou/douyinlite/EdgeGestureState.java": "bbef23076e3ba3b936c70c69914860a9f432eb7ead575bc715b8f90f904cf56e",
+    "apps/douyinlite/app/src/main/java/com/zhou/douyinlite/MainActivity.java": "b25a5bf7a0a9b59b71a54f743688c46d4f9e7e519a7e4465cd846b70e4370ee5",
+    "apps/douyinlite/app/src/main/res/drawable/ic_launcher.xml": "a54dd4c78d577d4bd5a373b9af48dd0904c692d2002b5c67dcabebb73b4e9853",
+    "apps/douyinlite/app/src/main/res/values/styles.xml": "d1743dd97770225d70f576111f58c3021b50f1ee16fc683ba3a9a9ba68592f79",
+    "apps/douyinlite/app/src/main/res/xml/data_extraction_rules.xml": "a00e5a29224d4b2f3a92c2868d57489b89cbca60a9904b83c32d25e0ef7ffac5",
+    "apps/douyinlite/build.gradle": "8ebf0602839be8fd4c06f07a93e45da6b4a04444fa1b38df8b9def9c1b5c8032",
+    "apps/douyinlite/gradle/wrapper/gradle-wrapper.jar": "2db75c40782f5e8ba1fc278a5574bab070adccb2d21ca5a6e5ed840888448046",
+    "apps/douyinlite/gradle/wrapper/gradle-wrapper.properties": "23b7b98fa7f086c7310fb49d39084bdb472003a03f3b8508b43098f381d53114",
+    "apps/douyinlite/gradle.properties": "4d4c82226865844bdc85391d907a383da4a35d3a3f5348985d5ec3997ab932fe",
+    "apps/douyinlite/gradlew": "a3648413b47ef77af21d5ebc36c687c7d103aaef3e17f33de7d4f080a6f300a3",
+    "apps/douyinlite/gradlew.bat": "57931b17dd228e5c24dac90e815d0bf82477e831a4618dfab4136f5446b42a9f",
+    "apps/douyinlite/README.md": "5c6c34eff90c1a18a480c2c6459ec5284ab44acd5906331628e4e84faf09a10a",
+    "apps/douyinlite/settings.gradle": "b5fa744e1ca1001bd320156a91b509a44db879eb8b0ea8c1dfa0cc4e20b2fd8a",
+    "apps/douyinlite/tools/cache/CacheInventoryTest.java": "9448a348239870af5c04341dcf4a7426e959213b0ac71b6b7c168fbb52e09a44",
+    "apps/douyinlite/tools/cache/README.md": "4894cadff941389722d3742c13359ce2bd7903eff0369f7b434c88609a62b160",
+    "apps/douyinlite/tools/cache/run-cache-tests.ps1": "7775822e204959d354256c94ee4a007c6b80e150c9ca639449446aeb2bbe3047",
+    "apps/douyinlite/tools/cache_device_check.cjs": "c13714525d98545d43c93692427b6b481e4102ae62615bebc9d0ab9dbf177fed",
+    "apps/douyinlite/tools/cdp.cjs": "8a004db0d5c8018b23573ac917e4f3aee8e2aa0e7cf8d5c37828b686b32fe31a",
+    "apps/douyinlite/tools/device_acceptance.cjs": "1f7f5cf530c5acbf6dfeff3e5694667176f6c96b0d8f1a251c21765f6e9441d3",
+    "apps/douyinlite/tools/gesture-tests/EdgeGestureStateTest.java": "6e1c373ba5a1e6e1a192b2323c5a143261071e5ca35d9fb0d7870e6eb94eaef4",
+    "apps/douyinlite/tools/gesture-tests/run.ps1": "29751aad59a9dcd2fa9963b5677517956748e35ad40e9759d00327c2fb50dc8a",
+    "apps/douyinlite/tools/record_delivery.py": "acb2f7a85c5e072f80021477857359d90b2cdd21858c48ff9430eb1880c6a760",
+    "apps/douyinlite/tools/test_media_control.cjs": "7b87779210697b432ca448f4b7214847dc328e02cfd7ad014f5d9140c2b43abf",
+    "README.md": "0968de7413a9fae965fe226b52938ae28f0076c046b498e7feb568f1251a0fdf"
+  },
+  "build": {
+    "assembleDebug": "passed",
+    "lintDebug": "passed",
+    "lint_errors": 0,
+    "lint_warnings": 4,
+    "warning_scope": "fixed portrait orientation, main and debug probe"
+  },
+  "host_tests": {
+    "media_scenarios": 14,
+    "gesture_checks": 33,
+    "cache_checks": 42,
+    "symbolic_link_checks_skipped": 3
+  },
+  "final_apk_device_reports": [
+    {
+      "path": "outputs/2026-10-12-v0.1.0/device-probe-final/device-acceptance-probe-all-1791817691068.json",
+      "sha256": "53de8dedad9c4cd26d84fc9babde468688f8b05d76f0ad3c4a1e041ec658e92d",
+      "passed": true,
+      "check_count": 35
+    },
+    {
+      "path": "outputs/2026-10-12-v0.1.0/device-real-01/device-acceptance-real-all-1791817777129.json",
+      "sha256": "2200adf43c0a1f153cca74afe006435e20a0cfd9f5f802596cd7022f50a19671",
+      "passed": true,
+      "check_count": 33
+    },
+    {
+      "path": "outputs/2026-10-12-v0.1.0/device-cache-final/cache-check.json",
+      "sha256": "094cdaedf64ed3d4db964dcc7479898d14d6e49597705b004b0a1fe5f4a859bb",
+      "passed": true,
+      "check_count": 7
+    }
+  ],
+  "cache": {
+    "mode": "LOAD_DEFAULT",
+    "soft_threshold_bytes": 1073741824,
+    "observed_manual_clear_mib": [
+      17.8,
+      0.1
+    ],
+    "login_retained_after_clear_and_reload": true,
+    "physical_one_gib_pressure_tested": false,
+    "scope": "Recognized resource cache; website and login data are measured separately. No hard disk cap or offline playback guarantee."
+  },
+  "privacy": {
+    "website_screenshots_private_and_gitignored": true,
+    "account_cookie_and_video_urls_not_in_reports": true,
+    "debug_probe_uses_separate_process_and_webview_profile": true
+  },
+  "runtime_model": "gpt-6.1-sol",
+  "runtime_model_evidence": "Current session turn_context model was verified before local commit."
+}

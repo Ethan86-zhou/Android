@@ -1,0 +1,4 @@
+SKIP: symbolic-link creation is unavailable on this host
+PASS: 42 cache inventory checks
+PASS: 19 cache observation policy checks
+PASS: 24 cache controller manual-only clearing checks
