@@ -41,6 +41,11 @@
         return !!video && !video.paused && !video.ended && video.readyState >= 2;
     }
 
+    function wantsPlayback(video) {
+        // 等待下载时 paused 仍为 false；不能仅凭有无已解码画面判断用户是否要播放。
+        return !!video && !video.paused && !video.ended && !video.error;
+    }
+
     function intersect(first, second) {
         return {
             left: Math.max(first.left, second.left),
@@ -129,6 +134,33 @@
             }
         } catch (_) { return []; }
         return ranges;
+    }
+
+    function bufferState(video) {
+        var current = video ? Math.max(0, finiteNumber(video.currentTime, 0)) : 0;
+        var duration = video ? Math.max(0, finiteNumber(video.duration, 0)) : 0;
+        if (duration > 0) current = Math.min(current, duration);
+        var until = current;
+        try {
+            // 读取浏览器已有缓冲，不触发 load()/下载，也不介入官网的相邻视频预取。
+            // 拖动后可能出现不连续片段，只显示当前播放位置所在连续片段的末端。
+            var ranges = video && video.buffered;
+            if (ranges && Number.isInteger(ranges.length) && ranges.length > 0) {
+                for (var index = 0; index < ranges.length; index++) {
+                    var start = ranges.start(index);
+                    var end = ranges.end(index);
+                    if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start) continue;
+                    if (start <= current && end >= current) {
+                        until = Math.max(until, duration > 0 ? Math.min(end, duration) : end);
+                    }
+                }
+            }
+        } catch (_) { until = current; }
+        return {
+            bufferedUntil: until,
+            bufferedAhead: Math.max(0, until - current),
+            bufferedFraction: duration > 0 ? Math.max(0, Math.min(1, until / duration)) : 0
+        };
     }
 
     function operationResult(accepted) {
@@ -271,12 +303,24 @@
     function snapshot() {
         var list = destroyed ? [] : videos();
         var video = selectedVideo(list);
+        var buffer = bufferState(video);
+        var requested = !suspended() && !document.hidden && wantsPlayback(video);
+        var readiness = video ? Math.max(0, Math.min(4, finiteNumber(video.readyState, 0))) : 0;
         return {
             available: !!video,
             mediaId: mediaId(video),
             seekable: seekRanges(video).length > 0,
             boosted: !!video && boostRequested && !suspended() && originals.has(video) && video.playbackRate === BOOST_RATE,
             playing: isPlaying(video),
+            // playing 保留旧契约；原生播放键使用 playbackRequested，缓冲时仍可按暂停。
+            playbackRequested: requested,
+            mediaPaused: !video || !!video.paused,
+            mediaError: !!video && !!video.error,
+            buffering: requested && readiness < 3,
+            readyState: readiness,
+            bufferedUntil: buffer.bufferedUntil,
+            bufferedAhead: buffer.bufferedAhead,
+            bufferedFraction: buffer.bufferedFraction,
             currentTime: video ? finiteNumber(video.currentTime, 0) : 0,
             duration: video ? finiteNumber(video.duration, 0) : 0,
             rate: video ? finiteNumber(video.playbackRate, 1) : null,
@@ -290,7 +334,9 @@
     function pausePlayback() {
         var list = videos();
         var video = selectedVideo(list);
-        resumeCandidate = isPlaying(video) ? video : null;
+        resumeCandidate = wantsPlayback(video) ? {
+            video: video, currentSrc: video.currentSrc || '', src: video.src || ''
+        } : null;
         boostRequested = false;
         stopMonitoring();
         restoreAll();
@@ -306,9 +352,12 @@
         if (destroyed || suspended()) return;
         var candidate = resumeCandidate;
         resumeCandidate = null;
-        if (!candidate || selectedVideo(videos()) !== candidate || candidate.ended || !candidate.paused) return;
+        if (!candidate) return;
+        var video = candidate.video;
+        if (selectedVideo(videos()) !== video || video.ended || video.error || !video.paused ||
+            (video.currentSrc || '') !== candidate.currentSrc || (video.src || '') !== candidate.src) return;
         try {
-            var promise = candidate.play();
+            var promise = video.play();
             // WebView 可能因自动播放策略拒绝；交回网页的播放按钮，不产生未处理 Promise。
             if (promise && typeof promise.catch === 'function') promise.catch(function () {});
         } catch (_) { /* 用户可以在网页中继续播放。 */ }

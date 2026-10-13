@@ -86,6 +86,7 @@ function video(options = {}) {
         preservesPitch: false, webkitPreservesPitch: false,
         currentTime: 12, duration: 60, readyState: 4, paused: false, ended: false,
         currentSrc: 'blob:mock-video', src: 'blob:mock-video', seekable: timeRanges([0, 60]),
+        buffered: timeRanges(), error: null,
         pauseCalls: 0, playCalls: 0,
         pause() { this.pauseCalls++; this.paused = true; },
         play() { this.playCalls++; this.paused = false; return Promise.resolve(); }
@@ -125,7 +126,9 @@ check('empty page is safe and status contains no website or account metadata', (
     assert.equal(state.seekable, false);
     assert.deepEqual(Object.keys(state).sort(), [
         'available', 'boostRequested', 'boosted', 'currentTime', 'destroyed',
-        'duration', 'mediaId', 'paused', 'playing', 'rate', 'seekable', 'videoCount'
+        'duration', 'mediaId', 'paused', 'playing', 'rate', 'seekable', 'videoCount',
+        'bufferedAhead', 'bufferedFraction', 'bufferedUntil', 'buffering',
+        'playbackRequested', 'mediaPaused', 'mediaError', 'readyState'
     ].sort());
     assert.equal(h.api().setBoost(false).boostRequested, false);
     assert.equal(h.timers.size, 0);
@@ -600,6 +603,192 @@ check('a throwing currentTime setter rejects seek without touching playback or b
     assert.equal(item.currentTime, 12);
     assert.equal(item.playCalls + item.pauseCalls, 0);
     assert.equal(item.playbackRate, 1.5);
+});
+
+check('loading and waiting remain pausable while enough future data ends buffering', () => {
+    const h = harness();
+    const item = video();
+    h.setVideos(item);
+    for (let readiness = 0; readiness <= 4; readiness++) {
+        item.readyState = readiness;
+        const state = h.api().status();
+        assert.equal(state.readyState, readiness);
+        assert.equal(state.playbackRequested, true);
+        assert.equal(state.buffering, readiness < 3);
+        assert.equal(state.mediaPaused, false);
+        assert.equal(state.mediaError, false);
+    }
+    item.readyState = 1;
+    h.api().togglePlayback();
+    assert.equal(item.paused, true);
+    assert.equal(h.api().status().buffering, false);
+    assert.equal(h.api().status().playbackRequested, false);
+    assert.equal(h.api().status().mediaPaused, true);
+});
+
+check('user pause, finished media and media errors never masquerade as buffering', () => {
+    for (const options of [
+        { paused: true }, { ended: true },
+        { error: { code: 2, message: 'private source or player error detail' } }
+    ]) {
+        const h = harness();
+        const item = video({ readyState: 0, ...options });
+        h.setVideos(item);
+        const state = h.api().status();
+        assert.equal(state.buffering, false);
+        assert.equal(state.playbackRequested, false);
+        assert.equal(state.mediaError, !!options.error);
+        assert(!JSON.stringify(state).includes('private'));
+    }
+});
+
+check('buffer progress follows the current continuous range and does not bridge gaps', () => {
+    const h = harness();
+    const item = video({ duration: 100, buffered: timeRanges([0, 20], [40, 70], [90, 100]) });
+    h.setVideos(item);
+    let state = h.api().status();
+    assert.equal(state.bufferedUntil, 20);
+    assert.equal(state.bufferedAhead, 8);
+    assert.equal(state.bufferedFraction, 0.2);
+    item.currentTime = 25;
+    state = h.api().status();
+    assert.equal(state.bufferedUntil, 25);
+    assert.equal(state.bufferedAhead, 0);
+    assert.equal(state.bufferedFraction, 0.25);
+    item.currentTime = 40;
+    state = h.api().status();
+    assert.equal(state.bufferedUntil, 70);
+    assert.equal(state.bufferedAhead, 30);
+    assert.equal(state.bufferedFraction, 0.7);
+    item.currentTime = 70;
+    assert.equal(h.api().status().bufferedAhead, 0);
+});
+
+check('empty, invalid or unreadable buffered ranges do not invent playable data', () => {
+    for (const buffered of [
+        null, timeRanges(), timeRanges([20, 30]),
+        timeRanges([20, 10], [12, 12], [NaN, 40], [0, Infinity]),
+        { length: 1, start() { throw new Error('player removed'); } }
+    ]) {
+        const h = harness();
+        h.setVideos(video({ buffered }));
+        const state = h.api().status();
+        assert.equal(state.bufferedUntil, 12);
+        assert.equal(state.bufferedAhead, 0);
+        assert.equal(state.bufferedFraction, 0.2);
+    }
+    const h = harness();
+    const item = video();
+    Object.defineProperty(item, 'buffered', { get() { throw new Error('resource detached'); } });
+    h.setVideos(item);
+    assert.equal(h.api().status().bufferedAhead, 0);
+});
+
+check('finite buffer progress is bounded while live streams still report ahead seconds', () => {
+    const h = harness();
+    const item = video({ buffered: timeRanges([-5, 500]) });
+    h.setVideos(item);
+    let state = h.api().status();
+    assert.equal(state.bufferedUntil, 60);
+    assert.equal(state.bufferedAhead, 48);
+    assert.equal(state.bufferedFraction, 1);
+    item.duration = Infinity;
+    state = h.api().status();
+    assert.equal(state.bufferedUntil, 500);
+    assert.equal(state.bufferedAhead, 488);
+    assert.equal(state.bufferedFraction, 0);
+    item.currentTime = NaN;
+    item.buffered = timeRanges([NaN, Infinity]);
+    state = h.api().status();
+    assert.equal(state.bufferedUntil, 0);
+    assert.equal(state.bufferedAhead, 0);
+    assert(!JSON.stringify(state).includes('null'));
+});
+
+check('buffer status is passive and does not create downloads or idle monitoring', () => {
+    const h = harness();
+    const item = video({ readyState: 1, preload: 'metadata' });
+    item.load = () => assert.fail('observing buffering must not restart the website player');
+    h.setVideos(item);
+    for (let index = 0; index < 40; index++) h.api().status();
+    assert.equal(item.playCalls + item.pauseCalls + item.timeWrites, 0);
+    assert.equal(item.preload, 'metadata');
+    assert.equal(h.timers.size, 0);
+    assert.equal(h.activeObservers(), 0);
+});
+
+check('switching the visible player resets buffer and waiting state with media identity', () => {
+    const h = harness();
+    const first = video({ readyState: 1, buffered: timeRanges([0, 50]) });
+    const second = video({ paused: true, buffered: timeRanges([0, 15]) });
+    h.setVideos(first);
+    const before = h.api().status();
+    h.setVideos(second);
+    const after = h.api().status();
+    assert(after.mediaId > before.mediaId);
+    assert.equal(after.buffering, false);
+    assert.equal(after.bufferedUntil, 15);
+    assert.equal(after.bufferedAhead, 3);
+    h.setVideos();
+    const empty = h.api().status();
+    assert.equal(empty.buffering, false);
+    assert.equal(empty.playbackRequested, false);
+    assert.equal(empty.bufferedUntil + empty.bufferedAhead + empty.bufferedFraction, 0);
+});
+
+check('background during buffering resumes the same requested video only once', () => {
+    for (let readyState = 0; readyState < 3; readyState++) {
+        const h = harness();
+        const item = video({ readyState, playbackRate: 1.5 });
+        h.setVideos(item);
+        assert.equal(h.api().status().buffering, true);
+        h.api().pause();
+        const paused = h.api().status();
+        assert.equal(paused.buffering, false);
+        assert.equal(paused.playbackRequested, false);
+        assert.equal(item.paused, true);
+        h.api().resume();
+        h.api().resume();
+        assert.equal(item.playCalls, 1);
+        assert.equal(item.playbackRate, 1.5);
+        assert.equal(h.api().status().buffering, true);
+    }
+});
+
+check('source replacement or error while backgrounded prevents accidental autoplay', () => {
+    for (const mutate of [
+        item => { item.src = 'blob:new-source'; },
+        item => { item.currentSrc = 'blob:new-loaded-source'; },
+        item => { item.error = { code: 3 }; }
+    ]) {
+        const h = harness();
+        const item = video({ readyState: 1 });
+        h.setVideos(item);
+        h.api().pause();
+        mutate(item);
+        h.api().resume();
+        assert.equal(item.playCalls, 0);
+        assert.equal(item.paused, true);
+    }
+});
+
+check('hidden or destroyed pages suppress waiting and manual pause is preserved', () => {
+    const h = harness();
+    const item = video({ readyState: 1 });
+    h.setVideos(item);
+    h.document.hidden = true; // visibilitychange 送达前也不能显示前台加载提示。
+    assert.equal(h.api().status().buffering, false);
+    assert.equal(h.api().status().playbackRequested, false);
+    h.document.hidden = false;
+    h.api().togglePlayback();
+    h.api().pause();
+    h.api().resume();
+    assert.equal(item.playCalls, 0);
+    const state = h.api().destroy();
+    assert.equal(state.buffering, false);
+    assert.equal(state.playbackRequested, false);
+    assert.equal(state.mediaError, false);
+    assert.equal(state.bufferedAhead + state.bufferedUntil + state.bufferedFraction, 0);
 });
 
 console.log(`MediaControlCheck: ${checks} scenario checks passed`);

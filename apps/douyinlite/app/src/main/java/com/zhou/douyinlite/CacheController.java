@@ -30,15 +30,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 /**
- * 网页缓存的节制策略，和保存登录状态的网站数据分别处理。
+ * 网页缓存的只读统计及手动清理，和保存登录状态的网站数据分别处理。
  *
- * <p>1 GiB 是检查后请求清理的软阈值。允许系统正常缓存和复用资源，网站缓存策略优先。
+ * <p>1 GiB 仅作为空间提示阈值；超过时也不自动清理。资源回收由系统 WebView 自身管理。
  * WebView 没有按应用设置磁盘硬上限的公开 API；网站也可以另用 Cache Storage / IndexedDB。
  * 本类不拦截视频，不下载副本，不手动删除 WebView 的任何文件。</p>
  */
 public final class CacheController implements AutoCloseable {
-    public static final long SOFT_LIMIT_BYTES = 1024L * 1024L * 1024L;
-    private static final long CLEAR_COOLDOWN_MS = 30_000L;
+    public static final long SOFT_LIMIT_BYTES = CachePolicy.SOFT_LIMIT_BYTES;
+    private static final long SNAPSHOT_REUSE_MS = 15_000L;
     private static final long OBSERVE_AFTER_CLEAR_MS = 500L;
 
     // 只用作统计分类，绝不据此递归删除。不同 WebView 版本的目录布局可以不同。
@@ -57,8 +57,19 @@ public final class CacheController implements AutoCloseable {
         return thread;
     });
     private final AtomicBoolean closed = new AtomicBoolean();
-    private final AtomicBoolean trimQueued = new AtomicBoolean();
-    private long lastClearAt = Long.MIN_VALUE;
+    private final CachePolicy policy = new CachePolicy();
+    // 以下调度状态仅由主线程访问，文件树扫描只在 worker 上执行。
+    private final List<Consumer<Snapshot>> snapshotCallbacks = new ArrayList<>();
+    private boolean scanRunning;
+    private long inventoryRevision;
+    private Snapshot cachedSnapshot;
+    private long cachedAt;
+    private boolean observationEnabled;
+    private long observationAt = -1L;
+    private final Runnable observation = () -> {
+        observationAt = -1L;
+        runObservation();
+    };
 
     public CacheController(Context context) {
         this(context, null);
@@ -107,18 +118,27 @@ public final class CacheController implements AutoCloseable {
         return inspect(appCacheDirectory, webViewDirectory);
     }
 
-    /** 后台统计，回调回到主线程。close() 后不再回调。 */
+    /** 后台统计，同一时间合并为一次扫描，15 秒内复用结果；回调在主线程。 */
     public void snapshotAsync(Consumer<Snapshot> callback) {
-        if (closed.get()) return;
-        try {
-            worker.execute(() -> {
-                Snapshot result = snapshot();
-                deliver(callback, result);
-            });
-        } catch (RejectedExecutionException error) {
-            // close() 与其他线程刚提交的统计请求同时发生时，关闭后静默丢弃该请求。
-            if (!closed.get()) throw error;
+        if (closed.get() || callback == null) return;
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            requestSnapshot(false, callback);
+        } else {
+            mainHandler.post(() -> requestSnapshot(false, callback));
         }
+    }
+
+    /**
+     * 告知页面是否正在播放、缓冲或加载。相同状态可随媒体轮询重复调用。
+     * 前台忙碌时不自动扫描；后台 8 秒 / 前台空闲 15 秒后才只读统计。任何状态均不自动清理。
+     * Activity.onResume 应先传 (true, true)，onPause 暂停网页后传 (false, false)。
+     */
+    public void updateUsage(WebView webView, boolean foreground, boolean busy) {
+        requireMainThread();
+        if (closed.get()) return;
+        observationEnabled = true;
+        policy.updateUsage(foreground, busy, SystemClock.uptimeMillis());
+        scheduleObservation();
     }
 
     public void clear(WebView webView) {
@@ -126,20 +146,21 @@ public final class CacheController implements AutoCloseable {
     }
 
     /**
-     * 请求系统 WebView 清理资源缓存，保留 Cookies 和网站存储。
-     *
-     * <p>必须在主线程调用。WebView 的磁盘删除由引擎异步执行；回调是请求之后的观察值，
-     * 不代表引擎所有缓存已经删完，也不能据此宣称“清空网站数据”。</p>
+     * 用户主动清理时即刻请求系统 WebView 清理资源缓存，保留 Cookies 和网站存储。
+     * WebView 磁盘删除由引擎异步执行；回调是请求 500ms 后重新扫描的观察值，
+     * 不代表所有引擎缓存已经删完。随后 10 分钟暂停周期统计，主动查看仍可重新统计。
      */
     public void clear(WebView webView, Consumer<Snapshot> callback) {
         requireMainThread();
         if (closed.get()) return;
         webView.clearCache(true);
-        lastClearAt = SystemClock.uptimeMillis();
-        mainHandler.postDelayed(() -> {
-            if (!closed.get()) snapshotAsync(snapshot -> {
-                if (callback != null) callback.accept(snapshot.withClearRequested());
-            });
+        policy.manualClearRequested(SystemClock.uptimeMillis());
+        inventoryRevision++;
+        cachedSnapshot = null;
+        scheduleObservation();
+        if (callback != null) mainHandler.postDelayed(() -> {
+            if (!closed.get()) requestSnapshot(true,
+                    snapshot -> callback.accept(snapshot.withClearRequested()));
         }, OBSERVE_AFTER_CLEAR_MS);
     }
 
@@ -148,38 +169,119 @@ public final class CacheController implements AutoCloseable {
     }
 
     /**
-     * 在定期检查或进入后台时调用。扫描不阻塞主线程，同一时间只安排一次检查。
-     * 超阈值且距上次清理至少 30 秒时，请求 WebView 清理；不直接碰活跃缓存或数据库。
+     * 兼容旧版方法名：仅安排只读统计，绝不自动裁剪或清理缓存。
+     * 有回调时额外返回当前统计；只有明确调用 clear 才请求引擎清理。
      */
     public void trimIfNeeded(WebView webView, Consumer<Snapshot> callback) {
         requireMainThread();
-        if (closed.get() || !trimQueued.compareAndSet(false, true)) return;
-        snapshotAsync(snapshot -> {
-            boolean cooledDown = lastClearAt == Long.MIN_VALUE
-                    || SystemClock.uptimeMillis() - lastClearAt >= CLEAR_COOLDOWN_MS;
-            if (snapshot.cacheBytes > SOFT_LIMIT_BYTES && cooledDown) {
-                clear(webView, result -> {
-                    trimQueued.set(false);
-                    if (callback != null) callback.accept(result);
-                });
-            } else {
-                trimQueued.set(false);
-                if (callback != null) callback.accept(snapshot);
-            }
+        if (closed.get()) return;
+        observationEnabled = true;
+        scheduleObservation();
+        if (callback != null) snapshotAsync(callback);
+    }
+
+    private void scheduleObservation() {
+        if (closed.get()) return;
+        long now = SystemClock.uptimeMillis();
+        long delay = !observationEnabled ? CachePolicy.NONE : policy.observationDelay(now);
+        long nextAt = delay == CachePolicy.NONE ? -1L : now + delay;
+        if (nextAt == observationAt) return;
+        mainHandler.removeCallbacks(observation);
+        observationAt = nextAt;
+        if (delay != CachePolicy.NONE) mainHandler.postDelayed(observation, delay);
+    }
+
+    private void runObservation() {
+        if (closed.get() || !observationEnabled) return;
+        long ticket = policy.beginObservation(SystemClock.uptimeMillis());
+        if (ticket == CachePolicy.NONE) {
+            scheduleObservation();
+            return;
+        }
+        requestSnapshot(true, snapshot -> {
+            policy.finishObservation(ticket);
+            // 超过阈值只体现在 Snapshot.overLimit，不干预播放器已缓冲资源。
+            scheduleObservation();
         });
     }
 
-    /** 由 Activity.onDestroy 调用；不销毁 WebView，也不更改登录状态。 */
+    private void requestSnapshot(boolean forceFresh, Consumer<Snapshot> callback) {
+        if (closed.get()) return;
+        if (!forceFresh && cachedSnapshot != null
+                && SystemClock.uptimeMillis() - cachedAt < SNAPSHOT_REUSE_MS) {
+            deliver(callback, cachedSnapshot);
+            return;
+        }
+        snapshotCallbacks.add(callback);
+        if (!scanRunning) startScan();
+    }
+
+    private void startScan() {
+        if (closed.get()) return;
+        scanRunning = true;
+        long revision = inventoryRevision;
+        try {
+            worker.execute(() -> {
+                Snapshot observed;
+                try {
+                    observed = snapshot();
+                } catch (RuntimeException error) {
+                    // WebView 正在替换目录或主机文件系统异常时也要释放合并请求。
+                    // 不把失败伪装成完整空缓存。
+                    observed = new Snapshot(0, 0, 0, 0, 0, false, false);
+                }
+                Snapshot result = observed;
+                if (!closed.get()) mainHandler.post(() -> finishScan(revision, result));
+            });
+        } catch (RejectedExecutionException error) {
+            scanRunning = false;
+            if (!closed.get()) throw error;
+        }
+    }
+
+    private void finishScan(long revision, Snapshot snapshot) {
+        scanRunning = false;
+        if (closed.get()) return;
+        if (revision != inventoryRevision) {
+            // 清理前开始的在途扫描不能填回旧快照，也不能冒充清理后的结果。
+            startScan();
+            return;
+        }
+        cachedSnapshot = snapshot;
+        cachedAt = SystemClock.uptimeMillis();
+        List<Consumer<Snapshot>> callbacks = new ArrayList<>(snapshotCallbacks);
+        snapshotCallbacks.clear();
+        for (Consumer<Snapshot> callback : callbacks) {
+            if (closed.get()) break;
+            if (revision != inventoryRevision) requestSnapshot(true, callback);
+            else callback.accept(snapshot);
+        }
+    }
+
+    /** 由 Activity.onDestroy 调用；丢弃在途扫描，不销毁 WebView，不更改登录状态。 */
     @Override public void close() {
         if (!closed.compareAndSet(false, true)) return;
+        policy.close();
         mainHandler.removeCallbacksAndMessages(null);
         worker.shutdownNow();
+        if (Looper.myLooper() == Looper.getMainLooper()) discardMainState();
+        else mainHandler.post(this::discardMainState);
+    }
+
+    private void discardMainState() {
+        snapshotCallbacks.clear();
+        cachedSnapshot = null;
+        observationEnabled = false;
+        observationAt = -1L;
     }
 
     private void deliver(Consumer<Snapshot> callback, Snapshot snapshot) {
         if (callback == null || closed.get()) return;
+        long revision = inventoryRevision;
         mainHandler.post(() -> {
-            if (!closed.get()) callback.accept(snapshot);
+            if (closed.get()) return;
+            if (revision != inventoryRevision) requestSnapshot(true, callback);
+            else callback.accept(snapshot);
         });
     }
 
@@ -313,9 +415,11 @@ public final class CacheController implements AutoCloseable {
         public final long webCacheBytes;
         /** app cache 与 WebView 已知资源缓存文件的逻辑字节数，不是整个 App 占用。 */
         public final long cacheBytes;
-        /** app_webview 中其余网站及引擎数据；包含登录和网站存储，不属于自动清理对象。 */
+        /** app_webview 中其余网站及引擎数据；包含登录和网站存储，只统计而不清理。 */
         public final long siteBytes;
         public final long limitBytes = SOFT_LIMIT_BYTES;
+        /** 仅提示观察值超过 1 GiB，不触发任何清理。 */
+        public final boolean overLimit;
         public final int cacheFileCount;
         public final int siteFileCount;
         /** 扫描期间若出现读权限/IO错误或停止扫描，此值为 false，大小仅是已观察到的部分。 */
@@ -329,6 +433,7 @@ public final class CacheController implements AutoCloseable {
             this.webCacheBytes = webCacheBytes;
             this.cacheBytes = appCacheBytes > Long.MAX_VALUE - webCacheBytes
                     ? Long.MAX_VALUE : appCacheBytes + webCacheBytes;
+            this.overLimit = cacheBytes > limitBytes;
             this.siteBytes = siteBytes;
             this.cacheFileCount = cacheFileCount;
             this.siteFileCount = siteFileCount;

@@ -16,6 +16,8 @@
     var historyPatches = [];
     var cardGrids = new Set();
     var pendingTarget = null;
+    var pendingClicked = false;
+    var navigationGeneration = 0;
     var navigationFallback = null;
     var css = [
         'html[data-light-swipe-clean],html[data-light-swipe-clean] body{min-width:0!important;width:100%!important;margin:0!important;}',
@@ -24,7 +26,8 @@
         'html[data-light-swipe-clean][data-light-swipe-channel="recommend"] body{overflow:hidden!important;}',
         'html[data-light-swipe-clean][data-light-swipe-channel="recommend"] #douyin-right-container{height:100vh!important;height:100dvh!important;}',
         'html[data-light-swipe-clean][data-light-swipe-channel="recommend"] #slidelist.recommend-slidelist{width:100%!important;height:100vh!important;height:100dvh!important;max-height:none!important;min-height:0!important;margin:0!important;padding:0!important;}',
-        'html[data-light-swipe-clean][data-light-swipe-channel="recommend"] #slidelist .page-recommend-container{height:100vh!important;height:100dvh!important;min-height:0!important;margin-bottom:0!important;}',
+        // slide 的内联高度和间距是官网翻页步长的一部分，覆盖它们会逐条累积偏移。
+        'html[data-light-swipe-clean][data-light-swipe-channel="recommend"] #slidelist .page-recommend-container{min-height:0!important;}',
         'html[data-light-swipe-clean][data-light-swipe-channel="recommend"] #slidelist .fullscreen_capture_feedback{left:0!important;top:0!important;width:100%!important;height:100%!important;min-height:0!important;padding-left:0!important;padding-right:0!important;}',
         'html[data-light-swipe-clean][data-light-swipe-channel="recommend"] #slidelist #sliderVideo{width:100%!important;height:100%!important;min-height:0!important;}',
         'html[data-light-swipe-clean][data-light-swipe-channel="recommend"] #slidelist .playerContainer,html[data-light-swipe-clean][data-light-swipe-channel="recommend"] #slidelist .slider-video,html[data-light-swipe-clean][data-light-swipe-channel="recommend"] #slidelist .xgplayer{width:100%!important;height:100%!important;max-width:none!important;min-height:0!important;}',
@@ -130,7 +133,10 @@
             channel: current,
             applied: !destroyed && official() && clean && !!root && root.hasAttribute(CLEAN_ATTRIBUTE) && !!document.getElementById(STYLE_ID),
             clean: clean,
-            layoutReady: !destroyed && official() && !!layout && !!document.getElementById('douyin-right-container'),
+            layoutReady: !destroyed && official() && visible(layout) && visible(document.getElementById('douyin-right-container')),
+            navigationPending: pendingTarget !== null,
+            pendingChannel: pendingTarget,
+            detailOpen: !destroyed && official() && anyVisible('.modal-video-container'),
             playerActive: !destroyed && official() && clean && !document.hidden &&
                 ((current === 'recommend' && anyVisible('#slidelist.recommend-slidelist')) || anyVisible('.modal-video-container'))
         };
@@ -154,6 +160,8 @@
 
     function clearPending() {
         pendingTarget = null;
+        pendingClicked = false;
+        navigationGeneration++;
         if (navigationFallback !== null) window.clearTimeout(navigationFallback);
         navigationFallback = null;
     }
@@ -162,6 +170,12 @@
         if (!element || element.isConnected === false) return false;
         var rect = element.getBoundingClientRect();
         if (!(rect.width > 0 && rect.height > 0)) return false;
+        var left = Number.isFinite(rect.left) ? rect.left : 0;
+        var top = Number.isFinite(rect.top) ? rect.top : 0;
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        var height = window.innerHeight || document.documentElement.clientHeight;
+        if (left + rect.width <= 0 || top + rect.height <= 0 ||
+                (width > 0 && left >= width) || (height > 0 && top >= height)) return false;
         for (var parent = element; parent && parent.nodeType === 1; parent = parent.parentElement) {
             if (parent.hidden) return false;
             var style = window.getComputedStyle(parent);
@@ -195,10 +209,15 @@
 
     function fulfillPending() {
         if (!pendingTarget || !official()) return;
-        if (channel() === pendingTarget) { clearPending(); return; }
+        if (channel() === pendingTarget) {
+            if (!anyVisible('.modal-video-container')) clearPending();
+            return;
+        }
+        if (pendingClicked) return;
         var anchor = findAnchor(pendingTarget);
         if (!anchor) return;
-        clearPending();
+        // click 只表示请求已发出；必须观察到目标路由后才能确认完成。
+        pendingClicked = true;
         anchor.click();
         schedule();
     }
@@ -206,13 +225,16 @@
     function select(target) {
         if (destroyed || !official() || (target !== 'featured' && target !== 'recommend')) return false;
         dismissVideo();
+        if (pendingTarget === target) return true;
         clearPending();
-        if (channel() === target) return true;
+        if (channel() === target && !anyVisible('.modal-video-container')) return true;
         pendingTarget = target;
         fulfillPending();
         if (pendingTarget) {
-            // 首屏 React 节点可能晚于 onPageFinished：等一次挂载机会后才回退 URL。
+            // 给首屏挂载与 SPA 跳转留出时间；旧意图的定时器不能覆盖最新选择。
+            var generation = navigationGeneration;
             navigationFallback = window.setTimeout(function () {
+                if (generation !== navigationGeneration) return;
                 navigationFallback = null;
                 fulfillPending();
                 if (!pendingTarget) return;
@@ -221,7 +243,7 @@
                 window.location.assign(destination === 'featured' ?
                     'https://www.douyin.com/jingxuan?from_nav=1' :
                     'https://www.douyin.com/?is_from_mobile_home=1&recommend=1&from_nav=1');
-            }, 1200);
+            }, 5000);
         }
         return true;
     }
@@ -256,7 +278,8 @@
         removeLayout();
     }
 
-    window.LightSwipeUi = { select: select, setClean: setClean, status: status, dismissVideo: dismissVideo, destroy: destroy };
+    window.LightSwipeUi = { select: select, setClean: setClean, status: status,
+        cancelNavigation: clearPending, dismissVideo: dismissVideo, destroy: destroy };
     // DOM 属性只监听官网会更新的 class/id；本脚本自己的 data 属性不会唤醒观察器。
     if (official()) {
         observer = new MutationObserver(schedule);

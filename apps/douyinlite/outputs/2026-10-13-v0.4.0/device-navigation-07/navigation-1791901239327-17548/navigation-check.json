@@ -1,0 +1,1289 @@
+{
+  "schemaVersion": 1,
+  "startedAtEpochMs": 1791901239327,
+  "passed": true,
+  "checks": {
+    "initialToolbarAvailable": true,
+    "initialCleanChannelReady": true,
+    "burst1DeviceTimingCaptured": true,
+    "burst1TouchTimingValid": true,
+    "burst1WebRouteSettled": true,
+    "burst1NativeLastTargetSelected": true,
+    "burst1NoOpeningTimeoutPrompt": true,
+    "burst1RouteRemainsSettled": true,
+    "burst1ViewportHeightStable": true,
+    "burst2DeviceTimingCaptured": true,
+    "burst2TouchTimingValid": true,
+    "burst2WebRouteSettled": true,
+    "burst2NativeLastTargetSelected": true,
+    "burst2NoOpeningTimeoutPrompt": true,
+    "burst2RouteRemainsSettled": true,
+    "burst2ViewportHeightStable": true,
+    "burst3DeviceTimingCaptured": true,
+    "burst3TouchTimingValid": true,
+    "burst3WebRouteSettled": true,
+    "burst3NativeLastTargetSelected": true,
+    "burst3NoOpeningTimeoutPrompt": true,
+    "burst3RouteRemainsSettled": true,
+    "burst3ViewportHeightStable": true,
+    "burst4DeviceTimingCaptured": true,
+    "burst4TouchTimingValid": true,
+    "burst4WebRouteSettled": true,
+    "burst4NativeLastTargetSelected": true,
+    "burst4NoOpeningTimeoutPrompt": true,
+    "burst4RouteRemainsSettled": true,
+    "burst4ViewportHeightStable": true,
+    "refresh1BeforeWebRouteSettled": true,
+    "refresh1BeforeNativeLastTargetSelected": true,
+    "refresh1BeforeNoOpeningTimeoutPrompt": true,
+    "refresh1BeforeRouteRemainsSettled": true,
+    "refresh1BeforeViewportHeightStable": true,
+    "refresh1NativeRefreshItemPresent": true,
+    "refresh1AfterWebRouteSettled": true,
+    "refresh1AfterNativeLastTargetSelected": true,
+    "refresh1AfterNoOpeningTimeoutPrompt": true,
+    "refresh1AfterRouteRemainsSettled": true,
+    "refresh1AfterViewportHeightStable": true,
+    "refresh1NewDocumentObserved": true,
+    "refresh2BeforeWebRouteSettled": true,
+    "refresh2BeforeNativeLastTargetSelected": true,
+    "refresh2BeforeNoOpeningTimeoutPrompt": true,
+    "refresh2BeforeRouteRemainsSettled": true,
+    "refresh2BeforeViewportHeightStable": true,
+    "refresh2NativeRefreshItemPresent": true,
+    "refresh2AfterWebRouteSettled": true,
+    "refresh2AfterNativeLastTargetSelected": true,
+    "refresh2AfterNoOpeningTimeoutPrompt": true,
+    "refresh2AfterRouteRemainsSettled": true,
+    "refresh2AfterViewportHeightStable": true,
+    "refresh2NewDocumentObserved": true,
+    "lifecycle1BeforeWebRouteSettled": true,
+    "lifecycle1BeforeNativeLastTargetSelected": true,
+    "lifecycle1BeforeNoOpeningTimeoutPrompt": true,
+    "lifecycle1BeforeRouteRemainsSettled": true,
+    "lifecycle1BeforeViewportHeightStable": true,
+    "lifecycle1BackgroundObserved": true,
+    "lifecycle1AfterWebRouteSettled": true,
+    "lifecycle1AfterNativeLastTargetSelected": true,
+    "lifecycle1AfterNoOpeningTimeoutPrompt": true,
+    "lifecycle1AfterRouteRemainsSettled": true,
+    "lifecycle1AfterViewportHeightStable": true,
+    "lifecycle1SameViewportAfterResume": true,
+    "lifecycle2BeforeWebRouteSettled": true,
+    "lifecycle2BeforeNativeLastTargetSelected": true,
+    "lifecycle2BeforeNoOpeningTimeoutPrompt": true,
+    "lifecycle2BeforeRouteRemainsSettled": true,
+    "lifecycle2BeforeViewportHeightStable": true,
+    "lifecycle2BackgroundObserved": true,
+    "lifecycle2AfterWebRouteSettled": true,
+    "lifecycle2AfterNativeLastTargetSelected": true,
+    "lifecycle2AfterNoOpeningTimeoutPrompt": true,
+    "lifecycle2AfterRouteRemainsSettled": true,
+    "lifecycle2AfterViewportHeightStable": true,
+    "lifecycle2SameViewportAfterResume": true,
+    "fourRapidSwitchSequencesCompleted": true,
+    "bothChannelsRefreshed": true,
+    "bothChannelsResumed": true,
+    "cleanupSucceeded": true
+  },
+  "observations": {
+    "bursts": [
+      {
+        "round": 1,
+        "expectedFeatured": true,
+        "timing": {
+          "taps": [
+            {
+              "featured": true,
+              "startedAtEpochMs": 1791901242516,
+              "finishedAtEpochMs": 1791901242591,
+              "durationMs": 75
+            },
+            {
+              "featured": false,
+              "startedAtEpochMs": 1791901242678,
+              "finishedAtEpochMs": 1791901242743,
+              "durationMs": 65
+            },
+            {
+              "featured": true,
+              "startedAtEpochMs": 1791901242821,
+              "finishedAtEpochMs": 1791901242859,
+              "durationMs": 38
+            }
+          ],
+          "gapsMs": [
+            87,
+            78
+          ],
+          "startIntervalsMs": [
+            162,
+            143
+          ],
+          "allInputDurationsNonnegative": true,
+          "allRequestedGapsBetween50And100Ms": true
+        },
+        "result": {
+          "expectedFeatured": true,
+          "settled": true,
+          "sampleErrors": 0,
+          "web": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": true,
+            "recommended": false,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          },
+          "nativeSelected": true,
+          "nativeOtherUnselected": true,
+          "timeoutPromptAbsent": true,
+          "afterNativeRead": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": true,
+            "recommended": false,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          }
+        }
+      },
+      {
+        "round": 1,
+        "expectedFeatured": false,
+        "timing": {
+          "taps": [
+            {
+              "featured": false,
+              "startedAtEpochMs": 1791901256917,
+              "finishedAtEpochMs": 1791901256960,
+              "durationMs": 43
+            },
+            {
+              "featured": true,
+              "startedAtEpochMs": 1791901257031,
+              "finishedAtEpochMs": 1791901257078,
+              "durationMs": 47
+            },
+            {
+              "featured": false,
+              "startedAtEpochMs": 1791901257151,
+              "finishedAtEpochMs": 1791901257201,
+              "durationMs": 50
+            }
+          ],
+          "gapsMs": [
+            71,
+            73
+          ],
+          "startIntervalsMs": [
+            114,
+            120
+          ],
+          "allInputDurationsNonnegative": true,
+          "allRequestedGapsBetween50And100Ms": true
+        },
+        "result": {
+          "expectedFeatured": false,
+          "settled": true,
+          "sampleErrors": 0,
+          "web": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": false,
+            "recommended": true,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          },
+          "nativeSelected": true,
+          "nativeOtherUnselected": true,
+          "timeoutPromptAbsent": true,
+          "afterNativeRead": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": false,
+            "recommended": true,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          }
+        }
+      },
+      {
+        "round": 2,
+        "expectedFeatured": true,
+        "timing": {
+          "taps": [
+            {
+              "featured": true,
+              "startedAtEpochMs": 1791901261614,
+              "finishedAtEpochMs": 1791901261649,
+              "durationMs": 35
+            },
+            {
+              "featured": false,
+              "startedAtEpochMs": 1791901261718,
+              "finishedAtEpochMs": 1791901261751,
+              "durationMs": 33
+            },
+            {
+              "featured": true,
+              "startedAtEpochMs": 1791901261820,
+              "finishedAtEpochMs": 1791901261854,
+              "durationMs": 34
+            }
+          ],
+          "gapsMs": [
+            69,
+            69
+          ],
+          "startIntervalsMs": [
+            104,
+            102
+          ],
+          "allInputDurationsNonnegative": true,
+          "allRequestedGapsBetween50And100Ms": true
+        },
+        "result": {
+          "expectedFeatured": true,
+          "settled": true,
+          "sampleErrors": 0,
+          "web": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": true,
+            "recommended": false,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          },
+          "nativeSelected": true,
+          "nativeOtherUnselected": true,
+          "timeoutPromptAbsent": true,
+          "afterNativeRead": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": true,
+            "recommended": false,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          }
+        }
+      },
+      {
+        "round": 2,
+        "expectedFeatured": false,
+        "timing": {
+          "taps": [
+            {
+              "featured": false,
+              "startedAtEpochMs": 1791901265736,
+              "finishedAtEpochMs": 1791901265771,
+              "durationMs": 35
+            },
+            {
+              "featured": true,
+              "startedAtEpochMs": 1791901265844,
+              "finishedAtEpochMs": 1791901265879,
+              "durationMs": 35
+            },
+            {
+              "featured": false,
+              "startedAtEpochMs": 1791901265948,
+              "finishedAtEpochMs": 1791901265985,
+              "durationMs": 37
+            }
+          ],
+          "gapsMs": [
+            73,
+            69
+          ],
+          "startIntervalsMs": [
+            108,
+            104
+          ],
+          "allInputDurationsNonnegative": true,
+          "allRequestedGapsBetween50And100Ms": true
+        },
+        "result": {
+          "expectedFeatured": false,
+          "settled": true,
+          "sampleErrors": 0,
+          "web": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": false,
+            "recommended": true,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          },
+          "nativeSelected": true,
+          "nativeOtherUnselected": true,
+          "timeoutPromptAbsent": true,
+          "afterNativeRead": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": false,
+            "recommended": true,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          }
+        }
+      }
+    ],
+    "refresh": [
+      {
+        "expectedFeatured": true,
+        "settled": true,
+        "sampleErrors": 0,
+        "web": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "nativeSelected": true,
+        "nativeOtherUnselected": true,
+        "timeoutPromptAbsent": true,
+        "afterNativeRead": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "documentReallyReloaded": true
+      },
+      {
+        "expectedFeatured": false,
+        "settled": true,
+        "sampleErrors": 0,
+        "web": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": false,
+          "recommended": true,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "nativeSelected": true,
+        "nativeOtherUnselected": true,
+        "timeoutPromptAbsent": true,
+        "afterNativeRead": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": false,
+          "recommended": true,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "documentReallyReloaded": true
+      }
+    ],
+    "lifecycle": [
+      {
+        "expectedFeatured": true,
+        "before": {
+          "expectedFeatured": true,
+          "settled": true,
+          "sampleErrors": 0,
+          "web": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": true,
+            "recommended": false,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          },
+          "nativeSelected": true,
+          "nativeOtherUnselected": true,
+          "timeoutPromptAbsent": true,
+          "afterNativeRead": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": true,
+            "recommended": false,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          }
+        },
+        "background": {
+          "hidden": true
+        },
+        "after": {
+          "expectedFeatured": true,
+          "settled": true,
+          "sampleErrors": 0,
+          "web": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": true,
+            "recommended": false,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          },
+          "nativeSelected": true,
+          "nativeOtherUnselected": true,
+          "timeoutPromptAbsent": true,
+          "afterNativeRead": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": true,
+            "recommended": false,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          }
+        }
+      },
+      {
+        "expectedFeatured": false,
+        "before": {
+          "expectedFeatured": false,
+          "settled": true,
+          "sampleErrors": 0,
+          "web": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": false,
+            "recommended": true,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          },
+          "nativeSelected": true,
+          "nativeOtherUnselected": true,
+          "timeoutPromptAbsent": true,
+          "afterNativeRead": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": false,
+            "recommended": true,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          }
+        },
+        "background": {
+          "hidden": true
+        },
+        "after": {
+          "expectedFeatured": false,
+          "settled": true,
+          "sampleErrors": 0,
+          "web": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": false,
+            "recommended": true,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          },
+          "nativeSelected": true,
+          "nativeOtherUnselected": true,
+          "timeoutPromptAbsent": true,
+          "afterNativeRead": {
+            "apiReady": true,
+            "clean": true,
+            "applied": true,
+            "featured": false,
+            "recommended": true,
+            "layoutReady": true,
+            "navigationPending": false,
+            "detailOpen": false,
+            "hidden": false,
+            "suspended": false,
+            "viewportHeight": 1383,
+            "viewportWidth": 768,
+            "refreshMarkerPresent": false
+          }
+        }
+      }
+    ],
+    "states": {
+      "burst1": {
+        "expectedFeatured": true,
+        "settled": true,
+        "sampleErrors": 0,
+        "web": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "nativeSelected": true,
+        "nativeOtherUnselected": true,
+        "timeoutPromptAbsent": true,
+        "afterNativeRead": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        }
+      },
+      "burst2": {
+        "expectedFeatured": false,
+        "settled": true,
+        "sampleErrors": 0,
+        "web": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": false,
+          "recommended": true,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "nativeSelected": true,
+        "nativeOtherUnselected": true,
+        "timeoutPromptAbsent": true,
+        "afterNativeRead": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": false,
+          "recommended": true,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        }
+      },
+      "burst3": {
+        "expectedFeatured": true,
+        "settled": true,
+        "sampleErrors": 0,
+        "web": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "nativeSelected": true,
+        "nativeOtherUnselected": true,
+        "timeoutPromptAbsent": true,
+        "afterNativeRead": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        }
+      },
+      "burst4": {
+        "expectedFeatured": false,
+        "settled": true,
+        "sampleErrors": 0,
+        "web": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": false,
+          "recommended": true,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "nativeSelected": true,
+        "nativeOtherUnselected": true,
+        "timeoutPromptAbsent": true,
+        "afterNativeRead": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": false,
+          "recommended": true,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        }
+      },
+      "refresh1Before": {
+        "expectedFeatured": true,
+        "settled": true,
+        "sampleErrors": 0,
+        "web": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "nativeSelected": true,
+        "nativeOtherUnselected": true,
+        "timeoutPromptAbsent": true,
+        "afterNativeRead": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        }
+      },
+      "refresh1After": {
+        "expectedFeatured": true,
+        "settled": true,
+        "sampleErrors": 0,
+        "web": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "nativeSelected": true,
+        "nativeOtherUnselected": true,
+        "timeoutPromptAbsent": true,
+        "afterNativeRead": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "documentReallyReloaded": true
+      },
+      "refresh2Before": {
+        "expectedFeatured": false,
+        "settled": true,
+        "sampleErrors": 0,
+        "web": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": false,
+          "recommended": true,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "nativeSelected": true,
+        "nativeOtherUnselected": true,
+        "timeoutPromptAbsent": true,
+        "afterNativeRead": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": false,
+          "recommended": true,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        }
+      },
+      "refresh2After": {
+        "expectedFeatured": false,
+        "settled": true,
+        "sampleErrors": 0,
+        "web": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": false,
+          "recommended": true,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "nativeSelected": true,
+        "nativeOtherUnselected": true,
+        "timeoutPromptAbsent": true,
+        "afterNativeRead": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": false,
+          "recommended": true,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "documentReallyReloaded": true
+      },
+      "lifecycle1Before": {
+        "expectedFeatured": true,
+        "settled": true,
+        "sampleErrors": 0,
+        "web": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "nativeSelected": true,
+        "nativeOtherUnselected": true,
+        "timeoutPromptAbsent": true,
+        "afterNativeRead": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        }
+      },
+      "lifecycle1Background": {
+        "settled": true,
+        "value": {
+          "hidden": true
+        },
+        "sampleErrors": 0
+      },
+      "lifecycle1After": {
+        "expectedFeatured": true,
+        "settled": true,
+        "sampleErrors": 0,
+        "web": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "nativeSelected": true,
+        "nativeOtherUnselected": true,
+        "timeoutPromptAbsent": true,
+        "afterNativeRead": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": true,
+          "recommended": false,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        }
+      },
+      "lifecycle2Before": {
+        "expectedFeatured": false,
+        "settled": true,
+        "sampleErrors": 0,
+        "web": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": false,
+          "recommended": true,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "nativeSelected": true,
+        "nativeOtherUnselected": true,
+        "timeoutPromptAbsent": true,
+        "afterNativeRead": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": false,
+          "recommended": true,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        }
+      },
+      "lifecycle2Background": {
+        "settled": true,
+        "value": {
+          "hidden": true
+        },
+        "sampleErrors": 0
+      },
+      "lifecycle2After": {
+        "expectedFeatured": false,
+        "settled": true,
+        "sampleErrors": 0,
+        "web": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": false,
+          "recommended": true,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        },
+        "nativeSelected": true,
+        "nativeOtherUnselected": true,
+        "timeoutPromptAbsent": true,
+        "afterNativeRead": {
+          "apiReady": true,
+          "clean": true,
+          "applied": true,
+          "featured": false,
+          "recommended": true,
+          "layoutReady": true,
+          "navigationPending": false,
+          "detailOpen": false,
+          "hidden": false,
+          "suspended": false,
+          "viewportHeight": 1383,
+          "viewportWidth": 768,
+          "refreshMarkerPresent": false
+        }
+      }
+    },
+    "nativeSnapshots": [
+      {
+        "temporaryPauseUsed": false,
+        "pausedCount": 0,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 0,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      },
+      {
+        "temporaryPauseUsed": false,
+        "pausedCount": 0,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 0,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      },
+      {
+        "temporaryPauseUsed": false,
+        "pausedCount": 0,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 0,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      },
+      {
+        "temporaryPauseUsed": false,
+        "pausedCount": 0,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 0,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      },
+      {
+        "temporaryPauseUsed": true,
+        "pausedCount": 1,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 1,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      },
+      {
+        "temporaryPauseUsed": false,
+        "pausedCount": 0,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 0,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      },
+      {
+        "temporaryPauseUsed": false,
+        "pausedCount": 0,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 0,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      },
+      {
+        "temporaryPauseUsed": false,
+        "pausedCount": 0,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 0,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      },
+      {
+        "temporaryPauseUsed": false,
+        "pausedCount": 0,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 0,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      },
+      {
+        "temporaryPauseUsed": true,
+        "pausedCount": 1,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 1,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      },
+      {
+        "temporaryPauseUsed": true,
+        "pausedCount": 1,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 0,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      },
+      {
+        "temporaryPauseUsed": false,
+        "pausedCount": 0,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 0,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      },
+      {
+        "temporaryPauseUsed": false,
+        "pausedCount": 0,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 0,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      },
+      {
+        "temporaryPauseUsed": true,
+        "pausedCount": 1,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 1,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      },
+      {
+        "temporaryPauseUsed": true,
+        "pausedCount": 1,
+        "snapshotCompleted": true,
+        "restoreCompleted": true,
+        "resumedCount": 1,
+        "skippedCount": 0,
+        "resumeFailedCount": 0
+      }
+    ],
+    "toolbar": {
+      "featured": {
+        "x": 578,
+        "y": 168
+      },
+      "recommended": {
+        "x": 863,
+        "y": 168
+      },
+      "more": {
+        "x": 1358,
+        "y": 183
+      }
+    },
+    "initial": {
+      "apiReady": true,
+      "clean": true,
+      "applied": true,
+      "featured": true,
+      "recommended": false,
+      "layoutReady": true,
+      "navigationPending": false,
+      "detailOpen": false,
+      "hidden": false,
+      "suspended": false,
+      "viewportHeight": 1383,
+      "viewportWidth": 768,
+      "refreshMarkerPresent": false
+    },
+    "lastBurstTiming": {
+      "lineCount": 6,
+      "timestamps": [
+        1791901265736,
+        1791901265771,
+        1791901265844,
+        1791901265879,
+        1791901265948,
+        1791901265985
+      ]
+    }
+  },
+  "unexpectedError": false,
+  "cleanupSucceeded": true,
+  "finishedAtEpochMs": 1791901330925
+}

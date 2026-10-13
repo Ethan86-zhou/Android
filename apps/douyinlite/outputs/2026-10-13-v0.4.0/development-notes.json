@@ -1,0 +1,28 @@
+{
+  "final_apk": "LightSwipe-0.4.0-debug.apk",
+  "final_apk_sha256": "acd98cb7ebe2092e44c7b1a3cc53bf8816dd057432b3c6ce85d680eb6bff79c5",
+  "final_build_log": "build-final-05.txt",
+  "final_cache_policy": "WebView manages its cache. App size observation is read-only, 1 GiB is advisory, and only explicit manual clearing invokes clearCache.",
+  "earlier_candidate_reports": [
+    "device-feed-recommend-01",
+    "device-feed-recommend-02",
+    "device-navigation-01",
+    "device-navigation-02",
+    "device-navigation-03",
+    "device-navigation-04",
+    "device-navigation-05",
+    "device-navigation-06",
+    "device-navigation-07",
+    "device-buffering-01",
+    "device-buffering-02",
+    "device-buffering-slow-01",
+    "device-cache-final",
+    "device-feed-featured-01"
+  ],
+  "notes": [
+    "Earlier manual-clear device evidence predates the final user-directed manual-only policy and is not final-package acceptance.",
+    "Final device cache retention checks never requested clearing and did not fill the phone with 1 GiB of test data.",
+    "Development failures are retained, including input shell timing overhead and background debugger freezing.",
+    "Intermediate candidate APKs and screenshots remain in the ignored local private directory."
+  ]
+}

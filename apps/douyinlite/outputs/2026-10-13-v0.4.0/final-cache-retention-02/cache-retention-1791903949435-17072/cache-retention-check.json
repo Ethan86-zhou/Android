@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "startedAtEpochMs": 1791903949435,
+  "checks": {
+    "ForegroundPlayableRecommendedVideoCaptured": false,
+    "originalPlaybackStateRestored": true
+  },
+  "observations": {
+    "capture": {
+      "captured": false
+    }
+  },
+  "requestedCacheClearing": false,
+  "physicalOneGiBPressureTested": false,
+  "passed": false,
+  "unexpectedError": false,
+  "cleanupSucceeded": true,
+  "finishedAtEpochMs": 1791903949546
+}

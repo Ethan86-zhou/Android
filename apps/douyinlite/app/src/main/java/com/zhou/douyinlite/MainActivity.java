@@ -70,6 +70,9 @@ public class MainActivity extends Activity {
     private Button playback;
     private PlaybackSeekBar videoProgress;
     private TextView seekTime;
+    private TextView playbackMessage;
+    private long playbackMessageSince;
+    private String playbackMessageKind = "";
     private boolean playerContextActive;
     private boolean mediaAvailable;
     private boolean mediaSeekable;
@@ -87,13 +90,23 @@ public class MainActivity extends Activity {
     private String selectedChannel = "recommend";
     private String pendingChannel;
     private boolean pendingFallbackUsed;
+    private long channelIntentGeneration;
+    private long channelIntentMinPageGeneration;
+    private boolean pageLoading = true;
+    private boolean pageCommitted;
+    private boolean openingTimedOut;
     private boolean cleanUi = true;
     private boolean foreground;
     private boolean closing;
     private long boostGeneration;
     private long pageGeneration;
-    private long lastTrim;
     private OnBackInvokedCallback backCallback;
+    private final Runnable channelTimeout = () -> {
+        if (closing || pendingChannel==null || !foreground || !popups.isEmpty()) return;
+        cancelChannelIntent(); openingTimedOut=true;
+        // 保留官网继续加载的机会；轻提示可点重试，不遮住整页。
+        updatePlaybackMessage(new JSONObject(),false);
+    };
 
     protected boolean isProbe() { return false; }
     protected String startUrl() { return channelUrl(selectedChannel); }
@@ -156,11 +169,21 @@ public class MainActivity extends Activity {
         FrameLayout.LayoutParams timeLayout = new FrameLayout.LayoutParams(-2,dp(32),Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL);
         timeLayout.bottomMargin=dp(48);
         gestures.addView(seekTime,timeLayout);
+        playbackMessage = new TextView(this);
+        playbackMessage.setContentDescription("视频缓冲状态");
+        playbackMessage.setTextColor(Color.WHITE); playbackMessage.setTextSize(14);
+        playbackMessage.setGravity(Gravity.CENTER); playbackMessage.setPadding(dp(16),dp(10),dp(16),dp(10));
+        GradientDrawable messageBackground = new GradientDrawable();
+        messageBackground.setColor(0xDE252529); messageBackground.setCornerRadius(dp(18));
+        playbackMessage.setBackground(messageBackground); playbackMessage.setVisibility(View.GONE);
+        playbackMessage.setOnClickListener(v->{ if (openingTimedOut) reloadChannel(); });
+        playbackMessage.setClickable(false);
+        gestures.addView(playbackMessage,new FrameLayout.LayoutParams(-2,-2,Gravity.CENTER));
         error = new TextView(this);
         error.setTextColor(Color.WHITE); error.setBackgroundColor(0xEE202027);
         error.setGravity(Gravity.CENTER); error.setTextSize(16);
         error.setText("网页暂时无法打开\n检查网络后，点这里重试");
-        error.setVisibility(View.GONE); error.setOnClickListener(v -> browser.reload());
+        error.setVisibility(View.GONE); error.setOnClickListener(v -> reloadChannel());
         gestures.addView(error,new FrameLayout.LayoutParams(-1,-1));
         gestures.setListener(new EdgeGestureLayout.Listener() {
             @Override public void onBoost(boolean boosted, boolean locked) { applyBoost(boosted,locked); }
@@ -178,8 +201,8 @@ public class MainActivity extends Activity {
         browser.loadUrl(startUrl());
         if (!isProbe() && !getPreferences(0).getBoolean("welcomeSeen", false)) {
             getPreferences(0).edit().putBoolean("welcomeSeen",true).apply();
-            new AlertDialog.Builder(this).setTitle("轻刷 · 第一版")
-                .setMessage("点顶部精选或推荐，上滑看下一个。\n\n视频画面左右边缘长按：2 倍速；松手恢复。按住向下滑动：锁定 2 倍速；点画面上方的速度提示解除。\n\n登录或管理账号请点右上角 ⋯。视频不另存副本，缓存会定期清理。")
+            new AlertDialog.Builder(this).setTitle("轻刷")
+                .setMessage("点顶部精选或推荐，上滑看下一个。\n\n视频画面左右边缘长按：2 倍速；松手恢复。按住向下滑动：锁定 2 倍速；点画面上方的速度提示解除。\n\n登录或管理账号请点右上角 ⋯。视频不另存副本，App 不会自动清空缓存。")
                 .setPositiveButton("开始看",(d,w)->{}).show();
         }
     }
@@ -201,7 +224,7 @@ public class MainActivity extends Activity {
             .replace(" Version/4.0", "").replace("; wv", "").replace(" Mobile", ""));
         CookieManager.getInstance().setAcceptThirdPartyCookies(web,true);
         cache.configure(web);
-        web.setDownloadListener((url,ua,cd,mime,len)->toast("第一版仅在线播放，不保存下载文件"));
+        web.setDownloadListener((url,ua,cd,mime,len)->toast("仅在线播放，不另存视频"));
         web.setWebViewClient(new WebViewClient() {
             @Override public boolean shouldOverrideUrlLoading(WebView w, WebResourceRequest r) {
                 String scheme = r.getUrl().getScheme();
@@ -211,31 +234,31 @@ public class MainActivity extends Activity {
             }
             @Override public void onPageStarted(WebView w,String url,android.graphics.Bitmap icon) {
                 updateHost(w,url);
-                if (w==browser) { pageGeneration++; resetPlayerControls(); gestures.setBoostAllowed(false); error.setVisibility(View.GONE); }
+                if (w==browser) {
+                    pageGeneration++; pageLoading=true; pageCommitted=false; resetPlayerControls();
+                    cache.updateUsage(browser,foreground,true);
+                    gestures.setBoostAllowed(false); error.setVisibility(View.GONE);
+                }
             }
             @Override public void onPageFinished(WebView w,String url) {
                 if (closing || !browsers.contains(w)) return;
                 updateHost(w,url);
-                w.evaluateJavascript(mediaScript,value->{
-                    if (closing || !browsers.contains(w)) return;
-                    // 后台加载完成的网页、被登录窗口盖住的网页也必须暂停。
-                    if (!foreground || w!=activeBrowser()) w.evaluateJavascript("window.LightSwipe?.pause()",null);
-                });
-                if (isOfficialMainDocument(w,url)) {
-                    long generation=pageGeneration;
-                    w.evaluateJavascript(uiScript,value->{
-                        if (closing || generation!=pageGeneration || !isOfficialMainDocument(w,w.getUrl())) return;
-                        w.evaluateJavascript("window.LightSwipeUi?.setClean("+cleanUi+")",null);
-                        if (cleanUi) fulfillChannelIntent(generation);
-                    });
-                }
+                if (w==browser) { pageLoading=false; pageCommitted=true; }
+                installPageControllers(w,url);
                 CookieManager.getInstance().flush();
             }
+            @Override public void onPageCommitVisible(WebView w,String url) {
+                // 首屏内容可见时就安装布局/媒体控制，后续资源完成时仅作幂等兜底。
+                if (w==browser) pageCommitted=true;
+                installPageControllers(w,url);
+            }
             @Override public void onReceivedError(WebView w,WebResourceRequest r,android.webkit.WebResourceError e) {
-                if (w==browser && r.isForMainFrame()) error.setVisibility(View.VISIBLE);
+                if (w==browser && r.isForMainFrame()) { pageLoading=false; error.setVisibility(View.VISIBLE); }
             }
             @Override public void onReceivedHttpError(WebView w,WebResourceRequest r,android.webkit.WebResourceResponse response) {
-                if (w==browser && r.isForMainFrame() && response.getStatusCode()>=400) error.setVisibility(View.VISIBLE);
+                if (w==browser && r.isForMainFrame() && response.getStatusCode()>=400) {
+                    pageLoading=false; error.setVisibility(View.VISIBLE);
+                }
             }
         });
         web.setWebChromeClient(new WebChromeClient() {
@@ -245,6 +268,9 @@ public class MainActivity extends Activity {
             @Override public void onPermissionRequest(PermissionRequest request) { request.deny(); }
             @Override public boolean onCreateWindow(WebView w,boolean dialog,boolean userGesture,Message message) {
                 if (!userGesture || closing) return false;
+                cache.updateUsage(browser,foreground,true);
+                handler.removeCallbacks(channelTimeout);
+                browser.evaluateJavascript("window.LightSwipeUi?.cancelNavigation?.()",null);
                 resetPlayerControls();
                 gestures.setBoostAllowed(false);
                 Dialog popup = new Dialog(MainActivity.this); popups.add(popup);
@@ -264,7 +290,9 @@ public class MainActivity extends Activity {
                 popup.setOnDismissListener(d->{ browsers.remove(child); popups.remove(popup);
                     popupWindows.remove(child); pageHosts.remove(child);
                     destroyBrowser(child); CookieManager.getInstance().flush();
-                    syncPlayback(); });
+                    syncPlayback();
+                    if (pendingChannel!=null) { armChannelTimeout(); fulfillChannelIntent(pageGeneration); }
+                });
                 if (!foreground) child.onPause();
                 syncPlayback();
                 WebView.WebViewTransport t=(WebView.WebViewTransport)message.obj;
@@ -275,6 +303,22 @@ public class MainActivity extends Activity {
             }
         });
         return web;
+    }
+
+    private void installPageControllers(WebView web,String url) {
+        if (closing || !browsers.contains(web)) return;
+        web.evaluateJavascript("if(!window.LightSwipe){"+mediaScript+"}",value->{
+            if (closing || !browsers.contains(web)) return;
+            if (!foreground || web!=activeBrowser()) web.evaluateJavascript("window.LightSwipe?.pause()",null);
+        });
+        if (isOfficialMainDocument(web,url)) {
+            long generation=pageGeneration;
+            web.evaluateJavascript("if(!window.LightSwipeUi){"+uiScript+"}",value->{
+                if (closing || generation!=pageGeneration || !isOfficialMainDocument(web,web.getUrl())) return;
+                web.evaluateJavascript("window.LightSwipeUi?.setClean("+cleanUi+")",null);
+                if (cleanUi && popups.isEmpty()) fulfillChannelIntent(generation);
+            });
+        }
     }
 
     private void updateHost(WebView web,String url) {
@@ -336,29 +380,59 @@ public class MainActivity extends Activity {
 
     private void chooseChannel(String channel) {
         resetPlayerControls(); gestures.resetBoost(); cleanUi=true; rememberChannel(channel);
-        pendingChannel=channel; pendingFallbackUsed=false;
+        beginChannelIntent(channel);
+        cache.updateUsage(browser,foreground,true);
         if (isOfficialMainDocument(browser,browser.getUrl())) fulfillChannelIntent(pageGeneration);
         else { pendingFallbackUsed=true; browser.loadUrl(channelUrl(channel)); }
+    }
+
+    private void beginChannelIntent(String channel) {
+        pendingChannel=channel; pendingFallbackUsed=false; channelIntentGeneration++;
+        channelIntentMinPageGeneration=pageGeneration;
+        openingTimedOut=false; armChannelTimeout();
+    }
+
+    private void armChannelTimeout() {
+        handler.removeCallbacks(channelTimeout);
+        if (pendingChannel!=null && foreground && popups.isEmpty()) handler.postDelayed(channelTimeout,15_000);
+    }
+
+    private void cancelChannelIntent() {
+        pendingChannel=null; channelIntentGeneration++; openingTimedOut=false;
+        handler.removeCallbacks(channelTimeout);
+        browser.evaluateJavascript("window.LightSwipeUi?.cancelNavigation?.()",null);
     }
 
     /** 仅启动和明确点击产生导航意图；状态轮询不会触发页面重载。 */
     private void fulfillChannelIntent(long generation) {
         if (pendingChannel==null || !cleanUi || !isOfficialMainDocument(browser,browser.getUrl())) return;
         String channel=pendingChannel;
+        long intent=channelIntentGeneration;
         String script="(function(){var ui=window.LightSwipeUi;"
                 +"if(!ui||typeof ui.select!=='function')return false;"
                 +"ui.setClean(true);return ui.select('"+channel+"');})()";
         browser.evaluateJavascript(script,value->{
-            if (closing || generation!=pageGeneration || !channel.equals(pendingChannel)) return;
-            if ("true".equals(value)) pendingChannel=null;
-            else if (!pendingFallbackUsed) {
+            if (closing || generation!=pageGeneration || intent!=channelIntentGeneration || !channel.equals(pendingChannel)) return;
+            // true 只确认官网接收意图，tick 观察到目标布局就绪才结束等待。
+            if (!"true".equals(value) && !pendingFallbackUsed) {
                 pendingFallbackUsed=true; browser.loadUrl(channelUrl(channel));
-            } else pendingChannel=null;
+            }
         });
     }
 
+    private void reloadChannel() {
+        if (cleanUi && !isProbe()) {
+            beginChannelIntent(selectedChannel);
+            // reload 尚未开始时旧页面仍可返回状态，不能把旧布局当作刷新已完成。
+            channelIntentMinPageGeneration=pageGeneration+1;
+        }
+        gestures.resetBoost(); resetPlayerControls(); pageLoading=true;
+        cache.updateUsage(browser,foreground,true);
+        browser.reload();
+    }
+
     private void showAccountPage() {
-        resetPlayerControls(); gestures.resetBoost(); cleanUi=false; pendingChannel=null;
+        resetPlayerControls(); gestures.resetBoost(); cleanUi=false; cancelChannelIntent();
         if (isOfficialMainDocument(browser,browser.getUrl())) {
             browser.evaluateJavascript("window.LightSwipeUi?.setClean(false)",null);
         } else browser.loadUrl(channelUrl(selectedChannel));
@@ -402,11 +476,11 @@ public class MainActivity extends Activity {
         });
     }
 
-    /** 底栏占自己的布局高度，不覆盖官网视频，也不进入边缘长按手势区域。 */
+    /** 固定预留底栏高度，加载、换片和切频道均不再改变 WebView 视口。 */
     @SuppressLint("ClickableViewAccessibility") // 正常触摸由 SeekBar 处理；仅吞掉已取消拖动的后续事件。
     private void createPlayerBar(LinearLayout root) {
         playerBar = new LinearLayout(this); playerBar.setGravity(Gravity.CENTER_VERTICAL);
-        playerBar.setBackgroundColor(Color.rgb(16,16,20)); playerBar.setVisibility(View.GONE);
+        playerBar.setBackgroundColor(Color.rgb(16,16,20)); playerBar.setVisibility(View.INVISIBLE);
         playback = button("▶",v->togglePlayback()); playback.setTextSize(18);
         playback.setContentDescription("播放视频"); playback.setEnabled(false);
         playerBar.addView(playback,new LinearLayout.LayoutParams(dp(44),dp(44)));
@@ -414,7 +488,7 @@ public class MainActivity extends Activity {
         videoProgress.setContentDescription("视频进度"); videoProgress.setEnabled(false);
         videoProgress.setMinimumHeight(dp(44)); videoProgress.setPadding(dp(10),0,dp(12),0);
         videoProgress.setProgressTintList(ColorStateList.valueOf(Color.WHITE));
-        videoProgress.setSecondaryProgressTintList(ColorStateList.valueOf(0xFF45454B));
+        videoProgress.setSecondaryProgressTintList(ColorStateList.valueOf(0xFF898991));
         videoProgress.setProgressBackgroundTintList(ColorStateList.valueOf(0xFF45454B));
         GradientDrawable thumb = new GradientDrawable(); thumb.setShape(GradientDrawable.OVAL);
         thumb.setColor(Color.WHITE); thumb.setSize(dp(8),dp(8));
@@ -479,6 +553,7 @@ public class MainActivity extends Activity {
         if (!canControlPlayer() || !mediaSeekable || currentMediaId<=0
                 || !Double.isFinite(mediaDuration) || mediaDuration<=0) return false;
         playerControlGeneration++; draggingSeek=true; seekDragCancelled=false;
+        cache.updateUsage(browser,foreground,true);
         dragMediaId=currentMediaId; dragPageGeneration=pageGeneration; dragDuration=mediaDuration;
         if (showTime) showSeekTime(videoProgress.getProgress());
         return true;
@@ -515,9 +590,11 @@ public class MainActivity extends Activity {
         cancelSeekDrag(); playerControlGeneration++;
         playerContextActive=false; mediaAvailable=false; mediaSeekable=false;
         currentMediaId=0; mediaDuration=0;
-        if (playerBar!=null) playerBar.setVisibility(View.GONE);
+        if (playerBar!=null) playerBar.setVisibility(View.INVISIBLE);
+        if (playbackMessage!=null) playbackMessage.setVisibility(View.GONE);
+        playbackMessageSince=0; playbackMessageKind="";
         if (seekTime!=null) seekTime.setVisibility(View.GONE);
-        if (videoProgress!=null) { videoProgress.setEnabled(false); videoProgress.setProgress(0); }
+        if (videoProgress!=null) { videoProgress.setEnabled(false); videoProgress.setProgress(0); videoProgress.setSecondaryProgress(0); }
         if (playback!=null) playback.setEnabled(false);
     }
 
@@ -531,9 +608,9 @@ public class MainActivity extends Activity {
         if (draggingSeek && (!context || !seekable || id!=dragMediaId || pageGeneration!=dragPageGeneration)) cancelSeekDrag();
         playerContextActive=context; mediaAvailable=available; mediaSeekable=seekable;
         currentMediaId=id; mediaDuration=duration;
-        playerBar.setVisibility(context ? View.VISIBLE : View.GONE);
+        playerBar.setVisibility(context ? View.VISIBLE : View.INVISIBLE);
         playback.setEnabled(context && available);
-        boolean playing=media.optBoolean("playing");
+        boolean playing=media.optBoolean("playbackRequested",media.optBoolean("playing"));
         String icon=playing ? "Ⅱ" : "▶";
         String description=playing ? "暂停视频" : "播放视频";
         if (!icon.contentEquals(playback.getText())) playback.setText(icon);
@@ -543,12 +620,37 @@ public class MainActivity extends Activity {
             double current=media.optDouble("currentTime",0);
             double fraction=seekable && Double.isFinite(current) ? Math.max(0,Math.min(1,current/duration)) : 0;
             videoProgress.setPlaybackProgress((int)Math.round(fraction*10000));
+            double buffered=media.optDouble("bufferedFraction",0);
+            videoProgress.setSecondaryProgress((int)Math.round(Math.max(0,Math.min(1,buffered))*10000));
             seekTime.setVisibility(View.GONE);
+        }
+        updatePlaybackMessage(media,context);
+    }
+
+    private void updatePlaybackMessage(JSONObject media,boolean context) {
+        String message="";
+        if (foreground && cleanUi && popups.isEmpty() && !draggingSeek && error.getVisibility()!=View.VISIBLE
+                && (isProbe() || isOfficialMainDocument(browser,browser.getUrl()))) {
+            if (openingTimedOut) message="打开较慢，点此重试";
+            else if (pendingChannel!=null || (pageLoading && !media.optBoolean("available"))) message="正在打开…";
+            else if (context && media.optBoolean("mediaError")) message="视频暂时无法播放";
+            else if (context && (!media.optBoolean("available") || media.optBoolean("buffering"))) message="正在缓冲…";
+        }
+        if (!message.equals(playbackMessageKind)) {
+            playbackMessageKind=message; playbackMessageSince=android.os.SystemClock.uptimeMillis();
+            playbackMessage.setVisibility(View.GONE);
+        }
+        playbackMessage.setClickable(openingTimedOut);
+        if (message.isEmpty()) playbackMessage.setVisibility(View.GONE);
+        else if (android.os.SystemClock.uptimeMillis()-playbackMessageSince>=600) {
+            if (!message.contentEquals(playbackMessage.getText())) playbackMessage.setText(message);
+            playbackMessage.setVisibility(View.VISIBLE);
         }
     }
 
     private void togglePlayback() {
         if (!canControlPlayer() || !mediaAvailable || currentMediaId<=0) return;
+        cache.updateUsage(browser,foreground,true);
         long generation=pageGeneration, id=currentMediaId, controls=++playerControlGeneration;
         String script="(function(){var media=window.LightSwipe;"
                 +"if(!media||media.status().mediaId!=="+id+"||typeof media.togglePlayback!=='function')return null;"
@@ -582,27 +684,40 @@ public class MainActivity extends Activity {
             if (!foreground || closing) return;
             long generation=pageGeneration;
             long controls=playerControlGeneration;
+            long intent=channelIntentGeneration;
             browser.evaluateJavascript("({media:window.LightSwipe?.status(),ui:window.LightSwipeUi?.status()})",value->{
                 if (!foreground || closing || generation!=pageGeneration) return;
                 try {
                     JSONObject result=new JSONObject(value);
-                    JSONObject status=result.getJSONObject("media");
+                    JSONObject status=result.optJSONObject("media");
+                    boolean mediaApiReady=status!=null;
+                    if (status==null) status=new JSONObject();
                     gestures.setBoostAllowed(status.optBoolean("available") && !status.optBoolean("paused") && popups.isEmpty());
-                    if (status.optBoolean("playing") && popups.isEmpty()) getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                    if (status.optBoolean("playbackRequested",status.optBoolean("playing")) && popups.isEmpty()) getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                     else getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                     JSONObject ui=result.optJSONObject("ui");
+                    if (intent==channelIntentGeneration && pageCommitted && generation>=channelIntentMinPageGeneration
+                            && pendingChannel!=null && ui!=null && ui.optBoolean("layoutReady")
+                            && !ui.optBoolean("navigationPending") && !ui.optBoolean("detailOpen")
+                            && pendingChannel.equals(ui.optString("channel"))) {
+                        pendingChannel=null; handler.removeCallbacks(channelTimeout);
+                    }
+                    if (openingTimedOut && ui!=null && ui.optBoolean("layoutReady")
+                            && selectedChannel.equals(ui.optString("channel"))) openingTimedOut=false;
                     if (controls==playerControlGeneration) updatePlayerControls(status,ui);
-                    if (ui!=null && pendingChannel==null && isOfficialMainDocument(browser,browser.getUrl())) {
+                    cache.updateUsage(browser,foreground,!mediaApiReady || pageLoading || pendingChannel!=null || draggingSeek
+                            || status.optBoolean("playbackRequested",status.optBoolean("playing")) || status.optBoolean("buffering")
+                            || (ui!=null && ui.optBoolean("playerActive") && !status.optBoolean("available")) || !popups.isEmpty());
+                    if (!cleanUi && ui!=null && pendingChannel==null && isOfficialMainDocument(browser,browser.getUrl())) {
                         String channel=ui.optString("channel","");
                         if (!channel.equals(selectedChannel) && ("featured".equals(channel) || "recommend".equals(channel))) rememberChannel(channel);
                     }
                 } catch(Exception ignored) {
                     gestures.setBoostAllowed(false);
                     if (controls==playerControlGeneration) resetPlayerControls();
+                    cache.updateUsage(browser,foreground,true);
                 }
             });
-            long now=android.os.SystemClock.elapsedRealtime();
-            if (now-lastTrim>30000) { lastTrim=now; cache.trimIfNeeded(browser); }
             handler.postDelayed(this,700);
         }
     };
@@ -612,7 +727,7 @@ public class MainActivity extends Activity {
         new AlertDialog.Builder(this).setTitle("轻刷 "+BuildConfig.VERSION_NAME)
             .setItems(new String[]{cleanUi ? "登录 / 账号" : "返回精简界面","刷新当前网页","缓存与网站数据","手势说明"},(d,index)->{
                 if (index==0) { if (cleanUi) showAccountPage(); else chooseChannel(selectedChannel); }
-                if (index==1) browser.reload();
+                if (index==1) reloadChannel();
                 if (index==2) showCache();
                 if (index==3) new AlertDialog.Builder(this).setTitle("快进手势")
                     .setMessage("视频画面左右边缘长按约 0.4 秒进入 2 倍速，松手恢复原速。\n\n长按生效后向下滑约一个拇指宽度可锁定，点画面上方的速度提示解除。锁定后仍可上滑切视频。\n\n避开顶部标签、底部进度条及屏幕最边缘的系统返回手势。切到后台会暂停视频并解除加速。")
@@ -623,8 +738,10 @@ public class MainActivity extends Activity {
     private void showCache() {
         cache.snapshotAsync(s->{ if (isFinishing() || isDestroyed()) return;
             new AlertDialog.Builder(this).setTitle("缓存与网站数据")
-                .setMessage("可清理缓存："+size(s.cacheBytes)+"\n网站及 WebView 数据："+size(s.siteBytes)
-                    +"\n\n正常缓存并复用官网资源，视频不另存副本。每 30 秒检查缓存，超过 1 GiB 软阈值时请求清理；系统可能临时超过阈值。\n\n清理缓存保留登录。网站数据包含登录与站点设置，不计入该阈值。"
+                .setMessage("可清理缓存："+size(s.cacheBytes)+"\n网站与浏览器数据："+size(s.siteBytes)
+                    +"\n\n1 GiB 是提醒线。资源缓存由系统管理，App 不会因超额、暂停或切到后台而自动清空。"
+                    +(s.overLimit ? "\n当前已超过提醒线，可按需手动清理。" : "")
+                    +"\n\n正常复用官网资源，视频不另存副本。只有点“清理缓存”才会主动清理，之后部分内容需要重新缓冲；登录保留，网站数据另行统计。"
                     +(s.complete ? "" : "\n部分目录暂时无法统计。"))
                 .setPositiveButton("清理缓存",(d,w)->cache.clear(browser,after->toast("已请求清理；当前缓存 "+size(after.cacheBytes))))
                 .setNeutralButton("重置网站数据",(d,w)->confirmReset())
@@ -654,17 +771,26 @@ public class MainActivity extends Activity {
     private int dp(float n) { return Math.round(n*getResources().getDisplayMetrics().density); }
     private static String size(long n) { return String.format(Locale.ROOT,"%.1f MiB",n/1048576.0); }
 
+    @Override public void onUserInteraction() {
+        super.onUserInteraction();
+        // 网页内点播放/上滑也会先经过 Activity，及时取消尚未完成的空闲清理。
+        if (!closing && cache!=null && browser!=null) cache.updateUsage(browser,foreground,true);
+    }
+
     @Override protected void onResume() { super.onResume(); foreground=true;
+        cache.updateUsage(browser,true,true);
+        armChannelTimeout();
         for (WebView w:browsers) w.onResume();
         syncPlayback();
         handler.removeCallbacks(tick); handler.post(tick);
     }
     @Override protected void onPause() {
         foreground=false; resetPlayerControls(); handler.removeCallbacks(tick); gestures.setBoostAllowed(false);
+        handler.removeCallbacks(channelTimeout);
         syncPlayback();
         for (WebView w:browsers) w.onPause();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        CookieManager.getInstance().flush(); cache.trimIfNeeded(browser); super.onPause();
+        CookieManager.getInstance().flush(); cache.updateUsage(browser,false,false); super.onPause();
     }
     @Override public void onBackPressed() { handleBack(); }
 
@@ -681,8 +807,19 @@ public class MainActivity extends Activity {
     }
 
     private void navigateBack() {
-        resetPlayerControls();
-        if (browser.canGoBack()) browser.goBack();
+        resetPlayerControls(); cancelChannelIntent();
+        if (browser.canGoBack()) {
+            android.webkit.WebBackForwardList history=browser.copyBackForwardList();
+            String previous=history.getItemAtIndex(history.getCurrentIndex()-1).getUrl();
+            Uri destination=Uri.parse(previous);
+            String host=destination.getHost(),path=destination.getPath();
+            if ("douyin.com".equalsIgnoreCase(host) || "www.douyin.com".equalsIgnoreCase(host)) {
+                String channel=path!=null && (path.equals("/jingxuan") || path.startsWith("/jingxuan/"))
+                        ? "featured" : "1".equals(destination.getQueryParameter("recommend")) ? "recommend" : null;
+                if (channel!=null) { rememberChannel(channel); beginChannelIntent(channel); pendingFallbackUsed=true; }
+            }
+            cache.updateUsage(browser,foreground,true); browser.goBack();
+        }
         else if (isTaskRoot()) moveTaskToBack(true);
         else finish();
     }
