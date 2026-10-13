@@ -1,0 +1,6 @@
+{
+  "scenario": "rollback_after_removing_bak",
+  "live": "cache/fruitslice-transaction-probe-47ccd14bd2114174bddaf0d2b955be56/rollback_after_removing_bak/live",
+  "transaction": "cache/fruitslice-transaction-probe-47ccd14bd2114174bddaf0d2b955be56/rollback_after_removing_bak/transaction",
+  "faultAfterPublication": 2
+}

@@ -6,10 +6,25 @@ import json
 from pathlib import Path
 import subprocess
 import shlex
+import os
+import sys
+import re
 from uuid import uuid4
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "scripts"))
+from android_data_transaction import restore_transaction
 
 PACKAGE = "com.ethan.lexi"
 DATABASE_FILES = {"lexi-wordbook.db", "lexi-wordbook.db-wal", "lexi-wordbook.db-shm", "lexi-wordbook.db-journal"}
+
+
+def _save_manifest(backup, manifest):
+    temporary = backup / "manifest.json.tmp"
+    with temporary.open("w", encoding="utf-8") as stream:
+        json.dump(manifest, stream, indent=2)
+        stream.flush()
+        os.fsync(stream.fileno())
+    temporary.replace(backup / "manifest.json")
 
 
 def _command(adb, *args, data=None):
@@ -92,25 +107,30 @@ def restore_wordbook(adb, backup: Path, report: Path, command=None):
         if manifest.get("deviceSerial") != _serial(command):
             raise RuntimeError("Connected device differs from the private backup device; refusing restore")
         # Verify the durable snapshot before touching any device data.
+        verified_files = {}
         for name, digest in hashes.items():
-            if hashlib.sha256((backup / name).read_bytes()).hexdigest() != digest:
+            data = (backup / name).read_bytes()
+            if hashlib.sha256(data).hexdigest() != digest:
                 raise RuntimeError("Private host wordbook backup failed integrity check")
-        command("shell", "am", "force-stop", PACKAGE)
-        if _installed(command):
-            command("shell", "-T", "run-as", PACKAGE, "mkdir", "-p", "databases")
-            staged = {}
-            try:
-                for name in sorted(hashes):
-                    temporary = "databases/" + name + ".acceptance-restore-" + uuid4().hex
-                    staged[name] = temporary
-                    _stage_verified(command, temporary, (backup / name).read_bytes())
-                for name, temporary in staged.items():
-                    command("shell", "-T", "run-as", PACKAGE, "mv", temporary, "databases/" + name)
-            finally:
-                for temporary in staged.values():
-                    command("shell", "-T", "run-as", PACKAGE, "rm", "-f", temporary)
-            for name in sorted(_names(command) - set(hashes)):
-                command("shell", "-T", "run-as", PACKAGE, "rm", "databases/" + name)
+            verified_files[name] = data
+        tx = manifest.get("pendingTransaction")
+        if tx and not re.fullmatch(r"no_backup/lexi-restore-transactions/[0-9a-f]{32}", tx):
+            raise RuntimeError("Invalid private restore transaction path")
+        installed_now = _installed(command)
+        # A reconnect must not kill a still-running device-local recovery worker.
+        if not tx:
+            if installed_now:
+                command("shell", "-T", "run-as", PACKAGE, "test", "!", "-d", "databases.restore-lock")
+            command("shell", "am", "force-stop", PACKAGE)
+        if installed_now:
+            if not tx:
+                tx = "no_backup/lexi-restore-transactions/" + uuid4().hex
+                manifest["pendingTransaction"] = tx
+                # Must be durable before the device worker can publish any file.
+                _save_manifest(backup, manifest)
+            transaction = restore_transaction(command, PACKAGE, "databases",
+                    verified_files, DATABASE_FILES, tx)
+            status["transaction"] = transaction
             restored = {name: hashlib.sha256(_read_verified(command,
                         "databases/" + name)).hexdigest() for name in _names(command)}
             if restored != hashes:
@@ -119,7 +139,9 @@ def restore_wordbook(adb, backup: Path, report: Path, command=None):
             raise RuntimeError("Lexi disappeared during acceptance; private host backup retained")
         status["userDataRestored"] = True
         manifest["restored"] = True
-        (backup / "manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+        if "pendingTransaction" in manifest:
+            manifest["lastTransaction"] = manifest.pop("pendingTransaction")
+        _save_manifest(backup, manifest)
     finally:
         report.write_text(json.dumps(status, indent=2), encoding="utf-8")
 
@@ -134,8 +156,10 @@ def preserve_wordbook(adb, backup: Path, report: Path, command=None):
     if command is None:
         command = lambda *args, data=None: _command(adb, *args, data=data)
     serial = _serial(command)
-    command("shell", "am", "force-stop", PACKAGE)
     installed = _installed(command)
+    if installed:
+        command("shell", "-T", "run-as", PACKAGE, "test", "!", "-d", "databases.restore-lock")
+    command("shell", "am", "force-stop", PACKAGE)
     backup.mkdir(parents=True, exist_ok=False)
     names = _names(command) if installed else set()
     hashes = {}
@@ -145,7 +169,7 @@ def preserve_wordbook(adb, backup: Path, report: Path, command=None):
         hashes[name] = hashlib.sha256(data).hexdigest()
     manifest = {"backupFormat": 2, "package": PACKAGE, "deviceSerial": serial, "installedBefore": installed,
                 "sha256": hashes, "restored": False}
-    (backup / "manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    _save_manifest(backup, manifest)
     try:
         yield
     finally:

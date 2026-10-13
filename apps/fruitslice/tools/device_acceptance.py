@@ -8,6 +8,7 @@ from pathlib import Path
 import re
 import shlex
 import subprocess
+import sys
 import uuid
 from contextlib import contextmanager
 from datetime import datetime, timezone, timedelta
@@ -16,6 +17,24 @@ from datetime import datetime, timezone, timedelta
 PACKAGE = "com.ethan.fruitslice"
 HISTORY_FILES = ("fruit_slice_history.xml", "fruit_slice_history.xml.bak")
 BACKUP_TRANSPORT = "base64-shell-v2-exec-out-device-sha256-v3"
+
+
+def restore_transaction(*args, **kwargs):
+    # The repository owns one audited multi-file transaction implementation.
+    scripts = str(Path(__file__).resolve().parents[3] / "scripts")
+    if scripts not in sys.path:
+        sys.path.insert(0, scripts)
+    from android_data_transaction import restore_transaction as shared_restore
+    return shared_restore(*args, **kwargs)
+
+
+def write_backup_metadata(backup, metadata):
+    temporary = backup / "backup.json.new"
+    with temporary.open("w", encoding="utf-8") as stream:
+        json.dump(metadata, stream, indent=2)
+        stream.flush()
+        os.fsync(stream.fileno())
+    os.replace(temporary, backup / "backup.json")
 
 
 def device_digest(run, path):
@@ -67,8 +86,15 @@ def read_history_file(run, name):
     return read_verified(run, path)
 
 
+def require_no_history_transaction(run):
+    entries = run("shell", "-T", "run-as", PACKAGE, "ls", "-1").splitlines()
+    if "shared_prefs.restore-lock" in entries:
+        raise RuntimeError("A history transaction is pending; reconnect using its original --restore-history backup")
+
+
 def backup_history(run, app):
     """Keep raw user data only under ignored build/, never in publishable evidence."""
+    require_no_history_transaction(run)
     run("shell", "am", "force-stop", PACKAGE)
     backup = app / "build" / "device-data-backups" / uuid.uuid4().hex
     backup.mkdir(parents=True, exist_ok=False)
@@ -104,31 +130,36 @@ def restore_history(run, backup):
         if data is not None and hashlib.sha256(data).hexdigest() != digest:
             raise RuntimeError("History backup checksum mismatch: " + name)
         original[name] = data
-    run("shell", "am", "force-stop", PACKAGE)
-    # Prepare and verify every original file before publishing any of them.
-    # A transfer failure must leave the current official history untouched.
-    staged = {}
-    try:
-        for name, data in original.items():
-            if data is not None:
-                temporary = "shared_prefs/" + name + ".acceptance-restore-" + uuid.uuid4().hex
-                staged[name] = temporary
-                run("shell", "-T", "run-as", PACKAGE, "mkdir", "-p", "shared_prefs")
-                stage_verified(run, temporary, data)
-        for name, data in original.items():
-            path = "shared_prefs/" + name
-            if data is None:
-                run("shell", "-T", "run-as", PACKAGE, "rm", "-f", path)
-            else:
-                run("shell", "-T", "run-as", PACKAGE, "mv", staged[name], path)
-    finally:
-        for temporary in staged.values():
-            run("shell", "-T", "run-as", PACKAGE, "rm", "-f", temporary)
+    transaction_dir = metadata.get("pendingTransaction")
+    if transaction_dir is None:
+        require_no_history_transaction(run)
+        run("shell", "am", "force-stop", PACKAGE)
+        transaction_dir = "no_backup/fruitslice-history-restore-" + uuid.uuid4().hex
+        metadata["pendingTransaction"] = transaction_dir
+        # Save the transaction identity before launching anything on the device.
+        # Reconnecting resumes this same transaction instead of overwriting its
+        # rollback snapshot with an already-partially-restored live directory.
+        write_backup_metadata(backup, metadata)
+    if not re.fullmatch(r"no_backup/fruitslice-history-restore-[0-9a-f]{32}", transaction_dir):
+        raise RuntimeError("Unrecognized pending history transaction")
+
+    def command(*parts, data=None):
+        result = run(*parts, binary=True, input_data=data)
+        return result.encode("utf-8") if isinstance(result, str) else result
+
+    receipt = restore_transaction(command, PACKAGE, "shared_prefs",
+                                  {name: data for name, data in original.items() if data is not None},
+                                  set(HISTORY_FILES), transaction_dir)
+    # The remote worker keeps staging, rollback copies and terminal status even
+    # if ADB disconnects. Never delete those files from a host-side finally.
     for name, expected in original.items():
         if read_history_file(run, name) != expected:
             raise RuntimeError("History restore did not preserve the original bytes: " + name)
+    metadata["transactionState"] = receipt["state"]
+    write_backup_metadata(backup, metadata)
     return {"restored": True, "byteIdentical": True, "backupId": backup.name,
             "transport": BACKUP_TRANSPORT, "deviceHashesVerified": True,
+            "transaction": receipt,
             "files": {name: {"existed": digest is not None, "sha256": digest}
                       for name, digest in metadata["files"].items()}}
 
@@ -175,6 +206,11 @@ def main():
     test_apk = app / "app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
     if not apk.is_file() or not test_apk.is_file():
         raise SystemExit("Build assembleDebug and assembleDebugAndroidTest first")
+    installed_packages = run("shell", "pm", "list", "packages", PACKAGE).splitlines()
+    if "package:" + PACKAGE in installed_packages:
+        # Package replacement may stop processes too; protect an existing worker
+        # before installing, not only when taking the following backup.
+        require_no_history_transaction(run)
     started = run("shell", "date", "+%m-%dT%H:%M:%S.000").strip().replace("T", " ")
     installation = run("install", "-r", str(apk)) + run("install", "-r", str(test_apk))
     (output / "install.txt").write_text(installation, encoding="utf-8")
@@ -206,6 +242,8 @@ def collect_acceptance(run, args, app, output, apk, test_apk, started):
                           if p.is_file() and "classes" not in p.parts and "__pycache__" not in p.parts)
     source_files += [app / name for name in ("build.gradle", "settings.gradle", "gradle.properties", "app/build.gradle", "gradlew", "gradlew.bat")]
     manifest = {p.relative_to(app).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in source_files}
+    transaction_helper = app.parents[1] / "scripts/android_data_transaction.py"
+    manifest["../../scripts/android_data_transaction.py"] = hashlib.sha256(transaction_helper.read_bytes()).hexdigest()
     (output / "source-sha256.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
     source_commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=app, text=True).strip()
     report = {

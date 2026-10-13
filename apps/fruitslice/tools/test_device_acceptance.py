@@ -7,8 +7,16 @@ import subprocess
 import shlex
 import tempfile
 import unittest
+from unittest.mock import patch
 
-from device_acceptance import HISTORY_FILES, backup_history, preserve_history, restore_history
+from device_acceptance import HISTORY_FILES, backup_history, preserve_history, restore_history, stage_verified
+
+
+def transaction_double(command, package, live_dir, files, managed_names, transaction_dir):
+    """Adapter tests only. Actual worker failure/rollback is tested by the shared helper suite."""
+    request = {"directory": live_dir, "files": {name: base64.b64encode(data).decode("ascii")
+               for name, data in files.items()}, "managed": sorted(managed_names), "transaction": transaction_dir}
+    return json.loads(command("test-only-transaction", data=json.dumps(request).encode("utf-8")))
 
 
 class FakeDevice:
@@ -20,6 +28,11 @@ class FakeDevice:
         self.writes = 0
         self.read_transform = lambda data: data
         self.write_transform = lambda data: data
+        self.transactions = {}
+        self.transaction_launches = 0
+        self.disconnect_after_commit = False
+        self.force_stops = 0
+        self.history_restore_locked = False
 
     def run(self, *command, binary=False, input_data=None):
         if not self.online:
@@ -27,7 +40,38 @@ class FakeDevice:
         if command == ("get-serialno",):
             return self.serial
         if command[:3] == ("shell", "am", "force-stop"):
+            self.force_stops += 1
             return ""
+        if command == ("test-only-transaction",):
+            request = json.loads(input_data)
+            transaction = request["transaction"]
+            if transaction in self.transactions:
+                return json.dumps(self.transactions[transaction]).encode("utf-8")
+            staged = {}
+            try:
+                for name, encoded in request["files"].items():
+                    path = request["directory"] + "/" + name + ".test-staging"
+                    staged[name] = path
+                    stage_verified(self.run, path, base64.b64decode(encoded))
+                for name in request["managed"]:
+                    path = request["directory"] + "/" + name
+                    if name in staged:
+                        self.files[path] = self.files[staged[name]]
+                    else:
+                        self.files.pop(path, None)
+                    self.writes += 1
+            finally:
+                for path in staged.values():
+                    self.files.pop(path, None)
+            self.transaction_launches += 1
+            receipt = {"state": "committed", "transactionDir": transaction,
+                       "files": {name: hashlib.sha256(base64.b64decode(data)).hexdigest()
+                                 for name, data in request["files"].items()}}
+            self.transactions[transaction] = receipt
+            if self.disconnect_after_commit:
+                self.disconnect_after_commit = False
+                raise ConnectionError("launcher disconnected after device commit")
+            return json.dumps(receipt).encode("utf-8")
         if command[:3] == ("exec-out", "run-as", "com.ethan.fruitslice") and command[3] == "cat":
             if not binary:
                 raise AssertionError("Raw backups require binary stdout")
@@ -38,7 +82,8 @@ class FakeDevice:
             raise subprocess.CalledProcessError(1, command, b"", b"run-as: package not debuggable")
         if command[4] == "ls":
             if len(command) == 6:
-                return "shared_prefs\n" if self.files else ""
+                return ("shared_prefs\n" if self.files else "") + (
+                    "shared_prefs.restore-lock\n" if self.history_restore_locked else "")
             return "\n".join(name.removeprefix("shared_prefs/") for name in self.files)
         if command[4] == "sha256sum":
             return hashlib.sha256(self.files[command[5]]).hexdigest() + "  " + command[5] + "\r\n"
@@ -74,6 +119,9 @@ class HistoryPreservationTest(unittest.TestCase):
         self.app = Path(self.directory.name)
         self.output = self.app / "evidence"
         self.output.mkdir()
+        self.transaction_patch = patch("device_acceptance.restore_transaction", side_effect=transaction_double)
+        self.transaction_patch.start()
+        self.addCleanup(self.transaction_patch.stop)
         self.original = {"shared_prefs/fruit_slice_history.xml": b"original \xe4\xb8\xad\xe6\x96\x87\r\n",
                          "shared_prefs/fruit_slice_history.xml.bak": b"backup-before-atomic-write"}
 
@@ -191,6 +239,59 @@ class HistoryPreservationTest(unittest.TestCase):
             restore_history(device.run, backup)
         self.assertEqual(device.files, self.original)
         self.assertEqual(device.writes, 0)
+
+    def test_reconnect_uses_persisted_transaction_without_starting_a_second_restore(self):
+        device = FakeDevice(self.original)
+        backup = backup_history(device.run, self.app)
+        device.files = {name: b"test fixture" for name in self.original}
+        device.disconnect_after_commit = True
+        with self.assertRaisesRegex(ConnectionError, "launcher disconnected"):
+            restore_history(device.run, backup)
+        metadata = json.loads((backup / "backup.json").read_text())
+        self.assertIn(metadata["pendingTransaction"], device.transactions)
+        self.assertEqual(device.files, self.original)
+        stops_before_reconnect = device.force_stops
+        restored = restore_history(device.run, backup)
+        self.assertEqual(restored["transaction"]["transactionDir"], metadata["pendingTransaction"])
+        self.assertEqual(device.transaction_launches, 1)
+        self.assertEqual(device.force_stops, stops_before_reconnect,
+                         "Reconnecting must not stop a possibly still-running same-UID transaction worker")
+
+    def test_transaction_identity_is_durable_before_the_worker_is_called(self):
+        device = FakeDevice(self.original)
+        backup = backup_history(device.run, self.app)
+        seen = []
+
+        def interrupted(command, package, live_dir, files, managed_names, transaction_dir):
+            metadata = json.loads((backup / "backup.json").read_text())
+            self.assertEqual(transaction_dir, metadata["pendingTransaction"])
+            seen.append(transaction_dir)
+            raise ConnectionError("launch interrupted")
+
+        with patch("device_acceptance.restore_transaction", side_effect=interrupted):
+            for _ in range(2):
+                with self.assertRaisesRegex(ConnectionError, "launch interrupted"):
+                    restore_history(device.run, backup)
+        self.assertEqual(seen[0], seen[1])
+        self.assertEqual(device.writes, 0)
+
+    def test_new_backup_cannot_stop_a_pending_restore_worker(self):
+        device = FakeDevice(self.original)
+        device.history_restore_locked = True
+        with self.assertRaisesRegex(RuntimeError, "history transaction is pending"):
+            backup_history(device.run, self.app)
+        self.assertEqual(device.force_stops, 0)
+        self.assertEqual(device.files, self.original)
+
+    def test_unrelated_new_restore_cannot_stop_a_pending_restore_worker(self):
+        device = FakeDevice(self.original)
+        backup = backup_history(device.run, self.app)
+        stops_before = device.force_stops
+        device.history_restore_locked = True
+        with self.assertRaisesRegex(RuntimeError, "history transaction is pending"):
+            restore_history(device.run, backup)
+        self.assertEqual(device.force_stops, stops_before)
+        self.assertNotIn("pendingTransaction", json.loads((backup / "backup.json").read_text()))
 
 
 if __name__ == "__main__":

@@ -61,6 +61,8 @@ python .\tools\device_acceptance.py --serial <设备序列号> --output .\output
 
 原始文件通过 ADB `exec-out` 读取，并与传输前后的设备端 SHA-256 核对。恢复时仅通过 `shell -T` 传输不含换行的 ASCII Base64，在设备私有目录解码后重新读回、核对设备哈希与原始字节，避免 Windows 文本传输的换行转换、`0x1A` 截断及异步上传未完成的问题。全部临时文件通过核对后才替换正式文件；旧版传输方案的备份禁止自动写回，需先单独复核。目录列表、文件哈希、解码与状态命令均检查真实退出状态。
 
+历史 XML 与 `.bak` 由仓库的 `scripts/android_data_transaction.py` 作为同一组文件恢复：设备先保存整组原有文件的回滚副本，再由独立于 ADB 连接的工作进程发布；任一步失败就回滚整组。事务路径在启动前写入私有主机备份，设备保留恢复材料和状态。断线后用同一个备份运行 `--restore-history`，会核验或继续该事务，禁止在状态不明时删除材料或创建另一份恢复覆盖现场。正常完成并核对记录后再打开游戏。`tools/test_history_transaction_device.py` 可用独立生成的私有 cache 文件验证发布失败、断线重连与 `.bak` 删除回滚，不启动游戏或访问真实成绩。
+
 `GameEngine.java` 是纯 Java 规则与物理；`BladeLimiter.java` 按真实触摸时间限制全指共享出刀额度；`GameView.java` 绘制界面并处理触摸和生命周期；`GameArt.java` 缓存原创图形；`GameAudio.java` 在私有缓存生成原创音效；`HistoryStore.java` 保存成绩和检查点。debug 版本额外提供私有 `files/debug_state.json` 便于复核，用户界面没有调试入口。
 
 切割请求立即派发真实触摸事件，避免系统为显示补出的预测位置在快速折返时多算路程或误切。Android 15 及以上再通过 `PointerCoords.isResampled()` 排除预测点；Android 14 不调用该新接口。历史中的真实采样点仍参与切割，抬手、取消和暂停正常结束当前刀。此行为按 [Android 官方触摸派发说明](https://developer.android.com/develop/ui/views/touch-and-input/stylus-input/advanced-stylus-features) 和 [重采样说明](https://developer.android.com/reference/android/view/MotionEvent.PointerCoords#isResampled()) 实现。

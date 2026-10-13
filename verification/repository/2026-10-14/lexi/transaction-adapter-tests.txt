@@ -1,0 +1,16 @@
+test_connection_loss_retains_transaction_and_reconnects_same_journal (test_device_data_guard.DeviceDataGuardTests.test_connection_loss_retains_transaction_and_reconnects_same_journal) ... ok
+test_converted_download_is_rejected_before_tests_start (test_device_data_guard.DeviceDataGuardTests.test_converted_download_is_rejected_before_tests_start) ... ok
+test_corrupt_host_backup_aborts_before_overwriting_device (test_device_data_guard.DeviceDataGuardTests.test_corrupt_host_backup_aborts_before_overwriting_device) ... ok
+test_first_install_removes_only_new_wordbook_files (test_device_data_guard.DeviceDataGuardTests.test_first_install_removes_only_new_wordbook_files) ... ok
+test_keyboard_interrupt_also_restores (test_device_data_guard.DeviceDataGuardTests.test_keyboard_interrupt_also_restores) ... ok
+test_process_failure_restores_original_and_removes_new_sidecars (test_device_data_guard.DeviceDataGuardTests.test_process_failure_restores_original_and_removes_new_sidecars) ... ok
+test_run_as_failure_never_becomes_empty_backup (test_device_data_guard.DeviceDataGuardTests.test_run_as_failure_never_becomes_empty_backup) ... ok
+test_standalone_restore_uses_saved_manifest_and_files (test_device_data_guard.DeviceDataGuardTests.test_standalone_restore_uses_saved_manifest_and_files) ... ok
+test_success_exit_with_truncated_upload_never_replaces_live_database (test_device_data_guard.DeviceDataGuardTests.test_success_exit_with_truncated_upload_never_replaces_live_database) ... ok
+test_switched_device_is_never_overwritten (test_device_data_guard.DeviceDataGuardTests.test_switched_device_is_never_overwritten) ... ok
+test_unverified_legacy_manifest_is_not_restored (test_device_data_guard.DeviceDataGuardTests.test_unverified_legacy_manifest_is_not_restored) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.626s
+
+OK

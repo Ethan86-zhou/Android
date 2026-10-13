@@ -76,9 +76,11 @@ def main():
         if path.is_file():
             source_paths.add(path)
     source_manifest = {p.relative_to(app).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(source_paths)}
+    source_manifest["../../scripts/android_data_transaction.py"] = hashlib.sha256(
+        (app.parents[1] / "scripts/android_data_transaction.py").read_bytes()).hexdigest()
     (output / "source-sha256.json").write_text(json.dumps(source_manifest, indent=2, ensure_ascii=False), encoding="utf-8")
     source_commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=app, text=True).strip()
-    source_scope = ["app/src", "gradle", "tools", "build.gradle", "settings.gradle", "gradle.properties", "app/build.gradle", "gradlew", "gradlew.bat", "README.md"]
+    source_scope = ["app/src", "gradle", "tools", "build.gradle", "settings.gradle", "gradle.properties", "app/build.gradle", "gradlew", "gradlew.bat", "README.md", "../../scripts/android_data_transaction.py"]
     source_status = subprocess.check_output(["git", "status", "--porcelain", "--untracked-files=all", "--", *source_scope], cwd=app, text=True)
     (output / "source-status.txt").write_text(source_status, encoding="utf-8")
     at = datetime.now(timezone(timedelta(hours=8)))

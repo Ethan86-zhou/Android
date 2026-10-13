@@ -1,0 +1,6 @@
+{
+  "scenario": "disconnect_then_commit",
+  "live": "cache/fruitslice-transaction-probe-47e54582866d458cb987325e16eab817/disconnect_then_commit/live",
+  "transaction": "cache/fruitslice-transaction-probe-47e54582866d458cb987325e16eab817/disconnect_then_commit/transaction",
+  "faultAfterPublication": 0
+}

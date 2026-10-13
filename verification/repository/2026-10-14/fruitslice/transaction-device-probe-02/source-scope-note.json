@@ -1,0 +1,5 @@
+{
+  "finalSourceValidation": false,
+  "reason": "Shared helper changed while this candidate probe was running. Its five generated-cache scenarios passed against the device workers preserved alongside this report, but this run does not validate the final shared helper. A new run will follow after the helper is frozen.",
+  "originalEvidencePreserved": true
+}

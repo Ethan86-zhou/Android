@@ -6,7 +6,8 @@ import shlex
 from pathlib import Path
 import tempfile
 import unittest
-from device_data_guard import preserve_wordbook, restore_wordbook
+from unittest.mock import patch
+from device_data_guard import preserve_wordbook, restore_wordbook, _stage_verified
 
 
 class DeviceDataGuardTests(unittest.TestCase):
@@ -17,6 +18,19 @@ class DeviceDataGuardTests(unittest.TestCase):
         self.files = {"lexi-wordbook.db": b"original database\r\n\x00\x1a\xff", "lexi-wordbook.db-wal": b"original wal"}
         self.installed = True
         self.serial = b"test-device-1"
+        self.transactions = []
+        self.transaction_mock = patch("device_data_guard.restore_transaction", side_effect=self.transaction).start()
+        self.addCleanup(patch.stopall)
+
+    def transaction(self, command, package, live_dir, files, managed_names, tx):
+        manifest = json.loads((self.root / "private-backup/manifest.json").read_text())
+        self.assertEqual(manifest["pendingTransaction"], tx, "transaction path must be durable before device launch")
+        self.assertEqual(live_dir, "databases")
+        self.transactions.append(tx)
+        for name in managed_names:
+            self.files.pop(name, None)
+        self.files.update(files)
+        return {"state": "committed", "transactionDir": tx}
 
     def command(self, *args, data=None):
         if args == ("get-serialno",):
@@ -132,12 +146,10 @@ class DeviceDataGuardTests(unittest.TestCase):
         def truncated(*args, data=None):
             return self.command(*args, data=data[:4] if "dd" in args else data)
 
+        original = self.files["lexi-wordbook.db"]
         with self.assertRaisesRegex(RuntimeError, "Binary upload"):
-            with preserve_wordbook([], self.root / "private-backup", self.root / "report.json", truncated):
-                self.files["lexi-wordbook.db"] = b"state before failed restore"
-        self.assertEqual(self.files["lexi-wordbook.db"], b"state before failed restore")
-        self.assertFalse(any("acceptance-restore" in name for name in self.files))
-        self.assertFalse(json.loads((self.root / "report.json").read_text())["userDataRestored"])
+            _stage_verified(truncated, "cache/upload.tmp", b"complete binary fixture\x00\x1a\n")
+        self.assertEqual(self.files["lexi-wordbook.db"], original)
 
     def test_unverified_legacy_manifest_is_not_restored(self):
         with self.guard():
@@ -147,6 +159,28 @@ class DeviceDataGuardTests(unittest.TestCase):
         manifest.write_text(json.dumps(data))
         with self.assertRaisesRegex(RuntimeError, "Legacy backup"):
             restore_wordbook([], manifest.parent, self.root / "recovery.json", self.command)
+
+    def test_connection_loss_retains_transaction_and_reconnects_same_journal(self):
+        recorded = []
+
+        def disconnected(command, package, live_dir, files, managed_names, tx):
+            manifest = json.loads((self.root / "private-backup/manifest.json").read_text())
+            self.assertEqual(manifest["pendingTransaction"], tx)
+            recorded.append(tx)
+            raise RuntimeError("ADB disconnected after worker launch")
+
+        self.transaction_mock.side_effect = disconnected
+        original = dict(self.files)
+        with self.assertRaisesRegex(RuntimeError, "ADB disconnected"):
+            with self.guard():
+                pass
+        manifest = json.loads((self.root / "private-backup/manifest.json").read_text())
+        self.assertEqual(manifest["pendingTransaction"], recorded[0])
+        self.assertEqual((self.root / "private-backup/lexi-wordbook.db").read_bytes(), original["lexi-wordbook.db"])
+        self.transaction_mock.side_effect = self.transaction
+        restore_wordbook([], self.root / "private-backup", self.root / "reconnected.json", self.command)
+        self.assertEqual(self.transactions, recorded)
+        self.assertEqual(self.files, original)
 
 
 if __name__ == "__main__":

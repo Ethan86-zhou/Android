@@ -1,0 +1,89 @@
+{
+  "passed": true,
+  "generatedCacheDataOnly": true,
+  "realHistoryTouched": false,
+  "activityLaunched": false,
+  "deviceCacheRoot": "cache/fruitslice-transaction-probe-47ccd14bd2114174bddaf0d2b955be56",
+  "checks": [
+    {
+      "scenario": "commit",
+      "live": "cache/fruitslice-transaction-probe-47ccd14bd2114174bddaf0d2b955be56/commit/live",
+      "transaction": "cache/fruitslice-transaction-probe-47ccd14bd2114174bddaf0d2b955be56/commit/transaction",
+      "faultAfterPublication": 0,
+      "passed": true,
+      "state": "committed",
+      "ownLauncherTerminated": false,
+      "publicationObservedBeforeDisconnect": false,
+      "liveHashes": {
+        "history.xml": "367fc019f458e2cf4d21430b005fbf72ab8869ef7764359abeb9c25a1bf27c24",
+        "history.xml.bak": "529dd287dbde10c5f49df58d009b61760f6d28ccc5e710622b635b35f2ef9d65"
+      },
+      "rollbackAndStagingRetained": true,
+      "unrelatedFileUnchanged": true
+    },
+    {
+      "scenario": "rollback_after_first_publish",
+      "live": "cache/fruitslice-transaction-probe-47ccd14bd2114174bddaf0d2b955be56/rollback_after_first_publish/live",
+      "transaction": "cache/fruitslice-transaction-probe-47ccd14bd2114174bddaf0d2b955be56/rollback_after_first_publish/transaction",
+      "faultAfterPublication": 1,
+      "passed": true,
+      "state": "rolled_back",
+      "ownLauncherTerminated": false,
+      "publicationObservedBeforeDisconnect": false,
+      "liveHashes": {
+        "history.xml": "61e83036c4144915522d4d60c34a8c774d905ff9c5e9cc4ffdae7c6562f9e8dd",
+        "history.xml.bak": "8a638e98c40d3ee1ce7b4e997c86ec6717e988ee2830a34e7adf9bacc2eec9b8"
+      },
+      "rollbackAndStagingRetained": true,
+      "unrelatedFileUnchanged": true
+    },
+    {
+      "scenario": "disconnect_then_commit",
+      "live": "cache/fruitslice-transaction-probe-47ccd14bd2114174bddaf0d2b955be56/disconnect_then_commit/live",
+      "transaction": "cache/fruitslice-transaction-probe-47ccd14bd2114174bddaf0d2b955be56/disconnect_then_commit/transaction",
+      "faultAfterPublication": 0,
+      "passed": true,
+      "state": "committed",
+      "ownLauncherTerminated": true,
+      "publicationObservedBeforeDisconnect": true,
+      "liveHashes": {
+        "history.xml": "367fc019f458e2cf4d21430b005fbf72ab8869ef7764359abeb9c25a1bf27c24",
+        "history.xml.bak": "529dd287dbde10c5f49df58d009b61760f6d28ccc5e710622b635b35f2ef9d65"
+      },
+      "rollbackAndStagingRetained": true,
+      "unrelatedFileUnchanged": true
+    },
+    {
+      "scenario": "disconnect_then_rollback",
+      "live": "cache/fruitslice-transaction-probe-47ccd14bd2114174bddaf0d2b955be56/disconnect_then_rollback/live",
+      "transaction": "cache/fruitslice-transaction-probe-47ccd14bd2114174bddaf0d2b955be56/disconnect_then_rollback/transaction",
+      "faultAfterPublication": 1,
+      "passed": true,
+      "state": "rolled_back",
+      "ownLauncherTerminated": true,
+      "publicationObservedBeforeDisconnect": true,
+      "liveHashes": {
+        "history.xml": "61e83036c4144915522d4d60c34a8c774d905ff9c5e9cc4ffdae7c6562f9e8dd",
+        "history.xml.bak": "8a638e98c40d3ee1ce7b4e997c86ec6717e988ee2830a34e7adf9bacc2eec9b8"
+      },
+      "rollbackAndStagingRetained": true,
+      "unrelatedFileUnchanged": true
+    },
+    {
+      "scenario": "rollback_after_removing_bak",
+      "live": "cache/fruitslice-transaction-probe-47ccd14bd2114174bddaf0d2b955be56/rollback_after_removing_bak/live",
+      "transaction": "cache/fruitslice-transaction-probe-47ccd14bd2114174bddaf0d2b955be56/rollback_after_removing_bak/transaction",
+      "faultAfterPublication": 2,
+      "passed": true,
+      "state": "rolled_back",
+      "ownLauncherTerminated": false,
+      "publicationObservedBeforeDisconnect": false,
+      "liveHashes": {
+        "history.xml": "61e83036c4144915522d4d60c34a8c774d905ff9c5e9cc4ffdae7c6562f9e8dd",
+        "history.xml.bak": "8a638e98c40d3ee1ce7b4e997c86ec6717e988ee2830a34e7adf9bacc2eec9b8"
+      },
+      "rollbackAndStagingRetained": true,
+      "unrelatedFileUnchanged": true
+    }
+  ]
+}

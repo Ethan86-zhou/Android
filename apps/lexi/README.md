@@ -51,3 +51,7 @@ python tools/device_acceptance.py --output outputs/新的验证目录
 Windows 的 `adb shell` 数据通道可能改写换行或截断二进制，旧的未校验传输备份不能自动恢复。`tools/test_device_binary_transport.py --adb 本机adb路径 --serial 手机序列号 --output 新目录` 使用手机私有缓存中的自产数据验证 1 MiB 全字节对、空文件、控制字符及截断拒绝，不读写个人单词本。
 
 若主机进程被强制结束，可在确认原手机连接后执行 `python tools/device_acceptance.py --serial 手机序列号 --restore-backup build/device-backups/对应独立编号 --output outputs/新的恢复记录目录`。恢复只使用该备份，不重新安装或运行测试；私有清单内的设备序列号和文件哈希必须匹配，否则中止。
+
+数据库及附属文件的恢复由手机私有目录中的独立事务执行，公共实现位于 `../../scripts/android_data_transaction.py`。主机先持久记录事务路径，再上传完整目标文件；手机保留整组当前文件作为回滚副本，独立进程逐项发布并核验。任一步失败会在手机本地回滚全部文件，ADB 断线不会中断该进程。提交标记原子写入后才视为成功；回滚或状态标记失败会保留锁与全部副本，阻止另一事务覆盖现场。再次执行上述恢复命令会重连同一事务；确认已完整回滚后，使用子事务重试并保留之前的副本，不覆盖原始记录。重连期间不会再次强制停止仍在运行的恢复进程。
+
+`tools/test_device_restore_transaction.py --adb 本机adb路径 --serial 手机序列号 --output 新目录` 只使用独立缓存夹具，覆盖整组提交、第二步失败、附属文件原先不存在、故障解除重试以及终止本次 ADB 客户端后的设备独立提交 / 回滚；不修改个人词本。

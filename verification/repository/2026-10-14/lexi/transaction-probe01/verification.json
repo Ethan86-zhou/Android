@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "userDatabaseTouched": false,
+  "generatedCacheOnly": true,
+  "helperSha256": "cb0d6339fdd92991aa8ddc98925aa52e02ac0698a5c8f29492bce0fcac539877",
+  "deviceFixtureRoot": "cache/lexi-transaction-probe-395650019b6c41b99b6c8108c459c3d0",
+  "checks": [
+    {
+      "name": "complete_set_commit_and_sidecar_absence",
+      "passed": true
+    },
+    {
+      "name": "failure_after_publish_1_restores_all_old_files",
+      "passed": true
+    },
+    {
+      "name": "reconnect_retries_in_child_preserving_prior_rollback",
+      "passed": true
+    },
+    {
+      "name": "failure_after_publish_2_restores_all_old_files",
+      "passed": true
+    },
+    {
+      "name": "terminated_adb_client_device_committed",
+      "passed": true
+    },
+    {
+      "name": "terminated_adb_client_device_rolled_back",
+      "passed": true
+    }
+  ]
+}

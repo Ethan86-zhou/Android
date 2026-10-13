@@ -1,0 +1,24 @@
+{
+  "restored": true,
+  "byteIdentical": true,
+  "backupId": "ca5be849e33b4aa8844fc046a8d47a84",
+  "transport": "base64-shell-v2-exec-out-device-sha256-v3",
+  "deviceHashesVerified": true,
+  "transaction": {
+    "state": "committed",
+    "transactionDir": "no_backup/fruitslice-history-restore-b342aa0525674e9e8e0f6b0d10166832",
+    "files": {
+      "fruit_slice_history.xml": "8a453fdf77a3623cd90d1d1f8b95e0d138cdcefefc9ac0a9e107886aadb1ca9b"
+    }
+  },
+  "files": {
+    "fruit_slice_history.xml": {
+      "existed": true,
+      "sha256": "8a453fdf77a3623cd90d1d1f8b95e0d138cdcefefc9ac0a9e107886aadb1ca9b"
+    },
+    "fruit_slice_history.xml.bak": {
+      "existed": false,
+      "sha256": null
+    }
+  }
+}

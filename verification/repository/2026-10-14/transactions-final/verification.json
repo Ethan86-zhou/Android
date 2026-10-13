@@ -1,0 +1,12 @@
+{
+  "scope": "Original user data saved/restored unchanged. No UI, fixture data or fault injection against user files.",
+  "helperSha256": "cb0d6339fdd92991aa8ddc98925aa52e02ac0698a5c8f29492bce0fcac539877",
+  "checks": {
+    "lexiOriginalBytesRetained": true,
+    "fruitOriginalBytesRetained": true,
+    "helperUnchanged": true
+  },
+  "lexiSha256": "d18d3cf8a1807f23176501e371196fbdbdab7c974f75c0e35b83098f5a0bc0ff",
+  "fruitSha256": "8a453fdf77a3623cd90d1d1f8b95e0d138cdcefefc9ac0a9e107886aadb1ca9b",
+  "passed": true
+}
