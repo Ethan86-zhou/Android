@@ -1,0 +1,173 @@
+{
+  "date": "2026-10-14",
+  "passed": true,
+  "sourceCommit": "5edb6b7e916faa8ebe8e09011817de4d1178244c",
+  "sourceTree": "97172705ec27a392eda09fc4cd33f103fb401369",
+  "mergedInputs": {
+    "origin/codex/lightlisten-cache-eviction": "2878db1bb41f24e5be38c3dcd391e43fb61bee8e",
+    "origin/feature/agm-import": "1127e89f8ed531c3b169bcb9c9719c20a8909ee9",
+    "origin/codex/douyin-lite-pr": "d22fea9261c1573dd29b91feb726bc7a00d08a2f",
+    "origin/codex/douyin-lite-v1": "ca7bbd2d0147c8bc829a4b3316ff410facc20f70"
+  },
+  "pullRequests": [
+    2,
+    3,
+    4
+  ],
+  "runtimeModel": "gpt-6-astra",
+  "sourceFiles": 223,
+  "apps": {
+    "forcesense": {
+      "buildPassed": true,
+      "lintReportedErrors": 0,
+      "lintWarnings": 2,
+      "hostChecks": 43,
+      "deviceScope": "No new device run; implementation unchanged."
+    },
+    "fruitslice": {
+      "buildPassed": true,
+      "lintReportedErrors": 0,
+      "lintWarnings": 1,
+      "hostRules": 3034,
+      "hostDataProtection": 16,
+      "deviceChecks": 437,
+      "finalHistoryDeviceChecks": 330,
+      "historyByteIdentical": true,
+      "finalEvidence": "verification/repository/2026-10-14/fruitslice/history-final/history-preservation.json",
+      "scope": "Samsung SM-S9080 Android 16; this run did not retest the Android 14 tablet.",
+      "apk": {
+        "path": "apps/fruitslice/outputs/2026-10-14-v1.2.3-review-fixes/FruitSlice-1.2.3-debug.apk",
+        "sha256": "60d7290cb2a00f3e98f5fe33fc415033a0d15ab414176f333b1132755887e901",
+        "installedMatches": true,
+        "sourceCommit": "5edb6b7e916faa8ebe8e09011817de4d1178244c"
+      }
+    },
+    "lexi": {
+      "buildPassed": true,
+      "lintReportedErrors": 0,
+      "lintWarnings": 3,
+      "hostExportTests": 6,
+      "hostDataProtection": 11,
+      "binaryDeviceProbes": 4,
+      "deviceChecks": 211,
+      "dictionaryEntries": 770611,
+      "userDataRestored": true,
+      "finalEvidence": "verification/repository/2026-10-14/lexi/device-v2/verification.json",
+      "apk": {
+        "path": "apps/lexi/outputs/2026-10-14-v1.0.3-review-fixes/Lexi-1.0.3-debug.apk",
+        "sha256": "ebe2157085997826e58d17d0942d74ef79df91ad1bc446528aa4d2c5e711c053",
+        "installedMatches": true,
+        "sourceCommit": "5edb6b7e916faa8ebe8e09011817de4d1178244c"
+      }
+    },
+    "musiccache": {
+      "buildPassed": true,
+      "lintReportedErrors": 0,
+      "lintWarnings": 17,
+      "hostCache": 430,
+      "hostDataSource": 78,
+      "hostPython": 21,
+      "hostWebFixture": 14,
+      "hostCatalog": 48,
+      "nativeVersionDeviceChecks": 15,
+      "capacityDeviceChecks": 16,
+      "finalEvidence": "apps/musiccache/outputs/2026-10-14-v0.3.3-review-fixes/final-02/device-01/verification.json",
+      "scope": "Generated audio in isolated test process/cache. No new QQ real-song acceptance.",
+      "lintLimitation": "Existing Kotlin 2.2 metadata versus lint analyzer 2.0 compatibility diagnostics remain; task success is not a claim of complete warning-free analysis.",
+      "apk": {
+        "path": "apps/musiccache/outputs/2026-10-14-v0.3.3-review-fixes/final-02/LightListen-0.3.3-debug.apk",
+        "sha256": "42300edc0ac22415557b698fd75d695bcceeb4682b87c2ee84a4b4cb779f01a3",
+        "installedMatches": true,
+        "sourceCommit": "5edb6b7e916faa8ebe8e09011817de4d1178244c"
+      }
+    },
+    "douyinlite": {
+      "buildPassed": true,
+      "lintReportedErrors": 0,
+      "lintWarnings": 4,
+      "hostMediaScenarios": 42,
+      "hostUiScenarios": 29,
+      "hostGestureChecks": 33,
+      "hostCacheChecks": 85,
+      "hostDeliveryChecks": 5,
+      "deviceUiChecks": 66,
+      "deviceRetentionChecks": 20,
+      "finalEvidence": [
+        "verification/repository/2026-10-14/douyinlite/device-ui/ui-full-1791909997931-21388/ui-device-check.json",
+        "verification/repository/2026-10-14/douyinlite/device-retention/cache-retention-1791910260305-26120/cache-retention-check.json"
+      ],
+      "skipped": "Three Windows symbolic-link creation cases; no repeat 20-swipe or network-off test for 0.4.1.",
+      "apk": {
+        "path": "apps/douyinlite/outputs/2026-10-14-v0.4.1-review-fixes/LightSwipe-0.4.1-debug.apk",
+        "sha256": "af23899d1452623a87d9a4f6ec8d5e6797516abf81bd44e214708822df59b111",
+        "installedMatches": true,
+        "sourceCommit": "5edb6b7e916faa8ebe8e09011817de4d1178244c"
+      }
+    },
+    "agm": {
+      "buildPassed": true,
+      "lintReportedErrors": 0,
+      "lintWarnings": 4,
+      "hostJunit": 7,
+      "sensorUiPassed": true,
+      "deviceChecks": 12,
+      "finalEvidence": "verification/repository/2026-10-14/agm/device-02/device-review.json",
+      "scope": "Tested unchanged original-signed PR artifact; local rebuilt debug certificate differs. No uninstall or calibration change, no precision/drift validation.",
+      "apk": {
+        "path": "apps/agm/outputs/2026-10-12-gradle-migration/IMU-Flight-Lab-1.0-debug.apk",
+        "sha256": "0fcc7901db6dbf1f892054e2758cf0270de097092f616660b7b983fb0716d9b9",
+        "installedMatches": true,
+        "sourceCommit": "5edb6b7e916faa8ebe8e09011817de4d1178244c"
+      }
+    }
+  },
+  "resolvedIssues": [
+    "Mixed network/cache version identity",
+    "Eviction before completed response",
+    "Deletion failure capacity accounting and recovery",
+    "Dense touch sample collision loss",
+    "Instrumentation history isolation and fresh history validation",
+    "Export preflight before destination truncation",
+    "Android per-domain backup exclusions",
+    "Portable Git-normalized delivery hashes",
+    "Verified binary device backup and restore",
+    "PR5 P1: Device-local multi-file publication with rollback, detached from ADB; retain journals and lock on failure; reconnect safely"
+  ],
+  "attemptsRetained": [
+    {
+      "path": "verification/repository/2026-10-14/agm/device-review.json",
+      "outcome": "Initial observer counted historical registrations; corrected final sensorservice active-connection check is device-02."
+    },
+    {
+      "path": "verification/repository/2026-10-14/fruitslice/device",
+      "outcome": "Preflight tool failed before gameplay; fixed command protocol."
+    },
+    {
+      "path": "verification/repository/2026-10-14/lexi/device",
+      "outcome": "App checks passed but new host restore failed due Windows ADB binary text conversion; not final acceptance."
+    },
+    {
+      "path": "verification/repository/2026-10-14/lexi/recovery/data-recovery.json",
+      "outcome": "Reversible conversion recovered 1182 words and 9 history rows; integrity, device checksum and byte comparison passed. Final v2 acceptance then passed with original bytes preserved."
+    },
+    {
+      "path": "apps/musiccache/outputs/2026-10-14-v0.3.3-review-fixes/LightListen-0.3.3-debug.apk",
+      "outcome": "Earlier candidate retained; use final-02 artifact."
+    }
+  ],
+  "privateData": "Raw user databases/preferences and recovery copies are only in ignored build directories, never in Git.",
+  "finalDataProtection": {
+    "helperSha256": "cb0d6339fdd92991aa8ddc98925aa52e02ac0698a5c8f29492bce0fcac539877",
+    "hostWorkerFaultScenarios": 7,
+    "lexiDeviceTransactionScenarios": 6,
+    "fruitDeviceTransactionScenarios": 5,
+    "originalUserDataRoundtripPassed": true,
+    "evidence": [
+      "verification/repository/2026-10-14/transaction-review/verification.json",
+      "verification/repository/2026-10-14/lexi/transaction-probe01/verification.json",
+      "verification/repository/2026-10-14/fruitslice/transaction-device-probe-03/verification.json",
+      "verification/repository/2026-10-14/transactions-final/verification.json"
+    ]
+  },
+  "priorSummary": "integration-summary.json applies to the earlier candidate; this final summary includes the multi-file transaction review fix."
+}
