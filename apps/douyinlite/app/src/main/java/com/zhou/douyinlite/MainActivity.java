@@ -6,8 +6,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,21 +34,33 @@ import android.webkit.WebSettings;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import java.nio.charset.StandardCharsets;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /** 官网负责内容和账号；原生层只管理手势、生命周期和可清理缓存。 */
 public class MainActivity extends Activity {
@@ -87,6 +102,17 @@ public class MainActivity extends Activity {
     private long playerControlGeneration;
     private String mediaScript;
     private String uiScript;
+    private String feedScript;
+    private ListView feedList;
+    private FeedAdapter feedAdapter;
+    private boolean feedShowing;
+    private String feedSignature = "";
+    // 封面只进内存 LRU，不落盘、不导出；域名限定抖音系 CDN。
+    private final Map<String,Bitmap> covers = new LinkedHashMap<String,Bitmap>(48,0.75f,true) {
+        @Override protected boolean removeEldestEntry(Map.Entry<String,Bitmap> eldest) { return size()>48; }
+    };
+    private final Set<String> coversInFlight = new HashSet<>();
+    private ExecutorService coverWorker;
     private String selectedChannel = "recommend";
     private String pendingChannel;
     private boolean pendingFallbackUsed;
@@ -115,7 +141,7 @@ public class MainActivity extends Activity {
         super.onCreate(saved);
         cache = new CacheController(this, isProbe() ? "probe" : null);
         mediaScript = readAsset("media-control.js");
-        if (!isProbe()) uiScript = readAsset("ui-cleanup.js");
+        if (!isProbe()) { uiScript = readAsset("ui-cleanup.js"); feedScript = readAsset("feed-extract.js"); }
         String savedChannel = getPreferences(0).getString("selectedChannel", "recommend");
         selectedChannel = "featured".equals(savedChannel) ? "featured" : "recommend";
         if (!isProbe()) pendingChannel = selectedChannel;
@@ -187,10 +213,26 @@ public class MainActivity extends Activity {
         gestures.addView(error,new FrameLayout.LayoutParams(-1,-1));
         gestures.setListener(new EdgeGestureLayout.Listener() {
             @Override public void onBoost(boolean boosted, boolean locked) { applyBoost(boosted,locked); }
-            @Override public void onUnavailable() { toast("当前没有可加速的视频"); }
+            @Override public void onUnavailable() { if (!feedShowing) toast("当前没有可加速的视频"); }
         });
         root.addView(gestures,new LinearLayout.LayoutParams(-1,0,1));
         createPlayerBar(root);
+        // 原生精选列表盖在 WebView 之上；抽取不可用时保持 GONE，网页渲染自动兜底。
+        if (!isProbe()) {
+            feedAdapter = new FeedAdapter();
+            feedList = new ListView(this);
+            feedList.setAdapter(feedAdapter);
+            feedList.setBackgroundColor(Color.rgb(16,16,20));
+            feedList.setDivider(new ColorDrawable(Color.rgb(16,16,20)));
+            feedList.setDividerHeight(dp(10));
+            feedList.setVisibility(View.GONE);
+            feedList.setOnItemClickListener((parent,view,position,id)->openFeedCard(feedAdapter.idAt(position)));
+            gestures.addView(feedList,new FrameLayout.LayoutParams(-1,-1));
+            coverWorker = Executors.newSingleThreadExecutor(runnable->{
+                Thread thread=new Thread(runnable,"douyin-cover-loader");
+                thread.setDaemon(true); return thread;
+            });
+        }
         setContentView(root); root.requestApplyInsets();
         // Android 16 不再把系统返回交给旧 onBackPressed，注册当前平台回调。
         if (Build.VERSION.SDK_INT>=33) {
@@ -318,6 +360,8 @@ public class MainActivity extends Activity {
                 web.evaluateJavascript("window.LightSwipeUi?.setClean("+cleanUi+")",null);
                 if (cleanUi && popups.isEmpty()) fulfillChannelIntent(generation);
             });
+            // 精选原生列表的只读镜像；失败不影响网页自身渲染。
+            if (!isProbe()) web.evaluateJavascript("if(!window.LightSwipeFeed){"+feedScript+"}",null);
         }
     }
 
@@ -679,23 +723,197 @@ public class MainActivity extends Activity {
         } catch(Exception ignored) { /* 官网可能刚换片；下一次既有状态检查会更新控件。 */ }
     }
 
+    /** 精选原生列表：网页卡片可用时盖住 WebView；视频详情、推荐频道和账号界面仍是网页。 */
+    private void updateFeed(JSONObject feed,JSONObject ui,JSONObject status) {
+        if (feedList==null) return;
+        boolean detailOpen=ui!=null && ui.optBoolean("detailOpen");
+        // 点开卡片后给官网浮层 3 秒挂载窗口；期间不再回显列表，也不重新暂停网页。
+        boolean opening=android.os.SystemClock.uptimeMillis()-feedOpenedAt<3000;
+        boolean wanted=foreground && cleanUi && popups.isEmpty() && !detailOpen && !opening
+                && "featured".equals(selectedChannel)
+                && getPreferences(0).getBoolean("nativeFeedEnabled",true);
+        JSONArray items=feed!=null ? feed.optJSONArray("cards") : null;
+        boolean available=wanted && feed!=null && feed.optBoolean("ready") && items!=null && items.length()>=4;
+        if (available) {
+            String signature=items.toString();
+            if (!signature.equals(feedSignature)) { feedSignature=signature; feedAdapter.replace(items); }
+        }
+        boolean show=available;
+        if (show==feedShowing) {
+            // 盖住网页期间压制卡片预览的自动播放，避免画外音。
+            if (show && status.optBoolean("playing")) browser.evaluateJavascript("window.LightSwipe?.pause()",null);
+            return;
+        }
+        feedShowing=show;
+        feedList.setVisibility(show ? View.VISIBLE : View.GONE);
+        if (show) browser.evaluateJavascript("window.LightSwipe?.pause()",null);
+        // 离开列表回到网页（切推荐、账号页）要恢复官网播放；详情浮层路径由 openFeedCard 恢复。
+        else if (!detailOpen && popups.isEmpty()) browser.evaluateJavascript("window.LightSwipe?.resume()",null);
+    }
+
+    private long feedOpenedAt;
+    private void openFeedCard(String id) {
+        if (id==null || closing) return;
+        long generation=pageGeneration;
+        browser.evaluateJavascript("window.LightSwipeFeed ? window.LightSwipeFeed.open("+JSONObject.quote(id)+") : false",value->{
+            if (closing || generation!=pageGeneration) return;
+            if ("true".equals(value)) {
+                feedOpenedAt=android.os.SystemClock.uptimeMillis();
+                feedShowing=false;
+                if (feedList!=null) feedList.setVisibility(View.GONE);
+                // 解除列表期间对网页的暂停；详情浮层打开后由 tick 隐藏原生列表。
+                browser.evaluateJavascript("window.LightSwipe?.resume()",null);
+            } else toast("未能打开这条视频，点 ⋯ 可切换网页列表");
+        });
+    }
+
+    private void loadCover(String url) {
+        if (url==null || coverWorker==null) return;
+        synchronized (covers) {
+            if (covers.containsKey(url) || !coversInFlight.add(url)) return;
+        }
+        try {
+            coverWorker.execute(()->{
+                Bitmap bitmap=fetchCover(url);
+                synchronized (covers) {
+                    coversInFlight.remove(url);
+                    if (bitmap!=null) covers.put(url,bitmap);
+                }
+                if (bitmap!=null) handler.post(()->{
+                    if (!closing && feedShowing && feedAdapter!=null) feedAdapter.notifyDataSetChanged();
+                });
+            });
+        } catch (java.util.concurrent.RejectedExecutionException error) {
+            synchronized (covers) { coversInFlight.remove(url); }
+        }
+    }
+
+    /** 仅允许抖音系 CDN 的 https 封面；其它地址直接放弃，不发起请求。 */
+    private static boolean coverAllowed(Uri uri) {
+        if (!"https".equalsIgnoreCase(uri.getScheme())) return false;
+        String host=uri.getHost();
+        if (host==null) return false;
+        String lower=host.toLowerCase(Locale.ROOT);
+        for (String suffix:new String[]{"douyin.com","douyinpic.com","iesdouyin.com","douyinvod.com","douyinstatic.com"}) {
+            if (lower.equals(suffix) || lower.endsWith("."+suffix)) return true;
+        }
+        return false;
+    }
+
+    private static Bitmap fetchCover(String address) {
+        HttpURLConnection connection=null;
+        try {
+            Uri uri=Uri.parse(address);
+            if (!coverAllowed(uri)) return null;
+            connection=(HttpURLConnection)new URL(address).openConnection();
+            connection.setConnectTimeout(5000); connection.setReadTimeout(5000);
+            connection.setRequestProperty("Referer","https://www.douyin.com/");
+            connection.setRequestProperty("User-Agent","Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36");
+            if (connection.getResponseCode()!=200) return null;
+            String type=connection.getContentType();
+            if (type==null || !type.toLowerCase(Locale.ROOT).startsWith("image/")) return null;
+            try (InputStream input=connection.getInputStream()) {
+                ByteArrayOutputStream output=new ByteArrayOutputStream();
+                byte[] chunk=new byte[8192]; int count; int total=0;
+                while ((count=input.read(chunk))!=-1) {
+                    total+=count;
+                    if (total>3*1024*1024) return null;
+                    output.write(chunk,0,count);
+                }
+                return BitmapFactory.decodeByteArray(output.toByteArray(),0,output.size());
+            }
+        } catch (Exception error) {
+            return null;
+        } finally {
+            if (connection!=null) connection.disconnect();
+        }
+    }
+
+    /** 单列卡片：左封面右标题，字段缺失时只显示可用部分。 */
+    private final class FeedAdapter extends BaseAdapter {
+        private final List<JSONObject> items=new ArrayList<>();
+
+        void replace(JSONArray cards) {
+            items.clear();
+            for (int i=0;i<cards.length();i++) {
+                JSONObject card=cards.optJSONObject(i);
+                if (card!=null) items.add(card);
+            }
+            notifyDataSetChanged();
+        }
+
+        String idAt(int position) {
+            return position>=0 && position<items.size() ? items.get(position).optString("id",null) : null;
+        }
+
+        @Override public int getCount() { return items.size(); }
+        @Override public Object getItem(int position) { return items.get(position); }
+        @Override public long getItemId(int position) { return position; }
+
+        @Override public View getView(int position,View convert,ViewGroup parent) {
+            LinearLayout row=convert instanceof LinearLayout ? (LinearLayout)convert : null;
+            ImageView cover; TextView title; TextView meta;
+            if (row==null) {
+                row=new LinearLayout(MainActivity.this);
+                row.setOrientation(LinearLayout.HORIZONTAL);
+                row.setGravity(Gravity.CENTER_VERTICAL);
+                row.setPadding(dp(12),0,dp(12),0);
+                cover=new ImageView(MainActivity.this);
+                cover.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                cover.setBackgroundColor(Color.rgb(32,32,39));
+                row.addView(cover,new LinearLayout.LayoutParams(dp(150),dp(84)));
+                LinearLayout texts=new LinearLayout(MainActivity.this);
+                texts.setOrientation(LinearLayout.VERTICAL);
+                texts.setPadding(dp(12),0,0,0);
+                title=new TextView(MainActivity.this);
+                title.setTextColor(Color.WHITE); title.setTextSize(15);
+                title.setMaxLines(2); title.setEllipsize(android.text.TextUtils.TruncateAt.END);
+                texts.addView(title,new LinearLayout.LayoutParams(-1,-2));
+                meta=new TextView(MainActivity.this);
+                meta.setTextColor(0xFF909096); meta.setTextSize(12);
+                meta.setSingleLine(true); meta.setEllipsize(android.text.TextUtils.TruncateAt.END);
+                texts.addView(meta,new LinearLayout.LayoutParams(-1,-2));
+                row.addView(texts,new LinearLayout.LayoutParams(0,-2,1));
+                row.setTag(new Object[]{cover,title,meta});
+            }
+            Object[] views=(Object[])row.getTag();
+            cover=(ImageView)views[0]; title=(TextView)views[1]; meta=(TextView)views[2];
+            JSONObject card=items.get(position);
+            String heading=card.optString("title","");
+            title.setText(heading.isEmpty() ? "抖音视频" : heading);
+            String author=card.optString("author",""); String likes=card.optString("likes","");
+            StringBuilder line=new StringBuilder();
+            if (!author.isEmpty()) line.append(author);
+            if (!likes.isEmpty()) { if (line.length()>0) line.append(" · "); line.append(likes).append(" 赞"); }
+            meta.setText(line);
+            String url=card.optString("cover","");
+            Bitmap bitmap;
+            synchronized (covers) { bitmap=covers.get(url); }
+            cover.setImageBitmap(bitmap);
+            cover.setContentDescription(heading.isEmpty() ? "视频封面" : heading);
+            if (bitmap==null && !url.isEmpty()) loadCover(url);
+            return row;
+        }
+    }
+
     private final Runnable tick = new Runnable() {
         @Override public void run() {
             if (!foreground || closing) return;
             long generation=pageGeneration;
             long controls=playerControlGeneration;
             long intent=channelIntentGeneration;
-            browser.evaluateJavascript("({media:window.LightSwipe?.status(),ui:window.LightSwipeUi?.status()})",value->{
+            browser.evaluateJavascript("({media:window.LightSwipe?.status(),ui:window.LightSwipeUi?.status(),feed:window.LightSwipeFeed?.list?.()})",value->{
                 if (!foreground || closing || generation!=pageGeneration) return;
                 try {
                     JSONObject result=new JSONObject(value);
                     JSONObject status=result.optJSONObject("media");
                     boolean mediaApiReady=status!=null;
                     if (status==null) status=new JSONObject();
-                    gestures.setBoostAllowed(status.optBoolean("available") && !status.optBoolean("paused") && popups.isEmpty());
+                    JSONObject ui=result.optJSONObject("ui");
+                    updateFeed(result.optJSONObject("feed"),ui,status);
+                    gestures.setBoostAllowed(status.optBoolean("available") && !status.optBoolean("paused") && popups.isEmpty() && !feedShowing);
                     if (status.optBoolean("playbackRequested",status.optBoolean("playing")) && popups.isEmpty()) getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                     else getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-                    JSONObject ui=result.optJSONObject("ui");
                     if (intent==channelIntentGeneration && pageCommitted && generation>=channelIntentMinPageGeneration
                             && pendingChannel!=null && ui!=null && ui.optBoolean("layoutReady")
                             && !ui.optBoolean("navigationPending") && !ui.optBoolean("detailOpen")
@@ -724,14 +942,21 @@ public class MainActivity extends Activity {
 
     private void menu() {
         cancelSeekDrag(); gestures.resetBoost();
+        boolean nativeFeed=getPreferences(0).getBoolean("nativeFeedEnabled",true);
         new AlertDialog.Builder(this).setTitle("轻刷 "+BuildConfig.VERSION_NAME)
-            .setItems(new String[]{cleanUi ? "登录 / 账号" : "返回精简界面","刷新当前网页","缓存与网站数据","手势说明"},(d,index)->{
+            .setItems(new String[]{cleanUi ? "登录 / 账号" : "返回精简界面","刷新当前网页","缓存与网站数据","手势说明",
+                    nativeFeed ? "精选改用网页列表" : "精选改用原生列表"},(d,index)->{
                 if (index==0) { if (cleanUi) showAccountPage(); else chooseChannel(selectedChannel); }
                 if (index==1) reloadChannel();
                 if (index==2) showCache();
                 if (index==3) new AlertDialog.Builder(this).setTitle("快进手势")
                     .setMessage("视频画面左右边缘长按约 0.4 秒进入 2 倍速，松手恢复原速。\n\n长按生效后向下滑约一个拇指宽度可锁定，点画面上方的速度提示解除。锁定后仍可上滑切视频。\n\n避开顶部标签、底部进度条及屏幕最边缘的系统返回手势。切到后台会暂停视频并解除加速。")
                     .setPositiveButton("知道了",null).show();
+                if (index==4) {
+                    getPreferences(0).edit().putBoolean("nativeFeedEnabled",!nativeFeed).apply();
+                    feedSignature="";
+                    toast(!nativeFeed ? "精选将使用原生列表" : "精选将使用网页列表");
+                }
             }).show();
     }
 
@@ -834,6 +1059,7 @@ public class MainActivity extends Activity {
         for (Dialog popup:new ArrayList<>(popups)) popup.dismiss();
         for (WebView w:browsers) destroyBrowser(w);
         browsers.clear(); popupWindows.clear(); pageHosts.clear();
+        if (coverWorker!=null) coverWorker.shutdownNow();
         cache.close(); super.onDestroy();
     }
 }
