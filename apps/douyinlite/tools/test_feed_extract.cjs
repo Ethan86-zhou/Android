@@ -35,13 +35,18 @@ class Element {
         walk(this);
         return out;
     }
-    getAttribute(name) { return name === 'alt' ? this.alt : null; }
+    getAttribute(name) {
+        if (name === 'alt') return this.alt;
+        if (name === 'href') return this.href || null;
+        if (name === 'data-aweme-id') return this.aweme || null;
+        return null;
+    }
     dispatchEvent(event) { this.clicks.push(event); return true; }
 }
 
 function match(selector) {
-    if (selector === 'a[href*="/video/"]') {
-        return node => node.tag === 'a' && node.href.includes('/video/');
+    if (selector === '[href*="/video/"]') {
+        return node => (node.href || '').includes('/video/');
     }
     if (selector === 'img') return node => node.tag === 'img';
     if (selector === '[class*="title"],[class*="Title"]') {
@@ -56,12 +61,14 @@ function match(selector) {
 
 function card(options = {}) {
     const root = new Element('div', { className: 'discover-video-card-item', isConnected: options.isConnected });
-    if (options.href) root.children.push(new Element('a', { href: options.href }));
+    root.aweme = options.aweme || '';
+    if (options.href) root.children.push(new Element('div', { href: options.href, className: 'jingxuanVideoCard' }));
     if (options.cover || options.alt) {
         root.children.push(new Element('img', { src: options.cover || '', currentSrc: options.currentSrc || '', alt: options.alt || '' }));
     }
     if (options.title) root.children.push(new Element('div', { className: 'video-title', text: options.title }));
     if (options.author) root.children.push(new Element('span', { className: 'author-name', text: options.author }));
+    if (options.atAuthor) root.children.push(new Element('div', { className: 'GYwOf4SN', text: options.atAuthor }));
     if (options.likes) root.children.push(new Element('span', { className: 'count', text: options.likes }));
     return root;
 }
@@ -141,18 +148,34 @@ function harness(cards, url = 'https://www.douyin.com/jingxuan?from_nav=1') {
     checks += 2;
 }
 
+// 协议相对 href 归一化为 https；无 href 时用 data-aweme-id 构造身份
+{
+    const feed = harness([card({ href: '//www.douyin.com/video/7101', alt: 'x' })]);
+    assert.equal(feed.list().cards[0].id, 'https://www.douyin.com/video/7101');
+    const byAweme = harness([card({ aweme: '7102', cover: 'https://p3.douyinpic.com/c.jpeg' })]);
+    assert.equal(byAweme.list().cards[0].id, 'https://www.douyin.com/video/7102');
+    checks += 2;
+}
+
+// 作者回退：@ 开头的行去掉 “· 日期” 后缀
+{
+    const feed = harness([card({ href: 'https://www.douyin.com/video/7103', atAuthor: '@ 末世演算 · 9月21日' })]);
+    assert.equal(feed.list().cards[0].author, '末世演算');
+    checks += 1;
+}
+
 // open 点击匹配卡片的真实锚点，事件冒泡且可取消
 {
     const target = card({ href: 'https://www.douyin.com/video/7006' });
     const other = card({ href: 'https://www.douyin.com/video/7007' });
     const feed = harness([other, target]);
     assert.equal(feed.open('https://www.douyin.com/video/7006'), true);
-    assert.equal(target.querySelector('a[href*="/video/"]').clicks.length, 1);
-    const event = target.querySelector('a[href*="/video/"]').clicks[0];
+    assert.equal(target.querySelector('[href*="/video/"]').clicks.length, 1);
+    const event = target.querySelector('[href*="/video/"]').clicks[0];
     assert.equal(event.type, 'click');
     assert.equal(event.options.bubbles, true);
     assert.equal(event.options.cancelable, true);
-    assert.equal(other.querySelector('a[href*="/video/"]').clicks.length, 0);
+    assert.equal(other.querySelector('[href*="/video/"]').clicks.length, 0);
     assert.equal(feed.open('https://www.douyin.com/video/absent'), false);
     checks += 7;
 }

@@ -1,0 +1,30 @@
+{
+  "version": "0.5.0",
+  "versionCode": 7,
+  "date": "2026-10-14",
+  "device": "Samsung SM-S9080 / Android 16 (R5CT92GMYBM)",
+  "apkSha256": "8deaa87629d3ee18100025dfa6476256cec56d510478faa294c8ac118cb3a3ea",
+  "install": "adb install -r 覆盖 0.4.1 成功，登录与网站数据保留",
+  "hostChecks": {
+    "test_media_control.cjs": "42 scenario checks passed",
+    "test_ui_cleanup.cjs": "29 scenario groups passed",
+    "test_feed_extract.cjs": "30 checks passed",
+    "assembleDebug": "BUILD SUCCESSFUL",
+    "lintDebug": "BUILD SUCCESSFUL"
+  },
+  "deviceChecks": [
+    {"item": "精选原生列表渲染", "method": "CDP LightSwipeFeed.list() + 截图目视", "result": "pass", "note": "40 张卡片，封面经 Referer 白名单加载成功，标题/作者/点赞字段正确，id 为官网视频地址"},
+    {"item": "点卡片打开官网详情", "method": "input tap 首行 + CDP detailOpen/播放状态", "result": "pass", "note": "detailOpen=true，playbackRequested=true，duration=220.6s，原生播放底栏绑定"},
+    {"item": "详情返回列表", "method": "KEYCODE_BACK + 截图", "result": "pass", "note": "detailOpen=false，原生列表恢复且作者字段完整"},
+    {"item": "原生列表滑动", "method": "input swipe + 截图", "result": "pass", "note": "滚动加载新卡片，作者/点赞持续正确"},
+    {"item": "切推荐频道回归", "method": "点推荐标签 + CDP 播放状态", "result": "pass", "note": "SPA 过渡后 playbackRequested=true，currentTime 持续推进"},
+    {"item": "推荐上滑换视频", "method": "input swipe + CDP + 截图", "result": "pass", "note": "换片后正常播放（mediaId 递增）；换片瞬间 status 探针短暂读到 DOM 未就绪属既有 SPA 过渡行为，数秒内自愈"},
+    {"item": "菜单与版本", "method": "点 ⋯ + 截图", "result": "pass", "note": "显示 轻刷 0.5.0，新增“精选改用网页列表”开关项"},
+    {"item": "切回精选恢复列表", "method": "点精选标签 + 截图", "result": "pass", "note": "原生列表恢复并保留滚动位置"}
+  ],
+  "knownLimits": [
+    "作者字段依赖 @ 开头文本回退，官网改版时可能为空（列表仍可用）",
+    "原生列表不展示视频时长与预览播放；详情与播放仍在 WebView",
+    "未重复缓存清理、边缘长按加速与登录界面的完整回归；相关逻辑未修改"
+  ]
+}

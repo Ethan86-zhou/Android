@@ -21,10 +21,32 @@
     }
 
     function cardId(card) {
-        var anchor = card.querySelector('a[href*="/video/"]');
-        if (anchor && anchor.href) return anchor.href;
+        // 官网卡片的 href 属性挂在容器 div 上；data-aweme-id 是稳定的视频编号。
+        var link = card.querySelector('[href*="/video/"]');
+        if (link) {
+            var href = link.getAttribute('href') || '';
+            if (href) return href.indexOf('//') === 0 ? 'https:' + href : href;
+        }
+        var aweme = card.getAttribute('data-aweme-id');
+        if (aweme) return 'https://www.douyin.com/video/' + aweme;
         var image = card.querySelector('img');
         return image ? (image.currentSrc || image.src || '') : '';
+    }
+
+    function authorOf(card) {
+        var node = card.querySelector('[class*="name" i],[class*="author" i],[class*="nickname" i]');
+        var author = text(node);
+        if (author) return author;
+        // 官网作者行以 @ 开头，常带 “· 日期” 后缀。
+        var leaves = card.querySelectorAll('span,div,p');
+        for (var i = 0; i < leaves.length; i++) {
+            var line = text(leaves[i]);
+            if (line.indexOf('@') === 0) {
+                var name = line.slice(1).split('·')[0].trim();
+                if (name) return name;
+            }
+        }
+        return '';
     }
 
     function cards() {
@@ -40,7 +62,6 @@
             var titleNode = card.querySelector('[class*="title"],[class*="Title"]');
             var title = text(titleNode);
             if (!title && image) title = (image.getAttribute('alt') || '').trim();
-            var authorNode = card.querySelector('[class*="name" i],[class*="author" i],[class*="nickname" i]');
             var likes = '';
             var leaves = card.querySelectorAll('span,div,p');
             for (var j = 0; j < leaves.length; j++) {
@@ -51,7 +72,7 @@
             out.push({
                 id: id,
                 title: title,
-                author: text(authorNode),
+                author: authorOf(card),
                 likes: likes,
                 cover: image ? (image.currentSrc || image.src || '') : ''
             });
@@ -69,8 +90,8 @@
             var items = document.querySelectorAll(CARD_SELECTOR);
             for (var i = 0; i < items.length; i++) {
                 if (cardId(items[i]) !== id) continue;
-                var anchor = items[i].querySelector('a[href*="/video/"]');
-                (anchor || items[i]).dispatchEvent(new MouseEvent('click', {
+                var target = items[i].querySelector('[href*="/video/"]') || items[i];
+                target.dispatchEvent(new MouseEvent('click', {
                     bubbles: true, cancelable: true, view: window
                 }));
                 return true;
