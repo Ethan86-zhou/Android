@@ -1,0 +1,20 @@
+{
+  "omittedFiles": [
+    "device-01/01-search-home.png"
+  ],
+  "reason": "The original home screenshot contains personal lookup history and is retained only in the ignored local private evidence directory.",
+  "originalScreenshotBytesPreserved": true,
+  "originalVerificationRecordsUnchanged": true,
+  "remainingScreenshotsReviewed": [
+    "02-search-results.png",
+    "03-saved-detail.png",
+    "04-wordbook.png",
+    "05-selected-text.png",
+    "06-shared-text.png",
+    "07-offline-settings.png",
+    "08-quick-search.png",
+    "09-chinese-results.png",
+    "10-chinese-detail.png"
+  ],
+  "apkUnchanged": true
+}

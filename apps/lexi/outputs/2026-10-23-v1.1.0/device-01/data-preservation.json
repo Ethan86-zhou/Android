@@ -1,0 +1,13 @@
+{
+  "hostSnapshotCreated": true,
+  "originalFiles": 2,
+  "userDataRestored": true,
+  "transaction": {
+    "state": "committed",
+    "transactionDir": "no_backup/lexi-restore-transactions/4c01a5e4a48b4d5f846a48c166ae7936",
+    "files": {
+      "lexi-wordbook.db": "82ac9211e9111aee87e03960545222904fdf883557064c666aee892636dba7ac",
+      "lexi-wordbook.db-journal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+}

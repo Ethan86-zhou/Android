@@ -1,0 +1,15 @@
+test_duplicate_tokens_are_rejected (test_dictionary_index.ChineseIndexAuditTest.test_duplicate_tokens_are_rejected) ... ok
+test_empty_and_latin_queries_do_not_access_a_table (test_dictionary_index.ChineseIndexAuditTest.test_empty_and_latin_queries_do_not_access_a_table) ... ok
+test_literal_and_supplementary_plane_queries (test_dictionary_index.ChineseIndexAuditTest.test_literal_and_supplementary_plane_queries) ... ok
+test_meaning_length_is_counted_in_utf16_units (test_dictionary_index.ChineseIndexAuditTest.test_meaning_length_is_counted_in_utf16_units) ... ok
+test_meaning_separators_and_normalization_contract (test_dictionary_index.ChineseIndexAuditTest.test_meaning_separators_and_normalization_contract) ... ok
+test_missing_indexed_translation_is_rejected (test_dictionary_index.ChineseIndexAuditTest.test_missing_indexed_translation_is_rejected) ... ok
+test_missing_meaning_entry_pair_is_rejected (test_dictionary_index.ChineseIndexAuditTest.test_missing_meaning_entry_pair_is_rejected) ... ok
+test_orphaned_meaning_entry_pair_is_rejected (test_dictionary_index.ChineseIndexAuditTest.test_orphaned_meaning_entry_pair_is_rejected) ... ok
+test_swapped_meaning_entry_pairs_are_rejected (test_dictionary_index.ChineseIndexAuditTest.test_swapped_meaning_entry_pairs_are_rejected) ... ok
+test_swapped_postings_are_rejected_even_with_correct_counts (test_dictionary_index.ChineseIndexAuditTest.test_swapped_postings_are_rejected_even_with_correct_counts) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.049s
+
+OK

@@ -1,0 +1,10 @@
+{
+  "sourceCommit": "83330b9e23ebd4d7d6bb478296fd6a4deea5a3df",
+  "verificationStartCommit": "c70e72dc05ac5c4f2314c7fe51573d56056da836",
+  "verificationStartedBeforeSourceCommit": true,
+  "reason": "The verification run began before the source commit. All captured source hashes were subsequently checked against the committed files; the original run records remain unchanged.",
+  "allCapturedSourceFilesMatchCommit": true,
+  "sourceFilesCompared": 37,
+  "method": "SHA256 of captured working bytes, then Git canonical blob hashes compared to the source commit.",
+  "apkSha256": "3f671a79454a6e2af348bbdd4d03f27fbd1a2adb1661f75339b894fbaad3cb8a"
+}

@@ -1,0 +1,13 @@
+ M apps/lexi/README.md
+ M apps/lexi/app/build.gradle
+ M apps/lexi/app/src/androidTest/java/com/ethan/lexi/DictionaryInstrumentation.java
+ M apps/lexi/app/src/main/assets/dictionary-source.json
+ M apps/lexi/app/src/main/assets/dictionary.pack
+ M apps/lexi/app/src/main/java/com/ethan/lexi/DictionaryRepository.java
+ M apps/lexi/app/src/main/java/com/ethan/lexi/MainActivity.java
+ M apps/lexi/app/src/main/res/values/styles.xml
+ M apps/lexi/tools/build_dictionary.py
+?? apps/lexi/app/src/main/java/com/ethan/lexi/ChineseLookup.java
+?? apps/lexi/app/src/test/java/com/ethan/lexi/ChineseLookupTest.java
+?? apps/lexi/tools/test_chinese_lookup_sql.py
+?? apps/lexi/tools/test_dictionary_index.py

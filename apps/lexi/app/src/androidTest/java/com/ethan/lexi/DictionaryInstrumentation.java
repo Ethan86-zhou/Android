@@ -67,6 +67,7 @@ public final class DictionaryInstrumentation extends Instrumentation {
             expect(read(() -> activity.ready), "Offline dictionary becomes ready on the Samsung phone");
             screenshot("01-search-home.png");
             dictionaryChecks();
+            bilingualChecks();
             wordbookUiChecks();
             shortcutChecks();
             tapText("设置");
@@ -130,6 +131,81 @@ public final class DictionaryInstrumentation extends Instrumentation {
                 .put("searchP95Ms", samples[28]).put("searchMaxMs", samples[29])
                 .put("dictionaryCount", dictionary.count());
         expect(samples[28] < 500, "On-device indexed search p95 is below 500 ms");
+    }
+
+    private void bilingualChecks() throws Exception {
+        DictionaryRepository dictionary = read(() -> activity.dictionary);
+        String[][] translations = {{"苹果", "apple"}, {"词典", "dictionary"},
+                {"计算机", "computer"}, {"学习", "learn"}, {"支持", "support"}};
+        for (String[] pair : translations) {
+            List<Entry> found = dictionary.search(pair[0], 40);
+            boolean expectedWord = false;
+            for (Entry entry : found) {
+                expect(entry.translation.contains(pair[0]), "Chinese candidate retains the literal meaning for " + pair[0]);
+                if (entry.word.equalsIgnoreCase(pair[1])) expectedWord = true;
+            }
+            expect(expectedWord, "Chinese " + pair[0] + " finds English " + pair[1] + " offline");
+        }
+        List<Entry> apple = dictionary.search("苹果", 40);
+        expect(!apple.isEmpty() && apple.get(0).id == dictionary.search("  苹果  ", 40).get(0).id,
+                "Chinese lookup trims surrounding whitespace consistently");
+        expect(dictionary.search("水", 3).size() == 3, "Single-character Chinese query respects the requested limit");
+        expect(dictionary.search("水", 200).size() <= 100, "Chinese query clamps excessive limits");
+        expect(dictionary.search("苹果", 0).isEmpty() && dictionary.search("苹果", -1).isEmpty(), "Chinese zero and negative limits are empty");
+        expect(dictionary.search("苹果%", 40).isEmpty(), "Chinese percent is literal, without wildcard expansion");
+        expect(dictionary.search("苹果' OR 1=1 --", 40).isEmpty(), "Chinese SQL-like input remains literal");
+        expect(dictionary.search("龘龘龘不存在的测试词", 40).isEmpty(), "Unknown Chinese expression returns no invented translation");
+        expect(dictionary.search("\ud840\udc00\ud840\udc00", 40).size() <= 40, "Supplementary Han input is safe and bounded");
+        long[] durations = new long[18];
+        String[] terms = {"苹果", "学习", "计算机", "词典", "水", "支持"};
+        for (int i = 0; i < durations.length; i++) {
+            long began = SystemClock.elapsedRealtimeNanos();
+            List<Entry> found = dictionary.search(terms[i % terms.length], 40);
+            durations[i] = (SystemClock.elapsedRealtimeNanos() - began) / 1_000_000;
+            expect(!found.isEmpty() && found.size() <= 40, "Chinese indexed query returns bounded results for " + terms[i % terms.length]);
+        }
+        Arrays.sort(durations);
+        timing.put("chineseSearchSamples", durations.length).put("chineseSearchP95Ms", durations[17])
+                .put("chineseSearchP50Ms", durations[9]);
+        expect(durations[17] < 500, "On-device Chinese indexed search p95 is below 500 ms");
+        runOnMainSync(() -> { activity.showSearch(); activity.searchInput.setText("苹果"); });
+        await(() -> containsText(activity.results, "apple"), 5000, "Actual Chinese input renders English result cards");
+        expect(read(() -> activity.searchInput.getHint().toString().equals("输入中文或英文")), "Search field advertises both languages");
+        runOnMainSync(() -> activity.searchInput.onEditorAction(android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH));
+        // 留出 worker 和主线程回调的时间，不能在异步误开详情前就通过断言。
+        SystemClock.sleep(400);
+        waitForIdleSync();
+        expect(read(() -> "search".equals(activity.screen)), "Chinese keyboard search preserves candidate choice");
+        recreateActivity();
+        expect(read(() -> activity.searchInput.getText().toString().equals("苹果")), "Chinese query survives Activity recreation");
+        await(() -> containsText(activity.results, "apple"), 5000, "Recreated Chinese query rebuilds the same candidates");
+        screenshot("09-chinese-results.png");
+        tapText("apple");
+        await(() -> "detail".equals(activity.screen) && activity.currentEntry.word.equalsIgnoreCase("apple"),
+                3000, "Tapping a Chinese result opens the chosen English dictionary entry");
+        screenshot("10-chinese-detail.png");
+        boolean wasSaved = read(() -> activity.wordbook.contains("apple"));
+        if (!wasSaved) {
+            tapView(read(() -> activity.saveButton));
+            await(() -> activity.wordbook.contains("apple"), 2000, "A word chosen from Chinese results can be saved to the wordbook");
+            WordbookStore.SavedWord saved = read(() -> activity.wordbook.get("apple"));
+            java.io.ByteArrayOutputStream exported = new java.io.ByteArrayOutputStream();
+            WordbookExport.writeJson(exported, java.util.Collections.singletonList(saved));
+            String temporaryDatabase = "lexi-chinese-roundtrip-" + System.nanoTime() + ".db";
+            try (WordbookStore imported = new WordbookStore(getTargetContext(), temporaryDatabase)) {
+                expect(WordbookExport.importJson(new ByteArrayInputStream(exported.toByteArray()), imported) == 1,
+                        "The saved Chinese lookup result exports and restores offline");
+                expect(imported.get("apple").entry.translation.equals(saved.entry.translation)
+                                && imported.get("apple").entry.id == saved.entry.id,
+                        "Chinese-result backup retains the English entry and Chinese meaning");
+            } finally { getTargetContext().deleteDatabase(temporaryDatabase); }
+            tapView(read(() -> activity.saveButton));
+            accessibilityClick("移出");
+            await(() -> !activity.wordbook.contains("apple"), 2000, "The temporary Chinese-result save is removed after verification");
+        } else {
+            expect(read(() -> activity.saveButton.getText().toString().equals("✓ 已加入单词本")),
+                    "Chinese result recognizes an existing wordbook entry without overwriting it");
+        }
     }
 
     private void wordbookUiChecks() throws Exception {
@@ -236,6 +312,30 @@ public final class DictionaryInstrumentation extends Instrumentation {
         await(() -> "detail".equals(activity.screen) && activity.currentEntry != null && activity.currentEntry.word.equalsIgnoreCase("dictionary"),
                 5000, "Android share-text shortcut receives dictionary directly");
         screenshot("06-shared-text.png");
+        launch(new Intent(getTargetContext(), MainActivity.class).setAction(Intent.ACTION_PROCESS_TEXT)
+                .putExtra(Intent.EXTRA_PROCESS_TEXT, "词典").putExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, true).setType("text/plain"));
+        await(() -> "search".equals(activity.screen) && containsText(activity.results, "dictionary"),
+                5000, "Chinese selected text opens dictionary candidates without choosing on the user's behalf");
+        launch(new Intent(getTargetContext(), MainActivity.class).setAction(Intent.ACTION_SEND)
+                .putExtra(Intent.EXTRA_TEXT, "苹果").setType("text/plain"));
+        await(() -> "search".equals(activity.screen) && containsText(activity.results, "apple"),
+                5000, "Chinese shared text opens English candidate results");
+        MainActivity reused = activity;
+        runOnMainSync(() -> getTargetContext().startActivity(new Intent(getTargetContext(), MainActivity.class)
+                .setAction(Intent.ACTION_PROCESS_TEXT).setType("text/plain")
+                .putExtra(Intent.EXTRA_PROCESS_TEXT, "计算机").putExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, true)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP)));
+        await(() -> !reused.isDestroyed() && !reused.isFinishing()
+                        && "search".equals(reused.screen) && reused.searchInput.getText().toString().equals("计算机")
+                        && containsText(reused.results, "computer"),
+                5000, "Chinese selected text reuses the existing Activity through onNewIntent");
+        runOnMainSync(() -> getTargetContext().startActivity(new Intent(getTargetContext(), MainActivity.class)
+                .setAction(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, "学习")
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP)));
+        await(() -> !reused.isDestroyed() && !reused.isFinishing()
+                        && "search".equals(reused.screen) && reused.searchInput.getText().toString().equals("学习")
+                        && containsText(reused.results, "learn"),
+                5000, "Chinese sharing refreshes candidates in the existing Activity");
         launch(new Intent(getTargetContext(), MainActivity.class).setAction("com.ethan.lexi.SEARCH"));
         await(() -> "search".equals(activity.screen) && activity.searchInput != null && activity.searchInput.hasFocus(),
                 3000, "Launcher shortcut focuses the real lookup input");
