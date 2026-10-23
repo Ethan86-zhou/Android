@@ -1,0 +1,17 @@
+{
+  "baseline_database_sha256": "d586d6b4724cd0e58c7706159bf4478d79c771c570976e6c3971758a1dbee663",
+  "schema2_database_sha256": "3d4869e37d4d8f0ef6b402d86d3176ee654f5e8fe67cb1df8975c3d5a3a2dedc",
+  "comparison": "every full SQL row in deterministic order",
+  "tables": {
+    "entries": {
+      "all_rows_identical": true,
+      "rows": 770611,
+      "canonical_json_lines_sha256": "d4a5f583c0dff8c8555996f3f406063b4e43138bfc71f9a539cb752d09d42324"
+    },
+    "aliases": {
+      "all_rows_identical": true,
+      "rows": 56945,
+      "canonical_json_lines_sha256": "2b708bd909f47c359a8eb8bb6b9c08083b5dbb38780e34e0e702509f8c9e5202"
+    }
+  }
+}

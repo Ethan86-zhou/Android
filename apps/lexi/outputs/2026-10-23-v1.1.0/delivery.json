@@ -1,0 +1,41 @@
+{
+  "app": "拾词 Lexi",
+  "version": "1.1.0",
+  "versionCode": 5,
+  "sourceCommit": "83330b9e23ebd4d7d6bb478296fd6a4deea5a3df",
+  "sourceBinding": "device-01/source-commit-binding.json",
+  "apk": "Lexi-1.1.0-debug.apk",
+  "apkBytes": 67859840,
+  "apkSha256": "3f671a79454a6e2af348bbdd4d03f27fbd1a2adb1661f75339b894fbaad3cb8a",
+  "directions": [
+    "English to Chinese",
+    "Chinese to English"
+  ],
+  "queryDirection": "Automatic based on input",
+  "requestedPermissions": [],
+  "sourceDictionaryEntries": 770611,
+  "dictionaryAssetSha256": "3d1355ecf4a140e18cfdd2abb5b7cf56e2e341a1b2d84a2cca1a76e124aa83ab",
+  "dictionaryDbSha256": "3d4869e37d4d8f0ef6b402d86d3176ee654f5e8fe67cb1df8975c3d5a3a2dedc",
+  "installedDevice": "SM-S9080",
+  "android": "16",
+  "nativeDeviceChecks": 460,
+  "hostJUnitTests": 12,
+  "deviceTiming": {
+    "firstActivityReadyMs": 959,
+    "searchSamples": 30,
+    "searchP50Ms": 0,
+    "searchP95Ms": 13,
+    "searchMaxMs": 19,
+    "dictionaryCount": 770611,
+    "chineseSearchSamples": 18,
+    "chineseSearchP95Ms": 18,
+    "chineseSearchP50Ms": 1
+  },
+  "wordbookCountPreserved": 1182,
+  "wordbookAndHistoryByteIdentical": true,
+  "runtimeAppCrash": false,
+  "evidence": "device-01/verification.json",
+  "lintErrors": 0,
+  "lintWarnings": 3,
+  "verifiedAt": "2026-10-23T09:47:42.667424-07:00"
+}

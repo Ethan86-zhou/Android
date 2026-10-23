@@ -1,0 +1,777 @@
+{
+  "sqlite_version": "3.53.1",
+  "database_bytes": 164454400,
+  "production_exact_sql": "SELECT e.id,e.word,e.phonetic,e.translation,e.definition,e.tags,e.exchange,e.frequency FROM chinese_meanings m JOIN entries e ON e.id=m.entry_id WHERE m.meaning=? AND instr(lower(e.translation),?)>0 ORDER BY e.frequency,length(e.translation),length(e.lookup),e.lookup,e.id LIMIT ?",
+  "production_partial_sql": "SELECT e.id,e.word,e.phonetic,e.translation,e.definition,e.tags,e.exchange,e.frequency FROM chinese_search JOIN entries e ON e.id=chinese_search.docid WHERE chinese_search MATCH ? AND instr(lower(e.translation),?)>0 ORDER BY e.frequency,length(e.translation),length(e.lookup),e.lookup,e.id LIMIT ?",
+  "queries": {
+    "的": {
+      "fts_candidates": 160155,
+      "exact_meaning_count": 472,
+      "returned_exact": 40,
+      "elapsed_ms": [
+        26.52,
+        2.262,
+        8.841,
+        1.823,
+        1.665
+      ],
+      "exact_ms": [
+        26.501,
+        2.246,
+        8.826,
+        1.812,
+        1.655
+      ],
+      "partial_ms": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "results": 40,
+      "top10": [
+        {
+          "word": "of",
+          "translation": "prep. 的, 属于"
+        },
+        {
+          "word": "subject",
+          "translation": "n. 科目, 主题, 臣民, 主语, 题目, (事物的)经受者, 学科, 受治疗者, 原因, 理由\na. 服从的, 易患...的, 隶属的, 受支配的\nadv. 在...条件下\nvt. 使隶属, 使受到\n[计] 主题, 主体"
+        },
+        {
+          "word": "worth",
+          "translation": "n. 价值, 财产\na. 值...的, 值得的"
+        },
+        {
+          "word": "practical",
+          "translation": "a. 实际的, 现实的, 实用性的\n[法] 事实上的, 实际上的, 接近...的"
+        },
+        {
+          "word": "pure",
+          "translation": "a. 纯的, 纯净的, 纯洁的, 清白的, 完美的, 无瑕的, 抽象的\n[医] 的, 纯净的"
+        },
+        {
+          "word": "proof",
+          "translation": "n. 证据, 证明, 试验, 检验, 考验\na. 不能透入的, 证明用的, 防...的, 耐...的\nvt. 检验, 试验, 校对, 使不被穿透\n[计] 审稿"
+        },
+        {
+          "word": "bound",
+          "translation": "n. 跃, 回跳, 范围, 边界\na. 受约束的, 装有封面的, 有义务的, 关联的, 被束缚的, 准备去...的, 便秘的\nvi. 跳跃, 弹起\nvt. 使跳, 限制, 形成...的疆界\nbind过去式和过去分词\n[计] 装订的"
+        },
+        {
+          "word": "frightened",
+          "translation": "a. 受惊吓的, 受惊的, (非正式)害怕...的"
+        },
+        {
+          "word": "depressed",
+          "translation": "a. 沮丧的, 降低的\n[医] 抑郁的, 阻抑的, 压低的, 凹[陷]的, 扁平的"
+        },
+        {
+          "word": "magnetic",
+          "translation": "a. 有磁性的, 有吸引力的, 催眠术的\n[医] 磁[性]的"
+        }
+      ]
+    },
+    "一": {
+      "fts_candidates": 15877,
+      "exact_meaning_count": 12,
+      "returned_exact": 12,
+      "elapsed_ms": [
+        112.319,
+        106.91,
+        98.866,
+        104.911,
+        119.056
+      ],
+      "exact_ms": [
+        1.21,
+        0.607,
+        0.575,
+        0.572,
+        0.575
+      ],
+      "partial_ms": [
+        111.06,
+        106.257,
+        98.239,
+        104.293,
+        118.423
+      ],
+      "results": 40,
+      "top10": [
+        {
+          "word": "an",
+          "translation": "art. 一"
+        },
+        {
+          "word": "one",
+          "translation": "n. 一(个)\npron. 一, 任何人\nnum. 一, 一个\na. 一致的, 完整的"
+        },
+        {
+          "word": "directly",
+          "translation": "adv. 径直地, 直接地, 直率地, 正好地, 直截了当地, (非正式)立即, 马上\nconj. 一...(就...), 一当...就...\n[计] 直接的"
+        },
+        {
+          "word": "unus",
+          "translation": " [医]一"
+        },
+        {
+          "word": "as soon as",
+          "translation": "一...就"
+        },
+        {
+          "word": "the instant",
+          "translation": "一...就"
+        },
+        {
+          "word": "no sooner than",
+          "translation": "一...就"
+        },
+        {
+          "word": "one-gallused",
+          "translation": "[网络] 一"
+        },
+        {
+          "word": "as soon as conj.",
+          "translation": "一...就..."
+        },
+        {
+          "word": "uni-",
+          "translation": "pref. 一, 单\n[医] 一, 单"
+        }
+      ]
+    },
+    "人": {
+      "fts_candidates": 63670,
+      "exact_meaning_count": 37,
+      "returned_exact": 37,
+      "elapsed_ms": [
+        369.947,
+        347.596,
+        295.261,
+        248.584,
+        303.765
+      ],
+      "exact_ms": [
+        2.187,
+        2.76,
+        1.176,
+        1.003,
+        1.071
+      ],
+      "partial_ms": [
+        367.661,
+        344.771,
+        294.032,
+        247.526,
+        302.636
+      ],
+      "results": 40,
+      "top10": [
+        {
+          "word": "people",
+          "translation": "n. 人, 人民, 民族, 平民\nvt. 使住满人, 居住于"
+        },
+        {
+          "word": "man",
+          "translation": "n. 男人, 人类, 人\nvt. 为...配备人手, 操纵, 使振奋\n[计] 城域网, 手册"
+        },
+        {
+          "word": "body",
+          "translation": "n. 身体, 人, 尸体, 主要部分, 团体\nvt. 赋以形体\n[计] 体"
+        },
+        {
+          "word": "person",
+          "translation": "n. 人, 人身, 人称\n[法] 人, 法人, 人身"
+        },
+        {
+          "word": "human",
+          "translation": "n. 人, 人类\na. 人类的, 似人类的, 人性的, 有同情心的"
+        },
+        {
+          "word": "individual",
+          "translation": "n. 人, 个人, 个体\na. 个别的, 个人的, 独特的"
+        },
+        {
+          "word": "soul",
+          "translation": "n. 灵魂, 心灵, 精神, 精髓, 人, 化身, 典型, 鬼魂\na. 黑人的"
+        },
+        {
+          "word": "being",
+          "translation": "n. 存在, 性质, 生命, 人, 生物, be的现在分词"
+        },
+        {
+          "word": "creature",
+          "translation": "n. 人, 动物, 创造物, 生物"
+        },
+        {
+          "word": "persona",
+          "translation": "n. 人, 人物, 角色, 外表印象, 人格面具\n[医] 伪装人格"
+        }
+      ]
+    },
+    "学": {
+      "fts_candidates": 12555,
+      "exact_meaning_count": 11,
+      "returned_exact": 11,
+      "elapsed_ms": [
+        94.34,
+        83.869,
+        94.7,
+        87.91,
+        142.874
+      ],
+      "exact_ms": [
+        0.729,
+        0.535,
+        0.954,
+        1.285,
+        0.631
+      ],
+      "partial_ms": [
+        93.559,
+        83.256,
+        93.665,
+        86.545,
+        142.169
+      ],
+      "results": 40,
+      "top10": [
+        {
+          "word": "pneumatology",
+          "translation": "n. 灵物学, 圣灵论, 气体(治疗)学\n[医] 气体[治疗]学"
+        },
+        {
+          "word": "suprasonics",
+          "translation": "[医] 超声[波]学"
+        },
+        {
+          "word": "take sb off",
+          "translation": "学...的样, 模仿"
+        },
+        {
+          "word": "phglaxiology",
+          "translation": "[医] 防御[素]学"
+        },
+        {
+          "word": "odontiatria",
+          "translation": "[医] 牙科[治疗]学"
+        },
+        {
+          "word": "actinogenics",
+          "translation": "[医] 射线[发生]学"
+        },
+        {
+          "word": "odontoiatria",
+          "translation": "[医] 牙科[治疗]学"
+        },
+        {
+          "word": "aerosolology",
+          "translation": "[医] 气溶胶[治疗]学"
+        },
+        {
+          "word": "supersonics",
+          "translation": "n. 超声波学\n[医] 超声[波]学"
+        },
+        {
+          "word": "take after sb",
+          "translation": "象..., 像..., 与...相象, 学...的样"
+        }
+      ]
+    },
+    "水": {
+      "fts_candidates": 9662,
+      "exact_meaning_count": 22,
+      "returned_exact": 22,
+      "elapsed_ms": [
+        73.111,
+        68.609,
+        70.832,
+        91.536,
+        69.695
+      ],
+      "exact_ms": [
+        1.69,
+        0.994,
+        0.789,
+        1.168,
+        1.273
+      ],
+      "partial_ms": [
+        71.36,
+        67.568,
+        69.977,
+        90.28,
+        68.371
+      ],
+      "results": 40,
+      "top10": [
+        {
+          "word": "water",
+          "translation": "n. 水, 雨水, 海水, 水位, 水面, 流水\nvt. 给...浇水, 供以水, 注入水, 使湿\nvi. 流泪, 流口水, 加水\na. 水的, 水上的, 水生的, 含水的"
+        },
+        {
+          "word": "aqua",
+          "translation": "[医] 水, 水剂"
+        },
+        {
+          "word": "eau",
+          "translation": "[医] 水"
+        },
+        {
+          "word": "Adam's ale",
+          "translation": "水"
+        },
+        {
+          "word": "Adam's wine",
+          "translation": "水"
+        },
+        {
+          "word": "dehydrolyze",
+          "translation": "脱[去]水"
+        },
+        {
+          "word": "Scophthalmus aquosus",
+          "translation": "[网络] 水"
+        },
+        {
+          "word": "hydr-",
+          "translation": "[医] 水, 氢"
+        },
+        {
+          "word": "Aq.",
+          "translation": "[医] 水, 水剂"
+        },
+        {
+          "word": "aquae",
+          "translation": "[医] 水, 水剂"
+        }
+      ]
+    },
+    "苹果": {
+      "fts_candidates": 266,
+      "exact_meaning_count": 4,
+      "returned_exact": 4,
+      "elapsed_ms": [
+        3.854,
+        1.62,
+        1.5,
+        1.449,
+        2.584
+      ],
+      "exact_ms": [
+        0.528,
+        0.343,
+        0.303,
+        0.295,
+        0.54
+      ],
+      "partial_ms": [
+        3.275,
+        1.242,
+        1.164,
+        1.124,
+        1.982
+      ],
+      "results": 40,
+      "top10": [
+        {
+          "word": "apple",
+          "translation": "n. 苹果, 家伙\n[医] 苹果"
+        },
+        {
+          "word": "ling ko",
+          "translation": "[网络] 苹果"
+        },
+        {
+          "word": "Malus pumila",
+          "translation": "[网络] 苹果；苹果树；生苹果"
+        },
+        {
+          "word": "app.",
+          "translation": "abbr. (=apparatus； apparent；appended；appendix；appointed；apprentice；approved；approximate)\n[网络] 附录；苹果；应用程式"
+        },
+        {
+          "word": "baldwin",
+          "translation": "n. 鲍尔温苹果；鲍尔温（姓氏）"
+        },
+        {
+          "word": "mac",
+          "translation": "n. 防水胶布, (英)雨衣, 老兄, 老弟\n[计] 宏, 多路存取计算机, 苹果公司的微机"
+        },
+        {
+          "word": "cider",
+          "translation": "n. 苹果汁, 苹果酒\n[建] 苹果汁"
+        },
+        {
+          "word": "ipod",
+          "translation": "n. 苹果公司音乐播放器"
+        },
+        {
+          "word": "iphone",
+          "translation": "n. 苹果手机"
+        },
+        {
+          "word": "russet",
+          "translation": "a. 枯叶色的, 红褐色的, 简朴的\nn. 红褐色, 冬季粗皮苹果"
+        }
+      ]
+    },
+    "学习": {
+      "fts_candidates": 236,
+      "exact_meaning_count": 18,
+      "returned_exact": 18,
+      "elapsed_ms": [
+        5.188,
+        2.542,
+        2.283,
+        2.268,
+        2.238
+      ],
+      "exact_ms": [
+        0.718,
+        0.586,
+        0.477,
+        0.412,
+        0.453
+      ],
+      "partial_ms": [
+        4.423,
+        1.911,
+        1.769,
+        1.818,
+        1.745
+      ],
+      "results": 40,
+      "top10": [
+        {
+          "word": "study",
+          "translation": "n. 学习, 研究, 学科, 论文, 求学, 书房, 试作\nvt. 学习, 读书, 研究, 考虑, 计划\nvi. 学习, 思索"
+        },
+        {
+          "word": "learn",
+          "translation": "vt. 学习；认识到；得知"
+        },
+        {
+          "word": "learning",
+          "translation": "n. 学问, 学识, 学习\n[计] 学习"
+        },
+        {
+          "word": "yarmulke",
+          "translation": "n. (犹太男子在祷告,学习,吃饭等时戴的)圆顶小帽"
+        },
+        {
+          "word": "studying",
+          "translation": "v. 学习；研究（study的ing形式）"
+        },
+        {
+          "word": "take lessons",
+          "translation": "听课,学习"
+        },
+        {
+          "word": "learn from",
+          "translation": "向...学习"
+        },
+        {
+          "word": "learn about",
+          "translation": "学习,听说,得悉,了解"
+        },
+        {
+          "word": "studies",
+          "translation": "n. 研究；学习；学业（study的复数）"
+        },
+        {
+          "word": "yamalka",
+          "translation": "n. (犹太男子在祷告,学习,吃饭等时戴的)圆顶小帽"
+        }
+      ]
+    },
+    "支持": {
+      "fts_candidates": 605,
+      "exact_meaning_count": 119,
+      "returned_exact": 40,
+      "elapsed_ms": [
+        3.241,
+        1.106,
+        0.833,
+        0.775,
+        0.776
+      ],
+      "exact_ms": [
+        3.227,
+        1.096,
+        0.827,
+        0.769,
+        0.77
+      ],
+      "partial_ms": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "results": 40,
+      "top10": [
+        {
+          "word": "back",
+          "translation": "a. 后面的\nvt. 使后退, 支持\nvi. 倒退, 背靠\nadv. 向后地\nn. 背部, 后面"
+        },
+        {
+          "word": "last",
+          "translation": "a. 最后的, 末尾的, 最近的\nvi. 持续, 支持, 维持\nvt. 使维持, 够...用\nadv. 最后, 后来\nn. 最后, 末尾, 鞋楦头"
+        },
+        {
+          "word": "hand",
+          "translation": "n. 手, 爪, 指针, 掌握, 协助, 人手, 手艺, 手迹, 支配, 插手\nvt. 交给, 支持, 搀扶"
+        },
+        {
+          "word": "hold",
+          "translation": "n. 把握, 把持力, 柄, 控制, 掌握, 监禁\nvt. 保存, 握住, 拿住, 占据, 持有, 拥有\nvi. 支持, 持续, 有效\nn. 保留\n[计] 保留"
+        },
+        {
+          "word": "side",
+          "translation": "n. 旁边, 侧, 方面, 胁, 侧边, 血统\na. 旁的, 侧的, 次要的\nvt. 同意, 支持\nvi. 支持, 赞助"
+        },
+        {
+          "word": "second",
+          "translation": "n. 秒, 瞬间, 第二名, 支持者, 助手\na. 第二的, 其次的, 次要的, 附加的, 辅助的\nnum. 第二\nvt. 当...助手, 支持"
+        },
+        {
+          "word": "carry",
+          "translation": "n. 进位, 射程, 运载\nvt. 携带, 运送, 支持, 传送, 包含\nvi. 被携带, 能达到\n[计] 进位; 进位数"
+        },
+        {
+          "word": "stay",
+          "translation": "n. 停留, 逗留, 制止, 延缓, 停止, 支柱, 支撑物, 支索\nvt. 制止, 延缓, 坚持, 支持, 支撑, 用支索固定\nvi. 停留, 逗留, 暂停, 坚持, 中止"
+        },
+        {
+          "word": "support",
+          "translation": "n. 支持, 支撑, 援助, 供养, 支撑物\nvt. 支援, 支撑, 帮助, 支持, 忍受, 供养, 证实\n[计] 后援; 支持"
+        },
+        {
+          "word": "encourage",
+          "translation": "vt. 鼓励, 支持, 激励\n[法] 怂恿, 煽动, 助长"
+        }
+      ]
+    },
+    "计算机": {
+      "fts_candidates": 1441,
+      "exact_meaning_count": 7,
+      "returned_exact": 7,
+      "elapsed_ms": [
+        23.729,
+        68.179,
+        54.755,
+        46.486,
+        58.943
+      ],
+      "exact_ms": [
+        0.59,
+        0.844,
+        0.922,
+        0.879,
+        0.869
+      ],
+      "partial_ms": [
+        23.064,
+        67.243,
+        53.739,
+        45.495,
+        58.022
+      ],
+      "results": 40,
+      "top10": [
+        {
+          "word": "computer",
+          "translation": "n. 电脑, 电子计算机\n[计] 计算机"
+        },
+        {
+          "word": "computor",
+          "translation": "[计] 计算机"
+        },
+        {
+          "word": "brain unit",
+          "translation": "[计] 计算机"
+        },
+        {
+          "word": "computing machinery",
+          "translation": "[计] 计算机"
+        },
+        {
+          "word": "calculating machine",
+          "translation": "计算器\n[经] 计算机"
+        },
+        {
+          "word": "computator",
+          "translation": "n. 计算机\n[计] 计算装置, 计算员"
+        },
+        {
+          "word": "computers",
+          "translation": "n. 计算机, 电脑（computer的复数）"
+        },
+        {
+          "word": "power",
+          "translation": "n. 力, 体力, 力量, 势力, 动力, 权力, 强国, 乘方, 强度, 幂, 功率\nvt. 使...有力量, 供以动力, 激励\n[计] 乘幂; DOS外部命令:能控制许多电池电源计算机上的电源管理特性"
+        },
+        {
+          "word": "act",
+          "translation": "n. 行动, 行为, 幕, 法案\nvi. 行动, 表演, 假装, 见效, 表现, 担当\nvt. 扮演, 装作\n[计] 先进通信技术, 先进计算机工艺, 自动代码翻译技术"
+        },
+        {
+          "word": "basic",
+          "translation": "n. 基本原理, 要素, 基本规律\na. 基本的, 碱性的\n(计算机)BASIC语言"
+        }
+      ]
+    },
+    "翻译": {
+      "fts_candidates": 217,
+      "exact_meaning_count": 15,
+      "returned_exact": 15,
+      "elapsed_ms": [
+        5.317,
+        3.926,
+        4.748,
+        2.843,
+        3.27
+      ],
+      "exact_ms": [
+        1.089,
+        1.125,
+        2.518,
+        0.771,
+        0.776
+      ],
+      "partial_ms": [
+        4.151,
+        2.721,
+        2.146,
+        1.994,
+        2.41
+      ],
+      "results": 40,
+      "top10": [
+        {
+          "word": "interpretation",
+          "translation": "n. 解释, 演出, 翻译\n[计] 插值; 插值法; 解释"
+        },
+        {
+          "word": "interpret",
+          "translation": "vt. 解释, 演出, 翻译, 理解\nvi. 翻译, 解释"
+        },
+        {
+          "word": "translate",
+          "translation": "vt. 翻译, 解释, 转化, 转变为, 调动\nvi. 翻译, 被译\n[计] 转换"
+        },
+        {
+          "word": "translation",
+          "translation": "n. 翻译, 译文, 转化, 调任, 平移, 转译\n[计] 转换"
+        },
+        {
+          "word": "rendering",
+          "translation": "n. 翻译, 表现, 描写, 表演, 打底, 透视图"
+        },
+        {
+          "word": "translating",
+          "translation": "[计] 翻译, 转换"
+        },
+        {
+          "word": "in translation",
+          "translation": "翻译"
+        },
+        {
+          "word": "translat",
+          "translation": "v. 翻译"
+        },
+        {
+          "word": "paraplasma",
+          "translation": "[网络] 翻译"
+        },
+        {
+          "word": "verbolatry",
+          "translation": "[网络] 翻译"
+        }
+      ]
+    },
+    "你好": {
+      "fts_candidates": 28,
+      "exact_meaning_count": 7,
+      "returned_exact": 7,
+      "elapsed_ms": [
+        2.621,
+        1.955,
+        1.959,
+        1.885,
+        3.042
+      ],
+      "exact_ms": [
+        0.84,
+        0.721,
+        0.587,
+        0.614,
+        0.575
+      ],
+      "partial_ms": [
+        1.712,
+        1.188,
+        1.332,
+        1.222,
+        2.423
+      ],
+      "results": 16,
+      "top10": [
+        {
+          "word": "How do you do",
+          "translation": "你好"
+        },
+        {
+          "word": "wotcha",
+          "translation": " 你好；嗨"
+        },
+        {
+          "word": "hola",
+          "translation": "n. [西]你好"
+        },
+        {
+          "word": "kia ora",
+          "translation": " 你好；祝你健康"
+        },
+        {
+          "word": "chin-chin",
+          "translation": "interj. 再见, 你好, 祝君健康"
+        },
+        {
+          "word": "wotcher",
+          "translation": "int. <英><旧><俚>（尤用于英格兰的东南部）喂, 你好"
+        },
+        {
+          "word": "wotchered",
+          "translation": "(wotcher 的过去时) int. <英><旧><俚>（尤用于英格兰的东南部）喂, 你好"
+        },
+        {
+          "word": "ciao",
+          "translation": "int. （意）你好；再见（见面问候语或告别语）"
+        },
+        {
+          "word": "hiya",
+          "translation": "int. 你好!"
+        },
+        {
+          "word": "Bonjour",
+          "translation": "n. （法）你好；苹果电脑公司的服务器搜索协议商标名"
+        }
+      ]
+    }
+  },
+  "exact_plan": [
+    "SEARCH m USING PRIMARY KEY (meaning=?)",
+    "SEARCH e USING INTEGER PRIMARY KEY (rowid=?)",
+    "USE TEMP B-TREE FOR ORDER BY"
+  ],
+  "partial_plan": [
+    "SCAN chinese_search VIRTUAL TABLE INDEX 3:",
+    "SEARCH e USING INTEGER PRIMARY KEY (rowid=?)",
+    "USE TEMP B-TREE FOR ORDER BY"
+  ]
+}

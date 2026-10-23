@@ -1,0 +1,542 @@
+{
+  "entry_count": 770611,
+  "schema_version": 2,
+  "integrity_checks": {
+    "global_pragma_integrity_check": [
+      "unable to validate the inverted index for FTS4 table main.chinese_search: SQL logic error"
+    ],
+    "all_physical_tables": {
+      "aliases": "ok",
+      "chinese_meanings": "ok",
+      "chinese_search_docsize": "ok",
+      "chinese_search_segdir": "ok",
+      "chinese_search_segments": "ok",
+      "chinese_search_stat": "ok",
+      "entries": "ok",
+      "metadata": "ok"
+    },
+    "contentless_fts4_global_check_limitation": true,
+    "limitation_reference": "https://sqlite.org/bugs/info/442c6e4a5af8adc63c91e5eebb980e7405d8f859538f4897231e7b5617e13be8?t=c"
+  },
+  "queries": {
+    "apple": {
+      "word": "apple",
+      "translation": "n. 苹果, 家伙\n[医] 苹果"
+    },
+    "hello": {
+      "word": "hello",
+      "translation": "interj. 喂, 嘿"
+    },
+    "dictionary": {
+      "word": "dictionary",
+      "translation": "n. 字典, 词典\n[计] 词典"
+    },
+    "serendipity": {
+      "word": "serendipity",
+      "translation": "n. 偶然发现珍宝的运气/才能, 易遇奇缘的运气"
+    },
+    "run": {
+      "word": "run",
+      "translation": "n. 跑, 赛跑, 奔跑, 奔跑的路程, 趋向, 流出, 运转时间, 连续\nvi. 跑, 奔跑, 跑步, 赛跑, 竞赛, 行驶, 运转, 进行, 蔓延\nvt. 使跑, 参赛, 追究, 驾驶, 开动, 管理, 经营, 使流出, 运行\na. 熔化的, 融化的, 浇铸的\nrun的过去式和过去分词\n[计] 运行"
+    },
+    "computer": {
+      "word": "computer",
+      "translation": "n. 电脑, 电子计算机\n[计] 计算机"
+    },
+    "can't": {
+      "word": "can't",
+      "translation": "vi. 不能"
+    },
+    "went_base_forms": [
+      "go"
+    ],
+    "children_base_forms": [
+      "child"
+    ],
+    "running_base_forms": [
+      "run"
+    ]
+  },
+  "prefix_plan": [
+    "SEARCH entries USING COVERING INDEX entries_lookup (lookup>? AND lookup<?)",
+    "USE TEMP B-TREE FOR ORDER BY"
+  ],
+  "prefix_timings_ms": {
+    "a": {
+      "results": 40,
+      "elapsed_ms": 60.392
+    },
+    "app": {
+      "results": 40,
+      "elapsed_ms": 5.113
+    },
+    "seren": {
+      "results": 34,
+      "elapsed_ms": 1.299
+    },
+    "q": {
+      "results": 40,
+      "elapsed_ms": 5.082
+    },
+    "micro": {
+      "results": 40,
+      "elapsed_ms": 2.631
+    }
+  },
+  "sqlite_version": "3.53.1",
+  "chinese_index": {
+    "indexed_entries": 767533,
+    "unique_han_tokens": 6096,
+    "token_occurrences": 5283372,
+    "all_translation_ids_verified": true,
+    "all_term_posting_counts_verified": true,
+    "all_term_docids_verified": true,
+    "queries": {
+      "苹果": [
+        {
+          "id": 42432,
+          "word": "apple",
+          "translation": "n. 苹果, 家伙\n[医] 苹果"
+        },
+        {
+          "id": 401130,
+          "word": "ling ko",
+          "translation": "[网络] 苹果"
+        },
+        {
+          "id": 419675,
+          "word": "Malus pumila",
+          "translation": "[网络] 苹果；苹果树；生苹果"
+        },
+        {
+          "id": 42000,
+          "word": "app.",
+          "translation": "abbr. (=apparatus； apparent；appended；appendix；appointed；apprentice；approved；approximate)\n[网络] 附录；苹果；应用程式"
+        },
+        {
+          "id": 64959,
+          "word": "baldwin",
+          "translation": "n. 鲍尔温苹果；鲍尔温（姓氏）"
+        }
+      ],
+      "你好": [
+        {
+          "id": 332967,
+          "word": "How do you do",
+          "translation": "你好"
+        },
+        {
+          "id": 763426,
+          "word": "wotcha",
+          "translation": " 你好；嗨"
+        },
+        {
+          "id": 327970,
+          "word": "hola",
+          "translation": "n. [西]你好"
+        },
+        {
+          "id": 378559,
+          "word": "kia ora",
+          "translation": " 你好；祝你健康"
+        },
+        {
+          "id": 130889,
+          "word": "chin-chin",
+          "translation": "interj. 再见, 你好, 祝君健康"
+        }
+      ],
+      "词典": [
+        {
+          "id": 198428,
+          "word": "dictionary",
+          "translation": "n. 字典, 词典\n[计] 词典"
+        },
+        {
+          "id": 198235,
+          "word": "dick",
+          "translation": "n. 家伙, 词典, 誓言(书)\n[医] 二氯乙胂(毒气)"
+        },
+        {
+          "id": 396860,
+          "word": "lexicon",
+          "translation": "n. 词汇, 词典, 辞典\n[计] 辞典"
+        },
+        {
+          "id": 198384,
+          "word": "DICT",
+          "translation": "[计] 词典"
+        },
+        {
+          "id": 762327,
+          "word": "word-book",
+          "translation": "n. 词典；字汇表；歌词集"
+        }
+      ],
+      "计算机": [
+        {
+          "id": 153561,
+          "word": "computer",
+          "translation": "n. 电脑, 电子计算机\n[计] 计算机"
+        },
+        {
+          "id": 153910,
+          "word": "computor",
+          "translation": "[计] 计算机"
+        },
+        {
+          "id": 95888,
+          "word": "brain unit",
+          "translation": "[计] 计算机"
+        },
+        {
+          "id": 153883,
+          "word": "computing machinery",
+          "translation": "[计] 计算机"
+        },
+        {
+          "id": 109011,
+          "word": "calculating machine",
+          "translation": "计算器\n[经] 计算机"
+        }
+      ],
+      "猫": [
+        {
+          "id": 118918,
+          "word": "cat",
+          "translation": "n. 猫, 恶妇\nvi. 呕吐\n计算机辅助教育, 计算机辅助测试, 计算机辅助翻译, 计算机辅助排版\n[计] 计算机辅助教学, 计算机辅助翻译, 计算机辅助排字, 计算机辅助测试"
+        },
+        {
+          "id": 256090,
+          "word": "feline",
+          "translation": "a. 猫的, 猫科的, 猫一样的\nn. 猫, 猫科动物"
+        },
+        {
+          "id": 567309,
+          "word": "pussycat",
+          "translation": "n. 猫"
+        },
+        {
+          "id": 445630,
+          "word": "mistigri",
+          "translation": "猫"
+        },
+        {
+          "id": 256103,
+          "word": "Felis catus",
+          "translation": "猫\n家猫"
+        }
+      ],
+      "学习": [
+        {
+          "id": 669073,
+          "word": "study",
+          "translation": "n. 学习, 研究, 学科, 论文, 求学, 书房, 试作\nvt. 学习, 读书, 研究, 考虑, 计划\nvi. 学习, 思索"
+        },
+        {
+          "id": 392176,
+          "word": "learn",
+          "translation": "vt. 学习；认识到；得知"
+        },
+        {
+          "id": 392208,
+          "word": "learning",
+          "translation": "n. 学问, 学识, 学习\n[计] 学习"
+        },
+        {
+          "id": 766147,
+          "word": "yarmulke",
+          "translation": "n. (犹太男子在祷告,学习,吃饭等时戴的)圆顶小帽"
+        },
+        {
+          "id": 669083,
+          "word": "studying",
+          "translation": "v. 学习；研究（study的ing形式）"
+        }
+      ]
+    },
+    "query_plan": [
+      "SCAN chinese_search VIRTUAL TABLE INDEX 3:",
+      "SEARCH entries USING INTEGER PRIMARY KEY (rowid=?)",
+      "USE TEMP B-TREE FOR ORDER BY"
+    ],
+    "query_timings_ms": {
+      "苹果": {
+        "results": 40,
+        "elapsed_ms": 5.985
+      },
+      "你好": 1.241,
+      "词典": 3.005,
+      "计算机": {
+        "results": 40,
+        "elapsed_ms": 21.839
+      },
+      "猫": 5.125,
+      "学习": {
+        "results": 40,
+        "elapsed_ms": 3.97
+      },
+      "的": {
+        "results": 40,
+        "elapsed_ms": 5.521
+      },
+      "人": {
+        "results": 40,
+        "elapsed_ms": 385.2
+      },
+      "百分之": {
+        "results": 40,
+        "elapsed_ms": 5.95
+      }
+    },
+    "literal_search_cases": [
+      {
+        "query": "苹果",
+        "ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          7
+        ]
+      },
+      {
+        "query": "苹果%",
+        "ids": [
+          2
+        ]
+      },
+      {
+        "query": "苹果_",
+        "ids": [
+          3
+        ]
+      },
+      {
+        "query": "苹果\" OR 香蕉",
+        "ids": [
+          4
+        ]
+      },
+      {
+        "query": "苹果*",
+        "ids": [
+          5
+        ]
+      },
+      {
+        "query": "电脑 computer",
+        "ids": [
+          6
+        ]
+      },
+      {
+        "query": "𠀀苹果",
+        "ids": [
+          7
+        ]
+      },
+      {
+        "query": "电脑Computer",
+        "ids": [
+          8
+        ]
+      },
+      {
+        "query": "",
+        "ids": []
+      },
+      {
+        "query": " ",
+        "ids": []
+      },
+      {
+        "query": "%",
+        "ids": []
+      },
+      {
+        "query": "_",
+        "ids": []
+      },
+      {
+        "query": "*",
+        "ids": []
+      },
+      {
+        "query": "OR",
+        "ids": []
+      },
+      {
+        "query": "computer",
+        "ids": []
+      },
+      {
+        "query": "不存在的苹果",
+        "ids": []
+      },
+      {
+        "query": "电脑 Computer",
+        "ids": [
+          6
+        ]
+      },
+      {
+        "query": "电 脑",
+        "ids": []
+      }
+    ]
+  },
+  "chinese_meanings": {
+    "format": "lower-no-ascii-space-segments-v1",
+    "max_utf16_length": 256,
+    "rows": 1677907,
+    "entries": 767533,
+    "unique_meanings": 829785,
+    "every_meaning_entry_pair_verified": true,
+    "query_plan": [
+      "SEARCH chinese_meanings USING PRIMARY KEY (meaning=?)",
+      "SEARCH entries USING INTEGER PRIMARY KEY (rowid=?)",
+      "USE TEMP B-TREE FOR ORDER BY"
+    ],
+    "two_stage_query_timings_ms": {
+      "的": {
+        "results": 40,
+        "full_meaning_results": 40,
+        "fts_fallback_used": false,
+        "elapsed_ms": 9.675,
+        "first_words": [
+          "of",
+          "subject",
+          "worth",
+          "practical",
+          "pure"
+        ]
+      },
+      "一": {
+        "results": 40,
+        "full_meaning_results": 12,
+        "fts_fallback_used": true,
+        "elapsed_ms": 135.363,
+        "first_words": [
+          "an",
+          "one",
+          "directly",
+          "unus",
+          "as soon as"
+        ]
+      },
+      "人": {
+        "results": 40,
+        "full_meaning_results": 37,
+        "fts_fallback_used": true,
+        "elapsed_ms": 779.079,
+        "first_words": [
+          "people",
+          "man",
+          "body",
+          "person",
+          "human"
+        ]
+      },
+      "学": {
+        "results": 40,
+        "full_meaning_results": 11,
+        "fts_fallback_used": true,
+        "elapsed_ms": 129.365,
+        "first_words": [
+          "pneumatology",
+          "suprasonics",
+          "take sb off",
+          "phglaxiology",
+          "odontiatria"
+        ]
+      },
+      "水": {
+        "results": 40,
+        "full_meaning_results": 22,
+        "fts_fallback_used": true,
+        "elapsed_ms": 79.638,
+        "first_words": [
+          "water",
+          "aqua",
+          "eau",
+          "Adam's ale",
+          "Adam's wine"
+        ]
+      },
+      "苹果": {
+        "results": 40,
+        "full_meaning_results": 4,
+        "fts_fallback_used": true,
+        "elapsed_ms": 5.015,
+        "first_words": [
+          "apple",
+          "ling ko",
+          "Malus pumila",
+          "app.",
+          "baldwin"
+        ]
+      },
+      "词典": {
+        "results": 40,
+        "full_meaning_results": 7,
+        "fts_fallback_used": true,
+        "elapsed_ms": 7.935,
+        "first_words": [
+          "dictionary",
+          "dick",
+          "lexicon",
+          "DICT",
+          "word-book"
+        ]
+      },
+      "计算机": {
+        "results": 40,
+        "full_meaning_results": 7,
+        "fts_fallback_used": true,
+        "elapsed_ms": 29.719,
+        "first_words": [
+          "computer",
+          "computor",
+          "brain unit",
+          "computing machinery",
+          "calculating machine"
+        ]
+      },
+      "学习": {
+        "results": 40,
+        "full_meaning_results": 18,
+        "fts_fallback_used": true,
+        "elapsed_ms": 8.995,
+        "first_words": [
+          "study",
+          "learn",
+          "learning",
+          "yarmulke",
+          "studying"
+        ]
+      }
+    }
+  },
+  "database_sha256": "3d4869e37d4d8f0ef6b402d86d3176ee654f5e8fe67cb1df8975c3d5a3a2dedc",
+  "asset_sha256": "3d1355ecf4a140e18cfdd2abb5b7cf56e2e341a1b2d84a2cca1a76e124aa83ab",
+  "reproducibility": {
+    "database_byte_identical": true,
+    "asset_byte_identical": true
+  },
+  "counts": {
+    "entries": 770611,
+    "with_translation": 768739,
+    "with_phonetic": 218065,
+    "inflection_aliases": 56945,
+    "chinese_index_entries": 767533,
+    "chinese_index_token_occurrences": 5283372,
+    "chinese_meaning_rows": 1677907,
+    "chinese_meaning_entries": 767533,
+    "sqlite_integrity": "all_physical_tables_ok",
+    "global_integrity_check": [
+      "unable to validate the inverted index for FTS4 table main.chinese_search: SQL logic error"
+    ]
+  }
+}
