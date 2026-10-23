@@ -1,6 +1,6 @@
 {
-  "name": "ECDICT English-Chinese base dictionary",
-  "source_id": "ecdict-base-bc015ed2e24a-schema1",
+  "name": "ECDICT bilingual base dictionary with offline Chinese reverse index",
+  "source_id": "ecdict-base-bc015ed2e24a-schema2",
   "repository": "https://github.com/skywind3000/ECDICT",
   "commit": "bc015ed2e24a7abef49fc6dbbb7fe32c1dadaf8b",
   "upstream_license": "MIT",
@@ -27,19 +27,26 @@
     "with_translation": 768739,
     "with_phonetic": 218065,
     "inflection_aliases": 56945,
-    "sqlite_integrity": "ok"
+    "chinese_index_entries": 767533,
+    "chinese_index_token_occurrences": 5283372,
+    "chinese_meaning_rows": 1677907,
+    "chinese_meaning_entries": 767533,
+    "sqlite_integrity": "all_physical_tables_ok",
+    "global_integrity_check": [
+      "unable to validate the inverted index for FTS4 table main.chinese_search: SQL logic error"
+    ]
   },
   "database": {
-    "schema_version": 1,
-    "sha256": "d586d6b4724cd0e58c7706159bf4478d79c771c570976e6c3971758a1dbee663",
-    "bytes": 102084608,
+    "schema_version": 2,
+    "sha256": "3d4869e37d4d8f0ef6b402d86d3176ee654f5e8fe67cb1df8975c3d5a3a2dedc",
+    "bytes": 164454400,
     "sqlite_version": "3.53.1"
   },
   "asset": {
     "filename": "dictionary.pack",
     "compression": "gzip",
-    "sha256": "3c6a0a28339651eb22f26e3a4de6d26fa7a00719b89130b31f35965ef0d6e665",
-    "bytes": 41101356
+    "sha256": "3d1355ecf4a140e18cfdd2abb5b7cf56e2e341a1b2d84a2cca1a76e124aa83ab",
+    "bytes": 67747073
   },
   "packaged_licenses": {
     "licenses/ECDICT-MIT.txt": "f8552dd246f61a4e064569eae6194a01c6b3d63b03bf27c6ca863593c549ed0f"
@@ -50,6 +57,11 @@
     "Lookup is trimmed lowercase; curly apostrophes and en/em dashes normalized",
     "Frequency is min of positive frq/bnc ranks, otherwise 1000000000",
     "Forward inflection aliases from exchange p/d/i/3/r/t/s/b/z/f; original exchange retained",
+    "Contentless FTS4 reverse index: distinct Han codepoints in each translation, ASCII h + lowercase hex tokens",
+    "Han ranges U+3400-U+4DBF, U+4E00-U+9FFF, U+F900-U+FAFF, U+20000-U+323AF; docid equals entries.id",
+    "Chinese MATCH intersects all query Han tokens; instr(translation, query) enforces the literal substring",
+    "Full-meaning index lower-no-ascii-space-segments-v1: lowercase, remove ASCII space and CR, split LF/comma/CJK comma/semicolon/CJK semicolon/period/right square bracket; distinct per entry; Han segments up to 256 UTF-16 units",
+    "Chinese full-meaning equality query runs first; enough matches skip FTS, otherwise append literal FTS substring results without duplicate ids",
     "SQLite entries/index/aliases; deterministic gzip mtime=0 without filename"
   ]
 }

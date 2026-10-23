@@ -23,10 +23,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 
-/** 完全本地的英汉词库。首次解压、校验和所有查询均由调用方放到后台线程。 */
+/** 完全本地的中英双向词库。首次解压、校验和所有查询均由调用方放到后台线程。 */
 public final class DictionaryRepository implements Closeable {
     // 屏幕旋转可能同时存在新旧 Activity；不同 repository 也必须串行安装同一份词库。
     private static final Object INSTALL_LOCK = new Object();
+    private static final int SCHEMA_VERSION = 2;
     private static final String COLUMNS = "id,word,phonetic,translation,definition,tags,exchange,frequency";
     private final Context context;
     private SQLiteDatabase database;
@@ -53,6 +54,9 @@ public final class DictionaryRepository implements Closeable {
             JSONObject dbInfo = manifest.getJSONObject("database");
             String expectedHash = dbInfo.getString("sha256");
             String sourceId = manifest.getString("source_id");
+            if (dbInfo.getInt("schema_version") != SCHEMA_VERSION || !sourceId.endsWith("-schema2")) {
+                throw new IOException("内置词库版本不匹配");
+            }
             long expectedBytes = dbInfo.getLong("bytes");
             int expectedCount = manifest.getJSONObject("counts").getInt("entries");
             File target = context.getDatabasePath("dictionary-" + expectedHash.substring(0, 16) + ".db");
@@ -105,7 +109,7 @@ public final class DictionaryRepository implements Closeable {
         SQLiteDatabase opened = SQLiteDatabase.openDatabase(file.getAbsolutePath(), null,
                 SQLiteDatabase.OPEN_READONLY | SQLiteDatabase.NO_LOCALIZED_COLLATORS);
         try {
-            if (opened.getVersion() != 1) throw new IOException("离线词库版本不匹配");
+            if (opened.getVersion() != SCHEMA_VERSION) throw new IOException("离线词库版本不匹配");
             try (Cursor cursor = opened.rawQuery("SELECT value FROM metadata WHERE name='source_id'", null)) {
                 if (!cursor.moveToFirst() || !sourceId.equals(cursor.getString(0))) {
                     throw new IOException("离线词库来源不匹配");
@@ -115,6 +119,42 @@ public final class DictionaryRepository implements Closeable {
                 if (!cursor.moveToFirst() || cursor.getInt(0) != expectedCount) {
                     throw new IOException("离线词库条目数不匹配");
                 }
+            }
+            try (Cursor cursor = opened.rawQuery("SELECT sql FROM sqlite_master"
+                    + " WHERE type='table' AND name='chinese_search'", null)) {
+                if (!cursor.moveToFirst()) throw new IOException("离线中文索引不存在");
+                String sql = cursor.getString(0).toLowerCase(Locale.ROOT).replaceAll("\\s+", "");
+                if (!sql.contains("usingfts4(") || !sql.contains("content=''")
+                        || !sql.contains("tokenize=simple")) {
+                    throw new IOException("离线中文索引格式不匹配");
+                }
+            }
+            try (Cursor cursor = opened.rawQuery("SELECT value FROM metadata WHERE name='chinese_token_format'", null)) {
+                if (!cursor.moveToFirst() || !ChineseLookup.TOKEN_FORMAT.equals(cursor.getString(0))) {
+                    throw new IOException("离线中文索引编码不匹配");
+                }
+            }
+            try (Cursor cursor = opened.rawQuery("SELECT sql FROM sqlite_master"
+                    + " WHERE type='table' AND name='chinese_meanings'", null)) {
+                if (!cursor.moveToFirst()) throw new IOException("离线完整词义索引不存在");
+                String sql = cursor.getString(0).toLowerCase(Locale.ROOT).replaceAll("\\s+", "");
+                if (!sql.contains("primarykey(meaning,entry_id)") || !sql.contains("withoutrowid")) {
+                    throw new IOException("离线完整词义索引格式不匹配");
+                }
+            }
+            try (Cursor cursor = opened.rawQuery("SELECT value FROM metadata WHERE name='chinese_meaning_format'", null)) {
+                if (!cursor.moveToFirst() || !ChineseLookup.MEANING_FORMAT.equals(cursor.getString(0))) {
+                    throw new IOException("离线完整词义索引编码不匹配");
+                }
+            }
+            // 同时验证 terms / docid / MATCH 接口；不读取全库或改写只读词库。
+            try (Cursor cursor = opened.rawQuery("SELECT docid,terms FROM chinese_search"
+                    + " WHERE chinese_search MATCH ? LIMIT 0", new String[]{"h4e2d"})) {
+                cursor.moveToFirst();
+            }
+            try (Cursor cursor = opened.rawQuery("SELECT entry_id FROM chinese_meanings WHERE meaning=? LIMIT 0",
+                    new String[]{"苹果"})) {
+                cursor.moveToFirst();
             }
             database = opened;
             entryCount = expectedCount;
@@ -158,13 +198,16 @@ public final class DictionaryRepository implements Closeable {
         }
     }
 
-    /** 精确词条优先，其次词形还原，再按语料词频显示前缀匹配；始终走索引。 */
+    /** 英文按精确 / 词形 / 前缀查询；含汉字时按中文释义的倒排索引查询英文。 */
     public synchronized List<Entry> search(String query, int limit) {
         requireReady();
         String normalized = normalize(query);
         int safeLimit = Math.max(0, Math.min(limit, 100));
         LinkedHashMap<Long, Entry> found = new LinkedHashMap<>();
         if (normalized.isEmpty() || safeLimit == 0) return new ArrayList<>();
+        if (containsChinese(normalized)) {
+            return searchChinese(normalized, safeLimit);
+        }
         addRows(found, "SELECT " + COLUMNS
                 + " FROM entries WHERE lookup=? ORDER BY frequency,id LIMIT ?",
                 new String[]{normalized, Integer.toString(safeLimit)}, safeLimit);
@@ -182,6 +225,26 @@ public final class DictionaryRepository implements Closeable {
                     + " ORDER BY frequency,length(lookup),lookup,id LIMIT ?) p ON e.id=p.id"
                     + " ORDER BY e.frequency,length(e.lookup),e.lookup,e.id",
                     new String[]{normalized, normalized + "\uffff", normalized, Integer.toString(safeLimit)}, safeLimit);
+        }
+        return new ArrayList<>(found.values());
+    }
+
+    /** 系统选词和分享入口也用同一规则判断查词方向。 */
+    public static boolean containsChinese(String query) {
+        return ChineseLookup.containsChinese(query);
+    }
+
+    private List<Entry> searchChinese(String normalized, int limit) {
+        LinkedHashMap<Long, Entry> found = new LinkedHashMap<>();
+        // 先查预先分好的完整词义项，常用英文优先；“的”等高频汉字无需逐条拆释义。
+        addRows(found, ChineseLookup.exactMeaningsSql(prefixedColumns("e")),
+                new String[]{ChineseLookup.meaningKey(normalized), normalized, Integer.toString(limit)}, limit);
+        // FTS 的汉字 AND 先缩小范围；instr 再要求原释义中确有连续字面短语。
+        // 参数不进入 MATCH 语法，%，引号、括号等输入没有通配或 SQL 含义。
+        if (found.size() < limit) {
+            // 仍取完整 limit：即使这些候选包含第一阶段全部结果，去重后也足以补满。
+            addRows(found, ChineseLookup.partialMeaningsSql(prefixedColumns("e")),
+                    new String[]{ChineseLookup.matchExpression(normalized), normalized, Integer.toString(limit)}, limit);
         }
         return new ArrayList<>(found.values());
     }
@@ -209,7 +272,11 @@ public final class DictionaryRepository implements Closeable {
         String value = query.trim().toLowerCase(Locale.ROOT)
                 .replace('\u2019', '\'').replace('\u2018', '\'')
                 .replace('\u2013', '-').replace('\u2014', '-');
-        return value.length() <= 256 ? value : value.substring(0, 256);
+        if (value.length() <= 256) return value;
+        // 不在 Unicode 扩展汉字的代理对中间截断。
+        int end = Character.isHighSurrogate(value.charAt(255)) && Character.isLowSurrogate(value.charAt(256))
+                ? 255 : 256;
+        return value.substring(0, end);
     }
 
     private void requireReady() {

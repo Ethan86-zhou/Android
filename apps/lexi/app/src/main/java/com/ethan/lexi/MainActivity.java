@@ -119,10 +119,11 @@ public final class MainActivity extends Activity {
                 ? intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT)
                 : Intent.ACTION_SEND.equals(action) ? intent.getCharSequenceExtra(Intent.EXTRA_TEXT) : null;
         if (incoming != null) {
-            query = incoming.toString().trim();
-            if (query.length() > 256) query = query.substring(0, 256);
+            query = limitQueryText(incoming.toString().trim());
             showSearch();
             final String term = query;
+            // 中文通常对应多个英文词条，保留搜索候选，让用户自己选择。
+            if (DictionaryRepository.containsChinese(term)) return;
             int token = generation;
             queryTask(() -> {
                 Entry entry = dictionary.exact(term);
@@ -183,13 +184,13 @@ public final class MainActivity extends Activity {
 
     void showSearch() {
         if (!ready) return;
-        reset("search"); header("拾词", "OFFLINE DICTIONARY");
+        reset("search"); header("拾词", "英汉 · 汉英 · 全程离线");
         LinearLayout searchRow = row(); searchRow.setGravity(Gravity.CENTER_VERTICAL);
         searchRow.setPadding(dp(14), 0, dp(5), 0); searchRow.setBackground(outline(Color.WHITE, 18));
         text(searchRow, "⌕", 27, GREEN).setPadding(0, 0, dp(10), 0);
-        searchInput = input("输入英文单词", query); searchInput.setContentDescription("搜索英文单词");
+        searchInput = input("输入中文或英文", query); searchInput.setContentDescription("搜索中文或英文");
         searchInput.setBackgroundColor(Color.TRANSPARENT); searchInput.setSingleLine(true);
-        searchInput.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+        searchInput.setInputType(android.text.InputType.TYPE_CLASS_TEXT);
         searchInput.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         searchRow.addView(searchInput, new LinearLayout.LayoutParams(0, dp(56), 1));
         TextView clear = label("×", 24, MUTED); clear.setGravity(Gravity.CENTER); clear.setContentDescription("清空搜索");
@@ -219,14 +220,21 @@ public final class MainActivity extends Activity {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         if (!clipboard.hasPrimaryClip() || clipboard.getPrimaryClip() == null || clipboard.getPrimaryClip().getItemCount() == 0) { toast("剪贴板暂无文字"); return; }
         CharSequence content = clipboard.getPrimaryClip().getItemAt(0).coerceToText(this);
-        String value = content == null ? "" : content.toString().trim();
-        if (value.length() > 256) value = value.substring(0, 256);
+        String value = limitQueryText(content == null ? "" : content.toString().trim());
         searchInput.setText(value); searchInput.setSelection(value.length()); hideKeyboard();
+    }
+    private static String limitQueryText(String value) {
+        if (value.length() <= 256) return value;
+        // 扩展汉字占一对 UTF-16 字符；保留原输入格式，同时避免截出半个汉字。
+        int end = Character.isHighSurrogate(value.charAt(255)) && Character.isLowSurrogate(value.charAt(256))
+                ? 255 : 256;
+        return value.substring(0, end);
     }
     private void scheduleSearch() {
         int token = ++generation; String term = query.trim();
         if (term.isEmpty()) { home(); return; }
-        results.removeAllViews(); status = text(results, "查找中…", 13, MUTED);
+        boolean chinese = DictionaryRepository.containsChinese(term);
+        results.removeAllViews(); status = text(results, chinese ? "正在查找对应英文…" : "正在查找中文释义…", 13, MUTED);
         main.postDelayed(() -> {
             if (destroyed || token != generation || !screen.equals("search")) return;
             queryTask(() -> {
@@ -238,9 +246,9 @@ public final class MainActivity extends Activity {
                     results.removeAllViews();
                     if (found.isEmpty()) {
                         gap(results, 28); text(results, "没有找到这个词", 23, INK);
-                        text(results, "检查拼写，或试试单词原形。\n当前词库以英汉查词为主。", 15, MUTED);
+                        text(results, chinese ? "试试更短的中文词或其他说法。\n汉英查词会匹配词库中的中文释义。" : "检查拼写，或试试单词原形。\n也可以输入中文查找对应英文。", 15, MUTED);
                     } else {
-                        text(results, "搜索结果 · " + found.size() + (found.size() == 40 ? "+" : "") + "  /  " + elapsed + " ms", 12, MUTED);
+                        text(results, (chinese ? "汉英结果" : "英汉结果") + " · " + found.size() + (found.size() == 40 ? "+" : "") + "  /  " + elapsed + " ms", 12, MUTED);
                         gap(results, 8); for (Entry entry : found) entryRow(results, entry, null);
                     }
                 });
@@ -249,7 +257,7 @@ public final class MainActivity extends Activity {
     }
     private void lookupFirst() {
         final String term = query.trim(); final int token = generation;
-        if (term.isEmpty()) return;
+        if (term.isEmpty() || DictionaryRepository.containsChinese(term)) return;
         queryTask(() -> {
             List<Entry> found = dictionary.search(term, 1);
             main.post(() -> { if (!destroyed && token == generation && screen.equals("search") && !found.isEmpty()) openEntry(found.get(0)); });
@@ -262,20 +270,26 @@ public final class MainActivity extends Activity {
         text(hero, "不期而遇的美好", 16, GREEN); gap(hero, 16);
         text(hero, "查一个词，收获一种表达。     ↗", 13, GREEN);
         hero.setContentDescription("查看 serendipity"); hero.setOnClickListener(v -> lookupWord("serendipity")); results.addView(hero);
+        gap(results, 20); text(results, "试着搜一搜 · 自动识别中英文", 14, INK); gap(results, 8);
+        LinearLayout examples = row(); results.addView(examples);
+        for (String s : new String[]{"苹果", "hello"}) {
+            TextView t = button(examples, s + "  ↗", () -> lookupWord(s), false);
+            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(0, -2, 1);
+            p.setMargins(dp(3), dp(5), dp(3), dp(5)); t.setLayoutParams(p);
+        }
         gap(results, 24); text(results, "最近查词", 16, INK); gap(results, 8);
         List<String> history = wordbook.recentHistory(8);
         if (history.isEmpty()) {
             text(results, "查过的单词会出现在这里", 13, MUTED);
-            gap(results, 24); text(results, "试着搜一搜", 16, INK); gap(results, 8);
-            for (String s : new String[]{"hello", "resilient", "sustainable"}) {
-                TextView t = button(results, s + "  ↗", () -> lookupWord(s), false); t.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
-            }
         } else for (String s : history) {
             TextView t = button(results, s + "  ↗", () -> lookupWord(s), false); t.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
         }
         gap(results, 20); text(results, "长按桌面图标 → 快捷查词\n在支持的应用中选中文字 → 拾词", 12, MUTED); gap(results, 20);
     }
     private void lookupWord(String term) {
+        if (DictionaryRepository.containsChinese(term)) {
+            query = term; showSearch(); hideKeyboard(); return;
+        }
         int token = generation;
         queryTask(() -> {
             Entry entry = dictionary.exact(term);
@@ -403,7 +417,7 @@ public final class MainActivity extends Activity {
         reset("settings"); hideKeyboard(); header("离线，也自在", "设置与数据");
         ScrollView scroll = scroller(page); LinearLayout content = column(); scroll.addView(content);
         LinearLayout intro = card(PALE); text(intro, "词库已在这台手机", 22, INK); gap(intro, 10);
-        text(intro, String.format(Locale.CHINA, "ECDICT · %,d 个英汉词条\n查词、单词本、导出，全程离线。", total), 14, GREEN); content.addView(intro); gap(content, 20);
+        text(intro, String.format(Locale.CHINA, "ECDICT · %,d 个词条\n英汉、汉英自动识别，查词与导出全程离线。", total), 14, GREEN); content.addView(intro); gap(content, 20);
         text(content, "我的数据", 14, MUTED); gap(content, 6);
         button(content, "导出单词本", this::chooseExport, false);
         button(content, "从 JSON 备份恢复", () -> {
@@ -413,9 +427,9 @@ public final class MainActivity extends Activity {
         button(content, "清空最近查词", () -> new AlertDialog.Builder(this).setTitle("清空最近查词？").setMessage("单词本和笔记会保留。")
                 .setNegativeButton("取消", null).setPositiveButton("清空", (d, w) -> { wordbook.clearHistory(); toast("最近查词已清空"); }).show(), false);
         gap(content, 22); text(content, "快捷查词", 14, MUTED); gap(content, 10);
-        text(content, "1. 长按拾词桌面图标，选择“快捷查词”。\n2. 复制单词后，点击首页“粘贴查词”。\n3. 在支持文字选择的应用中选中单词，选择“拾词”；也可用系统分享发送到拾词。", 14, INK);
+        text(content, "1. 长按拾词桌面图标，选择“快捷查词”。\n2. 复制中文或英文后，点击首页“粘贴查词”。\n3. 在支持文字选择的应用中选中文字，选择“拾词”；也可用系统分享发送到拾词。\n\n输入中文会列出对应英文，点选词条后可查看完整释义、收藏和记笔记。", 14, INK);
         gap(content, 24); text(content, "关于拾词  " + BuildConfig.VERSION_NAME, 14, MUTED);
-        text(content, "词库按上游原文呈现，部分专业词和短语可能没有中文释义。应用无需网络、联系人或存储权限。卸载会移除本机单词本，换机前请先导出 JSON 备份。", 13, MUTED);
+        text(content, "词库按上游原文呈现，部分专业词和短语可能没有中文释义。汉英查词匹配现有中文释义，适合查询单词和短语。应用无需网络、联系人或存储权限。卸载会移除本机单词本，换机前请先导出 JSON 备份。", 13, MUTED);
         button(content, "开源词库与许可证", this::showLicense, false); gap(content, 24);
     }
     private void showLicense() {
